@@ -1,10 +1,7 @@
-import "../styles/NavBar.css";
+import "../assets/styles/NavBar.css";
 
 import { useState, useEffect } from "react";
-
-import Container from "react-bootstrap/Container";
-import Nav from "react-bootstrap/Nav";
-import Navbar from "react-bootstrap/Navbar";
+import { Container, Nav, Navbar } from "react-bootstrap";
 // import NavDropdown from "react-bootstrap/NavDropdown";
 
 import logo from "../assets/images/logo.svg";
@@ -51,7 +48,7 @@ const NavBar = () => {
             <Container>
                 <Navbar.Brand href="#home">
                     <div className="logo-bg">
-                        <img height="50px" src={logo} className="logo" alt="logo" />
+                        <img src={logo} className="logo" alt="logo" />
                     </div>
                     <div className="brand-text">
                         <strong>MIGUEL</strong> LOZANO
