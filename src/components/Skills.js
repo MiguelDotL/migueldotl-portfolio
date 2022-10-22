@@ -29,10 +29,15 @@ const Skills = () => {
 
     return (
         <section id="skills" className="skills">
+            <img
+                src={colorPop}
+                alt="decorative backround"
+                className="background-image-left"
+            />
             <Container>
                 <Row>
                     <div className="skills-container">
-                        <h2>SKILLS</h2>
+                        <h2>Skills</h2>
                         <p>
                             Animi amet voluptas, asperiores nesciunt adipisci explicabo
                             itaque magnam saepe a dolores, tenetur delectus consectetur
@@ -64,11 +69,6 @@ const Skills = () => {
                     </div>
                 </Row>
             </Container>
-            <img
-                src={colorPop}
-                alt="decorative backround"
-                className="background-image-left"
-            />
         </section>
     );
 };
