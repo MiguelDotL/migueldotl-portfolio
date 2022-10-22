@@ -1,12 +1,11 @@
 import "../assets/styles/Hero.css";
-import bitmojiSpaceMan from "../assets/images/bitmoji/bitmoji-spaceman-2.png";
+// import bitmojiSpaceMan from "../assets/images/bitmoji/bitmoji-spaceman-2.png";
 import bitmojiSpacePlanet from "../assets/images/bitmoji/bitmoji-space-planet-2.png";
 import { Col, Container, Row } from "react-bootstrap";
 import { ArrowRightCircle } from "react-bootstrap-icons";
 import { useEffect, useState } from "react";
 
 const Hero = () => {
-    // const [isDeleting, setIsDeleting] = useState(false);
     const [isTyping, setIsTyping] = useState(true);
     const [jobTitle, setJobTitle] = useState("");
     const [roleCount, setRoleCount] = useState(0);
@@ -23,7 +22,8 @@ const Hero = () => {
         return () => {
             clearInterval(typingTicker);
         };
-    }, [jobTitle]);
+    });
+    // }, [jobTitle]);
 
     const doTyping = () => {
         let currentRole = roleCount % roles.length;

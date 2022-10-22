@@ -1,5 +1,5 @@
 nav.navbar {
-  padding: 18px 0;
+  padding: 1.1em 0;
   position: fixed;
   width: 100%;
   top: 0;
@@ -8,7 +8,7 @@ nav.navbar {
 }
 
 nav.navbar.has-scrolled {
-  padding: 0px 0;
+  padding: .5em 0;
   background-color: #121212;
 }
 
@@ -19,6 +19,9 @@ nav.navbar a.navbar-brand {
   display: flex;
   align-items: center;
   justify-content: flex-start;
+  overflow: hidden;
+  width: 4em;
+  transition: width 0.3s ease-in-out;
 }
 
 nav.navbar a.navbar-brand .logo-bg {
@@ -29,6 +32,8 @@ nav.navbar a.navbar-brand .logo-bg {
 }
 
 nav.navbar a.navbar-brand .logo {
+  height: 50px;
+  width: 50px;
   filter: invert(100%)
 }
 
@@ -37,16 +42,22 @@ nav.navbar a.navbar-brand .brand-text {
   font-size: 30px;
   margin-left: 0.6em;
   line-height: 1.4;
+  width: 0em;
+  visibility: hidden;
+  transition:
+    visibility 0.3s ease-in-out,
+    width 0.3s ease-in-out;
 }
 
 
 /* ==== Nav Links ==== */
 nav.navbar .navbar-nav .nav-link.navbar-link {
-  font-weight: 400;
   color: #fff !important;
-  letter-spacing: 0.8px;
-  padding: 0 25px;
   font-size: 18px;
+  font-weight: 400;
+  letter-spacing: 0.8px;
+  white-space: nowrap;
+  padding: 0 25px;
   opacity: 0.75;
 }
 
@@ -112,7 +123,6 @@ span.navbar-text {
 }
 
 .social-icons a.social-icon:hover img {
-  /* filter: brightness(0) saturate(100%) invert(0%) sepia(7%) saturate(98%) hue-rotate(346deg) brightness(95%) contrast(86%); */
   filter: invert(100%);
 }
 
@@ -129,6 +139,7 @@ span.navbar-text {
 }
 
 .navbar-text .contact-button span {
+  white-space: nowrap;
   z-index: 1;
 }
 
@@ -207,4 +218,17 @@ nav.navbar .navbar-toggle[aria-expanded="true"] .navbar-toggle-icon:before {
 
 nav.navbar .navbar-toggle[aria-expanded="true"] .navbar-toggle-icon {
   border-color: transparent;
+}
+
+@media screen and (min-width: 1200px) {
+
+  nav.navbar a.navbar-brand {
+    width: 16em;
+  }
+
+  nav.navbar a.navbar-brand .brand-text {
+    width: 8em;
+    visibility: visible;
+  }
+
 }

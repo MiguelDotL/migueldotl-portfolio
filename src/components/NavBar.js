@@ -20,8 +20,8 @@ const NavBar = () => {
     };
 
     useEffect(() => {
-        console.log("inside of useEffect");
         const onScroll = () => {
+            console.log("scrollY: ", window.scrollY);
             if (window.scrollY > 50) {
                 setHasScrolled(true);
             } else {
@@ -30,9 +30,6 @@ const NavBar = () => {
         };
 
         window.addEventListener("scroll", onScroll);
-
-        // return clean-up function
-        return window.removeEventListener("scroll", onScroll);
     }, []);
 
     const linkIsActive = (linkName) => {
@@ -44,7 +41,7 @@ const NavBar = () => {
     // };
 
     return (
-        <Navbar className={hasScrolled && "has-scrolled"} bg="" expand="lg">
+        <Navbar className={hasScrolled ? "has-scrolled" : ""} bg="" expand="lg">
             <Container>
                 <Navbar.Brand href="#home">
                     <div className="logo-bg">
