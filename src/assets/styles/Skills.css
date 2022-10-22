@@ -1,0 +1,58 @@
+.skills {
+    padding: 0 0 50px 0;
+    position: relative;
+}
+
+.skills-container {
+    background: #151515;
+    border-radius: 64px;
+    text-align: center;
+    padding: 60px 50px;
+    margin-top: -60px;
+}
+
+.skills h2 {
+    font-size: 45px;
+    font-weight: 700;
+}
+
+.skills p {
+    color: #B8B8B8;
+    font-size: 18px;
+    letter-spacing: 0.8px;
+    line-height: 1.5em;
+    margin: 14px 0 75px 0;
+}
+
+.skills-slider {
+    /* width: 80%; */
+    margin: 0 auto;
+    position: relative;
+}
+
+.skills-slider .item img {
+    width: 50%;
+    margin: 0 auto 15px auto;
+}
+
+.background-image-left {
+    top: 28%;
+    position: absolute;
+    bottom: 0;
+    width: 40%;
+    z-index: -4;
+}
+
+.skills .react-multiple-carousel__arrow--left {
+    left: calc(0% + 1px);
+}
+
+.skills .react-multiple-carousel__arrow--right {
+    right: calc(0% + 1px);
+}
+
+@media screen and (min-width: 1024px) {
+    .skills-slider {
+        width: 80%;
+    }
+}

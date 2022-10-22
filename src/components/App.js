@@ -1,16 +1,14 @@
 // import "../assets/styles/App.css";
-import { Container } from "react-bootstrap";
 import NavBar from "./NavBar";
 import Hero from "./Hero";
+import Skills from "./Skills";
 
 function App() {
     return (
         <div className="App">
             <NavBar />
-            {/* <Container> */}
             <Hero />
-            {/* </Container> */}
-            ./components/App.js
+            <Skills />
         </div>
     );
 }
