@@ -82,6 +82,10 @@
     transform: rotateZ(90deg);
 }
 
+.hero .content {
+    text-shadow: 1px 1px 8px rgb(0 0 0 / 20%);
+}
+
 .hero .image-col {
     display: flex;
     justify-content: center;

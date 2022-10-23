@@ -59,7 +59,7 @@ const Hero = () => {
         <section id="about-me" className="hero about-me">
             <Container>
                 <Row className="align-items-center">
-                    <Col xs={12} md={7} xl={7}>
+                    <Col className="content" xs={12} md={7} xl={7}>
                         <span className="tagline">Thanks for dropping by</span>
                         <h1 className="intro-header">Hi, I'm Miguel!</h1>
                         <h1>
