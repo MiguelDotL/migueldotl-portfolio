@@ -2,6 +2,7 @@
 import NavBar from "./NavBar";
 import Hero from "./Hero";
 import Skills from "./Skills";
+import Projects from "./Projects";
 
 function App() {
     return (
@@ -9,6 +10,7 @@ function App() {
             <NavBar />
             <Hero />
             <Skills />
+            <Projects />
         </div>
     );
 }
