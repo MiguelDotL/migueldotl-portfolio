@@ -54,11 +54,12 @@ nav.navbar a.navbar-brand .brand-text {
 nav.navbar .navbar-nav .nav-link.navbar-link {
   color: #fff !important;
   font-size: 18px;
-  font-weight: 400;
+  font-weight: 500;
   letter-spacing: 0.8px;
   white-space: nowrap;
   padding: 0 25px;
-  opacity: 0.75;
+  opacity: 0.6;
+  transition: all 0.3s ease-in-out;
 }
 
 nav.navbar .navbar-nav a.nav-link.navbar-link:hover,
@@ -146,7 +147,6 @@ span.navbar-text {
 .navbar-text .contact-button::before {
   content: "";
   background-color: #fff;
-  /* border-radius:0.375rem; */
   position: absolute;
   left: 0;
   top: 0;
@@ -167,13 +167,13 @@ span.navbar-text {
   position: absolute;
 }
 
-nav.navbar .navbar-toggle:active,
-nav.navbar .navbar-toggle:focus {
+nav.navbar .navbar-toggler:active,
+nav.navbar .navbar-toggler:focus {
   outline: none;
   box-shadow: none;
 }
 
-nav.navbar .navbar-toggle-icon {
+nav.navbar .navbar-toggler-icon {
   width: 24px;
   height: 17px;
   background-image: none;
@@ -183,12 +183,12 @@ nav.navbar .navbar-toggle-icon {
   top: -2px;
 }
 
-nav.navbar .navbar-toggle-icon:focus {
+nav.navbar .navbar-toggler-icon:focus {
   border-bottom: 2px solid #fff;
 }
 
-nav.navbar .navbar-toggle-icon:after,
-nav.navbar .navbar-toggle-icon:before {
+nav.navbar .navbar-toggler-icon:after,
+nav.navbar .navbar-toggler-icon:before {
   width: 24px;
   position: absolute;
   height: 2px;
@@ -200,23 +200,23 @@ nav.navbar .navbar-toggle-icon:before {
   transition: all 300ms linear;
 }
 
-nav.navbar .navbar-toggle-icon:after {
+nav.navbar .navbar-toggler-icon:after {
   top: 8px;
 }
 
-nav.navbar .navbar-toggle[aria-expanded="true"] .navbar-toggle-icon:after {
+nav.navbar .navbar-toggler[aria-expanded="true"] .navbar-toggler-icon:after {
   transform: rotate(45deg);
   background-color: #fff;
   height: 2px;
 }
 
-nav.navbar .navbar-toggle[aria-expanded="true"] .navbar-toggle-icon:before {
+nav.navbar .navbar-toggler[aria-expanded="true"] .navbar-toggler-icon:before {
   transform: translateY(8px) rotate(-45deg);
   background-color: #fff;
   height: 2px;
 }
 
-nav.navbar .navbar-toggle[aria-expanded="true"] .navbar-toggle-icon {
+nav.navbar .navbar-toggler[aria-expanded="true"] .navbar-toggler-icon {
   border-color: transparent;
 }
 
