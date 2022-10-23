@@ -58,11 +58,7 @@ const Projects = () => {
                             quisquam porro vel, nesciunt ex ullam.
                         </p>
                         <Tab.Container id="project-tabs" defaultActiveKey="client">
-                            <Nav
-                                variant="pills"
-                                className="mb-5 justify-content-center align-items-center"
-                                id="pill-tabs"
-                            >
+                            <Nav variant="pills" id="pill-tabs" className="">
                                 <Nav.Item>
                                     <Nav.Link eventKey="client">Client Projects</Nav.Link>
                                 </Nav.Item>

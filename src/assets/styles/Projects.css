@@ -22,9 +22,10 @@
 
 .projects .nav.nav-pills {
     width: 72%;
-    margin: 0 auto;
+    /* margin: 0 auto; */
+    margin: 3.5em auto;
     border-radius: 50px;
-    background-color: rgb(255 255 255 / 10%);
+    background-color: rgba(255, 255, 255, .1);
     overflow: hidden;
 }
 
