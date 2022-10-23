@@ -57,41 +57,39 @@ const Hero = () => {
 
     return (
         <section id="about-me" className="hero about-me">
-            <div className="overlay">
-                <Container>
-                    <Row className="align-items-center">
-                        <Col xs={12} md={7} xl={7}>
-                            <span className="tagline">Thanks for dropping by</span>
-                            <h1 className="intro-header">Hi, I'm Miguel!</h1>
-                            <h1>
-                                I'm a <span className="typing-text">{jobTitle}</span>
-                            </h1>
-                            <p>
-                                Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                                Facere quae dolore dolores excepturi praesentium
-                                doloremque est ducimus ad in, sunt reprehenderit ut optio
-                                ipsum, cumque numquam, ea facilis? Expedita, et.
-                            </p>
-                            <button
-                                className="hero-contact-button"
-                                onClick={() =>
-                                    console.log("hello from the hero contact button!")
-                                }
-                            >
-                                Let's Chat
-                                <ArrowRightCircle size={25} />
-                            </button>
-                        </Col>
-                        <Col className="image-col" xs={12} md={5} xl={5}>
-                            <img
-                                className="floating-image"
-                                src={bitmojiSpacePlanet}
-                                alt="Floating Caricature"
-                            />
-                        </Col>
-                    </Row>
-                </Container>
-            </div>
+            <Container>
+                <Row className="align-items-center">
+                    <Col className="content" xs={12} md={7} xl={7}>
+                        <span className="tagline">Thanks for dropping by</span>
+                        <h1 className="intro-header">Hi, I'm Miguel!</h1>
+                        <h1>
+                            I'm a <span className="typing-text">{jobTitle}</span>
+                        </h1>
+                        <p>
+                            Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                            Facere quae dolore dolores excepturi praesentium doloremque
+                            est ducimus ad in, sunt reprehenderit ut optio ipsum, cumque
+                            numquam, ea facilis? Expedita, et.
+                        </p>
+                        <button
+                            className="hero-contact-button"
+                            onClick={() =>
+                                console.log("hello from the hero contact button!")
+                            }
+                        >
+                            Let's Chat
+                            <ArrowRightCircle size={25} />
+                        </button>
+                    </Col>
+                    <Col className="image-col" xs={12} md={5} xl={5}>
+                        <img
+                            className="floating-image"
+                            src={bitmojiSpacePlanet}
+                            alt="Floating Caricature"
+                        />
+                    </Col>
+                </Row>
+            </Container>
         </section>
     );
 };

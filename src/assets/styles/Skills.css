@@ -1,10 +1,12 @@
 .skills {
-    padding: 0 0 50px 0;
+    margin-top: -50px;
+    padding: 50px 0 50px 0;
     position: relative;
 }
 
 .skills-container {
     background: #151515;
+    background: #1f1f1f;
     border-radius: 64px;
     text-align: center;
     position: relative;
@@ -55,7 +57,6 @@
     .skills p {
         width: 80%;
     }
-
 
     .skills-slider {
         width: 80%;
