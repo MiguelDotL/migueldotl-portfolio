@@ -39,6 +39,7 @@
 
 .built-with .tooling-icons .tooling-icon img {
     margin-bottom: .5em;
+    filter: drop-shadow(3px 3px 4px rgba(20, 20, 20, 0.4));
 }
 
 .built-with .tooling-icons .tooling-icon span {
