@@ -13,8 +13,8 @@ const NavBar = () => {
     const [activeLink, setActiveLink] = useState("about-me");
     const [hasScrolled, setHasScrolled] = useState(false);
     const links = {
-        linkedIin: "https://www.linkedin.com/in/migueldotl/",
-        twitter: "https://www.linkedin.com/in/migueldotl/",
+        linkedIn: "https://www.linkedin.com/in/migueldotl/",
+        twitter: "https://twitter.com/MiguelDotL",
         github: "https://github.com/MiguelDotL",
         resume: ""
     };
@@ -40,7 +40,7 @@ const NavBar = () => {
     // };
 
     return (
-        <Navbar className={hasScrolled ? "has-scrolled" : ""} bg="" expand="lg">
+        <Navbar className={hasScrolled && "has-scrolled"} bg="" expand="lg">
             <Container>
                 <Navbar.Brand href="#home">
                     <div className="logo-bg">
@@ -52,7 +52,7 @@ const NavBar = () => {
                 </Navbar.Brand>
 
                 <Navbar.Toggle aria-controls="basic-navbar-nav">
-                    <span className="navbar-toggle-icon"></span>
+                    <span className="navbar-toggler-icon"></span>
                 </Navbar.Toggle>
 
                 <Navbar.Collapse id="basic-navbar-nav">
