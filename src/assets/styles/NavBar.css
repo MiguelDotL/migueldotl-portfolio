@@ -9,7 +9,7 @@ nav.navbar {
 
 nav.navbar.has-scrolled {
   padding: .5em 0;
-  background-color: #121212;
+  background-color: var(--almost-black);
 }
 
 
@@ -52,7 +52,8 @@ nav.navbar a.navbar-brand .brand-text {
 
 /* ==== Nav Links ==== */
 nav.navbar .navbar-nav .nav-link.navbar-link {
-  color: #fff !important;
+  /* color: #fff !important; */
+  color: var(--font-color);
   font-size: 18px;
   font-weight: 500;
   letter-spacing: 0.8px;
@@ -81,9 +82,9 @@ span.navbar-text {
 .social-icons a.social-icon {
   width: 42px;
   height: 42px;
-
   background: rgba(217, 217, 217, 0.1);
-  background: rgba(42, 42, 42, 1);
+  background: #2a2a2a;
+  background: var(--grey);
   display: inline-flex;
   border-radius: 50%;
   margin-right: 0.8em;

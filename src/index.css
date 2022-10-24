@@ -21,8 +21,13 @@
   font-size: 16px;
   /* ==== CSS Variables ==== */
   /* ---- colors ---- */
-  --bg-color: #121212;
+  --almost-black: #121212;
+  --dark-grey: #1f1f1f;
+  /* --grey: #2a2a2a; */
+  --grey: #2f2f2f;
+  --gray: var(--grey);
   --font-color: #fff;
+  --bg-color: var(--almost-black);
 
   /* ---- font attrs ---- */
   --base-font-family: Centra;
