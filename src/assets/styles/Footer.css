@@ -3,15 +3,55 @@
     background: #FFFFFF;
     border-radius: 55px;
     color: #121212;
-    padding: 85px 125px;
-    margin-bottom: 80px;
-    margin-top: -122px;
+    /* padding: 85px 125px; */
+    padding: 60px 50px;
+    margin: -122px auto 80px;
 }
 
 .built-with h3 {
     font-weight: 700;
     letter-spacing: 0.5px;
     line-height: 1.2em;
+    text-align: center;
+    margin: 0 0 1em;
+}
+
+.built-with h3 span {
+    background: linear-gradient(131deg, #AA367C 28%, #4A2FBD 71%);
+    background-size: 100%;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    -moz-background-clip: text;
+    -moz-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.built-with .tooling-icons {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.built-with .tooling-icons .tooling-icon {
+    max-width: 100px;
+    width: 100%;
+}
+
+.built-with .tooling-icons .tooling-icon img {
+    margin-bottom: .5em;
+}
+
+.built-with .tooling-icons .tooling-icon span {
+    display: block;
+    font-weight: 500;
+    text-align: center;
+    margin: 0 auto;
+    width: 75px;
+}
+
+.built-with .tooling-icons .plus-sign {
+    font-size: 6rem;
+    padding: 0 3.2rem 2rem;
 }
 
 
@@ -25,9 +65,9 @@
     background-repeat: no-repeat;
 }
 
-.footer img {
+/* .footer img {
     width: 26%;
-}
+} */
 
 .footer p {
     font-weight: 400;
