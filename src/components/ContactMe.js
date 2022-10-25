@@ -32,11 +32,15 @@ const ContactMe = () => {
                     <Col md={6}>
                         <h2>Let's Chat!</h2>
                         {/* TODO: Refactor forn to ContactForm component once working with GetForm API */}
-                        <form action="">
+                        <form
+                            action="https://getform.io/f/fc61ece9-9e62-44b7-8e77-a71d19cb1697"
+                            method="POST"
+                        >
                             <Row>
                                 <Col className="px-1" sm={6}>
                                     <input
                                         type="text"
+                                        name="firstName"
                                         value={formValues.firstName}
                                         placeholder="First Name"
                                         onChange={(e) =>
@@ -47,6 +51,7 @@ const ContactMe = () => {
                                 <Col className="px-1" sm={6}>
                                     <input
                                         type="text"
+                                        name="lastName"
                                         value={formValues.lastName}
                                         placeholder="Last Name"
                                         onChange={(e) =>
@@ -59,6 +64,7 @@ const ContactMe = () => {
                                 <Col className="px-1" sm={6}>
                                     <input
                                         type="email"
+                                        name="email"
                                         value={formValues.email}
                                         placeholder="Email Address"
                                         onChange={(e) =>
@@ -69,6 +75,7 @@ const ContactMe = () => {
                                 <Col className="px-1" sm={6}>
                                     <input
                                         type="tel"
+                                        name="phone"
                                         value={formValues.phone}
                                         placeholder="Phone Number"
                                         onChange={(e) =>
@@ -79,6 +86,7 @@ const ContactMe = () => {
 
                                 <Col className="px-1">
                                     <textarea
+                                        name="message"
                                         rows="6"
                                         value={formValues.message}
                                         placeholder="Message"
