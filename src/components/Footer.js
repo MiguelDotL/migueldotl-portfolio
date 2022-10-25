@@ -3,6 +3,7 @@ import { Container, Row, Col } from "react-bootstrap";
 import PreFooter from "./PreFooter";
 import SocialIcons from "./SocialIcons";
 
+import logo from "../assets/images/logo.svg";
 import codepenIcon from "../assets/images/icons/codepen-icon.svg";
 import codewarsIcon from "../assets/images/icons/codewars-icon.svg";
 import codecademyIcon from "../assets/images/icons/codecademy-icon.svg";
@@ -47,7 +48,22 @@ const Footer = () => {
                             </div>
                         </Col>
                         <Col sm={6}>
-                            <img src="" alt="" />
+                            <div className="footer-right">
+                                <div className="copyright">
+                                    <span>
+                                        Created by{" "}
+                                        <span className="migueldotl">MiguelDotL</span>
+                                    </span>
+                                    <span>
+                                        ©{new Date().getFullYear()} | Florida, USA
+                                    </span>
+                                </div>
+                                <img
+                                    className="logo"
+                                    src={logo}
+                                    alt="Miguel Lozano Logo"
+                                />
+                            </div>
                         </Col>
                     </Row>
                 </Container>

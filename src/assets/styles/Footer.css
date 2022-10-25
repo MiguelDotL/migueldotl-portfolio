@@ -68,7 +68,7 @@
 }
 
 .footer-bg {
-    background-color: #1f1f1f;
+    /* background-color: #1f1f1f; */
     padding: 1.4em 0 2em 0;
 }
 
@@ -95,11 +95,12 @@
     color: #B8B8B8;
     font-weight: 500;
     text-transform: capitalize;
-    margin: 0 0 0.6em 0.8em;
+    margin: 0 0 0.6em 0.6em;
 }
 
 .footer .see-what-else .social-icons a.social-icon {
     /* margin: 0 0 0 0.8em; */
+    background: rgba(217, 217, 217, 0.1);
 }
 
 .footer .see-what-else .social-icons a.social-icon img {
@@ -109,6 +110,34 @@
 
 .footer .see-what-else .social-icons a.social-icon.udemy img {
     width: 25%;
+}
+
+.footer .footer-right {
+    color: #757575;
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-end;
+    margin-top: 2em;
+}
+
+.footer .footer-right .copyright {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    justify-content: flex-end;
+    margin: 0 0.8em 0;
+}
+
+.footer .footer-right .migueldotl {
+    color: #B8B8B8;
+    font-weight: 500;
+}
+
+.footer img.logo {
+    margin: 0 0 0.2em;
+    height: 42px;
+    width: 42px;
+    filter: invert(.42);
 }
 
 /* .new-email-bx {
