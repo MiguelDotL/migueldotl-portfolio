@@ -28,6 +28,8 @@
   --gray: var(--grey);
   --font-color: #fff;
   --bg-color: var(--almost-black);
+  --base-gradient: linear-gradient(90.21deg, #AA367C -5.91%, #4A2FBD 111.58%);
+  --gradient-2: linear-gradient(111deg, #FC466B -15%, #3F5EFB 120%);
 
   /* ---- font attrs ---- */
   --base-font-family: Centra;

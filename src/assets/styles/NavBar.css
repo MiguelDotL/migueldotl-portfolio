@@ -9,7 +9,9 @@ nav.navbar {
 
 nav.navbar.has-scrolled {
   padding: .5em 0;
-  background-color: var(--almost-black);
+  /* background-color: var(--almost-black); */
+  background-color: var(--grey);
+  box-shadow: 0 1px 10px rgb(0 0 0 / 50%);
 }
 
 
@@ -83,8 +85,8 @@ span.navbar-text {
   width: 42px;
   height: 42px;
   background: rgba(217, 217, 217, 0.1);
-  background: #2a2a2a;
-  background: var(--grey);
+  /* background: #2a2a2a; */
+  /* background: var(--grey); */
   display: inline-flex;
   border-radius: 50%;
   margin-right: 0.8em;

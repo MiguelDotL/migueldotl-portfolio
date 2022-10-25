@@ -3,6 +3,7 @@ import "../assets/styles/NavBar.css";
 import { useState, useEffect } from "react";
 import { Container, Nav, Navbar } from "react-bootstrap";
 // import NavDropdown from "react-bootstrap/NavDropdown";
+import SocialIcons from "./SocialIcons";
 
 import logo from "../assets/images/logo.svg";
 import linkedInIcon from "../assets/images/icons/linked-in.svg";
@@ -12,12 +13,24 @@ import githubIcon from "../assets/images/icons/github-2.svg";
 const NavBar = () => {
     const [activeLink, setActiveLink] = useState("about-me");
     const [hasScrolled, setHasScrolled] = useState(false);
-    const links = {
-        linkedIn: "https://www.linkedin.com/in/migueldotl/",
-        twitter: "https://twitter.com/MiguelDotL",
-        github: "https://github.com/MiguelDotL",
-        resume: ""
-    };
+
+    const socialsConfig = [
+        {
+            className: "linked-in",
+            icon: linkedInIcon,
+            url: "https://www.linkedin.com/in/migueldotl/"
+        },
+        {
+            className: "twitter",
+            icon: twitterIcon,
+            url: "https://twitter.com/MiguelDotL"
+        },
+        {
+            className: "github",
+            icon: githubIcon,
+            url: "https://github.com/MiguelDotL"
+        }
+    ];
 
     useEffect(() => {
         const onScroll = () => {
@@ -80,32 +93,7 @@ const NavBar = () => {
                         </Nav.Link>
                     </Nav>
                     <span className="navbar-text">
-                        <div className="social-icons">
-                            <a
-                                className="social-icon linked-in"
-                                href={links.linkedIn}
-                                target="_blank"
-                                rel="noreferrer"
-                            >
-                                <img src={linkedInIcon} alt="" />
-                            </a>
-                            <a
-                                className="social-icon twitter"
-                                href={links.twitter}
-                                target="_blank"
-                                rel="noreferrer"
-                            >
-                                <img src={twitterIcon} alt="" />
-                            </a>
-                            <a
-                                className="social-icon github"
-                                href={links.github}
-                                target="_blank"
-                                rel="noreferrer"
-                            >
-                                <img src={githubIcon} alt="" />
-                            </a>
-                        </div>
+                        <SocialIcons config={socialsConfig} />
                         <button
                             className="contact-button"
                             onClick={() => console.log("letsConnect")}
