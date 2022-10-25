@@ -4,22 +4,26 @@ import { Col, Container, Row } from "react-bootstrap";
 import contactImage from "../assets/images/bitmoji/bitmoji-laptop-2.png";
 
 const ContactMe = () => {
-    const initialValues = {
+    const initialFormData = {
         firstName: "",
         lastName: "",
         email: "",
         phone: "",
         message: ""
     };
-    const [formValues, setFormValues] = useState(initialValues);
+    const [formData, setFormData] = useState(initialFormData);
     const [buttonText, setButtonText] = useState("send");
-    const [status, setStatus] = useState({});
+    const [formStatus, setFormStatus] = useState({});
 
-    const onFormChange = (field, value) => {
-        setFormValues({
-            ...formValues,
-            [field]: value
-        });
+    const onFormChange = () => {
+        return (e) => {
+            const fieldName = e.target.name;
+            const fieldValue = e.target.value;
+            setFormData({
+                ...formData,
+                [fieldName]: fieldValue
+            });
+        };
     };
 
     return (
@@ -41,22 +45,18 @@ const ContactMe = () => {
                                     <input
                                         type="text"
                                         name="firstName"
-                                        value={formValues.firstName}
+                                        value={formData.firstName}
                                         placeholder="First Name"
-                                        onChange={(e) =>
-                                            onFormChange("firstName", e.target.value)
-                                        }
+                                        onChange={(e) => onFormChange()}
                                     />
                                 </Col>
                                 <Col className="px-1" sm={6}>
                                     <input
                                         type="text"
                                         name="lastName"
-                                        value={formValues.lastName}
+                                        value={formData.lastName}
                                         placeholder="Last Name"
-                                        onChange={(e) =>
-                                            onFormChange("lastName", e.target.value)
-                                        }
+                                        onChange={(e) => onFormChange()}
                                     />
                                 </Col>
                             </Row>
@@ -65,22 +65,18 @@ const ContactMe = () => {
                                     <input
                                         type="email"
                                         name="email"
-                                        value={formValues.email}
+                                        value={formData.email}
                                         placeholder="Email Address"
-                                        onChange={(e) =>
-                                            onFormChange("email", e.target.value)
-                                        }
+                                        onChange={(e) => onFormChange()}
                                     />
                                 </Col>
                                 <Col className="px-1" sm={6}>
                                     <input
                                         type="tel"
                                         name="phone"
-                                        value={formValues.phone}
+                                        value={formData.phone}
                                         placeholder="Phone Number"
-                                        onChange={(e) =>
-                                            onFormChange("phone", e.target.value)
-                                        }
+                                        onChange={(e) => onFormChange()}
                                     />
                                 </Col>
 
@@ -88,24 +84,22 @@ const ContactMe = () => {
                                     <textarea
                                         name="message"
                                         rows="6"
-                                        value={formValues.message}
+                                        value={formData.message}
                                         placeholder="Message"
-                                        onChange={(e) =>
-                                            onFormChange("message", e.target.value)
-                                        }
+                                        onChange={(e) => onFormChange()}
                                     />
                                     <button type="submit">
                                         <span>{buttonText}</span>
                                     </button>
                                 </Col>
-                                {status.message && (
+                                {formStatus.message && (
                                     <Col>
                                         <p
-                                            className={`status-message ${
-                                                status.success ? "success" : "danger"
+                                            className={`formStatus-message ${
+                                                formStatus.success ? "success" : "danger"
                                             }`}
                                         >
-                                            {status.messsage}
+                                            {formStatus.messsage}
                                         </p>
                                     </Col>
                                 )}
