@@ -13,12 +13,7 @@ import githubIcon from "../assets/images/icons/github-2.svg";
 const NavBar = () => {
     const [activeLink, setActiveLink] = useState("about-me");
     const [hasScrolled, setHasScrolled] = useState(false);
-    const links = {
-        linkedIn: "https://www.linkedin.com/in/migueldotl/",
-        twitter: "https://twitter.com/MiguelDotL",
-        github: "https://github.com/MiguelDotL",
-        resume: ""
-    };
+
     const socialsConfig = [
         {
             className: "linked-in",

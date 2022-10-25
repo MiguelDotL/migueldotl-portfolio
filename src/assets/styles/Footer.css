@@ -4,7 +4,8 @@
     border-radius: 55px;
     color: #121212;
     /* padding: 85px 125px; */
-    padding: 60px 50px;
+    /* padding: 60px 50px; */
+    padding: 40px 40px 30px;
     margin: -122px auto 80px;
 }
 
@@ -13,7 +14,7 @@
     letter-spacing: 0.5px;
     line-height: 1.2em;
     text-align: center;
-    margin: 0 0 1em;
+    margin: 0 0 0.4em;
 }
 
 .built-with h3 span {
@@ -59,11 +60,16 @@
 
 /* ==== Footer ==== */
 .footer {
-    padding: 0 0 50px 0;
+    /* padding: 0 0 50px 0; */
     background-image: url('../images/backgrounds/footer-bg.png');
     background-position: center center;
     background-size: cover;
     background-repeat: no-repeat;
+}
+
+.footer-bg {
+    background-color: #1f1f1f;
+    padding: 1.4em 0 2em 0;
 }
 
 /* .footer img {
@@ -76,6 +82,33 @@
     color: #B8B8B8;
     letter-spacing: 0.5px;
     margin-top: 20px;
+}
+
+.footer .see-what-else {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: end;
+}
+
+.footer .see-what-else span {
+    color: #B8B8B8;
+    font-weight: 500;
+    text-transform: capitalize;
+    margin: 0 0 0.6em 0.8em;
+}
+
+.footer .see-what-else .social-icons a.social-icon {
+    /* margin: 0 0 0 0.8em; */
+}
+
+.footer .see-what-else .social-icons a.social-icon img {
+    width: 50%;
+}
+
+
+.footer .see-what-else .social-icons a.social-icon.udemy img {
+    width: 25%;
 }
 
 /* .new-email-bx {
