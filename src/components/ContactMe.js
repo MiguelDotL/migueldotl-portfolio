@@ -1,29 +1,62 @@
 import "../assets/styles/Contact.css";
+import axios from "axios";
 import { useState } from "react";
 import { Col, Container, Row } from "react-bootstrap";
 import contactImage from "../assets/images/bitmoji/bitmoji-laptop-2.png";
 
 const ContactMe = () => {
-    const initialFormData = {
+    const initialValues = {
         firstName: "",
         lastName: "",
         email: "",
         phone: "",
         message: ""
     };
-    const [formData, setFormData] = useState(initialFormData);
+    const [formValues, setFormValues] = useState(initialValues);
     const [buttonText, setButtonText] = useState("send");
-    const [formStatus, setFormStatus] = useState({});
+    const [formStatus, setFormStatus] = useState(false);
+    // const [formStatus, setFormStatus] = useState({});
+    const [loading, setLoading] = useState(false);
 
     const onFormChange = () => {
         return (e) => {
-            const fieldName = e.target.name;
-            const fieldValue = e.target.value;
-            setFormData({
-                ...formData,
-                [fieldName]: fieldValue
-            });
+            const name = e.target.name;
+            const value = e.target.value;
+            setFormValues((prevState) => ({
+                ...formValues,
+                [name]: value
+            }));
         };
+    };
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        if (loading) return;
+        setLoading(true);
+        const formData = new FormData();
+        Object.entries(formValues).forEach(([key, value]) => {
+            formData.append(key, value);
+        });
+
+        axios
+            .post("https://getform.io/f/fc61ece9-9e62-44b7-8e77-a71d19cb1697", formData, {
+                headers: { Accept: "application/json" }
+            })
+            .then(function (response) {
+                setFormStatus(true);
+                setFormValues({
+                    firstName: "",
+                    lastName: "",
+                    email: "",
+                    phone: "",
+                    message: ""
+                });
+                setLoading(false);
+            })
+            .catch(function (error) {
+                console.log(error);
+                setLoading(false);
+            });
     };
 
     return (
@@ -36,27 +69,24 @@ const ContactMe = () => {
                     <Col md={6}>
                         <h2>Let's Chat!</h2>
                         {/* TODO: Refactor forn to ContactForm component once working with GetForm API */}
-                        <form
-                            action="https://getform.io/f/fc61ece9-9e62-44b7-8e77-a71d19cb1697"
-                            method="POST"
-                        >
+                        <form encype="multipart/form-data" onSubmit={handleSubmit}>
                             <Row>
                                 <Col className="px-1" sm={6}>
                                     <input
                                         type="text"
                                         name="firstName"
-                                        value={formData.firstName}
+                                        value={formValues.firstName}
                                         placeholder="First Name"
-                                        onChange={(e) => onFormChange()}
+                                        onChange={onFormChange()}
                                     />
                                 </Col>
                                 <Col className="px-1" sm={6}>
                                     <input
                                         type="text"
                                         name="lastName"
-                                        value={formData.lastName}
+                                        value={formValues.lastName}
                                         placeholder="Last Name"
-                                        onChange={(e) => onFormChange()}
+                                        onChange={onFormChange()}
                                     />
                                 </Col>
                             </Row>
@@ -65,18 +95,18 @@ const ContactMe = () => {
                                     <input
                                         type="email"
                                         name="email"
-                                        value={formData.email}
+                                        value={formValues.email}
                                         placeholder="Email Address"
-                                        onChange={(e) => onFormChange()}
+                                        onChange={onFormChange()}
                                     />
                                 </Col>
                                 <Col className="px-1" sm={6}>
                                     <input
                                         type="tel"
                                         name="phone"
-                                        value={formData.phone}
+                                        value={formValues.phone}
                                         placeholder="Phone Number"
-                                        onChange={(e) => onFormChange()}
+                                        onChange={onFormChange()}
                                     />
                                 </Col>
 
@@ -84,14 +114,15 @@ const ContactMe = () => {
                                     <textarea
                                         name="message"
                                         rows="6"
-                                        value={formData.message}
+                                        value={formValues.message}
                                         placeholder="Message"
-                                        onChange={(e) => onFormChange()}
+                                        onChange={onFormChange()}
                                     />
                                     <button type="submit">
                                         <span>{buttonText}</span>
                                     </button>
                                 </Col>
+                                {formStatus && <p>Message sent.</p>}
                                 {formStatus.message && (
                                     <Col>
                                         <p

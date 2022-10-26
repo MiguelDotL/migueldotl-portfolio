@@ -68,4 +68,11 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/d
 ### `npm run build` fails to minify
 
 This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+
 # react-portfolio
+
+### Credits
+
+-   Hero Background Image: [Freepik](https://www.freepik.com/free-vector/gradient-galaxy-background_14212522.htm#position=13)
+-   Skill and Tooling SVG Icons: [DevIcons](https://devicon.dev/)
+-   Social and Educational SVG Icons: [SVG Repo](https://www.svgrepo.com/)
