@@ -101,10 +101,12 @@ input:focus, textarea:focus, select:focus {
   }
 }
 
+/* .success, */
 p.success {
   color: green;
 }
 
+/* .danger, */
 p.danger {
   color: red;
 }

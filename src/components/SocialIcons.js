@@ -4,6 +4,7 @@ const SocialIcons = ({ config }) => {
             {config.map((social) => {
                 return (
                     <a
+                        key={social.className}
                         className={`social-icon ${social.className}`}
                         href={social.url}
                         target="_blank"
