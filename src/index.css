@@ -1,3 +1,5 @@
+@import "devicon";
+
 /* ==== Fonts ==== */
 @font-face {
   font-family: Centra;
@@ -30,6 +32,7 @@
   --bg-color: var(--almost-black);
   --base-gradient: linear-gradient(90.21deg, #AA367C -5.91%, #4A2FBD 111.58%);
   --gradient-2: linear-gradient(111deg, #FC466B -15%, #3F5EFB 120%);
+  --gradient-3: linear-gradient(131deg, #7e3f95 25%, #00aeef 125%);
 
   /* ---- font attrs ---- */
   --base-font-family: Centra;
