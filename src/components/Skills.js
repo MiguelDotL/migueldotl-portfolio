@@ -52,22 +52,22 @@ const Skills = () => {
                         >
                             <div className="item">
                                 {/* <img src={meter} alt="" /> */}
-                                <i className="devicon devicon-html5-plain"></i>
+                                <i className="devicon devicon-html5-plain colored"></i>
                                 <h5>HTML5</h5>
                             </div>
                             <div className="item">
-                                <img src={meter} alt="" />
-                                {/* <i className="devicon devicon-css3-plain"></i> */}
+                                {/* <img src={meter} alt="" /> */}
+                                <i className="devicon devicon-css3-plain colored"></i>
                                 <h5>CSS</h5>
                             </div>
                             <div className="item">
-                                <img src={meter} alt="" />
-                                {/* <i className="devicon devicon-javascript-plain"></i> */}
+                                {/* <img src={meter} alt="" /> */}
+                                <i className="devicon devicon-javascript-plain colored"></i>
                                 <h5>Javascript</h5>
                             </div>
                             <div className="item">
-                                {/* <i className="devicon devicon-javascript-plain"></i> */}
-                                <img src={meter} alt="" />
+                                {/* <img src={meter} alt="" /> */}
+                                <i className="devicon devicon-rails-plain colored"></i>
                                 <h5>Ruby on Rails</h5>
                             </div>
                         </Carousel>
