@@ -55,7 +55,7 @@ const Hero = () => {
     };
 
     return (
-        <section id="about-me" className="hero about-me">
+        <section id="home" className="hero about-me">
             <Container>
                 <Row className="align-items-center">
                     <Col className="content" xs={12} md={7} xl={7}>

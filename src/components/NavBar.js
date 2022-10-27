@@ -2,6 +2,7 @@ import "../assets/styles/NavBar.css";
 
 import { useState, useEffect } from "react";
 import { Container, Nav, Navbar } from "react-bootstrap";
+import { FileEarmarkText } from "react-bootstrap-icons";
 // import NavDropdown from "react-bootstrap/NavDropdown";
 import SocialIcons from "./SocialIcons";
 
@@ -11,7 +12,7 @@ import twitterIcon from "../assets/images/icons/twitter.svg";
 import githubIcon from "../assets/images/icons/github-2.svg";
 
 const NavBar = () => {
-    const [activeLink, setActiveLink] = useState("about-me");
+    const [activeLink, setActiveLink] = useState("home");
     const [hasScrolled, setHasScrolled] = useState(false);
 
     const socialsConfig = [
@@ -44,8 +45,9 @@ const NavBar = () => {
         window.addEventListener("scroll", onScroll);
     }, []);
 
-    const linkIsActive = (linkName) => {
-        if (activeLink === linkName) return "active";
+    const linkIsActive = () => {
+        const hash = window.location.hash;
+        if (activeLink === hash) return "active";
     };
 
     // const updateActiveLink = (linkName) => {
@@ -55,7 +57,7 @@ const NavBar = () => {
     return (
         <Navbar className={hasScrolled && "has-scrolled"} bg="" expand="lg">
             <Container>
-                <Navbar.Brand onClick={() => window.scrollTo(0, 0)}>
+                <Navbar.Brand href="#home">
                     <div className="logo-bg">
                         <img src={logo} className="logo" alt="logo" />
                     </div>
@@ -71,25 +73,32 @@ const NavBar = () => {
                 <Navbar.Collapse id="basic-navbar-nav">
                     <Nav className="me-auto">
                         <Nav.Link
-                            href="#about-me"
-                            className={`${linkIsActive("about-me")} navbar-link`}
-                            onClick={() => setActiveLink("about-me")}
+                            href="#home"
+                            className={`${linkIsActive()} navbar-link`}
+                            onClick={() => setActiveLink("home")}
                         >
-                            About Me
+                            Home
                         </Nav.Link>
                         <Nav.Link
                             href="#skills"
-                            className={`${linkIsActive("skills")} navbar-link`}
+                            className={`${linkIsActive()} navbar-link`}
                             onClick={() => setActiveLink("skills")}
                         >
                             Skills
                         </Nav.Link>
                         <Nav.Link
                             href="#projects"
-                            className={`${linkIsActive("projects")} navbar-link`}
+                            className={`${linkIsActive()} navbar-link`}
                             onClick={() => setActiveLink("projects")}
                         >
                             Projects
+                        </Nav.Link>
+                        <Nav.Link
+                            href="#contact"
+                            className={`${linkIsActive()} navbar-link`}
+                            onClick={() => setActiveLink("contact")}
+                        >
+                            Contact
                         </Nav.Link>
                     </Nav>
                     <span className="navbar-text">
@@ -98,7 +107,8 @@ const NavBar = () => {
                             className="contact-button"
                             onClick={() => console.log("letsConnect")}
                         >
-                            <span>Let's Connect</span>
+                            <FileEarmarkText size={20} className="me-2" />
+                            <span>My Resume</span>
                         </button>
                     </span>
                 </Navbar.Collapse>

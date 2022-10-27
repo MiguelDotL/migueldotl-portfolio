@@ -68,7 +68,7 @@ const ContactMe = () => {
     };
 
     return (
-        <section id="contact-me" className="contact">
+        <section id="contact" className="contact">
             <Container>
                 <Row className="align-items-center">
                     <Col md={6}>
