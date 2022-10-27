@@ -2,6 +2,7 @@ import "../assets/styles/Skills.css";
 import { Container, Row } from "react-bootstrap";
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
+import devicon from "devicon";
 import meter from "../assets/images/meter1.svg";
 import colorPop from "../assets/images/backgrounds/color-pop.png";
 
@@ -17,7 +18,7 @@ const Skills = () => {
             items: 3
         },
         tablet: {
-            breakpoint: { max: 1024, min: 464 },
+            breakpoint: { max: 1024, min: 768 },
             items: 3
         },
         mobile: {
@@ -50,18 +51,22 @@ const Skills = () => {
                             swipeable={true}
                         >
                             <div className="item">
-                                <img src={meter} alt="" />
+                                {/* <img src={meter} alt="" /> */}
+                                <i className="devicon devicon-html5-plain"></i>
                                 <h5>HTML5</h5>
                             </div>
                             <div className="item">
                                 <img src={meter} alt="" />
+                                {/* <i className="devicon devicon-css3-plain"></i> */}
                                 <h5>CSS</h5>
                             </div>
                             <div className="item">
                                 <img src={meter} alt="" />
+                                {/* <i className="devicon devicon-javascript-plain"></i> */}
                                 <h5>Javascript</h5>
                             </div>
                             <div className="item">
+                                {/* <i className="devicon devicon-javascript-plain"></i> */}
                                 <img src={meter} alt="" />
                                 <h5>Ruby on Rails</h5>
                             </div>
