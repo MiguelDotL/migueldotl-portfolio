@@ -18,10 +18,10 @@ const Skills = () => {
                         <h2>Skills</h2>
                         <p>
                             I love trying out new technologies, but I am well versed in
-                            building projects in native languages like HTML, CSS, Vanilla
-                            JS, and PHP. My professional experience and a never-ending
-                            quest for knowledge has led me to work in several different
-                            libraries and frameworks.
+                            building projects with standard HTML, CSS, Vanilla JS, and
+                            PHP. My professional experience and a never-ending quest for
+                            knowledge has led me to work in several libraries and
+                            frameworks, like Ruby on Rails, React, Angular, and jQuery.
                         </p>
                         <SkillsCarousel />
                     </div>
