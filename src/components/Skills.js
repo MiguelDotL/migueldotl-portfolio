@@ -1,33 +1,10 @@
 import "../assets/styles/Skills.css";
 import { Container, Row } from "react-bootstrap";
-import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
-import devicon from "devicon";
-import meter from "../assets/images/meter1.svg";
 import colorPop from "../assets/images/backgrounds/color-pop.png";
+import SkillsCarousel from "./SkillsCarousel";
 
 const Skills = () => {
-    const responsive = {
-        superLargeDesktop: {
-            // the naming can be any, depends on you.
-            breakpoint: { max: 4000, min: 3000 },
-            items: 5
-        },
-        desktop: {
-            breakpoint: { max: 3000, min: 1024 },
-            items: 3
-        },
-        tablet: {
-            breakpoint: { max: 1024, min: 768 },
-            items: 3
-        },
-        mobile: {
-            breakpoint: { max: 768, min: 0 },
-            items: 1,
-            centerMode: true
-        }
-    };
-
     return (
         <section id="skills" className="skills">
             <img
@@ -44,33 +21,8 @@ const Skills = () => {
                             itaque magnam saepe a dolores, tenetur delectus consectetur
                             unde doloremque, aliquid eius ratione minus ut!
                         </p>
-                        <Carousel
-                            className="skills-slider"
-                            responsive={responsive}
-                            infinite={true}
-                            swipeable={true}
-                        >
-                            <div className="item">
-                                {/* <img src={meter} alt="" /> */}
-                                <i className="devicon devicon-html5-plain colored"></i>
-                                <h5>HTML5</h5>
-                            </div>
-                            <div className="item">
-                                {/* <img src={meter} alt="" /> */}
-                                <i className="devicon devicon-css3-plain colored"></i>
-                                <h5>CSS</h5>
-                            </div>
-                            <div className="item">
-                                {/* <img src={meter} alt="" /> */}
-                                <i className="devicon devicon-javascript-plain colored"></i>
-                                <h5>Javascript</h5>
-                            </div>
-                            <div className="item">
-                                {/* <img src={meter} alt="" /> */}
-                                <i className="devicon devicon-rails-plain colored"></i>
-                                <h5>Ruby on Rails</h5>
-                            </div>
-                        </Carousel>
+
+                        <SkillsCarousel />
                     </div>
                 </Row>
             </Container>
