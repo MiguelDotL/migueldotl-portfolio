@@ -30,9 +30,10 @@
   --gray: var(--grey);
   --font-color: #fff;
   --bg-color: var(--almost-black);
+  --theme-gradient: var(--gradient-3);
   --base-gradient: linear-gradient(90.21deg, #AA367C -5.91%, #4A2FBD 111.58%);
   --gradient-2: linear-gradient(111deg, #FC466B -15%, #3F5EFB 120%);
-  --gradient-3: linear-gradient(131deg, #7e3f95 25%, #00aeef 125%);
+  --gradient-3: linear-gradient(131deg, #7e3f95 30%, #00aeef 130%);
 
   /* ---- font attrs ---- */
   --base-font-family: Centra;

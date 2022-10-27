@@ -1,7 +1,7 @@
 .skills {
-    margin-top: -50px;
-    padding: 50px 0 50px 0;
     position: relative;
+    margin-top: -15em;
+    padding: 10em 0 5em;
 }
 
 .skills-container {
@@ -9,9 +9,9 @@
     background: #1f1f1f;
     border-radius: 64px;
     text-align: center;
-    position: relative;
-    padding: 60px 50px;
     margin-top: -60px;
+    padding: 60px 50px;
+    position: relative;
 }
 
 .skills h2 {
@@ -52,10 +52,6 @@
     transition: 0.3s ease-in-out;
 }
 
-/* .skills-slider .react-multi-carousel-item--active:nth-of-type(2)>.item {
-    opacity: 1 !important;
-} */
-/* .skills-slider li[aria-hidden="true"]~.react-multi-carousel-item--active>.item { */
 .skills-slider li[aria-hidden="false"]>.item {
     opacity: 1;
 }

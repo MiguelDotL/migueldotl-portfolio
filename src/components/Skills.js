@@ -17,11 +17,12 @@ const Skills = () => {
                     <div className="skills-container">
                         <h2>Skills</h2>
                         <p>
-                            Animi amet voluptas, asperiores nesciunt adipisci explicabo
-                            itaque magnam saepe a dolores, tenetur delectus consectetur
-                            unde doloremque, aliquid eius ratione minus ut!
+                            I love trying out new technologies, but I am well versed in
+                            building projects in native languages like HTML, CSS, Vanilla
+                            JS, and PHP. My professional experience and a never-ending
+                            quest for knowledge has led me to work in several different
+                            libraries and frameworks.
                         </p>
-
                         <SkillsCarousel />
                     </div>
                 </Row>

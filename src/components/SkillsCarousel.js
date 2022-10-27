@@ -22,7 +22,7 @@ const SkillsCarousel = () => {
     };
 
     const skills = [
-        { name: "PHP", class: "php-plain" },
+        { name: "Bash", class: "bash-plain", color: "#44B04F" },
         { name: "HTML", class: "html5-plain" },
         { name: "CSS", class: "css3-plain" },
         { name: "JavaScript", class: "javascript-plain" },
@@ -30,16 +30,17 @@ const SkillsCarousel = () => {
         { name: "jQuery", class: "jquery-plain" },
         { name: "React", class: "react-original" },
         { name: "Angular", class: "angularjs-plain" },
-        { name: "nNde.js", class: "nodejs-plain" },
+        { name: "Node.js", class: "nodejs-plain" },
         { name: "mongoDB", class: "mongodb-plain" },
-        { name: "PostgreSQL", class: "postgresql-plain" },
+        { name: "PHP", class: "php-plain" },
+        { name: "MySQL", class: "mysql-plain" },
         { name: "Ruby", class: "ruby-plain", color: "#940c00" },
         { name: "Ruby on Rails", class: "rails-plain", color: "#940c00" },
+        { name: "PostgreSQL", class: "postgresql-plain" },
         { name: "AWS", class: "amazonwebservices-original" },
         { name: "Linux", class: "linux-plain", color: "#EBC205" },
         { name: "GitHub", class: "github-original", color: "#9355AD" },
-        { name: "Git", class: "git-plain" },
-        { name: "Bash", class: "bash-plain", color: "#44B04F" }
+        { name: "Git", class: "git-plain" }
     ];
 
     return (

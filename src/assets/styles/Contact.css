@@ -1,5 +1,5 @@
 .contact {
-    background: linear-gradient(90.21deg, #AA367C -5.91%, #4A2FBD 111.58%);
+    background: var(--theme-gradient);
     padding: 60px 0 200px 0;
 }
 
