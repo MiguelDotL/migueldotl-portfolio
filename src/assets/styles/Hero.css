@@ -26,6 +26,10 @@
     position: relative;
 }
 
+.hero .container .row {
+    margin-bottom: 11em;
+}
+
 
 .hero .tagline {
     display: inline-block;
