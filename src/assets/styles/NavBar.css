@@ -16,8 +16,9 @@ nav.navbar.has-scrolled {
 
 
 /* ==== Nav Logo ==== */
-nav.navbar a.navbar-brand {
+nav.navbar .navbar-brand {
   /* width: 9%; */
+  cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: flex-start;
@@ -26,20 +27,20 @@ nav.navbar a.navbar-brand {
   transition: width 0.3s ease-in-out;
 }
 
-nav.navbar a.navbar-brand .logo-bg {
+nav.navbar .navbar-brand .logo-bg {
   background: rgba(217, 217, 217, 0.25);
   border-radius: 50%;
   width: 50px;
   height: 50px;
 }
 
-nav.navbar a.navbar-brand .logo {
+nav.navbar .navbar-brand .logo {
   height: 50px;
   width: 50px;
   filter: invert(100%)
 }
 
-nav.navbar a.navbar-brand .brand-text {
+nav.navbar .navbar-brand .brand-text {
   color: var(--font-color);
   font-size: 30px;
   margin-left: 0.6em;
@@ -225,11 +226,11 @@ nav.navbar .navbar-toggler[aria-expanded="true"] .navbar-toggler-icon {
 
 @media screen and (min-width: 1200px) {
 
-  nav.navbar a.navbar-brand {
+  nav.navbar .navbar-brand {
     width: 16em;
   }
 
-  nav.navbar a.navbar-brand .brand-text {
+  nav.navbar .navbar-brand .brand-text {
     width: 8em;
     visibility: visible;
   }

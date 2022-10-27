@@ -1,5 +1,4 @@
 import "../assets/styles/Hero.css";
-// import bitmojiSpaceMan from "../assets/images/bitmoji/bitmoji-spaceman-2.png";
 import bitmojiSpacePlanet from "../assets/images/bitmoji/bitmoji-space-planet-2.png";
 import { Col, Container, Row } from "react-bootstrap";
 import { ArrowRightCircle } from "react-bootstrap-icons";
@@ -35,12 +34,12 @@ const Hero = () => {
         setJobTitle(currentText);
 
         if (!isTyping) {
-            // setTypingDelay((prevTypingDelay) => {
+            // setTypingDelay((prevTState => {
             //     console.log("typingDelay: " + prevTypingDelay);
             //     console.log("typingDelay / 2: " + prevTypingDelay / 2);
             //     console.log("currentText: ", currentText);
 
-            //     return prevTypingDelay / 2;
+            //     return prevState / 2;
             // });
             setTypingDelay(100);
         }
@@ -50,7 +49,7 @@ const Hero = () => {
             setTypingDelay(pauseTime);
         } else if (!isTyping && currentText === "") {
             setIsTyping(true);
-            setRoleCount(roleCount + 1); // roleCount++?
+            setRoleCount(roleCount + 1);
             setTypingDelay(321);
         }
     };
@@ -71,10 +70,11 @@ const Hero = () => {
                             est ducimus ad in, sunt reprehenderit ut optio ipsum, cumque
                             numquam, ea facilis? Expedita, et.
                         </p>
+
                         <button
                             className="hero-contact-button"
                             onClick={() =>
-                                console.log("hello from the hero contact button!")
+                                document.getElementById("contact-me").scrollIntoView()
                             }
                         >
                             Let's Chat

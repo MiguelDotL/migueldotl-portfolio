@@ -55,7 +55,7 @@ const NavBar = () => {
     return (
         <Navbar className={hasScrolled && "has-scrolled"} bg="" expand="lg">
             <Container>
-                <Navbar.Brand href="#home">
+                <Navbar.Brand onClick={() => window.scrollTo(0, 0)}>
                     <div className="logo-bg">
                         <img src={logo} className="logo" alt="logo" />
                     </div>

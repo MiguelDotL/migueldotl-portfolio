@@ -1,7 +1,7 @@
 .skills {
-    margin-top: -50px;
-    padding: 50px 0 50px 0;
     position: relative;
+    margin-top: -15em;
+    padding: 10em 0 5em;
 }
 
 .skills-container {
@@ -9,9 +9,9 @@
     background: #1f1f1f;
     border-radius: 64px;
     text-align: center;
-    position: relative;
-    padding: 60px 50px;
     margin-top: -60px;
+    padding: 60px 50px;
+    position: relative;
 }
 
 .skills h2 {
@@ -34,9 +34,32 @@
 }
 
 .skills-slider .item img {
-    width: 50%;
     margin: 0 auto 15px auto;
+    width: 50%;
 }
+
+.skills-slider .item {
+    opacity: .5;
+    transition: 0.3s ease-in-out;
+}
+
+.skills-slider .item i.devicon {
+    display: block;
+    font-size: 37.5vw;
+    margin: 0 auto 15px auto;
+    width: 50%;
+    filter: brightness(0) invert(1);
+    transition: 0.3s ease-in-out;
+}
+
+.skills-slider li[aria-hidden="false"]>.item {
+    opacity: 1;
+}
+
+.skills-slider li[aria-hidden="false"]>.item i.devicon {
+    filter: brightness(1) invert(0);
+}
+
 
 .background-image-left {
     top: 28%;
@@ -53,6 +76,40 @@
     right: calc(0% + 1px);
 }
 
+@media screen and (min-width: 576px) {
+    .skills-slider .item i.devicon {
+        font-size: 13.5em;
+    }
+}
+
+@media screen and (min-width: 768px) {
+    .skills-slider .item i.devicon {
+        font-size: 6.5em;
+    }
+
+    .skills-slider li[aria-hidden="false"]>.item {
+        opacity: .5;
+    }
+
+    .skills-slider li[aria-hidden="false"]>.item i.devicon {
+        filter: brightness(0) invert(1);
+    }
+
+    .skills-slider li[aria-hidden="true"]+li[aria-hidden="false"]+li>.item {
+        opacity: 1;
+    }
+
+    .skills-slider li[aria-hidden="true"]+li[aria-hidden="false"]+li>.item i.devicon {
+        filter: brightness(1) invert(0);
+    }
+}
+
+@media screen and (min-width: 990px) {
+    .skills-slider .item i.devicon {
+        font-size: 9em;
+    }
+}
+
 @media screen and (min-width: 1024px) {
     .skills p {
         width: 80%;
@@ -60,5 +117,21 @@
 
     .skills-slider {
         width: 80%;
+    }
+
+    .skills-slider .item i.devicon {
+        font-size: 7em;
+    }
+}
+
+@media screen and (min-width: 1200px) {
+    .skills-slider .item i.devicon {
+        font-size: 8.5em;
+    }
+}
+
+@media screen and (min-width: 1400px) {
+    .skills-slider .item i.devicon {
+        font-size: 10em;
     }
 }
