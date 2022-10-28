@@ -1,41 +1,51 @@
-import ProjectCard from "./ProjectCard";
+import ProjectList from "./ProjectList";
 import "../assets/styles/Projects.css";
 import { Col, Container, Row, Nav, Tab } from "react-bootstrap";
-import projImg1 from "../assets/images/backgrounds/background-1.jpg";
-import projImg2 from "../assets/images/backgrounds/background-2.jpg";
-import projImg3 from "../assets/images/backgrounds/hero-bg.png";
+import trimAgency from "../assets/images/projects/trim-agency.png";
+import cSolutions from "../assets/images/projects/c-solutions.png";
+import generalProvision from "../assets/images/projects/general-provision.png";
+import filthyFood from "../assets/images/projects/filthy-food.png";
+import orbyTV from "../assets/images/projects/orby-tv-2.png";
+import federated from "../assets/images/projects/federated.png";
+
 import colorPop from "../assets/images/backgrounds/color-pop-2.png";
 
-const projects = [
+const clientProjects = [
     {
-        title: "Business Startup",
-        description: "Design & Development",
-        imageURL: projImg1
+        title: "T R I M Agency",
+        description: "Web Development",
+        imageURL: trimAgency,
+        url: "//www.trimagency.com/"
     },
     {
-        title: "Business Startup",
-        description: "Design & Development",
-        imageURL: projImg2
+        title: "C Solutions",
+        description: "Web Development",
+        imageURL: cSolutions,
+        url: "//csolutions-us.com/"
     },
     {
-        title: "Business Startup",
-        description: "Design & Development",
-        imageURL: projImg3
+        title: "Orby TV",
+        description: "Web Development",
+        imageURL: orbyTV,
+        url: "//orbytv.com/"
     },
     {
-        title: "Business Startup",
-        description: "Design & Development",
-        imageURL: projImg1
+        title: "Federated Insurance",
+        description: "Web Development",
+        imageURL: federated,
+        url: "//www.federated.ca/"
     },
     {
-        title: "Business Startup",
-        description: "Design & Development",
-        imageURL: projImg2
+        title: "Filthy Food",
+        description: "Web Development",
+        imageURL: filthyFood,
+        url: "//filthyfood.com/"
     },
     {
-        title: "Business Startup",
-        description: "Design & Development",
-        imageURL: projImg3
+        title: "General Provision",
+        description: "Web Development",
+        imageURL: generalProvision,
+        url: "//generalprovision.com/"
     }
 ];
 
@@ -77,20 +87,17 @@ const Projects = () => {
                                 </Nav.Item>
                             </Nav>
                             <Tab.Content>
-                                <Tab.Pane eventKey="client">
-                                    <Row>
-                                        {projects.map((project, index) => {
-                                            return (
-                                                <ProjectCard key={index} {...project} />
-                                            );
-                                        })}
-                                    </Row>
-                                </Tab.Pane>
+                                <ProjectList
+                                    projects={clientProjects}
+                                    eventKey={"client"}
+                                />
+
                                 <Tab.Pane eventKey="personal">
                                     <Row>
-                                        <p>Client Projects</p>
+                                        <p>Personal Projects</p>
                                     </Row>
                                 </Tab.Pane>
+
                                 <Tab.Pane eventKey="misc">
                                     <Row>
                                         <p>Other Projects</p>

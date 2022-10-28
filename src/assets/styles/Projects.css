@@ -1,7 +1,7 @@
 .projects {
+    background-color: var(--almost-black);
     padding: 80px 0;
     position: relative;
-    background-color: black;
 }
 
 .projects h2 {
@@ -113,11 +113,13 @@
 
 
 
-
+a.project-card {
+    color: var(--base-font-color);
+}
 
 .project-image {
     position: relative;
-    border-radius: 30px;
+    border-radius: 0.6em;
     overflow: hidden;
     margin-bottom: 24px;
 }

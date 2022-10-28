@@ -127,7 +127,7 @@ const ContactMe = () => {
                                         onChange={onFormChange()}
                                     />
                                 </Col>
-                                <div className="submit-container">
+                                <div className="submit-container px-1">
                                     <button type="submit">
                                         <span>{buttonText}</span>
                                     </button>
