@@ -77,26 +77,6 @@ span.navbar-text {
 }
 
 /* ==== Social Icons ==== */
-.social-icons {
-  display: flex;
-  /* margin-left: 1em; */
-}
-
-.social-icons a.social-icon {
-  width: 42px;
-  height: 42px;
-  background: rgba(217, 217, 217, 0.1);
-  /* background: #2a2a2a; */
-  /* background: var(--grey); */
-  display: inline-flex;
-  border-radius: 50%;
-  margin-right: 0.8em;
-  align-items: center;
-  justify-content: center;
-  line-height: 1;
-  border: 1px solid rgba(255, 255, 255, 0.5);
-}
-
 .social-icons a.social-icon.twitter img {
   width: 45%
 }
@@ -106,32 +86,9 @@ span.navbar-text {
   padding: 0.1em 0.1em 0 0;
 }
 
-.social-icons a.social-icon::before {
-  content: "";
-  width: 42px;
-  height: 42px;
-  position: absolute;
-  background-color: #ffffff;
-  border-radius: 50%;
-  transform: scale(0);
-  transition: 0.3s ease-in-out;
-}
 
-.social-icons a.social-icon:hover::before {
-  transform: scale(1);
-}
-
-.social-icons a.social-icon img {
-  width: 40%;
-  z-index: 1;
-  transition: 0.3s ease-in-out;
-}
-
-.social-icons a.social-icon:hover img {
-  filter: invert(100%);
-}
-
-.navbar-text .contact-button {
+/* ==== Resume Button ==== */
+.navbar-text .resume-button {
   font-weight: 700;
   color: #fff;
   border: 1px solid #fff;
@@ -143,12 +100,12 @@ span.navbar-text {
   transition: 0.3s ease-in-out;
 }
 
-.navbar-text .contact-button span {
+.navbar-text .resume-button span {
   white-space: nowrap;
   z-index: 1;
 }
 
-.navbar-text .contact-button::before {
+.navbar-text .resume-button::before {
   content: "";
   background-color: #fff;
   position: absolute;
@@ -160,11 +117,11 @@ span.navbar-text {
   transition: 0.3s ease-in-out;
 }
 
-.navbar-text .contact-button:hover {
+.navbar-text .resume-button:hover {
   color: #121212;
 }
 
-.navbar-text .contact-button:hover::before {
+.navbar-text .resume-button:hover::before {
   content: "";
   width: 100%;
   height: 100%;

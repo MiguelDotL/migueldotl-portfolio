@@ -12,6 +12,7 @@ const Hero = () => {
     // const [typingDelay, setTypingDelay] = useState(100);
     const roles = ["Front-End", "Back-End", "Full-Stack Developer   "];
     const pauseTime = 3456; // time between typing and deleting
+    const yearsOfExp = new Date().getFullYear() - 2016;
 
     useEffect(() => {
         let typingTicker = setInterval(() => {
@@ -65,10 +66,28 @@ const Hero = () => {
                             I'm a <span className="typing-text">{jobTitle}</span>
                         </h1>
                         <p>
-                            Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                            Facere quae dolore dolores excepturi praesentium doloremque
-                            est ducimus ad in, sunt reprehenderit ut optio ipsum, cumque
-                            numquam, ea facilis? Expedita, et.
+                            My journey into programming began in 2005, and I now have over{" "}
+                            <a
+                                className="accent"
+                                href="//www.linkedin.com/in/migueldotl/"
+                                rel="noreferrer"
+                                target="_blank"
+                            >
+                                {yearsOfExp} years
+                            </a>{" "}
+                            of industry experience. When writing code, I place importantce
+                            on both form and function, always considering the client,
+                            end-user, and other developers who may later work on the
+                            codebase. In my spare time I enjoy making music and learning{" "}
+                            <a
+                                className="accent"
+                                href="//www.duolingo.com/profile/MiguelDotL"
+                                rel="noreferrer"
+                                target="_blank"
+                            >
+                                languages
+                            </a>
+                            .
                         </p>
 
                         <button

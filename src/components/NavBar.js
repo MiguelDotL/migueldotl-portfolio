@@ -19,17 +19,17 @@ const NavBar = () => {
         {
             className: "linked-in",
             icon: linkedInIcon,
-            url: "https://www.linkedin.com/in/migueldotl/"
+            url: "//www.linkedin.com/in/migueldotl/"
         },
         {
             className: "twitter",
             icon: twitterIcon,
-            url: "https://twitter.com/MiguelDotL"
+            url: "//twitter.com/MiguelDotL"
         },
         {
             className: "github",
             icon: githubIcon,
-            url: "https://github.com/MiguelDotL"
+            url: "//github.com/MiguelDotL"
         }
     ];
 
@@ -104,8 +104,8 @@ const NavBar = () => {
                     <span className="navbar-text">
                         <SocialIcons config={socialsConfig} />
                         <button
-                            className="contact-button"
-                            onClick={() => console.log("letsConnect")}
+                            className="resume-button"
+                            onClick={() => console.log("do resume things here")}
                         >
                             <FileEarmarkText size={20} className="me-2" />
                             <span>My Resume</span>

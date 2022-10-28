@@ -1,6 +1,6 @@
+/* ==== Fonts ==== */
 @import "devicon";
 
-/* ==== Fonts ==== */
 @font-face {
   font-family: Centra;
   src: url("/src/assets/fonts/CentraNo2-Book.ttf");
@@ -24,16 +24,26 @@
   /* ==== CSS Variables ==== */
   /* ---- colors ---- */
   --almost-black: #121212;
+  --almost-white: #eee;
   --dark-grey: #1f1f1f;
-  /* --grey: #2a2a2a; */
   --grey: #2f2f2f;
-  --gray: var(--grey);
+  --light-grey: #b8b8b8;
+  --lighter-grey: #dcdcdc;
+  ;
+  /* --grey: #2a2a2a; */
+
   --font-color: #fff;
   --bg-color: var(--almost-black);
-  --theme-gradient: var(--gradient-3);
   --base-gradient: linear-gradient(90.21deg, #AA367C -5.91%, #4A2FBD 111.58%);
+
   --gradient-2: linear-gradient(111deg, #FC466B -15%, #3F5EFB 120%);
   --gradient-3: linear-gradient(131deg, #7e3f95 30%, #00aeef 130%);
+  --theme-gradient: var(--gradient-3);
+
+  /* ---- grayliases ---- */
+  --dark-gray: var(--dark-grey);
+  --gray: var(--grey);
+  --light-gray: var(--light-grey);
 
   /* ---- font attrs ---- */
   --base-font-family: Centra;
