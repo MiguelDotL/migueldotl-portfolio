@@ -1,8 +1,8 @@
 /* ==== Pre-Footer ==== */
 .built-with {
-    background: #FFFFFF;
+    background: #fff;
     border-radius: 55px;
-    color: #121212;
+    color: var(--almost-black);
     /* padding: 85px 125px; */
     /* padding: 60px 50px; */
     padding: 40px 40px 30px;
@@ -69,12 +69,12 @@
 }
 
 .footer-bg {
-    background-color: #1f1f1f;
+    background-color: var(--darker-grey);
     padding: 1.4em 0 2em 0;
 }
 
 .footer p {
-    color: #B8B8B8;
+    color: var(--light-grey);
     font-weight: 400;
     font-size: 14px;
     letter-spacing: 0.5px;
@@ -89,7 +89,7 @@
 }
 
 .footer .see-what-else span {
-    color: #B8B8B8;
+    color: var(--light-grey);
     font-weight: 500;
     text-transform: capitalize;
     margin: 0 0 0.6em 0.6em;
@@ -125,7 +125,7 @@
 }
 
 .footer .footer-right .migueldotl {
-    color: #B8B8B8;
+    color: var(--light-grey);
     font-weight: 500;
 }
 

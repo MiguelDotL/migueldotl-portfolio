@@ -25,12 +25,12 @@
   /* ---- colors ---- */
   --almost-black: #121212;
   --almost-white: #eee;
-  --dark-grey: #1f1f1f;
-  --grey: #2f2f2f;
+  --darker-grey: #1f1f1f;
+  --dark-grey: #2f2f2f;
+  --mid-grey: #757575;
   --light-grey: #b8b8b8;
   --lighter-grey: #dcdcdc;
-  ;
-  /* --grey: #2a2a2a; */
+  /* --dark-grey: #2a2a2a; */
 
   --font-color: #fff;
   --inverse-color: var(--almost-black);
@@ -42,8 +42,9 @@
   --theme-gradient: var(--gradient-3);
 
   /* ---- grayliases ---- */
+  --darker-gray: var(--darker-grey);
   --dark-gray: var(--dark-grey);
-  --gray: var(--grey);
+  --mid-gray: var(--mid-grey);
   --light-gray: var(--light-grey);
 
   /* ---- font attrs ---- */
