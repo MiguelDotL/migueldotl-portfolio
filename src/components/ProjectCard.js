@@ -1,8 +1,6 @@
 import { Col } from "react-bootstrap";
 
-// const ProjectCard = ({ title, description, imageURL }) => {
 const ProjectCard = (props) => {
-    // console.log("ProjectCard props: ", props);
     return (
         <Col sm={6} md={4}>
             <a className="project-card" href={props.url} rel="noreferrer" target="_blank">

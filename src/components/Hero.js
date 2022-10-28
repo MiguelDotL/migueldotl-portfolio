@@ -66,26 +66,27 @@ const Hero = () => {
                             I'm a <span className="typing-text">{jobTitle}</span>
                         </h1>
                         <p>
-                            My journey into programming began in 2005, and I now have over{" "}
+                            My journey into programming began in 2005. I now have over{" "}
                             <a
-                                className="accent"
+                                className="accent nowrap"
                                 href="//www.linkedin.com/in/migueldotl/"
                                 rel="noreferrer"
                                 target="_blank"
                             >
                                 {yearsOfExp} years
                             </a>{" "}
-                            of industry experience. When writing code, I place importantce
-                            on both form and function, always considering the client,
-                            end-user, and other developers who may later work on the
-                            codebase. In my spare time I enjoy making music and learning{" "}
+                            of professional experience. I place equal importantce on form
+                            and function, always considering the client's objective, the
+                            end-user's experience, and parsability for others who may work
+                            on the project. When I'm not writing code, I enjoy making
+                            music and learning{" "}
                             <a
-                                className="accent"
+                                className="accent nowrap"
                                 href="//www.duolingo.com/profile/MiguelDotL"
                                 rel="noreferrer"
                                 target="_blank"
                             >
-                                languages
+                                new languages
                             </a>
                             .
                         </p>

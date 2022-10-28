@@ -1,4 +1,3 @@
-// import React from "react";
 import { Tab, Row } from "react-bootstrap";
 import ProjectCard from "./ProjectCard";
 

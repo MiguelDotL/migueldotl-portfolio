@@ -75,6 +75,7 @@ const ContactMe = () => {
                         <img src={contactImage} alt="" />
                     </Col>
                     <Col md={6}>
+                        <h3>Wanna Hire Me?</h3>
                         <h2>Let's Chat!</h2>
                         {/* TODO: Refactor forn to ContactForm component once working with GetForm API */}
                         <form encype="multipart/form-data" onSubmit={onFormSubmit}>

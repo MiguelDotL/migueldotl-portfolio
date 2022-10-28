@@ -33,6 +33,7 @@
   /* --grey: #2a2a2a; */
 
   --font-color: #fff;
+  --inverse-color: var(--almost-black);
   --bg-color: var(--almost-black);
   --base-gradient: linear-gradient(90.21deg, #AA367C -5.91%, #4A2FBD 111.58%);
 
@@ -123,4 +124,14 @@ p.success {
 /* .danger, */
 p.danger {
   color: red;
+}
+
+.nowrap {
+  white-space: nowrap;
+}
+
+.accent {
+  font-style: italic;
+  font-weight: 500;
+  text-decoration: underline;
 }
