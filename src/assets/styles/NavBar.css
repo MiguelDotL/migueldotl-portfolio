@@ -33,6 +33,10 @@ nav.navbar .navbar-brand {
   overflow: hidden;
   width: 4em;
   transition: width 0.3s ease-in-out;
+
+
+  width: auto;
+  margin: 0;
 }
 
 nav.navbar .navbar-brand .logo-bg {
@@ -50,14 +54,12 @@ nav.navbar .navbar-brand .logo {
 
 nav.navbar .navbar-brand .brand-text {
   color: var(--font-color);
-  font-size: 30px;
-  margin-left: 0.6em;
+  font-size: 1.1em;
   line-height: 1.4;
-  width: 0em;
-  visibility: hidden;
-  transition:
-    visibility 0.3s ease-in-out,
-    width 0.3s ease-in-out;
+  margin-left: 0.6em;
+  width: 8.1em;
+  visibility: visible;
+  transition: all 0.3s ease-in-out;
 }
 
 
@@ -227,18 +229,18 @@ nav.navbar .navbar-collapse.collapse.show {
   transition: all 0.3s ease-in-out;
 }
 
-@media screen and (min-width: 1200px) {
 
+@media screen and (min-width: 576px) {
   nav.navbar .navbar-brand {
     width: 16em;
   }
 
   nav.navbar .navbar-brand .brand-text {
-    width: 8em;
-    visibility: visible;
+    font-size: 1.5em;
+    margin-left: 0.6em;
   }
-
 }
+
 
 @media screen and (min-width: 992px) {
   nav.navbar {
@@ -267,5 +269,29 @@ nav.navbar .navbar-collapse.collapse.show {
   }
 
   .navbar-text .resume-button {}
+
+  nav.navbar .navbar-brand {
+
+    width: 3em;
+  }
+
+  nav.navbar .navbar-brand .brand-text {
+    font-size: 1.5em;
+    margin-left: 0.6em;
+    width: 0em;
+  }
+}
+
+
+@media screen and (min-width: 1200px) {
+  nav.navbar .navbar-brand {
+    width: 16em;
+    /* width: 4em; */
+  }
+
+  nav.navbar .navbar-brand .brand-text {
+    width: 8.1em;
+    visibility: visible;
+  }
 
 }
