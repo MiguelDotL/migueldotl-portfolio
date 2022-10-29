@@ -6,7 +6,7 @@
     margin-top: 0;
     margin-bottom: -10em;
     padding: 260px 0 100px 0;
-    padding: 18em 0 10em 0;
+    padding: 8em 0 10em 0;
     position: relative;
 }
 
@@ -20,7 +20,6 @@
     width: 100%;
     position: absolute;
     top: 0;
-
 }
 
 .hero .container {
@@ -100,8 +99,9 @@
     align-items: center;
 }
 
-.hero img {
-    height: 27em;
+.hero img.floating-image {
+    height: auto;
+    width: 80%;
     -webkit-filter: drop-shadow(3px 3px 42px rgba(155, 155, 155, 0.5));
     filter: drop-shadow(3px 3px 42px rgba(155, 155, 155, 0.5));
     animation: updown 6s linear infinite;
@@ -140,5 +140,56 @@
 @keyframes cursor-blink {
     0% {
         opacity: 0;
+    }
+}
+
+@media screen and (min-width: 576px) {
+    .hero img.floating-image {
+        height: auto;
+        width: 100%;
+    }
+}
+
+@media screen and (min-width: 768px) {
+    .hero {
+        padding: 12em 0 10em 0;
+    }
+
+    .hero img.floating-image {
+        height: auto;
+        width: 130%;
+    }
+}
+
+@media screen and (min-width: 990px) {
+    .hero {
+        padding: 8em 0 10em 0;
+    }
+
+    .hero img.floating-image {
+        height: 27em;
+        width: auto;
+    }
+}
+
+@media screen and (min-width: 1024px) {
+    .hero {
+        padding: 8em 0 10em 0;
+    }
+
+    .hero img.floating-image {
+        height: 27em;
+        width: auto;
+    }
+}
+
+@media screen and (min-width: 1200px) {
+    .hero {
+        padding: 18em 0 10em 0;
+    }
+
+    .hero img.floating-image {
+        height: 27em;
+        width: auto;
     }
 }

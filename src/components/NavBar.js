@@ -14,6 +14,7 @@ import githubIcon from "../assets/images/icons/github-2.svg";
 const NavBar = () => {
     const [activeLink, setActiveLink] = useState("home");
     const [hasScrolled, setHasScrolled] = useState(false);
+    const [bgTransparent, setBgTransparent] = useState(false);
 
     const socialsConfig = [
         {
@@ -45,6 +46,11 @@ const NavBar = () => {
         window.addEventListener("scroll", onScroll);
     }, []);
 
+    const toggleBackground = () => {
+        console.log("toggleing");
+        setBgTransparent(!bgTransparent);
+    };
+
     const linkIsActive = () => {
         const hash = window.location.hash;
         if (activeLink === hash) return "active";
@@ -55,7 +61,11 @@ const NavBar = () => {
     // };
 
     return (
-        <Navbar className={hasScrolled && "has-scrolled"} bg="" expand="lg">
+        <Navbar
+            className={`${bgTransparent && "has-bg"} ${hasScrolled && "has-scrolled"} `}
+            bg=""
+            expand="lg"
+        >
             <Container>
                 <Navbar.Brand href="#home">
                     <div className="logo-bg">
@@ -66,7 +76,10 @@ const NavBar = () => {
                     </div>
                 </Navbar.Brand>
 
-                <Navbar.Toggle aria-controls="basic-navbar-nav">
+                <Navbar.Toggle
+                    aria-controls="basic-navbar-nav"
+                    onClick={toggleBackground}
+                >
                     <span className="navbar-toggler-icon"></span>
                 </Navbar.Toggle>
 

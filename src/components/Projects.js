@@ -61,7 +61,7 @@ const Projects = () => {
                 <Row>
                     <Col>
                         <h2>Projects</h2>
-                        <p>
+                        <p className="copy">
                             Lorem ipsum dolor sit amet consectetur adipisicing elit.
                             Delectus aperiam aliquam debitis at repudiandae quibusdam iure
                             magni temporibus odio maiores ab fuga corporis, dolorem

@@ -7,6 +7,7 @@
     /* padding: 60px 50px; */
     padding: 40px 40px 30px;
     margin: -122px auto 80px;
+    position: relative;
 }
 
 .built-with h3 {
@@ -52,8 +53,8 @@
 }
 
 .built-with .tooling-icons .plus-sign {
-    font-size: 6rem;
-    padding: 0 3.2rem 2rem;
+    font-size: 5rem;
+    padding: 0 1rem 2rem;
 }
 
 
@@ -63,7 +64,7 @@
     /* padding: 0 0 50px 0; */
     font-size: 0.9em;
     background-image: url('../images/backgrounds/footer-bg.png');
-    background-position: center center;
+    background-position: top right;
     background-size: cover;
     background-repeat: no-repeat;
 }
@@ -84,7 +85,7 @@
 .footer .see-what-else {
     display: flex;
     flex-direction: column;
-    align-items: flex-start;
+    align-items: center;
     justify-content: end;
 }
 
@@ -92,7 +93,7 @@
     color: var(--light-grey);
     font-weight: 500;
     text-transform: capitalize;
-    margin: 0 0 0.6em 0.6em;
+    margin: 1em 0 1em 0.6em;
 }
 
 .footer .see-what-else .social-icons a.social-icon {
@@ -111,17 +112,19 @@
 .footer .footer-right {
     color: #757575;
     display: flex;
-    align-items: flex-end;
-    justify-content: flex-end;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
     margin-top: 2em;
+
 }
 
 .footer .footer-right .copyright {
     display: flex;
     flex-direction: column;
     align-items: flex-end;
-    justify-content: flex-end;
-    margin: 0 0.8em 0;
+    align-items: center;
+    margin: 0 0.8em 2em;
 }
 
 .footer .footer-right .migueldotl {
@@ -134,4 +137,36 @@
     height: 42px;
     width: 42px;
     filter: invert(.42);
+}
+
+@media screen and (min-width: 768px) {}
+
+@media screen and (min-width: 576px) {
+    .built-with .tooling-icons .plus-sign {
+        font-size: 6rem;
+        padding: 0 3.2rem 2rem;
+    }
+
+    .footer {
+        background-position: center center;
+    }
+
+    .footer .see-what-else {
+        align-items: flex-start;
+    }
+
+    .footer .see-what-else span {
+        margin: 0 0 0.6em 0.6em;
+    }
+
+    .footer .footer-right {
+        flex-direction: row;
+        align-items: flex-end;
+        justify-content: flex-end;
+    }
+
+    .footer .footer-right .copyright {
+        margin: 0 0.8em 0;
+        align-items: flex-end;
+    }
 }

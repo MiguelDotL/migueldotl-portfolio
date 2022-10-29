@@ -1,10 +1,23 @@
 .contact {
     background: var(--theme-gradient);
-    padding: 60px 0 200px 0;
+    padding: 1em 0 200px 0;
+    position: relative;
 }
 
 .contact .container {
     margin-top: 4em;
+}
+
+.contact .contact-image-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.contact .contact-image-container h3.hire-me {
+    display: block;
+    margin: -1em 0 1em;
 }
 
 .contact img {
@@ -13,10 +26,22 @@
     filter: drop-shadow(10px 14px 13px rgba(20, 20, 20, 0.8));
 }
 
-.contact h2 {
+.contact .contact-form-container {
+    text-align: center;
+}
+
+.contact h3.hire-me {
+    display: none
+}
+
+.contact h2.lets-chat {
     font-size: 45px;
     font-weight: 700;
-    margin-bottom: 30px;
+    margin: 0.8em 0 0.7em;
+}
+
+.contact form {
+    margin: 0 1em;
 }
 
 .contact form input, .contact form textarea {
@@ -64,12 +89,13 @@
 
 .contact form .submit-container {
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: flex-start;
 }
 
 .contact form .form-status-message {
-    margin-left: 2em;
+    margin: 2em 0 0 0;
 }
 
 .contact form button {
@@ -80,6 +106,7 @@
     font-size: 18px;
     font-weight: 700;
     padding: 14px 48px;
+    width: 100%;
     position: relative;
     transition: 0.3s ease-in-out;
 }
@@ -108,4 +135,46 @@
 
 .contact form button:hover::before {
     width: 100%;
+}
+
+@media screen and (min-width:768px) {
+    .contact {
+        padding: 4em 0 200px 0;
+    }
+
+    .contact .contact-image-container {
+        /* flex-direction: row; */
+    }
+
+    .contact .contact-image-container h3.hire-me {
+        display: none;
+    }
+
+    .contact .contact-form-container {
+        text-align: left;
+    }
+
+    .contact .contact-form-container h3.hire-me {
+        display: block;
+    }
+
+    .contact h2.lets-chat {
+        margin: 0.2em 0 0.7em;
+    }
+
+    .contact form {
+        margin: 0em;
+    }
+
+    .contact form .submit-container {
+        flex-direction: row;
+    }
+
+    .contact form button {
+        width: auto;
+    }
+
+    .contact form .form-status-message {
+        margin: 0 0 0 2em;
+    }
 }
