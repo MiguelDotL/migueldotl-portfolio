@@ -23,9 +23,9 @@
     font-weight: 700;
 }
 
-.skills p {
-    color: #B8B8B8;
-    font-size: 18px;
+.skills p.copy {
+    /* color: #B8B8B8; */
+    /* font-size: 18px; */
     letter-spacing: 0.8px;
     line-height: 1.5em;
     margin: 14px auto 75px;
@@ -121,7 +121,7 @@
 }
 
 @media screen and (min-width: 1024px) {
-    .skills p {
+    .skills p.copy {
         width: 80%;
     }
 
@@ -141,7 +141,9 @@
 }
 
 @media screen and (min-width: 1400px) {
+
     .skills-slider .item i.devicon {
         font-size: 10em;
     }
+
 }

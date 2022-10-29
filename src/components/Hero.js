@@ -65,7 +65,7 @@ const Hero = () => {
                         <h1>
                             I'm a <span className="typing-text">{jobTitle}</span>
                         </h1>
-                        <p>
+                        <p className="copy">
                             My journey into programming began in 2005. I now have over{" "}
                             <a
                                 className="accent nowrap"
@@ -94,7 +94,7 @@ const Hero = () => {
                         <button
                             className="hero-contact-button"
                             onClick={() =>
-                                document.getElementById("contact-me").scrollIntoView()
+                                document.getElementById("contact").scrollIntoView()
                             }
                         >
                             Let's Chat

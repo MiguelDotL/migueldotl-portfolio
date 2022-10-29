@@ -113,7 +113,7 @@ nav.has-bg .show .social-icons a.social-icon {
   margin-right: 1.5em;
 }
 
-.navbar-collapse.collapse.show .social-icons a.social-icon.github {
+.navbar-collapse.collapse.show .social-icons a.social-icon:last-of-type {
   margin: 0;
 }
 

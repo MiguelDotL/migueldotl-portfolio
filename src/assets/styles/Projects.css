@@ -15,14 +15,16 @@
     text-align: center;
 }
 
-.projects p {
-    color: #B8B8B8;
-    font-size: 18px;
+.projects p.copy {
+    /* color: #B8B8B8; */
+    /* font-size: 18px; */
     letter-spacing: 0.8px;
     line-height: 1.5em;
     margin: 14px auto 30px auto;
+    margin: 1em auto 4em auto;
     text-align: center;
     width: 56%;
+    width: 100%;
 }
 
 .projects #pill-tabs.nav.nav-pills {
@@ -207,5 +209,17 @@ a.project-card {
 @media screen and (min-width: 576px) {
     .projects {
         padding: 5em 0;
+    }
+}
+
+@media screen and (min-width: 768px) {
+    .projects p.copy {
+        width: 80%;
+    }
+}
+
+@media screen and (min-width: 1400px) {
+    .projects p.copy {
+        width: 56%;
     }
 }

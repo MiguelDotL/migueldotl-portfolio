@@ -62,11 +62,43 @@ const Projects = () => {
                     <Col>
                         <h2>Projects</h2>
                         <p className="copy">
+                            Over the course of my career, I have had the opportunity to
+                            work with some amazing clients, like{" "}
+                            <a
+                                href="//www.foreyes.com/"
+                                className="accent nowrap"
+                                rel="noreferrer"
+                                target="_blank"
+                            >
+                                ForEyes
+                            </a>
+                            ,{" "}
+                            <a
+                                href="//www.royalcaribbean.com/"
+                                className="accent nowrap"
+                                rel="noreferrer"
+                                target="_blank"
+                            >
+                                Royal Caribbean International
+                            </a>
+                            , and{" "}
+                            <a
+                                href="//www.iberostar.com/"
+                                className="accent nowrap"
+                                rel="noreferrer"
+                                target="_blank"
+                            >
+                                Iberostar Group
+                            </a>
+                            .
+                        </p>
+                        {/* <p className="copy">
+
                             Lorem ipsum dolor sit amet consectetur adipisicing elit.
                             Delectus aperiam aliquam debitis at repudiandae quibusdam iure
                             magni temporibus odio maiores ab fuga corporis, dolorem
                             quisquam porro vel, nesciunt ex ullam.
-                        </p>
+                        </p> */}
                         <Tab.Container id="project-tabs" defaultActiveKey="client">
                             <Nav variant="pills" id="pill-tabs" className="">
                                 <Nav.Item>

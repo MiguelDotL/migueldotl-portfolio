@@ -46,6 +46,7 @@
   --dark-gray: var(--dark-grey);
   --mid-gray: var(--mid-grey);
   --light-gray: var(--light-grey);
+  --lighter-gray: var(--lighter-grey);
 
   /* ---- font attrs ---- */
   --base-font-family: Centra;
@@ -110,12 +111,12 @@ input:focus, textarea:focus, select:focus {
   outline: none;
 }
 
-@media (min-width:1700px) {
+/* @media (min-width:1700px) {
   main .container {
     max-width: 100%;
     padding: 0 150px;
   }
-}
+} */
 
 /* .success, */
 p.success {
@@ -131,8 +132,14 @@ p.danger {
   white-space: nowrap;
 }
 
+.copy {
+  color: var(--lighter-grey);
+  font-size: 1.125em;
+}
+
 .accent {
   /* font-style: italic; */
+  color: var(--almost-white);
   font-weight: 500;
   text-decoration: underline;
 }

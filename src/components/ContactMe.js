@@ -72,7 +72,7 @@ const ContactMe = () => {
             <Container>
                 <Row className="align-items-center">
                     <Col md={6} className="contact-image-container">
-                        <h3 className="hire-me">Wanna Hire Me?</h3>
+                        <h2 className="hire-me nowrap">Wanna Hire Me?</h2>
                         <img src={contactImage} alt="" />
                     </Col>
                     <Col md={6} className="contact-form-container">

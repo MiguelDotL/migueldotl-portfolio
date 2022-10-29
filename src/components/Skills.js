@@ -16,7 +16,7 @@ const Skills = () => {
                 <Row>
                     <div className="skills-content">
                         <h2>Skills</h2>
-                        <p>
+                        <p className="copy">
                             I love trying out new technologies, but I am well versed in
                             building projects with standard HTML, CSS, Vanilla JS, and
                             PHP. My professional experience, and a never-ending quest for

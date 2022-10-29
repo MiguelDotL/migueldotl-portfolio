@@ -13,11 +13,15 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    margin: 0 0 -0.4em 0;
 }
 
-.contact .contact-image-container h3.hire-me {
+.contact .contact-image-container h2.hire-me {
     display: block;
+    font-size: 2.25em;
+    font-weight: 700;
     margin: -1em 0 1em;
+    transition: all 0.3s ease-in-out;
 }
 
 .contact img {
@@ -35,9 +39,9 @@
 }
 
 .contact h2.lets-chat {
-    font-size: 45px;
+    font-size: 2.8125em;
     font-weight: 700;
-    margin: 0.8em 0 0.7em;
+    margin: 0.8em 0 0.8em;
 }
 
 .contact form {
@@ -137,16 +141,28 @@
     width: 100%;
 }
 
+@media screen and (min-width:425px) {
+    .contact .contact-image-container h2.hire-me {
+        font-size: 2.5em;
+    }
+}
+
+@media screen and (min-width:576px) {
+    .contact .contact-image-container h2.hire-me {
+        font-size: 2.8125em;
+    }
+}
+
 @media screen and (min-width:768px) {
     .contact {
         padding: 4em 0 200px 0;
     }
 
     .contact .contact-image-container {
-        /* flex-direction: row; */
+        margin: 0em;
     }
 
-    .contact .contact-image-container h3.hire-me {
+    .contact .contact-image-container h2.hire-me {
         display: none;
     }
 
