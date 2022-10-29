@@ -8,6 +8,7 @@
     padding: 260px 0 100px 0;
     padding: 8em 0 10em 0;
     position: relative;
+    transition: .3s ease-in-out;
 }
 
 .hero::before {
@@ -24,10 +25,13 @@
 
 .hero .container {
     position: relative;
+    transition: all 0.3s ease-in-out;
 }
 
 .hero .container .row {
     margin-bottom: 11em;
+    padding: 0 1em;
+    transition: all 0.3s ease-in-out;
 }
 
 
@@ -36,28 +40,33 @@
     background: linear-gradient(90.21deg, rgba(170, 54, 124, 0.5) -5.91%, rgba(74, 47, 189, 0.5) 111.58%);
     border: 1px solid rgba(255, 255, 255, 0.5);
     font-size: 20px;
+    font-size: .8em;
     font-weight: 700;
     letter-spacing: 0.8px;
     margin-bottom: 16px;
     padding: 8px 10px;
+    transition: all 0.3s ease-in-out;
 }
 
 .hero .content h1 {
     /* font-size: 65px; */
     display: block;
+    font-size: 1.2em;
     font-weight: 700;
     letter-spacing: 0.8px;
     line-height: 1;
     margin-bottom: 20px;
     white-space: nowrap;
+    transition: all 0.3s ease-in-out;
 }
 
 .hero .content p {
     color: var(--lighter-grey);
-    font-size: 18px;
+    font-size: 1em;
     letter-spacing: 0.8px;
     line-height: 1.5em;
     width: 96%;
+    transition: all 0.3s ease-in-out;
 }
 
 .hero .content p .accent {
@@ -70,17 +79,18 @@
     color: var(--font-color);
     font-weight: 700;
     font-size: 20px;
-    margin-top: 60px;
+    margin-top: 1.5em;
     letter-spacing: 0.8px;
     display: flex;
     align-items: center;
+    transition: all 0.3s ease-in-out;
 }
 
 .hero button svg {
     font-size: 25px;
+    line-height: 1;
     margin-left: 10px;
     transition: 0.3s ease-in-out;
-    line-height: 1;
 }
 
 .hero button:hover svg {
@@ -102,6 +112,7 @@
 .hero img.floating-image {
     height: auto;
     width: 80%;
+    transition: all 0.3s ease-in-out;
     -webkit-filter: drop-shadow(3px 3px 42px rgba(155, 155, 155, 0.5));
     filter: drop-shadow(3px 3px 42px rgba(155, 155, 155, 0.5));
     animation: updown 6s linear infinite;
@@ -143,7 +154,24 @@
     }
 }
 
+@media screen and (min-width: 321px) {}
+
+@media screen and (min-width: 425px) {
+    .hero .content .tagline {
+        font-size: .875em;
+    }
+
+    .hero .content h1 {
+        font-size: 1.5em;
+    }
+
+}
+
 @media screen and (min-width: 576px) {
+    .hero .content h1 {
+        font-size: 1.75em;
+    }
+
     .hero img.floating-image {
         height: auto;
         width: 100%;
@@ -155,15 +183,37 @@
         padding: 12em 0 10em 0;
     }
 
+    .hero .content .tagline {
+        font-size: 1.125em;
+    }
+
+    .hero .content h1 {
+        font-size: 2.25em;
+    }
+
+    .hero .content p {
+        font-size: 1.125em;
+    }
+
+
     .hero img.floating-image {
         height: auto;
         width: 130%;
+    }
+
+    .hero button {
+        margin-top: 1.7em;
     }
 }
 
 @media screen and (min-width: 990px) {
     .hero {
         padding: 8em 0 10em 0;
+        padding: 12em 0 10em 0;
+    }
+
+    .hero .content h1 {
+        font-size: 2.5em;
     }
 
     .hero img.floating-image {
@@ -174,7 +224,7 @@
 
 @media screen and (min-width: 1024px) {
     .hero {
-        padding: 8em 0 10em 0;
+        /* padding: 8em 0 10em 0; */
     }
 
     .hero img.floating-image {
