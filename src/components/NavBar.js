@@ -12,6 +12,7 @@ import twitterIcon from "../assets/images/icons/twitter.svg";
 import githubIcon from "../assets/images/icons/github-2.svg";
 
 const NavBar = () => {
+    const [expanded, setExpanded] = useState(false);
     const [activeLink, setActiveLink] = useState("home");
     const [hasScrolled, setHasScrolled] = useState(false);
     const [bgTransparent, setBgTransparent] = useState(false);
@@ -46,8 +47,9 @@ const NavBar = () => {
         window.addEventListener("scroll", onScroll);
     }, []);
 
-    const toggleBackground = () => {
+    const handleToggle = () => {
         console.log("toggleing");
+        setExpanded(expanded ? false : "expanded");
         setBgTransparent(!bgTransparent);
     };
 
@@ -56,15 +58,18 @@ const NavBar = () => {
         if (activeLink === hash) return "active";
     };
 
-    // const updateActiveLink = (linkName) => {
-    //     setActiveLink(linkName);
-    // };
+    const onLinkClick = (linkName) => {
+        setBgTransparent(false);
+        setActiveLink(linkName);
+        setExpanded(false);
+    };
 
     return (
         <Navbar
             className={`${bgTransparent && "has-bg"} ${hasScrolled && "has-scrolled"} `}
             bg=""
             expand="lg"
+            expanded={expanded}
         >
             <Container>
                 <Navbar.Brand href="#home">
@@ -76,10 +81,7 @@ const NavBar = () => {
                     </div>
                 </Navbar.Brand>
 
-                <Navbar.Toggle
-                    aria-controls="basic-navbar-nav"
-                    onClick={toggleBackground}
-                >
+                <Navbar.Toggle aria-controls="basic-navbar-nav" onClick={handleToggle}>
                     <span className="navbar-toggler-icon"></span>
                 </Navbar.Toggle>
 
@@ -88,28 +90,28 @@ const NavBar = () => {
                         <Nav.Link
                             href="#home"
                             className={`${linkIsActive()} navbar-link`}
-                            onClick={() => setActiveLink("home")}
+                            onClick={() => onLinkClick("home")}
                         >
                             Home
                         </Nav.Link>
                         <Nav.Link
                             href="#skills"
                             className={`${linkIsActive()} navbar-link`}
-                            onClick={() => setActiveLink("skills")}
+                            onClick={() => onLinkClick("skills")}
                         >
                             Skills
                         </Nav.Link>
                         <Nav.Link
                             href="#projects"
                             className={`${linkIsActive()} navbar-link`}
-                            onClick={() => setActiveLink("projects")}
+                            onClick={() => onLinkClick("projects")}
                         >
                             Projects
                         </Nav.Link>
                         <Nav.Link
                             href="#contact"
                             className={`${linkIsActive()} navbar-link`}
-                            onClick={() => setActiveLink("contact")}
+                            onClick={() => onLinkClick("contact")}
                         >
                             Contact
                         </Nav.Link>
