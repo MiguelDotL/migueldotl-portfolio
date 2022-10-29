@@ -14,7 +14,7 @@ const Skills = () => {
             />
             <Container>
                 <Row>
-                    <div className="skills-container">
+                    <div className="skills-content">
                         <h2>Skills</h2>
                         <p>
                             I love trying out new technologies, but I am well versed in

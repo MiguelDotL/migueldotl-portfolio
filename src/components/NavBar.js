@@ -67,7 +67,6 @@ const NavBar = () => {
     return (
         <Navbar
             className={`${bgTransparent && "has-bg"} ${hasScrolled && "has-scrolled"} `}
-            bg=""
             expand="lg"
             expanded={expanded}
         >

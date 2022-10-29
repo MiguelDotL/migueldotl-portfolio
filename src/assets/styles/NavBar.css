@@ -109,9 +109,7 @@ nav.has-bg .social-icons a.social-icon {
   transition: all 0.3s ease-in-out;
 }
 
-nav.has-bg .show .social-icons a.social-icon,
-.navbar-collapse.collapse .social-icons a.social-icon,
-.navbar-collapse.collapse.show .social-icons a.social-icon {
+nav.has-bg .show .social-icons a.social-icon {
   margin-right: 1.5em;
 }
 
@@ -219,13 +217,23 @@ nav.navbar .navbar-toggler:not(.collapsed) .navbar-toggler-icon {
   border-color: transparent;
 }
 
-nav.navbar .navbar-collapse {
+nav.navbar.has-bg {
   height: 0vh;
+}
+
+nav.navbar .navbar-collapse {
+  /* height: 0vh; */
   transition: all 0.3s ease-in-out;
 }
 
-nav.navbar .navbar-collapse.collapse.show {
-  height: calc(100vh - 50px);
+nav.navbar.has-bg {
+  height: calc(100vh);
+  align-items: flex-start;
+}
+
+nav.navbar .navbar-collapse {
+  margin: 2em 0 0;
+  /* height: calc(100vh - 50px); */
   transition: all 0.3s ease-in-out;
 }
 
@@ -258,6 +266,10 @@ nav.navbar .navbar-collapse.collapse.show {
 
   span.navbar-text {
     flex-direction: row;
+  }
+
+  nav.navbar .navbar-collapse {
+    margin: 0em 0 0;
   }
 
   .navbar-collapse.collapse .social-icons a.social-icon {

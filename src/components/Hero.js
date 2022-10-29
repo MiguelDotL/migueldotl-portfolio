@@ -63,8 +63,7 @@ const Hero = () => {
                         <span className="tagline">Thanks for dropping by</span>
                         <h1 className="intro-header">Hi, I'm Miguel!</h1>
                         <h1>
-                            {/* I'm a <span className="typing-text">{jobTitle}</span> */}
-                            I'm a Full-Stack Developer
+                            I'm a <span className="typing-text">{jobTitle}</span>
                         </h1>
                         <p>
                             My journey into programming began in 2005. I now have over{" "}

@@ -4,7 +4,11 @@
     padding: 10em 0 5em;
 }
 
-.skills-container {
+.skills .container {
+    padding: 0 2em;
+}
+
+.skills-content {
     background: #151515;
     background: #1f1f1f;
     border-radius: 64px;
@@ -46,10 +50,16 @@
 .skills-slider .item i.devicon {
     display: block;
     font-size: 37.5vw;
+    font-size: 32vw;
     margin: 0 auto 15px auto;
-    width: 50%;
+    /* width: 50%; */
     filter: brightness(0) invert(1);
     transition: 0.3s ease-in-out;
+}
+
+.skills-slider .item i.devicon::before {
+    /* position: relative;
+    right: 3%; */
 }
 
 .skills-slider li[aria-hidden="false"]>.item {

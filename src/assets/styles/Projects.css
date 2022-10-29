@@ -25,6 +25,10 @@
     width: 56%;
 }
 
+.projects #pill-tabs.nav.nav-pills {
+    display: none;
+}
+
 .projects .nav.nav-pills {
     width: 72%;
     /* margin: 0 auto; */
