@@ -237,11 +237,17 @@
 
 @media screen and (min-width: 1200px) {
     .hero {
-        padding: 18em 0 10em 0;
+        padding: 14em 0 10em 0;
     }
 
     .hero img.floating-image {
         height: 27em;
         width: auto;
+    }
+}
+
+@media screen and (min-width: 1400px) {
+    .hero {
+        padding: 18em 0 10em 0;
     }
 }
