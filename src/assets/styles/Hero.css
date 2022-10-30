@@ -60,16 +60,16 @@
     transition: all 0.3s ease-in-out;
 }
 
-.hero .content p {
+.hero .content p.copy {
     color: var(--lighter-grey);
-    font-size: 1em;
+    /* font-size: 1em;
     letter-spacing: 0.8px;
-    line-height: 1.5em;
+    line-height: 1.5em; */
     width: 96%;
     transition: all 0.3s ease-in-out;
 }
 
-.hero .content p .accent {
+.hero .content p.copy .accent {
     color: var(--almost-white);
 }
 
@@ -192,7 +192,7 @@
         font-size: 2.25em;
     }
 
-    .hero .content p {
+    .hero .content p.copy {
         font-size: 1.125em;
     }
 
