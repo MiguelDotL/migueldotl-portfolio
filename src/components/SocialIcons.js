@@ -1,3 +1,5 @@
+import "../assets/styles/Socials.css";
+
 const SocialIcons = ({ config }) => {
     return (
         <div className="social-icons">

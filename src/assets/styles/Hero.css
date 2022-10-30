@@ -6,8 +6,9 @@
     margin-top: 0;
     margin-bottom: -10em;
     padding: 260px 0 100px 0;
-    padding: 18em 0 10em 0;
+    padding: 8em 0 10em 0;
     position: relative;
+    transition: .3s ease-in-out;
 }
 
 .hero::before {
@@ -15,68 +16,81 @@
     display: block;
     background-color: rgba(0, 0, 0, .5);
     background: linear-gradient(42deg, rgba(0, 0, 0, 1) 3%, rgba(0, 0, 0, .8) 22%, rgba(0, 0, 0, 0.2) 44%, rgba(0, 0, 0, 0) 66%, rgba(0, 0, 0, 0.5) 88%, rgba(0, 0, 0, 1) 99%);
+    background: linear-gradient(42deg, rgba(0, 0, 0, 1) 11%, rgba(0, 0, 0, .8) 22%, rgba(0, 0, 0, 0.6) 33%, rgba(0, 0, 0, 0.2) 44%, rgba(0, 0, 0, 0) 66%, rgba(0, 0, 0, 0.5) 88%, rgba(0, 0, 0, 1) 99%);
     height: 100%;
     width: 100%;
     position: absolute;
     top: 0;
-
 }
 
 .hero .container {
     position: relative;
+    transition: all 0.3s ease-in-out;
 }
 
 .hero .container .row {
     margin-bottom: 11em;
+    padding: 0 1em;
+    transition: all 0.3s ease-in-out;
 }
 
 
-.hero .tagline {
+.hero .content .tagline {
     display: inline-block;
     background: linear-gradient(90.21deg, rgba(170, 54, 124, 0.5) -5.91%, rgba(74, 47, 189, 0.5) 111.58%);
     border: 1px solid rgba(255, 255, 255, 0.5);
     font-size: 20px;
+    font-size: .8em;
     font-weight: 700;
     letter-spacing: 0.8px;
     margin-bottom: 16px;
     padding: 8px 10px;
+    transition: all 0.3s ease-in-out;
 }
 
-.hero h1 {
+.hero .content h1 {
     /* font-size: 65px; */
     display: block;
+    font-size: 1.2em;
     font-weight: 700;
     letter-spacing: 0.8px;
     line-height: 1;
     margin-bottom: 20px;
     white-space: nowrap;
+    transition: all 0.3s ease-in-out;
 }
 
-.hero p {
-    color: #B8B8B8;
-    font-size: 18px;
+.hero .content p.copy {
+    color: var(--lighter-grey);
+    /* font-size: 1em;
     letter-spacing: 0.8px;
-    line-height: 1.5em;
+    line-height: 1.5em; */
     width: 96%;
+    transition: all 0.3s ease-in-out;
+}
+
+.hero .content p.copy .accent {
+    color: var(--almost-white);
 }
 
 .hero button {
     background: none;
     border: none;
-    color: #fff;
+    color: var(--font-color);
     font-weight: 700;
     font-size: 20px;
-    margin-top: 60px;
+    margin-top: 1.5em;
     letter-spacing: 0.8px;
     display: flex;
     align-items: center;
+    transition: all 0.3s ease-in-out;
 }
 
 .hero button svg {
     font-size: 25px;
+    line-height: 1;
     margin-left: 10px;
     transition: 0.3s ease-in-out;
-    line-height: 1;
 }
 
 .hero button:hover svg {
@@ -95,8 +109,11 @@
     align-items: center;
 }
 
-.hero img {
-    height: 27em;
+.hero img.floating-image {
+    margin: 4em 0 -4em;
+    height: auto;
+    width: 80%;
+    transition: all 0.3s ease-in-out;
     -webkit-filter: drop-shadow(3px 3px 42px rgba(155, 155, 155, 0.5));
     filter: drop-shadow(3px 3px 42px rgba(155, 155, 155, 0.5));
     animation: updown 6s linear infinite;
@@ -116,7 +133,6 @@
     }
 }
 
-/* .txt-rotate > .typing-text { */
 .hero .typing-text {
     position: relative;
 }
@@ -136,5 +152,102 @@
 @keyframes cursor-blink {
     0% {
         opacity: 0;
+    }
+}
+
+@media screen and (min-width: 321px) {}
+
+@media screen and (min-width: 425px) {
+    .hero .content .tagline {
+        font-size: .875em;
+    }
+
+    .hero .content h1 {
+        font-size: 1.5em;
+    }
+
+}
+
+@media screen and (min-width: 576px) {
+    .hero .content h1 {
+        font-size: 1.75em;
+    }
+
+    .hero img.floating-image {
+        height: auto;
+        width: 100%;
+    }
+}
+
+@media screen and (min-width: 768px) {
+    .hero {
+        padding: 12em 0 10em 0;
+    }
+
+    .hero .content .tagline {
+        font-size: 1.125em;
+    }
+
+    .hero .content h1 {
+        font-size: 2.25em;
+    }
+
+    .hero .content p.copy {
+        font-size: 1.125em;
+    }
+
+
+    .hero img.floating-image {
+        margin: 0em;
+        height: auto;
+        width: 130%;
+    }
+
+    .hero button {
+        margin-top: 1.7em;
+    }
+}
+
+@media screen and (min-width: 990px) {
+    .hero {
+        padding: 8em 0 10em 0;
+        padding: 12em 0 10em 0;
+    }
+
+    .hero .content h1 {
+        font-size: 2.5em;
+    }
+
+    .hero img.floating-image {
+        height: 27em;
+        width: auto;
+    }
+}
+
+@media screen and (min-width: 1024px) {
+    .hero {
+        /* padding: 8em 0 10em 0; */
+    }
+
+    .hero img.floating-image {
+        height: 27em;
+        width: auto;
+    }
+}
+
+@media screen and (min-width: 1200px) {
+    .hero {
+        padding: 14em 0 10em 0;
+    }
+
+    .hero img.floating-image {
+        height: 27em;
+        width: auto;
+    }
+}
+
+@media screen and (min-width: 1400px) {
+    .hero {
+        padding: 18em 0 10em 0;
     }
 }

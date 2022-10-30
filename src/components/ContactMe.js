@@ -68,14 +68,16 @@ const ContactMe = () => {
     };
 
     return (
-        <section id="contact-me" className="contact">
+        <section id="contact" className="contact">
             <Container>
                 <Row className="align-items-center">
-                    <Col md={6}>
+                    <Col md={6} className="contact-image-container">
+                        <h2 className="hire-me nowrap">Wanna Hire Me?</h2>
                         <img src={contactImage} alt="" />
                     </Col>
-                    <Col md={6}>
-                        <h2>Let's Chat!</h2>
+                    <Col md={6} className="contact-form-container">
+                        <h3 className="hire-me">Wanna Hire Me?</h3>
+                        <h2 className="lets-chat">Let's Chat!</h2>
                         {/* TODO: Refactor forn to ContactForm component once working with GetForm API */}
                         <form encype="multipart/form-data" onSubmit={onFormSubmit}>
                             <Row>
@@ -127,7 +129,7 @@ const ContactMe = () => {
                                         onChange={onFormChange()}
                                     />
                                 </Col>
-                                <div className="submit-container">
+                                <div className="submit-container px-1">
                                     <button type="submit">
                                         <span>{buttonText}</span>
                                     </button>

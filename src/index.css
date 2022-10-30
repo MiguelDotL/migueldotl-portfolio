@@ -1,6 +1,6 @@
+/* ==== Fonts ==== */
 @import "devicon";
 
-/* ==== Fonts ==== */
 @font-face {
   font-family: Centra;
   src: url("/src/assets/fonts/CentraNo2-Book.ttf");
@@ -24,16 +24,29 @@
   /* ==== CSS Variables ==== */
   /* ---- colors ---- */
   --almost-black: #121212;
-  --dark-grey: #1f1f1f;
-  /* --grey: #2a2a2a; */
-  --grey: #2f2f2f;
-  --gray: var(--grey);
+  --almost-white: #eee;
+  --darker-grey: #1f1f1f;
+  --dark-grey: #2f2f2f;
+  --mid-grey: #757575;
+  --light-grey: #b8b8b8;
+  --lighter-grey: #dcdcdc;
+  /* --dark-grey: #2a2a2a; */
+
   --font-color: #fff;
+  --inverse-color: var(--almost-black);
   --bg-color: var(--almost-black);
-  --theme-gradient: var(--gradient-3);
   --base-gradient: linear-gradient(90.21deg, #AA367C -5.91%, #4A2FBD 111.58%);
+
   --gradient-2: linear-gradient(111deg, #FC466B -15%, #3F5EFB 120%);
   --gradient-3: linear-gradient(131deg, #7e3f95 30%, #00aeef 130%);
+  --theme-gradient: var(--gradient-3);
+
+  /* ---- grayliases ---- */
+  --darker-gray: var(--darker-grey);
+  --dark-gray: var(--dark-grey);
+  --mid-gray: var(--mid-grey);
+  --light-gray: var(--light-grey);
+  --lighter-gray: var(--lighter-grey);
 
   /* ---- font attrs ---- */
   --base-font-family: Centra;
@@ -98,12 +111,12 @@ input:focus, textarea:focus, select:focus {
   outline: none;
 }
 
-@media (min-width:1700px) {
+/* @media (min-width:1700px) {
   main .container {
     max-width: 100%;
     padding: 0 150px;
   }
-}
+} */
 
 /* .success, */
 p.success {
@@ -113,4 +126,29 @@ p.success {
 /* .danger, */
 p.danger {
   color: red;
+}
+
+.nowrap {
+  white-space: nowrap;
+}
+
+p.copy {
+  color: var(--lighter-grey);
+  font-size: 1em;
+  letter-spacing: 0.8px;
+  line-height: 1.5em;
+}
+
+.accent {
+  /* font-style: italic; */
+  color: var(--almost-white);
+  font-weight: 500;
+  text-decoration: underline;
+}
+
+@media screen and (min-width: 768px) {
+
+  p.copy {
+    font-size: 1.125em;
+  }
 }

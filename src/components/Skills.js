@@ -14,13 +14,13 @@ const Skills = () => {
             />
             <Container>
                 <Row>
-                    <div className="skills-container">
+                    <div className="skills-content">
                         <h2>Skills</h2>
-                        <p>
+                        <p className="copy">
                             I love trying out new technologies, but I am well versed in
                             building projects with standard HTML, CSS, Vanilla JS, and
-                            PHP. My professional experience and a never-ending quest for
-                            knowledge has led me to work in several libraries and
+                            PHP. My professional experience, and a never-ending quest for
+                            knowledge, has led me to work in several libraries and
                             frameworks, like Ruby on Rails, React, Angular, and jQuery.
                         </p>
                         <SkillsCarousel />

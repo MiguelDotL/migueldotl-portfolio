@@ -1,7 +1,12 @@
 .projects {
-    padding: 80px 0;
+    background-color: var(--almost-black);
+    padding: 5em 0;
+    padding: 3em 1em;
     position: relative;
-    background-color: black;
+}
+
+.projects .container {
+    position: relative;
 }
 
 .projects h2 {
@@ -10,14 +15,24 @@
     text-align: center;
 }
 
-.projects p {
-    color: #B8B8B8;
-    font-size: 18px;
-    letter-spacing: 0.8px;
-    line-height: 1.5em;
+.projects p.copy {
+    /* color: #B8B8B8; */
+    /* font-size: 18px; */
+    /* letter-spacing: 0.8px; */
+    /* line-height: 1.5em; */
     margin: 14px auto 30px auto;
+    margin: 1em auto 4em auto;
     text-align: center;
     width: 56%;
+    width: 100%;
+}
+
+.projects .container p.copy .accent {
+    color: var(--almost-white);
+}
+
+.projects #pill-tabs.nav.nav-pills {
+    display: none;
 }
 
 .projects .nav.nav-pills {
@@ -55,7 +70,7 @@
     width: 0;
     height: 100%;
     background: linear-gradient(150deg, #2fbdb6 5%, #5b138b 66%, #a519a1 99%);
-    background: linear-gradient(90.21deg, #AA367C -5.91%, #4A2FBD 111.58%);
+    background: var(--base-gradient);
     top: 0;
     left: 0;
     z-index: -1;
@@ -113,13 +128,27 @@
 
 
 
+a.project-card {
+    color: var(--base-font-color);
+}
 
+.project-card .btn.btn-outline-secondary {
+    border: 2px solid #fff;
+    color: var(--base-font-color);
+    margin: 1em auto;
+    transition: 0.3s ease-in-out;
+}
+
+.project-card .btn.btn-outline-secondary:hover {
+    background-color: rgb(0 0 0/.3);
+}
 
 .project-image {
     position: relative;
-    border-radius: 30px;
+    border-radius: 0.6em;
     overflow: hidden;
     margin-bottom: 24px;
+    z-index: 0;
 }
 
 .project-image img {
@@ -129,7 +158,7 @@
 
 .project-image::before {
     content: "";
-    background: linear-gradient(90.21deg, #AA367C -5.91%, #4A2FBD 111.58%);
+    background: var(--base-gradient);
     opacity: 0.85;
     position: absolute;
     width: 100%;
@@ -165,6 +194,7 @@
 }
 
 .project-content span {
+    display: block;
     font-style: italic;
     font-weight: 400;
     font-size: 15px;
@@ -172,10 +202,28 @@
 }
 
 .background-image-right {
-    top: 20%;
+    /* top: 20%; */
     position: absolute;
     bottom: 0;
-    width: 35%;
+    /* width: 35%; */
+    height: 100%;
     right: 0;
-    z-index: -4;
+}
+
+@media screen and (min-width: 576px) {
+    .projects {
+        padding: 5em 0;
+    }
+}
+
+@media screen and (min-width: 768px) {
+    .projects p.copy {
+        width: 80%;
+    }
+}
+
+@media screen and (min-width: 1400px) {
+    .projects p.copy {
+        width: 56%;
+    }
 }

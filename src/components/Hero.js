@@ -12,6 +12,7 @@ const Hero = () => {
     // const [typingDelay, setTypingDelay] = useState(100);
     const roles = ["Front-End", "Back-End", "Full-Stack Developer   "];
     const pauseTime = 3456; // time between typing and deleting
+    const yearsOfExp = new Date().getFullYear() - 2016;
 
     useEffect(() => {
         let typingTicker = setInterval(() => {
@@ -55,7 +56,7 @@ const Hero = () => {
     };
 
     return (
-        <section id="about-me" className="hero about-me">
+        <section id="home" className="hero about-me">
             <Container>
                 <Row className="align-items-center">
                     <Col className="content" xs={12} md={7} xl={7}>
@@ -64,17 +65,36 @@ const Hero = () => {
                         <h1>
                             I'm a <span className="typing-text">{jobTitle}</span>
                         </h1>
-                        <p>
-                            Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                            Facere quae dolore dolores excepturi praesentium doloremque
-                            est ducimus ad in, sunt reprehenderit ut optio ipsum, cumque
-                            numquam, ea facilis? Expedita, et.
+                        <p className="copy">
+                            My journey into programming began in 2005. I now have over{" "}
+                            <a
+                                className="accent nowrap"
+                                href="//www.linkedin.com/in/migueldotl/"
+                                rel="noreferrer"
+                                target="_blank"
+                            >
+                                {yearsOfExp} years
+                            </a>{" "}
+                            of professional experience. I place equal importantce on form
+                            and function, always considering the client's objective, the
+                            end-user's experience, and parsability for others who may work
+                            on the project. When I'm not writing code, I enjoy making
+                            music and learning{" "}
+                            <a
+                                className="accent nowrap"
+                                href="//www.duolingo.com/profile/MiguelDotL"
+                                rel="noreferrer"
+                                target="_blank"
+                            >
+                                new languages
+                            </a>
+                            .
                         </p>
 
                         <button
                             className="hero-contact-button"
                             onClick={() =>
-                                document.getElementById("contact-me").scrollIntoView()
+                                document.getElementById("contact").scrollIntoView()
                             }
                         >
                             Let's Chat

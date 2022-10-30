@@ -8,27 +8,33 @@ import codepenIcon from "../assets/images/icons/codepen-icon.svg";
 import codewarsIcon from "../assets/images/icons/codewars-icon.svg";
 import codecademyIcon from "../assets/images/icons/codecademy-icon.svg";
 import udemyIcon from "../assets/images/icons/udemy-icon.svg";
+import duolingoIcon from "../assets/images/icons/duolingo-icon.svg";
 
 const socialsConfig = [
     {
         className: "codepen",
         icon: codepenIcon,
-        url: "https://codepen.io/MiguelDotL"
+        url: "//codepen.io/MiguelDotL"
     },
     {
         className: "codewars",
         icon: codewarsIcon,
-        url: "https://www.codewars.com/users/MiguelDotL"
+        url: "//www.codewars.com/users/MiguelDotL"
     },
     {
         className: "codecademy",
         icon: codecademyIcon,
-        url: "https://www.codecademy.com/profiles/MiguelDotL"
+        url: "//www.codecademy.com/profiles/MiguelDotL"
     },
     {
         className: "udemy",
         icon: udemyIcon,
-        url: "https://www.udemy.com/user/miguel-lozano-4/"
+        url: "//www.udemy.com/user/miguel-lozano-4/"
+    },
+    {
+        className: "duolingo",
+        icon: duolingoIcon,
+        url: "//www.duolingo.com/profile/MiguelDotL"
     }
 ];
 

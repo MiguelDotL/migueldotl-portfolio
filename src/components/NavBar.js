@@ -2,6 +2,7 @@ import "../assets/styles/NavBar.css";
 
 import { useState, useEffect } from "react";
 import { Container, Nav, Navbar } from "react-bootstrap";
+import { FileEarmarkText } from "react-bootstrap-icons";
 // import NavDropdown from "react-bootstrap/NavDropdown";
 import SocialIcons from "./SocialIcons";
 
@@ -11,24 +12,26 @@ import twitterIcon from "../assets/images/icons/twitter.svg";
 import githubIcon from "../assets/images/icons/github-2.svg";
 
 const NavBar = () => {
-    const [activeLink, setActiveLink] = useState("about-me");
+    const [expanded, setExpanded] = useState(false);
+    const [activeLink, setActiveLink] = useState("home");
     const [hasScrolled, setHasScrolled] = useState(false);
+    const [bgTransparent, setBgTransparent] = useState(false);
 
     const socialsConfig = [
         {
             className: "linked-in",
             icon: linkedInIcon,
-            url: "https://www.linkedin.com/in/migueldotl/"
+            url: "//www.linkedin.com/in/migueldotl/"
         },
         {
             className: "twitter",
             icon: twitterIcon,
-            url: "https://twitter.com/MiguelDotL"
+            url: "//twitter.com/MiguelDotL"
         },
         {
             className: "github",
             icon: githubIcon,
-            url: "https://github.com/MiguelDotL"
+            url: "//github.com/MiguelDotL"
         }
     ];
 
@@ -44,18 +47,31 @@ const NavBar = () => {
         window.addEventListener("scroll", onScroll);
     }, []);
 
-    const linkIsActive = (linkName) => {
-        if (activeLink === linkName) return "active";
+    const handleToggle = () => {
+        console.log("toggleing");
+        setExpanded(expanded ? false : "expanded");
+        setBgTransparent(!bgTransparent);
     };
 
-    // const updateActiveLink = (linkName) => {
-    //     setActiveLink(linkName);
-    // };
+    const linkIsActive = () => {
+        const hash = window.location.hash;
+        if (activeLink === hash) return "active";
+    };
+
+    const onLinkClick = (linkName) => {
+        setBgTransparent(false);
+        setActiveLink(linkName);
+        setExpanded(false);
+    };
 
     return (
-        <Navbar className={hasScrolled && "has-scrolled"} bg="" expand="lg">
+        <Navbar
+            className={`${bgTransparent && "has-bg"} ${hasScrolled && "has-scrolled"} `}
+            expand="lg"
+            expanded={expanded}
+        >
             <Container>
-                <Navbar.Brand onClick={() => window.scrollTo(0, 0)}>
+                <Navbar.Brand href="#home">
                     <div className="logo-bg">
                         <img src={logo} className="logo" alt="logo" />
                     </div>
@@ -64,41 +80,49 @@ const NavBar = () => {
                     </div>
                 </Navbar.Brand>
 
-                <Navbar.Toggle aria-controls="basic-navbar-nav">
+                <Navbar.Toggle aria-controls="basic-navbar-nav" onClick={handleToggle}>
                     <span className="navbar-toggler-icon"></span>
                 </Navbar.Toggle>
 
                 <Navbar.Collapse id="basic-navbar-nav">
                     <Nav className="me-auto">
                         <Nav.Link
-                            href="#about-me"
-                            className={`${linkIsActive("about-me")} navbar-link`}
-                            onClick={() => setActiveLink("about-me")}
+                            href="#home"
+                            className={`${linkIsActive()} navbar-link`}
+                            onClick={() => onLinkClick("home")}
                         >
-                            About Me
+                            Home
                         </Nav.Link>
                         <Nav.Link
                             href="#skills"
-                            className={`${linkIsActive("skills")} navbar-link`}
-                            onClick={() => setActiveLink("skills")}
+                            className={`${linkIsActive()} navbar-link`}
+                            onClick={() => onLinkClick("skills")}
                         >
                             Skills
                         </Nav.Link>
                         <Nav.Link
                             href="#projects"
-                            className={`${linkIsActive("projects")} navbar-link`}
-                            onClick={() => setActiveLink("projects")}
+                            className={`${linkIsActive()} navbar-link`}
+                            onClick={() => onLinkClick("projects")}
                         >
                             Projects
+                        </Nav.Link>
+                        <Nav.Link
+                            href="#contact"
+                            className={`${linkIsActive()} navbar-link`}
+                            onClick={() => onLinkClick("contact")}
+                        >
+                            Contact
                         </Nav.Link>
                     </Nav>
                     <span className="navbar-text">
                         <SocialIcons config={socialsConfig} />
                         <button
-                            className="contact-button"
-                            onClick={() => console.log("letsConnect")}
+                            className="resume-button"
+                            onClick={() => console.log("do resume things here")}
                         >
-                            <span>Let's Connect</span>
+                            <FileEarmarkText size={20} className="me-2" />
+                            <span>My Resume</span>
                         </button>
                     </span>
                 </Navbar.Collapse>
