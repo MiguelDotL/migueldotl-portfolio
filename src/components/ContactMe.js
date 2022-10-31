@@ -2,7 +2,7 @@ import "../assets/styles/Contact.css";
 import { useState } from "react";
 import { Col, Container, Row } from "react-bootstrap";
 import contactImage from "../assets/images/bitmoji/bitmoji-laptop-2.png";
-import getForm from "../apis/getForm";
+import getForm from "../apis/getForm.js";
 
 const ContactMe = () => {
     const initialValues = {
