@@ -1,8 +1,9 @@
 import "../assets/styles/Contact.css";
 import { useState } from "react";
 import { Col, Container, Row } from "react-bootstrap";
-import contactImage from "../assets/images/bitmoji/bitmoji-laptop-2.png";
+import TrackVisibility from "react-on-screen";
 import getForm from "../apis/getForm.js";
+import contactImage from "../assets/images/bitmoji/bitmoji-laptop-2.png";
 
 const ContactMe = () => {
     const initialValues = {
@@ -72,8 +73,18 @@ const ContactMe = () => {
             <Container>
                 <Row className="align-items-center">
                     <Col md={6} className="contact-image-container">
-                        <h2 className="hire-me nowrap">Wanna Hire Me?</h2>
-                        <img src={contactImage} alt="" />
+                        <TrackVisibility partialVisibility once>
+                            {({ isVisible }) => (
+                                <div
+                                    className={`content animate__opacity-0 ${
+                                        isVisible && "animate__animated animate__fadeIn"
+                                    }`}
+                                >
+                                    <h2 className="hire-me nowrap">Wanna Hire Me?</h2>
+                                    <img className="" src={contactImage} alt="" />
+                                </div> //
+                            )}
+                        </TrackVisibility>
                     </Col>
                     <Col md={6} className="contact-form-container">
                         <h3 className="hire-me">Wanna Hire Me?</h3>

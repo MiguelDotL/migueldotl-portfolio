@@ -5,6 +5,10 @@
     position: relative;
 }
 
+.projects .content {
+    /* opacity: 0; */
+}
+
 .projects .container {
     position: relative;
 }

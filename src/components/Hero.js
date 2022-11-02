@@ -1,8 +1,9 @@
 import "../assets/styles/Hero.css";
-import bitmojiSpacePlanet from "../assets/images/bitmoji/bitmoji-space-planet-2.png";
+import { useEffect, useState } from "react";
 import { Col, Container, Row } from "react-bootstrap";
 import { ArrowRightCircle } from "react-bootstrap-icons";
-import { useEffect, useState } from "react";
+import TrackVisibility from "react-on-screen";
+import bitmojiSpacePlanet from "../assets/images/bitmoji/bitmoji-space-planet-2.png";
 
 const Hero = () => {
     const [isTyping, setIsTyping] = useState(true);
@@ -59,47 +60,64 @@ const Hero = () => {
         <section id="home" className="hero about-me">
             <Container>
                 <Row className="align-items-center">
-                    <Col className="content" xs={12} md={7} xl={7}>
-                        <span className="tagline">Thanks for dropping by</span>
-                        <h1 className="intro-header">Hi, I'm Miguel!</h1>
-                        <h1>
-                            I'm a <span className="typing-text">{jobTitle}</span>
-                        </h1>
-                        <p className="copy">
-                            My journey into programming began in 2005. I now have over{" "}
-                            <a
-                                className="accent nowrap"
-                                href="//www.linkedin.com/in/migueldotl/"
-                                rel="noreferrer"
-                                target="_blank"
-                            >
-                                {yearsOfExp} years
-                            </a>{" "}
-                            of professional experience. I place equal importantce on form
-                            and function, always considering the client's objective, the
-                            end-user's experience, and parsability for others who may work
-                            on the project. When I'm not writing code, I enjoy making
-                            music and learning{" "}
-                            <a
-                                className="accent nowrap"
-                                href="//www.duolingo.com/profile/MiguelDotL"
-                                rel="noreferrer"
-                                target="_blank"
-                            >
-                                new languages
-                            </a>
-                            .
-                        </p>
-
-                        <button
-                            className="hero-contact-button"
-                            onClick={() =>
-                                document.getElementById("contact").scrollIntoView()
-                            }
-                        >
-                            Let's Chat
-                            <ArrowRightCircle size={25} />
-                        </button>
+                    <Col xs={12} md={7} xl={7}>
+                        <TrackVisibility once>
+                            {({ isVisible }) => (
+                                <div
+                                    className={`content ${
+                                        isVisible &&
+                                        "animate__animated animate__fadeIn animate__slower"
+                                    }`}
+                                >
+                                    <span className="tagline">
+                                        Thanks for dropping by
+                                    </span>
+                                    <h1 className="intro-header">Hi, I'm Miguel!</h1>
+                                    <h1>
+                                        I'm a{" "}
+                                        <span className="typing-text">{jobTitle}</span>
+                                    </h1>
+                                    <p className="copy">
+                                        My journey into programming began in 2005. I now
+                                        have over{" "}
+                                        <a
+                                            className="accent nowrap"
+                                            href="//www.linkedin.com/in/migueldotl/"
+                                            rel="noreferrer"
+                                            target="_blank"
+                                        >
+                                            {yearsOfExp} years
+                                        </a>{" "}
+                                        of professional experience. I place equal
+                                        importantce on form and function, always
+                                        considering the client's objective, the end-user's
+                                        experience, and parsability for others who may
+                                        work on the project. When I'm not writing code, I
+                                        enjoy making music and learning{" "}
+                                        <a
+                                            className="accent nowrap"
+                                            href="//www.duolingo.com/profile/MiguelDotL"
+                                            rel="noreferrer"
+                                            target="_blank"
+                                        >
+                                            new languages
+                                        </a>
+                                        .
+                                    </p>
+                                    <button
+                                        className="hero-contact-button"
+                                        onClick={() =>
+                                            document
+                                                .getElementById("contact")
+                                                .scrollIntoView()
+                                        }
+                                    >
+                                        Let's Chat
+                                        <ArrowRightCircle size={25} />
+                                    </button>
+                                </div>
+                            )}
+                        </TrackVisibility>
                     </Col>
                     <Col className="image-col" xs={12} md={5} xl={5}>
                         <img
