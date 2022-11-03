@@ -25,7 +25,6 @@ nav.navbar.has-scrolled {
 
 /* ==== Nav Logo ==== */
 nav.navbar .navbar-brand {
-  /* width: 9%; */
   cursor: pointer;
   display: flex;
   align-items: center;
@@ -222,7 +221,6 @@ nav.navbar.has-bg {
 }
 
 nav.navbar .navbar-collapse {
-  /* height: 0vh; */
   transition: all 0.3s ease-in-out;
 }
 
@@ -233,7 +231,6 @@ nav.navbar.has-bg {
 
 nav.navbar .navbar-collapse {
   margin: 2em 0 0;
-  /* height: calc(100vh - 50px); */
   transition: all 0.3s ease-in-out;
 }
 
@@ -280,8 +277,6 @@ nav.navbar .navbar-collapse {
     margin: 0 0 0 1em;
   }
 
-  .navbar-text .resume-button {}
-
   nav.navbar .navbar-brand {
 
     width: 3em;
@@ -298,7 +293,6 @@ nav.navbar .navbar-collapse {
 @media screen and (min-width: 1200px) {
   nav.navbar .navbar-brand {
     width: 16em;
-    /* width: 4em; */
   }
 
   nav.navbar .navbar-brand .brand-text {

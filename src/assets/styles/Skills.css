@@ -24,15 +24,10 @@
 }
 
 .skills p.copy {
-    /* color: #B8B8B8; */
-    /* font-size: 18px; */
-    /* letter-spacing: 0.8px; */
-    /* line-height: 1.5em; */
     margin: 14px auto 75px;
 }
 
 .skills-slider {
-    /* width: 80%; */
     margin: 0 auto;
     position: relative;
 }
@@ -52,7 +47,6 @@
     font-size: 37.5vw;
     font-size: 32vw;
     margin: 0 auto 15px auto;
-    /* width: 50%; */
     filter: brightness(0) invert(1);
     transition: 0.3s ease-in-out;
 }
@@ -145,5 +139,4 @@
     .skills-slider .item i.devicon {
         font-size: 10em;
     }
-
 }

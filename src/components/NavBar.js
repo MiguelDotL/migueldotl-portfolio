@@ -3,7 +3,6 @@ import "../assets/styles/NavBar.css";
 import { useState, useEffect } from "react";
 import { Container, Nav, Navbar } from "react-bootstrap";
 import { FileEarmarkText } from "react-bootstrap-icons";
-// import NavDropdown from "react-bootstrap/NavDropdown";
 import SocialIcons from "./SocialIcons";
 
 import logo from "../assets/images/logo.svg";
@@ -16,6 +15,13 @@ const NavBar = () => {
     const [activeLink, setActiveLink] = useState("home");
     const [hasScrolled, setHasScrolled] = useState(false);
     const [bgTransparent, setBgTransparent] = useState(false);
+
+    const navLinks = [
+        { name: "home", text: "Home" },
+        { name: "skills", text: "Skills" },
+        { name: "projects", text: "Projects" },
+        { name: "contact", text: "Contact" }
+    ];
 
     const socialsConfig = [
         {
@@ -48,19 +54,17 @@ const NavBar = () => {
     }, []);
 
     const handleToggle = () => {
-        console.log("toggleing");
         setExpanded(expanded ? false : "expanded");
         setBgTransparent(!bgTransparent);
     };
 
-    const linkIsActive = () => {
-        const hash = window.location.hash;
-        if (activeLink === hash) return "active";
+    const handleActiveLink = (link) => {
+        if (activeLink === link) return "active";
     };
 
     const onLinkClick = (linkName) => {
-        setBgTransparent(false);
         setActiveLink(linkName);
+        setBgTransparent(false);
         setExpanded(false);
     };
 
@@ -86,40 +90,26 @@ const NavBar = () => {
 
                 <Navbar.Collapse id="basic-navbar-nav">
                     <Nav className="me-auto">
-                        <Nav.Link
-                            href="#home"
-                            className={`${linkIsActive()} navbar-link`}
-                            onClick={() => onLinkClick("home")}
-                        >
-                            Home
-                        </Nav.Link>
-                        <Nav.Link
-                            href="#skills"
-                            className={`${linkIsActive()} navbar-link`}
-                            onClick={() => onLinkClick("skills")}
-                        >
-                            Skills
-                        </Nav.Link>
-                        <Nav.Link
-                            href="#projects"
-                            className={`${linkIsActive()} navbar-link`}
-                            onClick={() => onLinkClick("projects")}
-                        >
-                            Projects
-                        </Nav.Link>
-                        <Nav.Link
-                            href="#contact"
-                            className={`${linkIsActive()} navbar-link`}
-                            onClick={() => onLinkClick("contact")}
-                        >
-                            Contact
-                        </Nav.Link>
+                        {navLinks.map(({ name, text }) => (
+                            <Nav.Link
+                                href={`#${name}`}
+                                key={name}
+                                className={`${handleActiveLink(name)} navbar-link`}
+                                onClick={() => onLinkClick(name)}
+                            >
+                                {text}
+                            </Nav.Link>
+                        ))}
                     </Nav>
                     <span className="navbar-text">
                         <SocialIcons config={socialsConfig} />
                         <button
                             className="resume-button"
-                            onClick={() => console.log("do resume things here")}
+                            onClick={() =>
+                                window.open(
+                                    `${process.env.PUBLIC_URL}/resources/miguel_lozano_resume.pdf`
+                                )
+                            }
                         >
                             <FileEarmarkText size={20} className="me-2" />
                             <span>My Resume</span>
