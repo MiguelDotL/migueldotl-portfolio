@@ -121,7 +121,7 @@ const NavBar = () => {
                             className="resume-button"
                             onClick={() =>
                                 window.open(
-                                    `${process.env.PUBLIC_URL}/resources/resume.pdf`
+                                    `${process.env.PUBLIC_URL}/resources/miguel_lozano_resume.pdf`
                                 )
                             }
                         >
