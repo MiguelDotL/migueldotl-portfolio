@@ -3,7 +3,6 @@ import "../assets/styles/NavBar.css";
 import { useState, useEffect } from "react";
 import { Container, Nav, Navbar } from "react-bootstrap";
 import { FileEarmarkText } from "react-bootstrap-icons";
-// import NavDropdown from "react-bootstrap/NavDropdown";
 import SocialIcons from "./SocialIcons";
 
 import logo from "../assets/images/logo.svg";
@@ -55,7 +54,6 @@ const NavBar = () => {
     }, []);
 
     const handleToggle = () => {
-        console.log("toggleing");
         setExpanded(expanded ? false : "expanded");
         setBgTransparent(!bgTransparent);
     };
