@@ -177,7 +177,7 @@ a.project-card {
 .project-content {
     position: absolute;
     text-align: center;
-    top: 65%;
+    top: 100%;
     left: 50%;
     transform: translate(-50%, -50%);
     transition: 0.5s ease-in-out;
