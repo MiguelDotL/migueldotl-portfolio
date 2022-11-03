@@ -17,6 +17,13 @@ const NavBar = () => {
     const [hasScrolled, setHasScrolled] = useState(false);
     const [bgTransparent, setBgTransparent] = useState(false);
 
+    const navLinks = [
+        { name: "home", text: "Home" },
+        { name: "skills", text: "Skills" },
+        { name: "projects", text: "Projects" },
+        { name: "contact", text: "Contact" }
+    ];
+
     const socialsConfig = [
         {
             className: "linked-in",
@@ -53,14 +60,13 @@ const NavBar = () => {
         setBgTransparent(!bgTransparent);
     };
 
-    const linkIsActive = () => {
-        const hash = window.location.hash;
-        if (activeLink === hash) return "active";
+    const handleActiveLink = (link) => {
+        if (activeLink === link) return "active";
     };
 
     const onLinkClick = (linkName) => {
-        setBgTransparent(false);
         setActiveLink(linkName);
+        setBgTransparent(false);
         setExpanded(false);
     };
 
@@ -86,34 +92,16 @@ const NavBar = () => {
 
                 <Navbar.Collapse id="basic-navbar-nav">
                     <Nav className="me-auto">
-                        <Nav.Link
-                            href="#home"
-                            className={`${linkIsActive()} navbar-link`}
-                            onClick={() => onLinkClick("home")}
-                        >
-                            Home
-                        </Nav.Link>
-                        <Nav.Link
-                            href="#skills"
-                            className={`${linkIsActive()} navbar-link`}
-                            onClick={() => onLinkClick("skills")}
-                        >
-                            Skills
-                        </Nav.Link>
-                        <Nav.Link
-                            href="#projects"
-                            className={`${linkIsActive()} navbar-link`}
-                            onClick={() => onLinkClick("projects")}
-                        >
-                            Projects
-                        </Nav.Link>
-                        <Nav.Link
-                            href="#contact"
-                            className={`${linkIsActive()} navbar-link`}
-                            onClick={() => onLinkClick("contact")}
-                        >
-                            Contact
-                        </Nav.Link>
+                        {navLinks.map(({ name, text }) => (
+                            <Nav.Link
+                                href={`#${name}`}
+                                key={name}
+                                className={`${handleActiveLink(name)} navbar-link`}
+                                onClick={() => onLinkClick(name)}
+                            >
+                                {text}
+                            </Nav.Link>
+                        ))}
                     </Nav>
                     <span className="navbar-text">
                         <SocialIcons config={socialsConfig} />
