@@ -20,7 +20,7 @@ const ContactMe = () => {
                                 >
                                     <h2 className="hire-me nowrap">Wanna Hire Me?</h2>
                                     <img className="" src={contactImage} alt="" />
-                                </div> //
+                                </div>
                             )}
                         </TrackVisibility>
                     </Col>

@@ -72,7 +72,6 @@
 
 .contact form input:focus, .contact form textarea:focus {
     background: rgba(255, 255, 255, 1);
-    /* color: #121212; */
     color: var(--dark-grey);
     box-shadow:
         inset 2px 2px 4px #d1d9e6,
@@ -90,7 +89,6 @@
 }
 
 .contact form input:focus::placeholder, .contact form textarea:focus::placeholder {
-    /* color: #121212; */
     color: var(--dark-grey);
     opacity: 0.8;
 }
@@ -109,7 +107,6 @@
 .contact form button {
     background-color: #fff;
     border-radius: 0;
-    /* color: #000; */
     color: var(--dark-grey);
     font-size: 18px;
     font-weight: 700;
@@ -130,7 +127,6 @@
 
 .contact form button::before {
     content: "";
-    /* background: #121212; */
     background: var(--dark-grey);
     width: 0;
     height: 100%;

@@ -42,7 +42,6 @@ const ContactForm = () => {
         getForm
             .post(formEndpoint, formValues)
             .then((response) => {
-                console.log("response: ", response);
                 setFormStatus({
                     success: response.data.success,
                     status: response.status,

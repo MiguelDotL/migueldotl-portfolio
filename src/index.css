@@ -1,4 +1,3 @@
-/* @import "animate.css"; */
 @import "devicon";
 
 /* ==== Fonts ==== */
@@ -106,8 +105,6 @@ a:hover {
   text-decoration: none;
 }
 
-/* img { width: 100%; height: auto; } */
-
 button {
   border: 0;
   background-color: transparent;
@@ -116,13 +113,6 @@ button {
 input:focus, textarea:focus, select:focus {
   outline: none;
 }
-
-/* @media (min-width:1700px) {
-  main .container {
-    max-width: 100%;
-    padding: 0 150px;
-  }
-} */
 
 /* .success, */
 p.success {
@@ -146,7 +136,6 @@ p.copy {
 }
 
 .accent {
-  /* font-style: italic; */
   color: var(--almost-white);
   font-weight: 500;
   text-decoration: underline;
