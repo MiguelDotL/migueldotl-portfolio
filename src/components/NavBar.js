@@ -119,7 +119,11 @@ const NavBar = () => {
                         <SocialIcons config={socialsConfig} />
                         <button
                             className="resume-button"
-                            onClick={() => console.log("do resume things here")}
+                            onClick={() =>
+                                window.open(
+                                    `${process.env.PUBLIC_URL}/resources/resume.pdf`
+                                )
+                            }
                         >
                             <FileEarmarkText size={20} className="me-2" />
                             <span>My Resume</span>
