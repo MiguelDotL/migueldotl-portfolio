@@ -1,13 +1,13 @@
-import { useEffect, useState } from "react";
-import { ArrowRightCircle } from "react-bootstrap-icons";
-import TrackVisibility from "react-on-screen";
+import { useEffect, useState } from 'react';
+import { ArrowRightCircle } from 'react-bootstrap-icons';
+import TrackVisibility from 'react-on-screen';
 
 const HeroContent = () => {
     const [isTyping, setIsTyping] = useState(true);
-    const [jobTitle, setJobTitle] = useState("");
+    const [jobTitle, setJobTitle] = useState('');
     const [roleCount, setRoleCount] = useState(0);
     const [typingDelay, setTypingDelay] = useState(200 - Math.random() * 50);
-    const roles = ["Front-End", "Back-End", "Full-Stack Developer   "];
+    const roles = ['Front-End', 'Back-End', 'Full-Stack Developer   '];
     const pauseTime = 3456; // time between typing and deleting
     const yearsOfExp = new Date().getFullYear() - 2016;
 
@@ -39,7 +39,7 @@ const HeroContent = () => {
         if (isTyping && currentText === fullText) {
             setIsTyping(false);
             setTypingDelay(pauseTime);
-        } else if (!isTyping && currentText === "") {
+        } else if (!isTyping && currentText === '') {
             setIsTyping(true);
             setRoleCount(roleCount + 1);
             setTypingDelay(321);
@@ -51,7 +51,7 @@ const HeroContent = () => {
             {({ isVisible }) => (
                 <div
                     className={`content ${
-                        isVisible && "animate__animated animate__fadeIn animate__slower"
+                        isVisible && 'animate__animated animate__fadeIn animate__slower'
                     }`}
                 >
                     <span className="tagline">Thanks for dropping by</span>
@@ -60,20 +60,20 @@ const HeroContent = () => {
                         I'm a <span className="typing-text">{jobTitle}</span>
                     </h1>
                     <p className="copy">
-                        My journey into programming began in 2005. I now have over{" "}
+                        My journey into programming began in 2005. I now have over{' '}
                         <a
                             className="accent nowrap"
-                            href="//www.linkedin.com/in/migueldotl/"
+                            href="https://www.linkedin.com/in/migueldot/"
                             rel="noreferrer"
                             target="_blank"
                         >
                             {yearsOfExp} years
-                        </a>{" "}
+                        </a>{' '}
                         of professional experience. I place equal importantce on form and
                         function, always considering the client's objective, the
                         end-user's experience, and parsability for others who may work on
                         the project. When I'm not writing code, I enjoy making music and
-                        learning{" "}
+                        learning{' '}
                         <a
                             className="accent nowrap"
                             href="//www.duolingo.com/profile/MiguelDotL"
@@ -87,7 +87,7 @@ const HeroContent = () => {
                     <button
                         className="hero-contact-button"
                         onClick={() =>
-                            document.getElementById("contact").scrollIntoView()
+                            document.getElementById('contact').scrollIntoView()
                         }
                     >
                         Let's Chat

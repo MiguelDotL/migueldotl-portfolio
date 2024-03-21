@@ -1,45 +1,49 @@
-import "../assets/styles/NavBar.css";
+import '../assets/styles/NavBar.css';
 
-import { useState, useEffect } from "react";
-import { Container, Nav, Navbar } from "react-bootstrap";
-import { FileEarmarkText } from "react-bootstrap-icons";
-import SocialIcons from "./SocialIcons";
+import { useState, useEffect } from 'react';
+import { Container, Nav, Navbar } from 'react-bootstrap';
+import { FileEarmarkText } from 'react-bootstrap-icons';
+import SocialIcons from './SocialIcons';
 
-import logo from "../assets/images/logo.svg";
-import linkedInIcon from "../assets/images/icons/linked-in.svg";
-import twitterIcon from "../assets/images/icons/twitter.svg";
-import githubIcon from "../assets/images/icons/github-2.svg";
+import logo from '../assets/images/logo.svg';
+import linkedInIcon from '../assets/images/icons/linked-in.svg';
+import twitterIcon from '../assets/images/icons/twitter.svg';
+import twitterXIcon from '../assets/images/icons/twitter-x.svg';
+import githubIcon from '../assets/images/icons/github-2.svg';
 
 const NavBar = () => {
     const [expanded, setExpanded] = useState(false);
-    const [activeLink, setActiveLink] = useState("home");
+    const [activeLink, setActiveLink] = useState('home');
     const [hasScrolled, setHasScrolled] = useState(false);
     const [bgTransparent, setBgTransparent] = useState(false);
 
     const navLinks = [
-        { name: "home", text: "Home" },
-        { name: "skills", text: "Skills" },
-        { name: "projects", text: "Projects" },
-        { name: "contact", text: "Contact" }
+        { name: 'home', text: 'Home' },
+        { name: 'skills', text: 'Skills' },
+        { name: 'projects', text: 'Projects' },
+        { name: 'contact', text: 'Contact' }
     ];
 
     const socialsConfig = [
         {
-            className: "linked-in",
+            className: 'linked-in',
             icon: linkedInIcon,
-            url: "//www.linkedin.com/in/migueldotl/"
+            url: 'https://www.linkedin.com/in/migueldot/'
         },
         {
-            className: "twitter",
-            icon: twitterIcon,
-            url: "//twitter.com/MiguelDotL"
+            className: 'twitter',
+            icon: twitterXIcon,
+            // icon: twitterIcon,
+            url: '//twitter.com/MiguelDotL'
         },
         {
-            className: "github",
+            className: 'github',
             icon: githubIcon,
-            url: "//github.com/MiguelDotL"
+            url: '//github.com/MiguelDotL'
         }
     ];
+
+    const resumePath = '/resources/miguel_lozano_resume_2024.pdf';
 
     useEffect(() => {
         const onScroll = () => {
@@ -50,16 +54,16 @@ const NavBar = () => {
             }
         };
 
-        window.addEventListener("scroll", onScroll);
+        window.addEventListener('scroll', onScroll);
     }, []);
 
     const handleToggle = () => {
-        setExpanded(expanded ? false : "expanded");
+        setExpanded(expanded ? false : 'expanded');
         setBgTransparent(!bgTransparent);
     };
 
     const handleActiveLink = (link) => {
-        if (activeLink === link) return "active";
+        if (activeLink === link) return 'active';
     };
 
     const onLinkClick = (linkName) => {
@@ -70,7 +74,7 @@ const NavBar = () => {
 
     return (
         <Navbar
-            className={`${bgTransparent && "has-bg"} ${hasScrolled && "has-scrolled"} `}
+            className={`${bgTransparent && 'has-bg'} ${hasScrolled && 'has-scrolled'} `}
             expand="lg"
             expanded={expanded}
         >
@@ -106,9 +110,7 @@ const NavBar = () => {
                         <button
                             className="resume-button"
                             onClick={() =>
-                                window.open(
-                                    `${process.env.PUBLIC_URL}/resources/miguel_lozano_resume.pdf`
-                                )
+                                window.open(`${process.env.PUBLIC_URL}${resumePath}`)
                             }
                         >
                             <FileEarmarkText size={20} className="me-2" />
