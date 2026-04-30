@@ -99,20 +99,23 @@ const SkillsCarousel = () => {
         { name: "Claude", iconPath: claudeIcon, color: "#D97757" }
     ];
 
-    const handleAfterChange = (_previousSlide, state) => {
-        const { currentSlide, totalItems, slidesToShow } = state;
-        // react-multi-carousel internals: clones array layout is
-        // [last 2*slidesToShow originals] + [originals] + [first 2*slidesToShow originals].
-        // It snaps when currentSlide reaches the trailing clone region
-        // (>= 2*slidesToShow + originalLength) or hits the leading clone region (=== 0).
+    const handleBeforeChange = (nextSlide, state) => {
+        const { totalItems, slidesToShow } = state;
+        // react-multi-carousel renders [end-clones, originals, start-clones].
+        // The carousel snaps when nextSlide hits a clone region:
+        // start clone (=== 0) or end clone (>= 2*slidesToShow + originalLength).
         const originalLength = totalItems - 4 * slidesToShow;
-        const atStart = currentSlide === 0;
-        const atEnd = currentSlide >= 2 * slidesToShow + originalLength;
-        if (!atStart && !atEnd) return;
+        const willSnap =
+            nextSlide === 0 || nextSlide >= 2 * slidesToShow + originalLength;
+        if (!willSnap) return;
+        // Set the class BEFORE the snap render so transitions are already
+        // suppressed when aria-hidden flips. afterChange fires too late —
+        // there's a paint frame between snap and class-add that re-introduces
+        // the cross-fade flash.
         setIsSnapping(true);
         if (snapResetRef.current) clearTimeout(snapResetRef.current);
-        // Long enough to cover the internal snap setState + paint.
-        snapResetRef.current = setTimeout(() => setIsSnapping(false), 100);
+        // Cover full animation (~400ms) + snap render + a buffer.
+        snapResetRef.current = setTimeout(() => setIsSnapping(false), 600);
     };
 
     useEffect(() => {
@@ -128,7 +131,7 @@ const SkillsCarousel = () => {
             responsive={responsive}
             infinite={true}
             swipeable={true}
-            afterChange={handleAfterChange}
+            beforeChange={handleBeforeChange}
         >
             {skills.map((skill) => {
                 const inactiveTag = skill.iconInactive || skill.class;
