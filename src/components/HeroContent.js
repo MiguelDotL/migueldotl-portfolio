@@ -69,7 +69,7 @@ const HeroContent = () => {
                         >
                             {yearsOfExp} years
                         </a>{' '}
-                        of professional experience. I place equal importantce on form and
+                        of professional experience. I place equal importance on form and
                         function, always considering the client's objective, the
                         end-user's experience, and parsability for others who may work on
                         the project. When I'm not writing code, I enjoy making music and
