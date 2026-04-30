@@ -1,5 +1,40 @@
-// jest-dom adds custom jest matchers for asserting on DOM nodes.
-// allows you to do things like:
-// expect(element).toHaveTextContent(/react/i)
-// learn more: https://github.com/testing-library/jest-dom
 import '@testing-library/jest-dom';
+
+class IntersectionObserverMock {
+    constructor(callback) {
+        this.callback = callback;
+    }
+    observe = (target) => {
+        this.callback([{ isIntersecting: true, target }], this);
+    };
+    unobserve = () => {};
+    disconnect = () => {};
+    takeRecords = () => [];
+    root = null;
+    rootMargin = '';
+    thresholds = [];
+}
+
+class ResizeObserverMock {
+    observe = () => {};
+    unobserve = () => {};
+    disconnect = () => {};
+}
+
+global.IntersectionObserver = IntersectionObserverMock;
+global.ResizeObserver = ResizeObserverMock;
+
+window.matchMedia =
+    window.matchMedia ||
+    ((query) => ({
+        matches: false,
+        media: query,
+        onchange: null,
+        addEventListener: () => {},
+        removeEventListener: () => {},
+        addListener: () => {},
+        removeListener: () => {},
+        dispatchEvent: () => false
+    }));
+
+Element.prototype.scrollIntoView = Element.prototype.scrollIntoView || (() => {});
