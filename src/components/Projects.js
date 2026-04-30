@@ -1,7 +1,7 @@
 import "../assets/styles/Projects.css";
 import { Col, Container, Row, Nav, Tab } from "react-bootstrap";
+import { useInView } from "react-intersection-observer";
 import ProjectList from "./ProjectList";
-import TrackVisibility from "react-on-screen";
 
 import generalProvision from "../assets/images/projects/general-provision-512.png";
 import trimAgency from "../assets/images/projects/trim-agency-512.png";
@@ -52,6 +52,8 @@ const clientProjects = [
 ];
 
 const Projects = () => {
+    const { ref, inView } = useInView({ triggerOnce: true });
+
     return (
         <section id="projects" className="projects">
             <img
@@ -62,14 +64,13 @@ const Projects = () => {
             <Container>
                 <Row>
                     <Col>
-                        <TrackVisibility partialVisibility once>
-                            {({ isVisible }) => (
-                                <div
-                                    className={`content animate__opacity-0 ${
-                                        isVisible &&
-                                        "animate__animated animate__fadeIn animate__slower"
-                                    }`}
-                                >
+                        <div
+                            ref={ref}
+                            className={`content animate__opacity-0 ${
+                                inView &&
+                                "animate__animated animate__fadeIn animate__slower"
+                            }`}
+                        >
                                     <h2>Projects</h2>
                                     <p className="copy">
                                         Over the course of my career, I have had the
@@ -149,9 +150,7 @@ const Projects = () => {
                                             </Tab.Pane>
                                         </Tab.Content>
                                     </Tab.Container>
-                                </div> // .content
-                            )}
-                        </TrackVisibility>
+                                </div>
                     </Col>
                 </Row>
             </Container>
