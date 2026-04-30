@@ -1,4 +1,5 @@
 import { act, render, screen } from '@testing-library/react';
+import { vi } from 'vitest';
 import HeroContent from './HeroContent';
 
 describe('HeroContent', () => {
@@ -20,7 +21,7 @@ describe('HeroContent', () => {
     });
 
     test('typing animation populates jobTitle over time', () => {
-        jest.useFakeTimers();
+        vi.useFakeTimers();
         render(<HeroContent />);
 
         // typing-text starts empty
@@ -29,12 +30,12 @@ describe('HeroContent', () => {
 
         // advance ~1.5s of typing — should have populated some characters from "Front-End"
         act(() => {
-            jest.advanceTimersByTime(1500);
+            vi.advanceTimersByTime(1500);
         });
 
         expect(typingElement.textContent.length).toBeGreaterThan(0);
         expect('Front-End'.startsWith(typingElement.textContent)).toBe(true);
 
-        jest.useRealTimers();
+        vi.useRealTimers();
     });
 });

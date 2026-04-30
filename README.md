@@ -14,7 +14,7 @@ _[TODO: Miguel — short paragraph in your own voice: who you are, what you buil
 
 - **Framework:** React 18
 - **Styling:** Bootstrap 5 + custom CSS
-- **Build:** Create React App _(migration to Vite in progress — see [#15](https://github.com/MiguelDotL/react-portfolio/issues/15))_
+- **Build:** [Vite](https://vitejs.dev/) + `@vitejs/plugin-react`
 - **Hosting:** GitHub Pages (built artifact pushed to [`migueldotl.github.io`](https://github.com/MiguelDotL/migueldotl.github.io))
 
 ## Local development
@@ -23,7 +23,7 @@ _[TODO: Miguel — short paragraph in your own voice: who you are, what you buil
 git clone https://github.com/MiguelDotL/react-portfolio.git
 cd react-portfolio
 npm install
-npm start
+npm run dev
 ```
 
 App runs at [http://localhost:3000](http://localhost:3000).
@@ -34,7 +34,7 @@ App runs at [http://localhost:3000](http://localhost:3000).
 npm run build
 ```
 
-Outputs to `build/` (will become `dist/` post-Vite migration).
+Outputs to `dist/`.
 
 ## Project structure
 
@@ -46,7 +46,7 @@ src/
 │   ├── images/    # Project screenshots, icons, backgrounds
 │   ├── fonts/     # Custom fonts
 │   └── styles/    # Component-specific CSS
-└── index.js       # Entry point
+└── index.jsx      # Entry point
 ```
 
 ## Credits

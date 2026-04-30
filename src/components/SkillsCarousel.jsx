@@ -1,5 +1,6 @@
 import { useEffect, useRef } from "react";
-import Carousel from "react-multi-carousel";
+import CarouselDefault from "react-multi-carousel";
+const Carousel = CarouselDefault.default || CarouselDefault;
 import claudeIcon from "../assets/images/icons/claude.svg";
 import pythonIcon from "../assets/images/icons/python.svg";
 import fastapiIcon from "../assets/images/icons/fastapi.svg";
