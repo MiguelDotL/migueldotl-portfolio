@@ -14,27 +14,32 @@ const socialsConfig = [
     {
         className: "codepen",
         icon: codepenIcon,
-        url: "//codepen.io/MiguelDotL"
+        url: "//codepen.io/MiguelDotL",
+        label: "CodePen"
     },
     {
         className: "codewars",
         icon: codewarsIcon,
-        url: "//www.codewars.com/users/MiguelDotL"
+        url: "//www.codewars.com/users/MiguelDotL",
+        label: "Codewars"
     },
     {
         className: "codecademy",
         icon: codecademyIcon,
-        url: "//www.codecademy.com/profiles/MiguelDotL"
+        url: "//www.codecademy.com/profiles/MiguelDotL",
+        label: "Codecademy"
     },
     {
         className: "udemy",
         icon: udemyIcon,
-        url: "//www.udemy.com/user/miguel-lozano-4/"
+        url: "//www.udemy.com/user/miguel-lozano-4/",
+        label: "Udemy"
     },
     {
         className: "duolingo",
         icon: duolingoIcon,
-        url: "//www.duolingo.com/profile/MiguelDotL"
+        url: "//www.duolingo.com/profile/MiguelDotL",
+        label: "Duolingo"
     }
 ];
 

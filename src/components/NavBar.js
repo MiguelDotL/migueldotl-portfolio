@@ -28,18 +28,21 @@ const NavBar = () => {
         {
             className: 'linked-in',
             icon: linkedInIcon,
-            url: 'https://www.linkedin.com/in/migueldot/'
+            url: 'https://www.linkedin.com/in/migueldot/',
+            label: 'LinkedIn'
         },
         {
             className: 'twitter',
             icon: twitterXIcon,
             // icon: twitterIcon,
-            url: '//twitter.com/MiguelDotL'
+            url: '//twitter.com/MiguelDotL',
+            label: 'X (Twitter)'
         },
         {
             className: 'github',
             icon: githubIcon,
-            url: '//github.com/MiguelDotL'
+            url: '//github.com/MiguelDotL',
+            label: 'GitHub'
         }
     ];
 
