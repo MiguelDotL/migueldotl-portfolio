@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import CarouselDefault from "react-multi-carousel";
 const Carousel = CarouselDefault.default || CarouselDefault;
 import claudeIcon from "../assets/images/icons/claude.svg";
@@ -13,6 +13,11 @@ import linuxIcon from "../assets/images/icons/linux.svg";
 
 const SkillsCarousel = () => {
     const carouselRef = useRef(null);
+    // True briefly while the carousel snaps clone→original at the loop boundary.
+    // Disables filter transitions during the snap so the user doesn't see
+    // the cross-fade dip that reads as a flash on the first icon (#51).
+    const [isSnapping, setIsSnapping] = useState(false);
+    const snapResetRef = useRef(null);
 
     // Keyboard nav: ArrowLeft/Right scroll the carousel when Skills is in view
     useEffect(() => {
@@ -94,13 +99,36 @@ const SkillsCarousel = () => {
         { name: "Claude", iconPath: claudeIcon, color: "#D97757" }
     ];
 
+    const handleAfterChange = (_previousSlide, state) => {
+        const { currentSlide, totalItems, slidesToShow } = state;
+        // react-multi-carousel internals: clones array layout is
+        // [last 2*slidesToShow originals] + [originals] + [first 2*slidesToShow originals].
+        // It snaps when currentSlide reaches the trailing clone region
+        // (>= 2*slidesToShow + originalLength) or hits the leading clone region (=== 0).
+        const originalLength = totalItems - 4 * slidesToShow;
+        const atStart = currentSlide === 0;
+        const atEnd = currentSlide >= 2 * slidesToShow + originalLength;
+        if (!atStart && !atEnd) return;
+        setIsSnapping(true);
+        if (snapResetRef.current) clearTimeout(snapResetRef.current);
+        // Long enough to cover the internal snap setState + paint.
+        snapResetRef.current = setTimeout(() => setIsSnapping(false), 100);
+    };
+
+    useEffect(() => {
+        return () => {
+            if (snapResetRef.current) clearTimeout(snapResetRef.current);
+        };
+    }, []);
+
     return (
         <Carousel
             ref={carouselRef}
-            className="skills-slider"
+            className={`skills-slider ${isSnapping ? "is-snapping" : ""}`}
             responsive={responsive}
             infinite={true}
             swipeable={true}
+            afterChange={handleAfterChange}
         >
             {skills.map((skill) => {
                 const inactiveTag = skill.iconInactive || skill.class;
