@@ -34,3 +34,5 @@ audit-*.md
 claude-*.md
 notes/
 .claude/
+
+*storybook.log
