@@ -45,7 +45,7 @@ const ContactForm = () => {
         if (loading) return;
         setLoading(true);
 
-        const formEndpoint = "f/fc61ece9-9e62-44b7-8e77-a71d19cb1697";
+        const formEndpoint = import.meta.env.VITE_FORM_ENDPOINT;
 
         getForm
             .post(formEndpoint, formValues)
