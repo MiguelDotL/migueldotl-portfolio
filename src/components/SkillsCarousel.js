@@ -1,4 +1,6 @@
 import Carousel from "react-multi-carousel";
+import claudeIcon from "../assets/images/icons/claude.svg";
+
 const SkillsCarousel = () => {
     const responsive = {
         superLargeDesktop: {
@@ -36,11 +38,14 @@ const SkillsCarousel = () => {
         { name: "MySQL", class: "mysql-plain" },
         { name: "Ruby", class: "ruby-plain", color: "#940c00" },
         { name: "Ruby on Rails", class: "rails-plain", color: "#940c00" },
+        { name: "Python", class: "python-original" },
+        { name: "FastAPI", class: "fastapi-plain" },
         { name: "PostgreSQL", class: "postgresql-plain" },
         { name: "AWS", class: "amazonwebservices-original" },
         { name: "Linux", class: "linux-plain", color: "#EBC205" },
         { name: "GitHub", class: "github-original", color: "#9355AD" },
-        { name: "Git", class: "git-plain" }
+        { name: "Git", class: "git-plain" },
+        { name: "Claude", iconPath: claudeIcon, color: "#D97757" }
     ];
 
     return (
@@ -53,10 +58,18 @@ const SkillsCarousel = () => {
             {skills.map((skill) => {
                 return (
                     <div key={skill.name} className="item">
-                        <i
-                            className={`devicon devicon-${skill.class} colored`}
-                            style={{ color: skill.color }}
-                        ></i>
+                        {skill.iconPath ? (
+                            <img
+                                src={skill.iconPath}
+                                alt={`${skill.name} logo`}
+                                className="custom-skill-icon"
+                            />
+                        ) : (
+                            <i
+                                className={`devicon devicon-${skill.class} colored`}
+                                style={{ color: skill.color }}
+                            ></i>
+                        )}
                         <h5>{skill.name}</h5>
                     </div>
                 );
