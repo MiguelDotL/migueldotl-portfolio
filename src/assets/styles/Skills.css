@@ -72,6 +72,17 @@
     filter: brightness(1) invert(0);
 }
 
+/* During the infinite-loop snap (clone→original swap), suppress transitions
+   so the filter cross-fade between the two DOM copies doesn't read as a
+   flash on the first/last icon. See SkillsCarousel.jsx isSnapping logic. */
+.skills-slider.is-snapping .item,
+.skills-slider.is-snapping .item i.devicon,
+.skills-slider.is-snapping .item img.custom-skill-icon,
+.skills-slider.is-snapping .item .icon-inactive,
+.skills-slider.is-snapping .item img.icon-active {
+    transition: none !important;
+}
+
 /* Dual-render cross-fade: monochrome font glyph (inactive) ↔ multi-color SVG (active) */
 .skills-slider .item .icon-inactive,
 .skills-slider .item img.icon-active {
