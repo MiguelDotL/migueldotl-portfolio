@@ -25,7 +25,8 @@ describe('Projects', () => {
         });
     });
 
-    test('Personal and Misc tabs render and update aria-selected on click', () => {
+    test('Personal and Misc tabs render and update aria-selected on click', async () => {
+        const user = userEvent.setup();
         render(<Projects />);
 
         const clientTab = screen.getByRole('tab', { name: /Client Projects/i });
@@ -36,11 +37,11 @@ describe('Projects', () => {
         expect(personalTab).toHaveAttribute('aria-selected', 'false');
         expect(miscTab).toHaveAttribute('aria-selected', 'false');
 
-        userEvent.click(personalTab);
+        await user.click(personalTab);
         expect(personalTab).toHaveAttribute('aria-selected', 'true');
         expect(clientTab).toHaveAttribute('aria-selected', 'false');
 
-        userEvent.click(miscTab);
+        await user.click(miscTab);
         expect(miscTab).toHaveAttribute('aria-selected', 'true');
         expect(personalTab).toHaveAttribute('aria-selected', 'false');
     });
