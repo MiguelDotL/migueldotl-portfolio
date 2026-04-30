@@ -11,8 +11,9 @@ const SocialIcons = ({ config }) => {
                         href={social.url}
                         target="_blank"
                         rel="noreferrer"
+                        aria-label={social.label}
                     >
-                        <img src={social.icon} alt="" />
+                        <img src={social.icon} alt={social.label} />
                     </a>
                 );
             })}

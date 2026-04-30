@@ -72,6 +72,7 @@ const ContactForm = () => {
                         name="firstName"
                         value={formValues.firstName}
                         placeholder="First Name"
+                        aria-label="First Name"
                         onChange={onFormChange()}
                     />
                 </Col>
@@ -81,6 +82,7 @@ const ContactForm = () => {
                         name="lastName"
                         value={formValues.lastName}
                         placeholder="Last Name"
+                        aria-label="Last Name"
                         onChange={onFormChange()}
                     />
                 </Col>
@@ -92,6 +94,7 @@ const ContactForm = () => {
                         name="email"
                         value={formValues.email}
                         placeholder="Email Address"
+                        aria-label="Email Address"
                         onChange={onFormChange()}
                     />
                 </Col>
@@ -101,6 +104,7 @@ const ContactForm = () => {
                         name="phone"
                         value={formValues.phone}
                         placeholder="Phone Number"
+                        aria-label="Phone Number"
                         onChange={onFormChange()}
                     />
                 </Col>
@@ -111,6 +115,7 @@ const ContactForm = () => {
                         rows="6"
                         value={formValues.message}
                         placeholder="Message"
+                        aria-label="Message"
                         onChange={onFormChange()}
                     />
                 </Col>
