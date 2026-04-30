@@ -50,9 +50,9 @@ const SkillsCarousel = () => {
             infinite={true}
             swipeable={true}
         >
-            {skills.map((skill, index) => {
+            {skills.map((skill) => {
                 return (
-                    <div key={index} className="item">
+                    <div key={skill.name} className="item">
                         <i
                             className={`devicon devicon-${skill.class} colored`}
                             style={{ color: skill.color }}

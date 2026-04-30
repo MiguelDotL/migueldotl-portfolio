@@ -5,8 +5,8 @@ const ProjectList = ({ projects, eventKey }) => {
     return (
         <Tab.Pane eventKey={eventKey}>
             <Row>
-                {projects.map((project, index) => {
-                    return <ProjectCard key={index} {...project} />;
+                {projects.map((project) => {
+                    return <ProjectCard key={project.url} {...project} />;
                 })}
             </Row>
         </Tab.Pane>
