@@ -19,7 +19,7 @@ describe('NavBar', () => {
 
     test('toggles has-scrolled class when window scrolls past 50px', () => {
         const { container } = render(<NavBar />);
-        const navbar = container.querySelector('.navbar');
+        const navbar = container.querySelector('.navbar')!;
 
         expect(navbar.className).not.toMatch(/has-scrolled/);
 

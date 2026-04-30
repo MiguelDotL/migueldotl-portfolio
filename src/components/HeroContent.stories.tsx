@@ -1,9 +1,10 @@
+import type { Meta } from '@storybook/react-vite';
 import { Col, Container, Row } from 'react-bootstrap';
 import HeroContent from './HeroContent';
 import bitmojiSpacePlanet from '../assets/images/bitmoji/bitmoji-space-planet-2.png';
 import '../assets/styles/Hero.css';
 
-const meta = {
+const meta: Meta<typeof HeroContent> = {
     title: 'Components/HeroContent',
     component: HeroContent,
     decorators: [

@@ -1,6 +1,17 @@
 import "../assets/styles/Socials.css";
 
-const SocialIcons = ({ config }) => {
+export type SocialIconConfig = {
+    className: string;
+    icon: string;
+    url: string;
+    label: string;
+};
+
+type SocialIconsProps = {
+    config: SocialIconConfig[];
+};
+
+const SocialIcons = ({ config }: SocialIconsProps) => {
     return (
         <div className="social-icons">
             {config.map((social) => {

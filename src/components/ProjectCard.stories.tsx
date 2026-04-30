@@ -1,3 +1,4 @@
+import type { Meta } from '@storybook/react-vite';
 import { Row } from 'react-bootstrap';
 import ProjectCard from './ProjectCard';
 import '../assets/styles/Projects.css';
@@ -6,7 +7,7 @@ import orbyTv from '../assets/images/projects/orby-tv-2.png';
 import cSolutions from '../assets/images/projects/c-solutions-512.png';
 import filthyFood from '../assets/images/projects/filthy-food-512.png';
 
-const meta = {
+const meta: Meta<typeof ProjectCard> = {
     title: 'Components/ProjectCard',
     component: ProjectCard,
     decorators: [

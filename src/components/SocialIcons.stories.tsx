@@ -1,3 +1,4 @@
+import type { Meta } from '@storybook/react-vite';
 import SocialIcons from './SocialIcons';
 
 import linkedInIcon from '../assets/images/icons/linked-in.svg';
@@ -9,7 +10,7 @@ import codecademyIcon from '../assets/images/icons/codecademy-icon.svg';
 import udemyIcon from '../assets/images/icons/udemy-icon.svg';
 import duolingoIcon from '../assets/images/icons/duolingo-icon.svg';
 
-const meta = {
+const meta: Meta<typeof SocialIcons> = {
     title: 'Components/SocialIcons',
     component: SocialIcons,
     decorators: [

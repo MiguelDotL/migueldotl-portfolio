@@ -37,7 +37,7 @@ describe('ContactForm', () => {
     });
 
     test('submits form with values and shows success message', async () => {
-        getForm.post.mockResolvedValueOnce({ status: 200, data: { success: true } });
+        vi.mocked(getForm.post).mockResolvedValueOnce({ status: 200, data: { success: true } });
 
         const user = userEvent.setup();
         render(<ContactForm />);
@@ -48,10 +48,10 @@ describe('ContactForm', () => {
         await user.click(screen.getByRole('button', { name: /send/i }));
 
         await waitFor(() => {
-            expect(getForm.post).toHaveBeenCalledTimes(1);
+            expect(vi.mocked(getForm.post)).toHaveBeenCalledTimes(1);
         });
 
-        const [, payload] = getForm.post.mock.calls[0];
+        const [, payload] = vi.mocked(getForm.post).mock.calls[0] as [string, Record<string, string>];
         expect(payload.firstName).toBe('Miguel');
         expect(payload.email).toBe('a@b.com');
         expect(payload.message).toBe('Hello!');
@@ -62,7 +62,7 @@ describe('ContactForm', () => {
     });
 
     test('shows error message when submission fails', async () => {
-        getForm.post.mockRejectedValueOnce(new Error('Network down'));
+        vi.mocked(getForm.post).mockRejectedValueOnce(new Error('Network down'));
 
         const user = userEvent.setup();
         render(<ContactForm />);

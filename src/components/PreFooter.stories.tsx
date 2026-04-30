@@ -1,7 +1,8 @@
+import type { Meta } from '@storybook/react-vite';
 import PreFooter from './PreFooter';
 import '../assets/styles/Footer.css';
 
-const meta = {
+const meta: Meta<typeof PreFooter> = {
     title: 'Components/PreFooter',
     component: PreFooter,
     decorators: [

@@ -86,7 +86,7 @@ const HeroContent = () => {
             </p>
             <button
                 className="hero-contact-button"
-                onClick={() => document.getElementById('contact').scrollIntoView()}
+                onClick={() => document.getElementById('contact')?.scrollIntoView()}
             >
                 Let's Chat
                 <ArrowRightCircle size={25} />

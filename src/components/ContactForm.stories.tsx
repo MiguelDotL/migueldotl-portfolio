@@ -1,7 +1,8 @@
+import type { Meta } from '@storybook/react-vite';
 import ContactForm from './ContactForm';
 import '../assets/styles/Contact.css';
 
-const meta = {
+const meta: Meta<typeof ContactForm> = {
     title: 'Components/ContactForm',
     component: ContactForm,
     decorators: [
