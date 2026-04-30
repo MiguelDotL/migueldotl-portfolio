@@ -1,3 +1,4 @@
+import { useEffect, useRef } from "react";
 import Carousel from "react-multi-carousel";
 import claudeIcon from "../assets/images/icons/claude.svg";
 import pythonIcon from "../assets/images/icons/python.svg";
@@ -10,6 +11,42 @@ import mongodbIcon from "../assets/images/icons/mongodb.svg";
 import linuxIcon from "../assets/images/icons/linux.svg";
 
 const SkillsCarousel = () => {
+    const carouselRef = useRef(null);
+
+    // Keyboard nav: ArrowLeft/Right scroll the carousel when Skills is in view
+    useEffect(() => {
+        const skillsSection = document.getElementById("skills");
+        if (!skillsSection) return;
+
+        let isInView = false;
+
+        const onKeyDown = (e) => {
+            if (!isInView || !carouselRef.current) return;
+            if (e.key === "ArrowLeft") {
+                e.preventDefault();
+                carouselRef.current.previous();
+            } else if (e.key === "ArrowRight") {
+                e.preventDefault();
+                carouselRef.current.next();
+            }
+        };
+
+        const observer = new IntersectionObserver(
+            ([entry]) => {
+                isInView = entry.isIntersecting && entry.intersectionRatio >= 0.5;
+            },
+            { threshold: [0, 0.25, 0.5, 0.75, 1] }
+        );
+
+        observer.observe(skillsSection);
+        window.addEventListener("keydown", onKeyDown);
+
+        return () => {
+            observer.disconnect();
+            window.removeEventListener("keydown", onKeyDown);
+        };
+    }, []);
+
     const responsive = {
         superLargeDesktop: {
             // the naming can be any, depends on you.
@@ -58,6 +95,7 @@ const SkillsCarousel = () => {
 
     return (
         <Carousel
+            ref={carouselRef}
             className="skills-slider"
             responsive={responsive}
             infinite={true}
