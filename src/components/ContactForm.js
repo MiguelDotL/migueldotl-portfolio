@@ -64,7 +64,7 @@ const ContactForm = () => {
     };
 
     return (
-        <form encype="multipart/form-data" onSubmit={onFormSubmit}>
+        <form encType="multipart/form-data" onSubmit={onFormSubmit}>
             <Row>
                 <Col className="px-1" sm={6}>
                     <input
