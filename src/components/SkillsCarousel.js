@@ -4,6 +4,9 @@ import pythonIcon from "../assets/images/icons/python.svg";
 import fastapiIcon from "../assets/images/icons/fastapi.svg";
 import html5Icon from "../assets/images/icons/html5.svg";
 import css3Icon from "../assets/images/icons/css3.svg";
+import mysqlIcon from "../assets/images/icons/mysql.svg";
+import postgresqlIcon from "../assets/images/icons/postgresql.svg";
+import mongodbIcon from "../assets/images/icons/mongodb.svg";
 
 const SkillsCarousel = () => {
     const responsive = {
@@ -37,14 +40,14 @@ const SkillsCarousel = () => {
         { name: "React", class: "react-original" },
         { name: "Angular", class: "angularjs-plain" },
         { name: "Node.js", class: "nodejs-plain" },
-        { name: "mongoDB", class: "mongodb-plain" },
+        { name: "mongoDB", class: "mongodb-plain", iconPath: mongodbIcon },
         { name: "PHP", class: "php-plain" },
-        { name: "MySQL", class: "mysql-plain" },
+        { name: "MySQL", iconPath: mysqlIcon },
         { name: "Ruby", class: "ruby-plain", color: "#940c00" },
         { name: "Ruby on Rails", class: "rails-plain", color: "#940c00" },
         { name: "Python", iconPath: pythonIcon },
         { name: "FastAPI", class: "fastapi-plain", iconPath: fastapiIcon },
-        { name: "PostgreSQL", class: "postgresql-plain" },
+        { name: "PostgreSQL", class: "postgresql-plain", iconPath: postgresqlIcon },
         { name: "AWS", class: "amazonwebservices-original" },
         { name: "Linux", class: "linux-plain", color: "#EBC205" },
         { name: "GitHub", class: "github-original", color: "#9355AD" },

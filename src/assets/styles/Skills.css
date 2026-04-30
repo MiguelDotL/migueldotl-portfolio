@@ -73,9 +73,9 @@
 }
 
 /* Dual-render cross-fade: monochrome font glyph (inactive) ↔ multi-color SVG (active) */
-.skills-slider .item i.icon-inactive,
+.skills-slider .item .icon-inactive,
 .skills-slider .item img.icon-active {
-    transition: opacity 0.4s ease-in-out;
+    transition: opacity 0.4s ease-in-out, filter 0.4s ease-in-out;
 }
 
 .skills-slider .item img.icon-active {
