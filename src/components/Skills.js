@@ -10,7 +10,7 @@ const Skills = () => {
         <section id="skills" className="skills">
             <img
                 src={colorPop}
-                alt="decorative backround"
+                alt="decorative background"
                 className="background-image-left"
             />
             <Container>
