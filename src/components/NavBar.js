@@ -58,6 +58,34 @@ const NavBar = () => {
         };
 
         window.addEventListener('scroll', onScroll);
+        return () => window.removeEventListener('scroll', onScroll);
+    }, []);
+
+    // Scroll spy: update activeLink as sections come into view
+    useEffect(() => {
+        const sectionIds = navLinks.map(({ name }) => name);
+        const sections = sectionIds
+            .map((id) => document.getElementById(id))
+            .filter(Boolean);
+
+        if (sections.length === 0) return;
+
+        const observer = new IntersectionObserver(
+            (entries) => {
+                const mostVisible = entries
+                    .filter((entry) => entry.isIntersecting)
+                    .sort(
+                        (a, b) => b.intersectionRatio - a.intersectionRatio
+                    )[0];
+                if (mostVisible) {
+                    setActiveLink(mostVisible.target.id);
+                }
+            },
+            { threshold: [0.25, 0.5, 0.75] }
+        );
+
+        sections.forEach((section) => observer.observe(section));
+        return () => observer.disconnect();
     }, []);
 
     const handleToggle = () => {
