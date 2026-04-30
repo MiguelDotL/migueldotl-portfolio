@@ -61,31 +61,29 @@ const NavBar = () => {
         return () => window.removeEventListener('scroll', onScroll);
     }, []);
 
-    // Scroll spy: update activeLink as sections come into view
+    // Scroll spy: active link = last section whose top edge is at or above the trigger line.
+    // Monotonic — won't oscillate as sections enter/exit the viewport.
     useEffect(() => {
         const sectionIds = navLinks.map(({ name }) => name);
-        const sections = sectionIds
-            .map((id) => document.getElementById(id))
-            .filter(Boolean);
 
-        if (sections.length === 0) return;
+        const onScroll = () => {
+            const triggerY = 100;
+            const sections = sectionIds
+                .map((id) => document.getElementById(id))
+                .filter(Boolean);
 
-        const observer = new IntersectionObserver(
-            (entries) => {
-                const mostVisible = entries
-                    .filter((entry) => entry.isIntersecting)
-                    .sort(
-                        (a, b) => b.intersectionRatio - a.intersectionRatio
-                    )[0];
-                if (mostVisible) {
-                    setActiveLink(mostVisible.target.id);
+            let current = sectionIds[0];
+            for (const section of sections) {
+                if (section.getBoundingClientRect().top <= triggerY) {
+                    current = section.id;
                 }
-            },
-            { threshold: [0.25, 0.5, 0.75] }
-        );
+            }
+            setActiveLink(current);
+        };
 
-        sections.forEach((section) => observer.observe(section));
-        return () => observer.disconnect();
+        onScroll();
+        window.addEventListener('scroll', onScroll, { passive: true });
+        return () => window.removeEventListener('scroll', onScroll);
     }, []);
 
     const handleToggle = () => {
