@@ -1,5 +1,9 @@
 import Carousel from "react-multi-carousel";
 import claudeIcon from "../assets/images/icons/claude.svg";
+import pythonIcon from "../assets/images/icons/python.svg";
+import fastapiIcon from "../assets/images/icons/fastapi.svg";
+import html5Icon from "../assets/images/icons/html5.svg";
+import css3Icon from "../assets/images/icons/css3.svg";
 
 const SkillsCarousel = () => {
     const responsive = {
@@ -25,8 +29,8 @@ const SkillsCarousel = () => {
 
     const skills = [
         { name: "Bash", class: "bash-plain", color: "#44B04F" },
-        { name: "HTML", class: "html5-plain" },
-        { name: "CSS", class: "css3-plain" },
+        { name: "HTML", class: "html5-plain", iconPath: html5Icon },
+        { name: "CSS", class: "css3-plain", iconPath: css3Icon },
         { name: "JavaScript", class: "javascript-plain" },
         { name: "TypeScript", class: "typescript-plain" },
         { name: "jQuery", class: "jquery-plain" },
@@ -38,8 +42,8 @@ const SkillsCarousel = () => {
         { name: "MySQL", class: "mysql-plain" },
         { name: "Ruby", class: "ruby-plain", color: "#940c00" },
         { name: "Ruby on Rails", class: "rails-plain", color: "#940c00" },
-        { name: "Python", class: "python-original" },
-        { name: "FastAPI", class: "fastapi-plain" },
+        { name: "Python", class: "python-plain", iconPath: pythonIcon },
+        { name: "FastAPI", class: "fastapi-plain", iconPath: fastapiIcon },
         { name: "PostgreSQL", class: "postgresql-plain" },
         { name: "AWS", class: "amazonwebservices-original" },
         { name: "Linux", class: "linux-plain", color: "#EBC205" },
@@ -56,19 +60,25 @@ const SkillsCarousel = () => {
             swipeable={true}
         >
             {skills.map((skill) => {
+                const hasBoth = skill.class && skill.iconPath;
                 return (
                     <div key={skill.name} className="item">
-                        {skill.iconPath ? (
+                        {skill.class && (
+                            <i
+                                className={`devicon devicon-${skill.class} colored ${
+                                    hasBoth ? "icon-inactive" : ""
+                                }`}
+                                style={{ color: skill.color }}
+                            ></i>
+                        )}
+                        {skill.iconPath && (
                             <img
                                 src={skill.iconPath}
                                 alt={`${skill.name} logo`}
-                                className="custom-skill-icon"
+                                className={`custom-skill-icon ${
+                                    hasBoth ? "icon-active" : ""
+                                }`}
                             />
-                        ) : (
-                            <i
-                                className={`devicon devicon-${skill.class} colored`}
-                                style={{ color: skill.color }}
-                            ></i>
                         )}
                         <h5>{skill.name}</h5>
                     </div>

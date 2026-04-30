@@ -40,6 +40,7 @@
 .skills-slider .item {
     opacity: .5;
     transition: 0.3s ease-in-out;
+    position: relative;
 }
 
 .skills-slider .item i.devicon,
@@ -69,6 +70,28 @@
 .skills-slider li[aria-hidden="false"]>.item i.devicon,
 .skills-slider li[aria-hidden="false"]>.item img.custom-skill-icon {
     filter: brightness(1) invert(0);
+}
+
+/* Dual-render cross-fade: monochrome font glyph (inactive) ↔ multi-color SVG (active) */
+.skills-slider .item i.icon-inactive,
+.skills-slider .item img.icon-active {
+    transition: opacity 0.4s ease-in-out;
+}
+
+.skills-slider .item img.icon-active {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    opacity: 0;
+}
+
+.skills-slider li[aria-hidden="false"]>.item i.icon-inactive {
+    opacity: 0;
+}
+
+.skills-slider li[aria-hidden="false"]>.item img.icon-active {
+    opacity: 1;
 }
 
 
@@ -116,6 +139,20 @@
     .skills-slider li[aria-hidden="true"]+li[aria-hidden="false"]+li>.item i.devicon,
     .skills-slider li[aria-hidden="true"]+li[aria-hidden="false"]+li>.item img.custom-skill-icon {
         filter: brightness(1) invert(0);
+    }
+
+    /* Dual-render cross-fade, desktop variant: only the centered item swaps */
+    .skills-slider li[aria-hidden="false"]>.item i.icon-inactive {
+        opacity: 1;
+    }
+    .skills-slider li[aria-hidden="false"]>.item img.icon-active {
+        opacity: 0;
+    }
+    .skills-slider li[aria-hidden="true"]+li[aria-hidden="false"]+li>.item i.icon-inactive {
+        opacity: 0;
+    }
+    .skills-slider li[aria-hidden="true"]+li[aria-hidden="false"]+li>.item img.icon-active {
+        opacity: 1;
     }
 }
 
