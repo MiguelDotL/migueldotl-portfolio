@@ -7,6 +7,7 @@ import css3Icon from "../assets/images/icons/css3.svg";
 import mysqlIcon from "../assets/images/icons/mysql.svg";
 import postgresqlIcon from "../assets/images/icons/postgresql.svg";
 import mongodbIcon from "../assets/images/icons/mongodb.svg";
+import linuxIcon from "../assets/images/icons/linux.svg";
 
 const SkillsCarousel = () => {
     const responsive = {
@@ -49,7 +50,7 @@ const SkillsCarousel = () => {
         { name: "FastAPI", class: "fastapi-plain", iconPath: fastapiIcon },
         { name: "PostgreSQL", class: "postgresql-plain", iconPath: postgresqlIcon },
         { name: "AWS", class: "amazonwebservices-original" },
-        { name: "Linux", class: "linux-plain", color: "#EBC205" },
+        { name: "Linux", class: "linux-plain", color: "#EBC205", iconPath: linuxIcon },
         { name: "GitHub", class: "github-original", color: "#9355AD" },
         { name: "Git", class: "git-plain" },
         { name: "Claude", iconPath: claudeIcon, color: "#D97757" }
