@@ -47,7 +47,7 @@ const SkillsCarousel = () => {
         { name: "Ruby", class: "ruby-plain", color: "#940c00" },
         { name: "Ruby on Rails", class: "rails-plain", color: "#940c00" },
         { name: "Python", iconPath: pythonIcon },
-        { name: "FastAPI", class: "fastapi-plain", iconPath: fastapiIcon },
+        { name: "FastAPI", iconPath: fastapiIcon },
         { name: "PostgreSQL", class: "postgresql-plain", iconPath: postgresqlIcon },
         { name: "AWS", class: "amazonwebservices-original" },
         { name: "Linux", class: "linux-plain", color: "#EBC205", iconPath: linuxIcon },
