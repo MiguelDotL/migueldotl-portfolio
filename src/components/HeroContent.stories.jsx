@@ -1,3 +1,4 @@
+import { Container } from 'react-bootstrap';
 import HeroContent from './HeroContent';
 import '../assets/styles/Hero.css';
 
@@ -9,12 +10,14 @@ const meta = {
             <section
                 className="hero about-me"
                 style={{
+                    backgroundImage: 'none',
                     background: '#1a0033',
-                    minHeight: '500px',
-                    padding: '3rem'
+                    minHeight: '500px'
                 }}
             >
-                <Story />
+                <Container>
+                    <Story />
+                </Container>
             </section>
         )
     ],
