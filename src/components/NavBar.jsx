@@ -139,7 +139,7 @@ const NavBar = () => {
                         <button
                             className="resume-button"
                             onClick={() =>
-                                window.open(`${process.env.PUBLIC_URL}${resumePath}`)
+                                window.open(`${import.meta.env.BASE_URL}${resumePath.replace(/^\//, '')}`)
                             }
                         >
                             <FileEarmarkText size={20} className="me-2" />

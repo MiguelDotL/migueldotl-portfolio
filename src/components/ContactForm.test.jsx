@@ -1,13 +1,16 @@
 import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
+import { vi } from 'vitest';
 import ContactForm from './ContactForm';
 import getForm from '../apis/getForm';
 
-jest.mock('../apis/getForm');
+vi.mock('../apis/getForm', () => ({
+    default: { post: vi.fn() }
+}));
 
 describe('ContactForm', () => {
     beforeEach(() => {
-        jest.clearAllMocks();
+        vi.clearAllMocks();
     });
 
     test('renders all form fields and submit button', () => {
