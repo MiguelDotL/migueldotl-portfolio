@@ -1,8 +1,9 @@
 import { useEffect, useState } from 'react';
 import { ArrowRightCircle } from 'react-bootstrap-icons';
-import TrackVisibility from 'react-on-screen';
+import { useInView } from 'react-intersection-observer';
 
 const HeroContent = () => {
+    const { ref, inView } = useInView({ triggerOnce: true });
     const [isTyping, setIsTyping] = useState(true);
     const [jobTitle, setJobTitle] = useState('');
     const [roleCount, setRoleCount] = useState(0);
@@ -47,55 +48,50 @@ const HeroContent = () => {
     };
 
     return (
-        <TrackVisibility once>
-            {({ isVisible }) => (
-                <div
-                    className={`content ${
-                        isVisible && 'animate__animated animate__fadeIn animate__slower'
-                    }`}
+        <div
+            ref={ref}
+            className={`content ${
+                inView && 'animate__animated animate__fadeIn animate__slower'
+            }`}
+        >
+            <span className="tagline">Thanks for dropping by</span>
+            <h1 className="intro-header">Hi, I'm Miguel!</h1>
+            <h1>
+                I'm a <span className="typing-text">{jobTitle}</span>
+            </h1>
+            <p className="copy">
+                My journey into programming began in 2005. I now have over{' '}
+                <a
+                    className="accent nowrap"
+                    href="https://www.linkedin.com/in/migueldot/"
+                    rel="noreferrer"
+                    target="_blank"
                 >
-                    <span className="tagline">Thanks for dropping by</span>
-                    <h1 className="intro-header">Hi, I'm Miguel!</h1>
-                    <h1>
-                        I'm a <span className="typing-text">{jobTitle}</span>
-                    </h1>
-                    <p className="copy">
-                        My journey into programming began in 2005. I now have over{' '}
-                        <a
-                            className="accent nowrap"
-                            href="https://www.linkedin.com/in/migueldot/"
-                            rel="noreferrer"
-                            target="_blank"
-                        >
-                            {yearsOfExp} years
-                        </a>{' '}
-                        of professional experience. I place equal importance on form and
-                        function, always considering the client's objective, the
-                        end-user's experience, and parsability for others who may work on
-                        the project. When I'm not writing code, I enjoy making music and
-                        learning{' '}
-                        <a
-                            className="accent nowrap"
-                            href="//www.duolingo.com/profile/MiguelDotL"
-                            rel="noreferrer"
-                            target="_blank"
-                        >
-                            new languages
-                        </a>
-                        .
-                    </p>
-                    <button
-                        className="hero-contact-button"
-                        onClick={() =>
-                            document.getElementById('contact').scrollIntoView()
-                        }
-                    >
-                        Let's Chat
-                        <ArrowRightCircle size={25} />
-                    </button>
-                </div>
-            )}
-        </TrackVisibility>
+                    {yearsOfExp} years
+                </a>{' '}
+                of professional experience. I place equal importance on form and
+                function, always considering the client's objective, the
+                end-user's experience, and parsability for others who may work on
+                the project. When I'm not writing code, I enjoy making music and
+                learning{' '}
+                <a
+                    className="accent nowrap"
+                    href="//www.duolingo.com/profile/MiguelDotL"
+                    rel="noreferrer"
+                    target="_blank"
+                >
+                    new languages
+                </a>
+                .
+            </p>
+            <button
+                className="hero-contact-button"
+                onClick={() => document.getElementById('contact').scrollIntoView()}
+            >
+                Let's Chat
+                <ArrowRightCircle size={25} />
+            </button>
+        </div>
     );
 };
 
