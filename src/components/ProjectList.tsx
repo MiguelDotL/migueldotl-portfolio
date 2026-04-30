@@ -1,7 +1,12 @@
 import { Tab, Row } from "react-bootstrap";
-import ProjectCard from "./ProjectCard";
+import ProjectCard, { type Project } from "./ProjectCard";
 
-const ProjectList = ({ projects, eventKey }) => {
+type ProjectListProps = {
+    projects: Project[];
+    eventKey: string;
+};
+
+const ProjectList = ({ projects, eventKey }: ProjectListProps) => {
     return (
         <Tab.Pane eventKey={eventKey}>
             <Row>

@@ -7,7 +7,6 @@ import SocialIcons from './SocialIcons';
 
 import logo from '../assets/images/logo.svg';
 import linkedInIcon from '../assets/images/icons/linked-in.svg';
-import twitterIcon from '../assets/images/icons/twitter.svg';
 import twitterXIcon from '../assets/images/icons/twitter-x.svg';
 import githubIcon from '../assets/images/icons/github-2.svg';
 
@@ -70,7 +69,7 @@ const NavBar = () => {
             const triggerY = 100;
             const sections = sectionIds
                 .map((id) => document.getElementById(id))
-                .filter(Boolean);
+                .filter((el): el is HTMLElement => el !== null);
 
             let current = sectionIds[0];
             for (const section of sections) {
@@ -87,15 +86,15 @@ const NavBar = () => {
     }, []);
 
     const handleToggle = () => {
-        setExpanded(expanded ? false : 'expanded');
+        setExpanded(!expanded);
         setBgTransparent(!bgTransparent);
     };
 
-    const handleActiveLink = (link) => {
+    const handleActiveLink = (link: string) => {
         if (activeLink === link) return 'active';
     };
 
-    const onLinkClick = (linkName) => {
+    const onLinkClick = (linkName: string) => {
         setActiveLink(linkName);
         setBgTransparent(false);
         setExpanded(false);

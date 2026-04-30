@@ -1,6 +1,14 @@
 import { useState } from "react";
+import type { ChangeEvent, FormEvent } from "react";
 import { Col, Row } from "react-bootstrap";
-import getForm from "../apis/getForm.js";
+import getForm from "../apis/getForm";
+
+type FormStatus = {
+    status: number | null;
+    success: boolean | null;
+    error: string | null;
+    message: string;
+};
 
 const ContactForm = () => {
     const initialValues = {
@@ -13,7 +21,7 @@ const ContactForm = () => {
     const [formValues, setFormValues] = useState(initialValues);
     const [buttonText, setButtonText] = useState("send");
     const [loading, setLoading] = useState(false);
-    const [formStatus, setFormStatus] = useState({
+    const [formStatus, setFormStatus] = useState<FormStatus>({
         status: null,
         success: null,
         error: null,
@@ -21,7 +29,7 @@ const ContactForm = () => {
     });
 
     const onFormChange = () => {
-        return (e) => {
+        return (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
             const name = e.target.name;
             const value = e.target.value;
             setFormValues(() => ({
@@ -31,7 +39,7 @@ const ContactForm = () => {
         };
     };
 
-    const onFormSubmit = (e) => {
+    const onFormSubmit = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         setButtonText("Sending...");
         if (loading) return;
@@ -52,7 +60,7 @@ const ContactForm = () => {
                 setLoading(false);
                 setButtonText("Send");
             })
-            .catch((error) => {
+            .catch((error: Error) => {
                 setFormStatus({
                     ...formStatus,
                     error: error.message,
@@ -112,7 +120,7 @@ const ContactForm = () => {
                 <Col className="px-1" sm={12}>
                     <textarea
                         name="message"
-                        rows="6"
+                        rows={6}
                         value={formValues.message}
                         placeholder="Message"
                         aria-label="Message"

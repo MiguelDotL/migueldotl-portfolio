@@ -1,6 +1,13 @@
 import { Col } from "react-bootstrap";
 
-const ProjectCard = (props) => {
+export type Project = {
+    title: string;
+    description: string;
+    imageURL: string;
+    url: string;
+};
+
+const ProjectCard = (props: Project) => {
     return (
         <Col sm={6} md={4}>
             <div className="project-card">

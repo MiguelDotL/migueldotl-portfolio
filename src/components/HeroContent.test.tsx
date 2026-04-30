@@ -25,7 +25,7 @@ describe('HeroContent', () => {
         render(<HeroContent />);
 
         // typing-text starts empty
-        const typingElement = document.querySelector('.typing-text');
+        const typingElement = document.querySelector('.typing-text')!;
         expect(typingElement.textContent).toBe('');
 
         // advance ~1.5s of typing — should have populated some characters from "Front-End"
@@ -33,8 +33,9 @@ describe('HeroContent', () => {
             vi.advanceTimersByTime(1500);
         });
 
-        expect(typingElement.textContent.length).toBeGreaterThan(0);
-        expect('Front-End'.startsWith(typingElement.textContent)).toBe(true);
+        const text = typingElement.textContent ?? '';
+        expect(text.length).toBeGreaterThan(0);
+        expect('Front-End'.startsWith(text)).toBe(true);
 
         vi.useRealTimers();
     });

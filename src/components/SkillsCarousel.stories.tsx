@@ -1,8 +1,9 @@
+import type { Meta } from '@storybook/react-vite';
 import SkillsCarousel from './SkillsCarousel';
 import '../assets/styles/Skills.css';
 import 'react-multi-carousel/lib/styles.css';
 
-const meta = {
+const meta: Meta<typeof SkillsCarousel> = {
     title: 'Components/SkillsCarousel',
     component: SkillsCarousel,
     decorators: [

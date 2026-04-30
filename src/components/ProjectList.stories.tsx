@@ -1,3 +1,4 @@
+import type { Meta } from '@storybook/react-vite';
 import { Tab } from 'react-bootstrap';
 import ProjectList from './ProjectList';
 import '../assets/styles/Projects.css';
@@ -12,7 +13,7 @@ const sampleProjects = [
     { title: 'Filthy Food', description: 'Web Development', imageURL: filthyFood, url: '//filthyfood.com/' }
 ];
 
-const meta = {
+const meta: Meta<typeof ProjectList> = {
     title: 'Components/ProjectList',
     component: ProjectList,
     decorators: [

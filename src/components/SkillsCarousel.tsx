@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import CarouselDefault from "react-multi-carousel";
-const Carousel = CarouselDefault.default || CarouselDefault;
+const Carousel = (CarouselDefault as { default?: typeof CarouselDefault }).default || CarouselDefault;
 import claudeIcon from "../assets/images/icons/claude.svg";
 import pythonIcon from "../assets/images/icons/python.svg";
 import fastapiIcon from "../assets/images/icons/fastapi.svg";
@@ -11,13 +11,30 @@ import postgresqlIcon from "../assets/images/icons/postgresql.svg";
 import mongodbIcon from "../assets/images/icons/mongodb.svg";
 import linuxIcon from "../assets/images/icons/linux.svg";
 
+type Skill = {
+    name: string;
+    class?: string;
+    color?: string;
+    iconPath?: string;
+    iconInactive?: string;
+};
+
+type CarouselState = {
+    currentSlide: number;
+    totalItems: number;
+    slidesToShow: number;
+};
+
 const SkillsCarousel = () => {
-    const carouselRef = useRef(null);
+    // react-multi-carousel doesn't export a clean public type for its instance ref;
+    // the instance exposes next()/previous() at runtime which is all we use.
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const carouselRef = useRef<any>(null);
     // True briefly while the carousel snaps clone→original at the loop boundary.
     // Disables filter transitions during the snap so the user doesn't see
     // the cross-fade dip that reads as a flash on the first icon (#51).
     const [isSnapping, setIsSnapping] = useState(false);
-    const snapResetRef = useRef(null);
+    const snapResetRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
     // Keyboard nav: ArrowLeft/Right scroll the carousel when Skills is in view
     useEffect(() => {
@@ -26,7 +43,7 @@ const SkillsCarousel = () => {
 
         let isInView = false;
 
-        const onKeyDown = (e) => {
+        const onKeyDown = (e: KeyboardEvent) => {
             if (!isInView || !carouselRef.current) return;
             if (e.key === "ArrowLeft") {
                 e.preventDefault();
@@ -74,7 +91,7 @@ const SkillsCarousel = () => {
         }
     };
 
-    const skills = [
+    const skills: Skill[] = [
         { name: "Bash", class: "bash-plain", color: "#44B04F" },
         { name: "HTML", class: "html5-plain", iconPath: html5Icon },
         { name: "CSS", class: "css3-plain", iconPath: css3Icon },
@@ -99,7 +116,7 @@ const SkillsCarousel = () => {
         { name: "Claude", iconPath: claudeIcon, color: "#D97757" }
     ];
 
-    const handleAfterChange = (_previousSlide, state) => {
+    const handleAfterChange = (_previousSlide: number, state: CarouselState) => {
         const { currentSlide, totalItems, slidesToShow } = state;
         // react-multi-carousel renders [end-clones, originals, start-clones].
         // It snaps when currentSlide reaches a clone region: start (=== 0)
