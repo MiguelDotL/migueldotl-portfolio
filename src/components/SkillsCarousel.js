@@ -42,7 +42,7 @@ const SkillsCarousel = () => {
         { name: "MySQL", class: "mysql-plain" },
         { name: "Ruby", class: "ruby-plain", color: "#940c00" },
         { name: "Ruby on Rails", class: "rails-plain", color: "#940c00" },
-        { name: "Python", class: "python-plain", iconPath: pythonIcon },
+        { name: "Python", iconPath: pythonIcon },
         { name: "FastAPI", class: "fastapi-plain", iconPath: fastapiIcon },
         { name: "PostgreSQL", class: "postgresql-plain" },
         { name: "AWS", class: "amazonwebservices-original" },
@@ -60,23 +60,34 @@ const SkillsCarousel = () => {
             swipeable={true}
         >
             {skills.map((skill) => {
-                const hasBoth = skill.class && skill.iconPath;
+                const inactiveTag = skill.iconInactive || skill.class;
+                const isCrossFade = inactiveTag && skill.iconPath;
                 return (
                     <div key={skill.name} className="item">
-                        {skill.class && (
-                            <i
-                                className={`devicon devicon-${skill.class} colored ${
-                                    hasBoth ? "icon-inactive" : ""
+                        {skill.iconInactive ? (
+                            <img
+                                src={skill.iconInactive}
+                                alt={`${skill.name} logo`}
+                                className={`custom-skill-icon ${
+                                    isCrossFade ? "icon-inactive" : ""
                                 }`}
-                                style={{ color: skill.color }}
-                            ></i>
+                            />
+                        ) : (
+                            skill.class && (
+                                <i
+                                    className={`devicon devicon-${skill.class} colored ${
+                                        isCrossFade ? "icon-inactive" : ""
+                                    }`}
+                                    style={{ color: skill.color }}
+                                ></i>
+                            )
                         )}
                         {skill.iconPath && (
                             <img
                                 src={skill.iconPath}
                                 alt={`${skill.name} logo`}
                                 className={`custom-skill-icon ${
-                                    hasBoth ? "icon-active" : ""
+                                    isCrossFade ? "icon-active" : ""
                                 }`}
                             />
                         )}

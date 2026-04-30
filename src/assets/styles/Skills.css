@@ -86,7 +86,7 @@
     opacity: 0;
 }
 
-.skills-slider li[aria-hidden="false"]>.item i.icon-inactive {
+.skills-slider li[aria-hidden="false"]>.item .icon-inactive {
     opacity: 0;
 }
 
@@ -142,13 +142,13 @@
     }
 
     /* Dual-render cross-fade, desktop variant: only the centered item swaps */
-    .skills-slider li[aria-hidden="false"]>.item i.icon-inactive {
+    .skills-slider li[aria-hidden="false"]>.item .icon-inactive {
         opacity: 1;
     }
     .skills-slider li[aria-hidden="false"]>.item img.icon-active {
         opacity: 0;
     }
-    .skills-slider li[aria-hidden="true"]+li[aria-hidden="false"]+li>.item i.icon-inactive {
+    .skills-slider li[aria-hidden="true"]+li[aria-hidden="false"]+li>.item .icon-inactive {
         opacity: 0;
     }
     .skills-slider li[aria-hidden="true"]+li[aria-hidden="false"]+li>.item img.icon-active {
