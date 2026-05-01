@@ -5,9 +5,9 @@ import SocialIcons from "./SocialIcons";
 
 import logo from "../assets/images/logo.svg";
 import codepenIcon from "../assets/images/icons/codepen-icon.svg";
+import npmIcon from "../assets/images/icons/npm-original-wordmark.svg";
 import codewarsIcon from "../assets/images/icons/codewars-icon.svg";
 import codecademyIcon from "../assets/images/icons/codecademy-icon.svg";
-import udemyIcon from "../assets/images/icons/udemy-icon.svg";
 import duolingoIcon from "../assets/images/icons/duolingo-icon.svg";
 
 const socialsConfig = [
@@ -16,6 +16,12 @@ const socialsConfig = [
         icon: codepenIcon,
         url: "//codepen.io/MiguelDotL",
         label: "CodePen"
+    },
+    {
+        className: "npm",
+        icon: npmIcon,
+        url: "//www.npmjs.com/~migueldotl",
+        label: "npm"
     },
     {
         className: "codewars",
@@ -28,12 +34,6 @@ const socialsConfig = [
         icon: codecademyIcon,
         url: "//www.codecademy.com/profiles/MiguelDotL",
         label: "Codecademy"
-    },
-    {
-        className: "udemy",
-        icon: udemyIcon,
-        url: "//www.udemy.com/user/miguel-lozano-4/",
-        label: "Udemy"
     },
     {
         className: "duolingo",
