@@ -30,11 +30,12 @@
             text-align: center;
             max-width: 480px;
         }
-        .logo {
-            width: 96px;
-            height: 96px;
-            margin: 0 auto 2rem;
+        .bitmoji {
+            width: clamp(200px, 32vw, 280px);
+            height: auto;
+            margin: 0 auto 1.5rem;
             display: block;
+            filter: drop-shadow(8px 12px 16px rgba(20, 20, 20, 0.4));
         }
         .code {
             font-size: 16px;
@@ -78,11 +79,7 @@
 </head>
 <body>
     <div class="card">
-        <svg class="logo" viewBox="0 0 436.95 436.95" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-            <circle cx="218.47" cy="218.47" r="218.47" fill="rgb(217,217,217)" fill-opacity="0.25"/>
-            <path fill="#fff" d="M325.63,303.87V109.71h-37.7l-69.32,179h-1.19l-68.73-179h-38v217H134v-138q0-31.47-2.08-54.33h1.19l73.62,192.38h20.34l73-188.84V326.73H403.27l11.25-22.86Z"/>
-            <circle cx="218.47" cy="218.47" r="208.97" fill="none" stroke="#fff" stroke-width="19"/>
-        </svg>
+        <img class="bitmoji" src="/bitmoji-punch-through.png" alt="" />
         <div class="code">404</div>
         <div class="headline">Well, this is awkward.</div>
         <div class="lede">The page you're looking for either moved, never existed, or just wanted a moment alone.</div>
