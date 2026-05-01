@@ -1,12 +1,10 @@
 import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { vi } from 'vitest';
+import axios from 'axios';
 import ContactForm from './ContactForm';
-import getForm from '../apis/getForm';
 
-vi.mock('../apis/getForm', () => ({
-    default: { post: vi.fn() }
-}));
+vi.mock('axios');
 
 describe('ContactForm', () => {
     beforeEach(() => {
@@ -36,25 +34,36 @@ describe('ContactForm', () => {
         expect(email).toHaveValue('test@example.com');
     });
 
-    test('submits form with values and shows success message', async () => {
-        vi.mocked(getForm.post).mockResolvedValueOnce({ status: 200, data: { success: true } });
+    const fillAllRequiredFields = async (user: ReturnType<typeof userEvent.setup>) => {
+        await user.type(screen.getByPlaceholderText(/First Name/i), 'Miguel');
+        await user.type(screen.getByPlaceholderText(/Last Name/i), 'Lozano');
+        await user.type(screen.getByPlaceholderText(/Email Address/i), 'a@b.com');
+        await user.type(screen.getByPlaceholderText(/Phone Number/i), '5555550100');
+        await user.type(screen.getByPlaceholderText(/Message/i), 'Hello!');
+    };
+
+    test('submits Web3Forms payload and shows success message', async () => {
+        vi.mocked(axios.post).mockResolvedValueOnce({
+            status: 200,
+            data: { success: true, message: 'Email sent' }
+        });
 
         const user = userEvent.setup();
         render(<ContactForm />);
 
-        await user.type(screen.getByPlaceholderText(/First Name/i), 'Miguel');
-        await user.type(screen.getByPlaceholderText(/Email Address/i), 'a@b.com');
-        await user.type(screen.getByPlaceholderText(/Message/i), 'Hello!');
+        await fillAllRequiredFields(user);
         await user.click(screen.getByRole('button', { name: /send/i }));
 
         await waitFor(() => {
-            expect(vi.mocked(getForm.post)).toHaveBeenCalledTimes(1);
+            expect(vi.mocked(axios.post)).toHaveBeenCalledTimes(1);
         });
 
-        const [, payload] = vi.mocked(getForm.post).mock.calls[0] as [string, Record<string, string>];
+        const [, payload] = vi.mocked(axios.post).mock.calls[0] as [string, Record<string, string>];
+        expect(payload.access_key).toBeDefined();
         expect(payload.firstName).toBe('Miguel');
         expect(payload.email).toBe('a@b.com');
         expect(payload.message).toBe('Hello!');
+        expect(payload.botcheck).toBe('');
 
         await waitFor(() => {
             expect(screen.getByText(/Thanks for reaching out/i)).toBeInTheDocument();
@@ -62,16 +71,42 @@ describe('ContactForm', () => {
     });
 
     test('shows error message when submission fails', async () => {
-        vi.mocked(getForm.post).mockRejectedValueOnce(new Error('Network down'));
+        vi.mocked(axios.post).mockRejectedValueOnce(new Error('Network down'));
 
         const user = userEvent.setup();
         render(<ContactForm />);
 
-        await user.type(screen.getByPlaceholderText(/First Name/i), 'Miguel');
+        await fillAllRequiredFields(user);
         await user.click(screen.getByRole('button', { name: /send/i }));
 
         await waitFor(() => {
-            expect(screen.getByText(/Oops! Network down/i)).toBeInTheDocument();
+            expect(screen.getByText(/Oops! Request Failed/i)).toBeInTheDocument();
         });
+    });
+
+    test('shows error when Web3Forms returns success: false', async () => {
+        vi.mocked(axios.post).mockResolvedValueOnce({
+            status: 200,
+            data: { success: false, message: 'Spam detected' }
+        });
+
+        const user = userEvent.setup();
+        render(<ContactForm />);
+
+        await fillAllRequiredFields(user);
+        await user.click(screen.getByRole('button', { name: /send/i }));
+
+        await waitFor(() => {
+            expect(screen.getByText(/Oops! Request Failed/i)).toBeInTheDocument();
+        });
+    });
+
+    test('blocks submit when required fields are empty', async () => {
+        const user = userEvent.setup();
+        render(<ContactForm />);
+
+        await user.click(screen.getByRole('button', { name: /send/i }));
+
+        expect(vi.mocked(axios.post)).not.toHaveBeenCalled();
     });
 });

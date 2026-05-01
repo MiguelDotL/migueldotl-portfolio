@@ -1,7 +1,7 @@
 import { useState } from "react";
 import type { ChangeEvent, FormEvent } from "react";
+import axios from "axios";
 import { Col, Row } from "react-bootstrap";
-import getForm from "../apis/getForm";
 
 type FormStatus = {
     status: number | null;
@@ -10,16 +10,37 @@ type FormStatus = {
     message: string;
 };
 
+type SubmitResponse = { status: number; data: { success: boolean; message: string } };
+
+const submitForm = async (
+    payload: Record<string, string>
+): Promise<SubmitResponse> => {
+    const mock = import.meta.env.VITE_MOCK_FORM;
+    const isMockable = import.meta.env.DEV && import.meta.env.MODE !== "test";
+    if (isMockable && mock) {
+        await new Promise((resolve) => setTimeout(resolve, 500));
+        if (mock === "error") {
+            return { status: 200, data: { success: false, message: "[MOCK] Spam detected" } };
+        }
+        if (mock === "throw") {
+            throw new Error("[MOCK] Request failed with status code 429");
+        }
+        return { status: 200, data: { success: true, message: "[MOCK] Email sent" } };
+    }
+    return axios.post(import.meta.env.VITE_FORM_ENDPOINT, payload);
+};
+
 const ContactForm = () => {
     const initialValues = {
         firstName: "",
         lastName: "",
         email: "",
         phone: "",
-        message: ""
+        message: "",
+        botcheck: ""
     };
     const [formValues, setFormValues] = useState(initialValues);
-    const [buttonText, setButtonText] = useState("send");
+    const [buttonText, setButtonText] = useState("Send");
     const [loading, setLoading] = useState(false);
     const [formStatus, setFormStatus] = useState<FormStatus>({
         status: null,
@@ -27,6 +48,8 @@ const ContactForm = () => {
         error: null,
         message: ""
     });
+
+    const isSent = formStatus.success === true;
 
     const onFormChange = () => {
         return (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -41,47 +64,86 @@ const ContactForm = () => {
 
     const onFormSubmit = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
+        if (loading || isSent) return;
         setButtonText("Sending...");
-        if (loading) return;
         setLoading(true);
 
-        const formEndpoint = import.meta.env.VITE_FORM_ENDPOINT;
+        const payload = {
+            access_key: import.meta.env.VITE_FORM_ACCESS_KEY,
+            subject: `Portfolio contact from ${formValues.firstName} ${formValues.lastName}`.trim(),
+            ...formValues
+        };
 
-        getForm
-            .post(formEndpoint, formValues)
+        submitForm(payload)
             .then((response) => {
-                setFormStatus({
-                    success: response.data.success,
-                    status: response.status,
-                    error: null,
-                    message: "Thanks for reaching out, I'll be in touch!"
-                });
-                setFormValues(initialValues);
+                if (response.data.success) {
+                    setFormStatus({
+                        success: true,
+                        status: response.status,
+                        error: null,
+                        message: "Thanks for reaching out, I'll be in touch!"
+                    });
+                    setFormValues(initialValues);
+                    setButtonText("Sent ✓");
+                } else {
+                    setFormStatus({
+                        success: false,
+                        status: response.status,
+                        error: response.data.message ?? "Submission failed",
+                        message: "Oops! Request Failed. Please try again soon"
+                    });
+                    setButtonText("Send");
+                }
                 setLoading(false);
-                setButtonText("Send");
             })
             .catch((error: Error) => {
                 setFormStatus({
                     ...formStatus,
                     error: error.message,
-                    message: `Oops! ${error.message} - Please try again later.`
+                    message: "Oops! Request Failed. Please try again soon"
                 });
                 setLoading(false);
                 setButtonText("Send");
             });
     };
 
+    const containerClasses = [
+        "submit-container",
+        "px-1",
+        isSent ? "is-sent" : ""
+    ]
+        .filter(Boolean)
+        .join(" ");
+
+    const statusClass =
+        formStatus.success === true
+            ? "success"
+            : formStatus.success === false
+            ? "danger"
+            : "";
+
     return (
-        <form encType="multipart/form-data" onSubmit={onFormSubmit}>
+        <form onSubmit={onFormSubmit}>
+            <input
+                type="text"
+                name="botcheck"
+                value={formValues.botcheck}
+                onChange={onFormChange()}
+                style={{ display: "none" }}
+                tabIndex={-1}
+                autoComplete="off"
+                aria-hidden="true"
+            />
             <Row>
                 <Col className="px-1" sm={6}>
                     <input
                         type="text"
                         name="firstName"
                         value={formValues.firstName}
-                        placeholder="First Name"
-                        aria-label="First Name"
+                        placeholder="First Name *"
+                        aria-label="First Name (required)"
                         onChange={onFormChange()}
+                        required
                     />
                 </Col>
                 <Col className="px-1" sm={6}>
@@ -89,9 +151,10 @@ const ContactForm = () => {
                         type="text"
                         name="lastName"
                         value={formValues.lastName}
-                        placeholder="Last Name"
-                        aria-label="Last Name"
+                        placeholder="Last Name *"
+                        aria-label="Last Name (required)"
                         onChange={onFormChange()}
+                        required
                     />
                 </Col>
             </Row>
@@ -101,9 +164,10 @@ const ContactForm = () => {
                         type="email"
                         name="email"
                         value={formValues.email}
-                        placeholder="Email Address"
-                        aria-label="Email Address"
+                        placeholder="Email Address *"
+                        aria-label="Email Address (required)"
                         onChange={onFormChange()}
+                        required
                     />
                 </Col>
                 <Col className="px-1" sm={6}>
@@ -122,20 +186,34 @@ const ContactForm = () => {
                         name="message"
                         rows={6}
                         value={formValues.message}
-                        placeholder="Message"
-                        aria-label="Message"
+                        placeholder="Message *"
+                        aria-label="Message (required)"
                         onChange={onFormChange()}
+                        required
                     />
                 </Col>
-                <div className="submit-container px-1">
-                    <button type="submit">
+                <div className={containerClasses}>
+                    <button
+                        type="submit"
+                        disabled={loading || isSent}
+                    >
                         <span>{buttonText}</span>
                     </button>
                     <div
-                        className={`form-status-message ${
-                            formStatus.success ? "success" : "danger"
-                        }`}
+                        className={`form-status-message ${statusClass}`}
+                        role="status"
+                        aria-live="polite"
                     >
+                        {isSent && (
+                            <span className="envelope-icon" aria-hidden="true">
+                                {"\u{1F4E8}"}
+                            </span>
+                        )}
+                        {formStatus.success === false && (
+                            <span className="error-icon" aria-hidden="true">
+                                {"\u{1F605}"}
+                            </span>
+                        )}
                         <p>{formStatus.message}</p>
                     </div>
                 </div>
