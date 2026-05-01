@@ -53,9 +53,9 @@ const appleBuf = await renderRoundedSquare(180);
 await fs.writeFile(path.join(root, "public/apple-touch-icon.png"), appleBuf);
 console.log(`apple-touch-icon.png — 180×180`);
 
-// Multi-size favicon.ico (circle, no alpha layer)
+// Multi-size dark-mode favicon (favicon.ico is the original, kept as light-mode default)
 const faviconBufs = await Promise.all([16, 32, 48].map(renderCircle));
 const ico = await pngToIco(faviconBufs);
-await fs.writeFile(path.join(root, "public/favicon.ico"), ico);
-const icoStats = await fs.stat(path.join(root, "public/favicon.ico"));
-console.log(`favicon.ico (16/32/48 circle, packed) — ${(icoStats.size / 1024).toFixed(1)} KB`);
+await fs.writeFile(path.join(root, "public/favicon-dark.ico"), ico);
+const icoStats = await fs.stat(path.join(root, "public/favicon-dark.ico"));
+console.log(`favicon-dark.ico (16/32/48 circle, packed) — ${(icoStats.size / 1024).toFixed(1)} KB`);
