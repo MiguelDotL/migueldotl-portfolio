@@ -9,9 +9,10 @@ export type SocialIconConfig = {
 
 type SocialIconsProps = {
     config: SocialIconConfig[];
+    onHover?: (label: string | null) => void;
 };
 
-const SocialIcons = ({ config }: SocialIconsProps) => {
+const SocialIcons = ({ config, onHover }: SocialIconsProps) => {
     return (
         <div className="social-icons">
             {config.map((social) => {
@@ -23,6 +24,8 @@ const SocialIcons = ({ config }: SocialIconsProps) => {
                         target="_blank"
                         rel="noreferrer"
                         aria-label={social.label}
+                        onMouseEnter={() => onHover?.(social.label)}
+                        onMouseLeave={() => onHover?.(null)}
                     >
                         <img src={social.icon} alt={social.label} />
                     </a>

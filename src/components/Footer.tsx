@@ -1,4 +1,5 @@
 import "../assets/styles/Footer.css";
+import { useState } from "react";
 import { Container, Row, Col } from "react-bootstrap";
 import PreFooter from "./PreFooter";
 import SocialIcons from "./SocialIcons";
@@ -44,6 +45,8 @@ const socialsConfig = [
 ];
 
 const Footer = () => {
+    const [hoveredLabel, setHoveredLabel] = useState<string | null>(null);
+
     return (
         <footer className="footer">
             <section>
@@ -54,8 +57,14 @@ const Footer = () => {
                     <Row className="align-items-center">
                         <Col sm={6}>
                             <div className="see-what-else">
-                                <span>See what else I'm up to: </span>
-                                <SocialIcons config={socialsConfig} />
+                                <span>
+                                    See what else I'm up to:{' '}
+                                    <span className="hovered-label">{hoveredLabel}</span>
+                                </span>
+                                <SocialIcons
+                                    config={socialsConfig}
+                                    onHover={setHoveredLabel}
+                                />
                             </div>
                         </Col>
                         <Col sm={6}>
