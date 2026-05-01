@@ -37,16 +37,24 @@
             display: block;
         }
         .code {
-            font-size: clamp(96px, 22vw, 180px);
+            font-size: 16px;
+            font-weight: 600;
+            letter-spacing: 0.3em;
+            opacity: 0.7;
+            margin-bottom: 1rem;
+        }
+        .headline {
+            font-size: clamp(32px, 6vw, 56px);
             font-weight: 700;
-            line-height: 1;
-            letter-spacing: -0.04em;
-            margin-bottom: 0.4rem;
+            line-height: 1.1;
+            letter-spacing: -0.02em;
+            margin-bottom: 1rem;
         }
         .lede {
-            font-size: clamp(20px, 4vw, 28px);
-            font-weight: 500;
-            opacity: 0.95;
+            font-size: clamp(17px, 2.4vw, 20px);
+            font-weight: 400;
+            line-height: 1.5;
+            opacity: 0.85;
             margin-bottom: 2.2rem;
         }
         .home-link {
@@ -76,7 +84,8 @@
             <circle cx="218.47" cy="218.47" r="208.97" fill="none" stroke="#fff" stroke-width="19"/>
         </svg>
         <div class="code">404</div>
-        <div class="lede">Page not found</div>
+        <div class="headline">Well, this is awkward.</div>
+        <div class="lede">The page you're looking for either moved, never existed, or just wanted a moment alone.</div>
         <a class="home-link" href="/">← Back to home</a>
     </div>
 </body>
