@@ -1,10 +1,11 @@
 {
     "short_name": "Miguel Lozano",
-    "name": "Miguel Lozano Portfolio",
+    "name": "Miguel Lozano — Portfolio",
+    "description": "Full-stack developer portfolio — Miguel Lozano",
     "icons": [
         {
             "src": "favicon.ico",
-            "sizes": "64x64 32x32 24x24 16x16",
+            "sizes": "48x48 32x32 16x16",
             "type": "image/x-icon"
         },
         {
@@ -20,6 +21,6 @@
     ],
     "start_url": ".",
     "display": "standalone",
-    "theme_color": "#000000",
-    "background_color": "#ffffff"
+    "theme_color": "#151515",
+    "background_color": "#151515"
 }
