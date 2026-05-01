@@ -142,6 +142,7 @@ const ContactForm = () => {
                         value={formValues.firstName}
                         placeholder="First Name *"
                         aria-label="First Name (required)"
+                        autoComplete="given-name"
                         onChange={onFormChange()}
                         required
                     />
@@ -153,6 +154,7 @@ const ContactForm = () => {
                         value={formValues.lastName}
                         placeholder="Last Name *"
                         aria-label="Last Name (required)"
+                        autoComplete="family-name"
                         onChange={onFormChange()}
                         required
                     />
@@ -166,6 +168,7 @@ const ContactForm = () => {
                         value={formValues.email}
                         placeholder="Email Address *"
                         aria-label="Email Address (required)"
+                        autoComplete="email"
                         onChange={onFormChange()}
                         required
                     />
@@ -177,6 +180,7 @@ const ContactForm = () => {
                         value={formValues.phone}
                         placeholder="Phone Number"
                         aria-label="Phone Number"
+                        autoComplete="tel"
                         onChange={onFormChange()}
                     />
                 </Col>
@@ -188,6 +192,7 @@ const ContactForm = () => {
                         value={formValues.message}
                         placeholder="Message *"
                         aria-label="Message (required)"
+                        autoComplete="off"
                         onChange={onFormChange()}
                         required
                     />
