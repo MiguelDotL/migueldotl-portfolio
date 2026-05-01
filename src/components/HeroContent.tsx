@@ -7,26 +7,15 @@ const HeroContent = () => {
     const [isTyping, setIsTyping] = useState(true);
     const [jobTitle, setJobTitle] = useState('');
     const [roleCount, setRoleCount] = useState(0);
-    const [typingDelay, setTypingDelay] = useState(200 - Math.random() * 50);
+    const [typingDelay, setTypingDelay] = useState(() => 200 - Math.random() * 50);
     const roles = ['Front-End', 'Back-End', 'Full-Stack Developer   '];
     const pauseTime = 3456; // time between typing and deleting
     const yearsOfExp = new Date().getFullYear() - 2016;
 
-    useEffect(() => {
-        let typingTicker = setInterval(() => {
-            doTyping();
-        }, typingDelay);
-
-        return () => {
-            clearInterval(typingTicker);
-        };
-    });
-    // }, [jobTitle]);
-
     const doTyping = () => {
-        let currentRole = roleCount % roles.length;
-        let fullText = roles[currentRole];
-        let currentText = isTyping
+        const currentRole = roleCount % roles.length;
+        const fullText = roles[currentRole];
+        const currentText = isTyping
             ? fullText.substring(0, jobTitle.length + 1)
             : fullText.substring(0, jobTitle.length - 1);
 
@@ -46,6 +35,17 @@ const HeroContent = () => {
             setTypingDelay(321);
         }
     };
+
+    useEffect(() => {
+        const typingTicker = setInterval(() => {
+            doTyping();
+        }, typingDelay);
+
+        return () => {
+            clearInterval(typingTicker);
+        };
+    });
+    // }, [jobTitle]);
 
     return (
         <div
