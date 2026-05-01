@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex" />
+    <title>404 — Miguel Lozano</title>
+    <link rel="icon" href="/favicon.ico" />
+    <style>
+        :root {
+            --gradient: linear-gradient(131deg, #7e3f95 30%, #00aeef 130%);
+        }
+        * {
+            box-sizing: border-box;
+            margin: 0;
+        }
+        html, body {
+            height: 100%;
+        }
+        body {
+            background: var(--gradient);
+            color: #fff;
+            font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+        }
+        .card {
+            text-align: center;
+            max-width: 480px;
+        }
+        .logo {
+            width: 96px;
+            height: 96px;
+            margin: 0 auto 2rem;
+            display: block;
+        }
+        .code {
+            font-size: clamp(96px, 22vw, 180px);
+            font-weight: 700;
+            line-height: 1;
+            letter-spacing: -0.04em;
+            margin-bottom: 0.4rem;
+        }
+        .lede {
+            font-size: clamp(20px, 4vw, 28px);
+            font-weight: 500;
+            opacity: 0.95;
+            margin-bottom: 2.2rem;
+        }
+        .home-link {
+            display: inline-block;
+            color: #fff;
+            background: rgba(217, 217, 217, 0.15);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            border-radius: 0.4em;
+            padding: 14px 32px;
+            text-decoration: none;
+            font-size: 18px;
+            font-weight: 500;
+            letter-spacing: 0.4px;
+            transition: background 0.25s ease, border-color 0.25s ease;
+        }
+        .home-link:hover {
+            background: rgba(217, 217, 217, 0.3);
+            border-color: rgba(255, 255, 255, 0.8);
+        }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <svg class="logo" viewBox="0 0 436.95 436.95" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <circle cx="218.47" cy="218.47" r="218.47" fill="rgb(217,217,217)" fill-opacity="0.25"/>
+            <path fill="#fff" d="M325.63,303.87V109.71h-37.7l-69.32,179h-1.19l-68.73-179h-38v217H134v-138q0-31.47-2.08-54.33h1.19l73.62,192.38h20.34l73-188.84V326.73H403.27l11.25-22.86Z"/>
+            <circle cx="218.47" cy="218.47" r="208.97" fill="none" stroke="#fff" stroke-width="19"/>
+        </svg>
+        <div class="code">404</div>
+        <div class="lede">Page not found</div>
+        <a class="home-link" href="/">← Back to home</a>
+    </div>
+</body>
+</html>
