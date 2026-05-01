@@ -10,18 +10,18 @@ import linkedInIcon from '../assets/images/icons/linked-in.svg';
 import twitterXIcon from '../assets/images/icons/twitter-x.svg';
 import githubIcon from '../assets/images/icons/github-2.svg';
 
+const navLinks = [
+    { name: 'home', text: 'Home' },
+    { name: 'skills', text: 'Skills' },
+    { name: 'projects', text: 'Projects' },
+    { name: 'contact', text: 'Contact' }
+];
+
 const NavBar = () => {
     const [expanded, setExpanded] = useState(false);
     const [activeLink, setActiveLink] = useState('home');
     const [hasScrolled, setHasScrolled] = useState(false);
     const [bgTransparent, setBgTransparent] = useState(false);
-
-    const navLinks = [
-        { name: 'home', text: 'Home' },
-        { name: 'skills', text: 'Skills' },
-        { name: 'projects', text: 'Projects' },
-        { name: 'contact', text: 'Contact' }
-    ];
 
     const socialsConfig = [
         {
