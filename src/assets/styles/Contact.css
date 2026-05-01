@@ -88,6 +88,18 @@
     color: #fff;
 }
 
+.contact form input:user-invalid,
+.contact form textarea:user-invalid {
+    border-color: rgba(252, 165, 165, 0.7);
+    background: rgba(252, 165, 165, 0.08);
+}
+
+.contact form input:user-invalid:focus,
+.contact form textarea:user-invalid:focus {
+    background: rgba(255, 255, 255, 1);
+    color: var(--dark-grey);
+}
+
 .contact form input:focus::placeholder, .contact form textarea:focus::placeholder {
     color: var(--dark-grey);
     opacity: 0.8;
@@ -102,6 +114,116 @@
 
 .contact form .form-status-message {
     margin: 2em 0 0 0;
+    display: flex;
+    align-items: center;
+    gap: 0.5em;
+    width: 100%;
+}
+
+.contact form .form-status-message p {
+    margin: 0;
+}
+
+.contact form .form-status-message.success,
+.contact form .form-status-message.danger {
+    background: transparent;
+    border: 1px solid transparent;
+    border-radius: 0.4em;
+    padding: 13px 26px;
+    animation: status-box-fade 0.35s ease-out 0.7s forwards;
+}
+
+.contact form .form-status-message.success {
+    color: #6ee7b7;
+}
+
+.contact form .form-status-message.danger {
+    color: #fca5a5;
+}
+
+@keyframes status-box-fade {
+    from {
+        background: transparent;
+        border-color: transparent;
+    }
+    to {
+        background: rgba(255, 255, 255, 0.1);
+        border-color: rgba(255, 255, 255, 0.5);
+    }
+}
+
+.contact form .form-status-message .envelope-icon {
+    display: inline-block;
+    font-size: 1.5em;
+    line-height: 1;
+    opacity: 0;
+    transform: translateX(-30px);
+    animation: envelope-slide 0.45s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+    z-index: 1;
+}
+
+.contact form .form-status-message .error-icon {
+    display: inline-block;
+    font-size: 1.5em;
+    line-height: 1;
+    opacity: 0;
+    animation: status-icon-fade 0.45s ease-out forwards;
+}
+
+.contact form .form-status-message.success p,
+.contact form .form-status-message.danger p {
+    opacity: 0;
+    animation: status-text-fade 0.3s ease-out 0.4s forwards;
+}
+
+@keyframes envelope-slide {
+    from {
+        opacity: 0;
+        transform: translateX(-30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes status-text-fade {
+    from {
+        opacity: 0;
+        transform: translateX(-8px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes status-icon-fade {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .contact form .form-status-message .envelope-icon,
+    .contact form .form-status-message .error-icon,
+    .contact form .form-status-message.success p,
+    .contact form .form-status-message.danger p,
+    .contact form .form-status-message.success,
+    .contact form .form-status-message.danger {
+        animation: none;
+        opacity: 1;
+        transform: none;
+    }
+
+    .contact form .form-status-message.success,
+    .contact form .form-status-message.danger {
+        background: rgba(255, 255, 255, 0.1);
+        border-color: rgba(255, 255, 255, 0.5);
+    }
 }
 
 .contact form button {
@@ -111,9 +233,29 @@
     font-size: 18px;
     font-weight: 700;
     padding: 14px 48px;
+    min-width: 11em;
     width: 100%;
     position: relative;
-    transition: 0.3s ease-in-out;
+    z-index: 2;
+    transition: opacity 0.3s ease-in-out, background-color 0.3s ease-in-out, color 0.3s ease-in-out;
+}
+
+.contact form button[disabled] {
+    cursor: not-allowed;
+}
+
+.contact form .submit-container.is-sent button[disabled] {
+    background-color: #d4d4d4;
+    color: #6b7280;
+}
+
+.contact form .submit-container.is-sent button[disabled]:hover {
+    color: #6b7280;
+}
+
+.contact form .submit-container.is-sent button[disabled]::before,
+.contact form .submit-container.is-sent button[disabled]:hover::before {
+    width: 0;
 }
 
 .contact form button span {
@@ -182,8 +324,12 @@
         margin: 0em;
     }
 
+}
+
+@media screen and (min-width:992px) {
     .contact form .submit-container {
         flex-direction: row;
+        align-items: center;
     }
 
     .contact form button {
@@ -192,5 +338,6 @@
 
     .contact form .form-status-message {
         margin: 0 0 0 2em;
+        flex: 1;
     }
 }
