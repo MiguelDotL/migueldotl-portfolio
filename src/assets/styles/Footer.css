@@ -93,6 +93,17 @@
     margin: 1em 0 1em 0.6em;
 }
 
+.footer .see-what-else > span:first-child {
+    white-space: nowrap;
+}
+
+.footer .see-what-else .hovered-label {
+    color: #fff;
+    font-weight: 600;
+    text-transform: none;
+    margin: 0;
+}
+
 .footer .see-what-else .social-icons a.social-icon {
     background: rgba(217, 217, 217, 0.1);
 }
@@ -105,9 +116,9 @@
     width: 50%;
 }
 
-
-.footer .see-what-else .social-icons a.social-icon.udemy img {
-    width: 25%;
+.footer .see-what-else .social-icons a.social-icon.npm img {
+    width: 75%;
+    transform: translateY(1px);
 }
 
 .footer .footer-right {

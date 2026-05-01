@@ -5,9 +5,9 @@ import linkedInIcon from '../assets/images/icons/linked-in.svg';
 import twitterXIcon from '../assets/images/icons/twitter-x.svg';
 import githubIcon from '../assets/images/icons/github-2.svg';
 import codepenIcon from '../assets/images/icons/codepen-icon.svg';
+import npmIcon from '../assets/images/icons/npm-original-wordmark.svg';
 import codewarsIcon from '../assets/images/icons/codewars-icon.svg';
 import codecademyIcon from '../assets/images/icons/codecademy-icon.svg';
-import udemyIcon from '../assets/images/icons/udemy-icon.svg';
 import duolingoIcon from '../assets/images/icons/duolingo-icon.svg';
 
 const meta: Meta<typeof SocialIcons> = {
@@ -53,9 +53,9 @@ export const FooterSocials = {
     args: {
         config: [
             { className: 'codepen', icon: codepenIcon, url: '//codepen.io/MiguelDotL', label: 'CodePen' },
+            { className: 'npm', icon: npmIcon, url: '//www.npmjs.com/~migueldotl', label: 'npm' },
             { className: 'codewars', icon: codewarsIcon, url: '//www.codewars.com/users/MiguelDotL', label: 'Codewars' },
             { className: 'codecademy', icon: codecademyIcon, url: '//www.codecademy.com/profiles/MiguelDotL', label: 'Codecademy' },
-            { className: 'udemy', icon: udemyIcon, url: '//www.udemy.com/user/miguel-lozano-4/', label: 'Udemy' },
             { className: 'duolingo', icon: duolingoIcon, url: '//www.duolingo.com/profile/MiguelDotL', label: 'Duolingo' }
         ]
     }
