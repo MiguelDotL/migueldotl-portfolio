@@ -35,6 +35,9 @@ const SkillsCarousel = () => {
     // the cross-fade dip that reads as a flash on the first icon (#51).
     const [isSnapping, setIsSnapping] = useState(false);
     const snapResetRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+    // Tracks the currently centered slide so we can target a single rendered
+    // <li> (not all visible ones) for highlight effects like the TS white BG.
+    const [centeredIndex, setCenteredIndex] = useState<number | null>(null);
 
     // Keyboard nav: ArrowLeft/Right scroll the carousel when Skills is in view
     useEffect(() => {
@@ -116,8 +119,16 @@ const SkillsCarousel = () => {
         { name: "Claude", iconPath: claudeIcon, color: "#D97757" }
     ];
 
+    // Fires when a slide transition begins — we update centeredIndex here
+    // (rather than only in afterChange) so the white BG fade starts as soon
+    // as movement starts, not after the carousel lands.
+    const handleBeforeChange = (nextSlide: number, state: CarouselState) => {
+        setCenteredIndex(nextSlide + Math.floor(state.slidesToShow / 2));
+    };
+
     const handleAfterChange = (_previousSlide: number, state: CarouselState) => {
         const { currentSlide, totalItems, slidesToShow } = state;
+        setCenteredIndex(currentSlide + Math.floor(slidesToShow / 2));
         // react-multi-carousel renders [end-clones, originals, start-clones].
         // It snaps when currentSlide reaches a clone region: start (=== 0)
         // or end (>= 2*slidesToShow + originalLength).
@@ -130,6 +141,33 @@ const SkillsCarousel = () => {
         // Cover the snap setState + render + paint.
         snapResetRef.current = setTimeout(() => setIsSnapping(false), 100);
     };
+
+    // Toggle `is-current` on the centered <li> by data-index. Carousel wraps
+    // children in <li> internally, so we sync via DOM rather than React props.
+    useEffect(() => {
+        if (centeredIndex === null) return;
+        const items = document.querySelectorAll(
+            ".skills-slider .react-multi-carousel-item"
+        );
+        items.forEach((el) => {
+            const idx = parseInt(el.getAttribute("data-index") || "-1", 10);
+            el.classList.toggle("is-current", idx === centeredIndex);
+        });
+    }, [centeredIndex]);
+
+    // Initialize centeredIndex from the carousel's initial state — afterChange
+    // doesn't fire until the user interacts.
+    useEffect(() => {
+        const t = window.setTimeout(() => {
+            const state = carouselRef.current?.state;
+            if (state) {
+                setCenteredIndex(
+                    state.currentSlide + Math.floor(state.slidesToShow / 2)
+                );
+            }
+        }, 100);
+        return () => window.clearTimeout(t);
+    }, []);
 
     useEffect(() => {
         return () => {
@@ -144,6 +182,7 @@ const SkillsCarousel = () => {
             responsive={responsive}
             infinite={true}
             swipeable={true}
+            beforeChange={handleBeforeChange}
             afterChange={handleAfterChange}
         >
             {skills.map((skill) => {
