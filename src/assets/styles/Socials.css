@@ -39,6 +39,16 @@
     transition: 0.3s ease-in-out;
 }
 
+/* npm icon ships colored (red box + white text) — flatten to monochrome
+   white at rest and pure black on hover so it matches the other socials. */
+.social-icons a.social-icon.npm img {
+    filter: brightness(0) invert(1);
+}
+
 .social-icons a.social-icon:hover img {
     filter: invert(100%);
+}
+
+.social-icons a.social-icon.npm:hover img {
+    filter: brightness(0);
 }
