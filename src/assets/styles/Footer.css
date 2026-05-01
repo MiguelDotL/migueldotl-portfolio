@@ -105,6 +105,11 @@
     width: 50%;
 }
 
+.footer .see-what-else .social-icons a.social-icon.npm img {
+    width: 75%;
+    transform: translateY(1px);
+}
+
 .footer .footer-right {
     color: #757575;
     display: flex;
