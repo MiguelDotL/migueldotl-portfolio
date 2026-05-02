@@ -13,7 +13,7 @@ const meta: Meta<typeof Skills> = {
             </div>
         )
     ],
-    parameters: { layout: 'fullscreen' }
+    parameters: { layout: 'fullscreen', docs: { description: { component: "The Skills section — a horizontal carousel of devicon glyphs that the visitor can scroll with arrow keys when the section is in view." } } }
 };
 
 export default meta;

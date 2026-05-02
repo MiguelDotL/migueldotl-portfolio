@@ -20,13 +20,13 @@ const preview = {
 
     options: {
       // Showcase first (the portfolio narrative), Components second (the
-      // building blocks), Process last (the design-process artifacts).
+      // building blocks), Design Iterations last (the design-process artifacts).
       // Within each top-level bucket, sub-buckets and stories sort alphabetically.
       storySort: {
         order: [
           'Showcase', ['Sections'],
           'Components', ['Composites', 'Primitives', 'Skeletons'],
-          'Process'
+          'Design Iterations'
         ]
       }
     }

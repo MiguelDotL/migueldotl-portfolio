@@ -27,7 +27,7 @@ const meta: Meta<StoryArgs> = {
             </section>
         )
     ],
-    parameters: { layout: 'fullscreen' },
+    parameters: { layout: 'fullscreen', docs: { description: { component: "Animated tab indicator that wraps the active tab with a perimeter trace. Initial wrap animation gates on `enabled` (parent's IntersectionObserver) so it reveals as the user scrolls into view." } } },
     argTypes: {
         tabs: {
             control: { type: 'object' },

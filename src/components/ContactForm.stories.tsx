@@ -24,7 +24,7 @@ const meta: Meta<typeof ContactForm> = {
             </section>
         )
     ],
-    parameters: { layout: 'fullscreen' }
+    parameters: { layout: 'fullscreen', docs: { description: { component: "The contact form proper — five fields, honeypot spam protection, staged success / error animations, and a `VITE_MOCK_FORM` dev mock." } } }
 };
 
 export default meta;

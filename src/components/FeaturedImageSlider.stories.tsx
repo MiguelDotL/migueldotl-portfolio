@@ -49,7 +49,7 @@ const meta: Meta<StoryArgs> = {
             </section>
         )
     ],
-    parameters: { layout: 'fullscreen' },
+    parameters: { layout: 'fullscreen', docs: { description: { component: "Auto-advancing image slider with hover-pause, optional click-to-lightbox, arrow / keyboard / swipe controls, and four indicator variants." } } },
     argTypes: {
         images: {
             control: { type: 'object' },

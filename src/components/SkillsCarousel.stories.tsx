@@ -23,7 +23,7 @@ const meta: Meta<typeof SkillsCarousel> = {
             </section>
         )
     ],
-    parameters: { layout: 'fullscreen' }
+    parameters: { layout: 'fullscreen', docs: { description: { component: "Skills horizontal carousel. Custom-handles the TypeScript icon's white-square pseudo-element backdrop and pauses autoplay when off-screen." } } }
 };
 
 export default meta;

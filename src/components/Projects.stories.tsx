@@ -20,7 +20,7 @@ import patternArchiveLibrary from '../assets/images/projects/pattern-archive-lib
 const meta: Meta<typeof Projects> = {
     title: 'Showcase/Sections/Projects',
     component: Projects,
-    parameters: { layout: 'fullscreen' }
+    parameters: { layout: 'fullscreen', docs: { description: { component: "The Projects section — three tabs (Featured, Personal, Client) with animated transitions. Clicking a tab slides the active content out and the new content in." } } }
 };
 
 export default meta;

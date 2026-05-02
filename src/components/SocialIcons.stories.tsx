@@ -30,7 +30,8 @@ const meta: Meta<typeof SocialIcons> = {
             action: 'iconHover',
             description: 'Fires on per-icon hover with the icon label'
         }
-    }
+    },
+    parameters: { docs: { description: { component: "Row of social media link icons used in NavBar (top), Footer (bottom-left), and ContactMe (side rail). Optional `onHover` callback fires the icon label." } } }
 };
 
 export default meta;

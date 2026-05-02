@@ -13,7 +13,7 @@ type StoryArgs = {
 };
 
 const meta: Meta<StoryArgs> = {
-    title: 'Process/BranchBeaconImage',
+    title: 'Design Iterations/BranchBeaconImage',
     decorators: [
         (Story) => (
             <section
@@ -28,7 +28,7 @@ const meta: Meta<StoryArgs> = {
             </section>
         )
     ],
-    parameters: { layout: 'fullscreen' },
+    parameters: { layout: 'fullscreen', docs: { description: { component: "Tuning the HoverZoomPan zoom multiplier and transition duration on the Branch Beacon card image." } } },
     argTypes: {
         zoomPercent: {
             control: { type: 'range', min: 100, max: 200, step: 1 },

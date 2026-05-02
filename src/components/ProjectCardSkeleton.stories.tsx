@@ -20,7 +20,7 @@ const meta: Meta<typeof ProjectCardSkeleton> = {
             </section>
         )
     ],
-    parameters: { layout: 'fullscreen' },
+    parameters: { layout: 'fullscreen', docs: { description: { component: "Loading-state placeholder matching the ProjectCard layout." } } },
     argTypes: {
         md: {
             control: { type: 'number', min: 2, max: 12, step: 1 },

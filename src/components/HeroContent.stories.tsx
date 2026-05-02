@@ -37,7 +37,7 @@ const meta: Meta<typeof HeroContent> = {
             </section>
         )
     ],
-    parameters: { layout: 'fullscreen' }
+    parameters: { layout: 'fullscreen', docs: { description: { component: "The text + CTA block inside Hero. Drives the typing-effect headline cycle." } } }
 };
 
 export default meta;

@@ -32,7 +32,7 @@ const meta: Meta<typeof ProjectList> = {
             </section>
         )
     ],
-    parameters: { layout: 'fullscreen' },
+    parameters: { layout: 'fullscreen', docs: { description: { component: "Grid of basic project cards. Used in the Client Projects tab." } } },
     argTypes: {
         projects: {
             control: { type: 'object' },

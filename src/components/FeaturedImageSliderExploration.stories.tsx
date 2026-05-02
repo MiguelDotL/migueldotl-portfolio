@@ -21,7 +21,7 @@ type StoryArgs = {
 };
 
 const meta: Meta<StoryArgs> = {
-    title: 'Process/FeaturedImageSlider',
+    title: 'Design Iterations/FeaturedImageSlider',
     decorators: [
         (Story) => (
             <section
@@ -36,7 +36,7 @@ const meta: Meta<StoryArgs> = {
             </section>
         )
     ],
-    parameters: { layout: 'fullscreen' },
+    parameters: { layout: 'fullscreen', docs: { description: { component: "Comparison of indicator and control variants for the FeaturedImageSlider before the production combination landed." } } },
     argTypes: {
         indicator: {
             control: { type: 'radio' },

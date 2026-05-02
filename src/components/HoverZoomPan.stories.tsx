@@ -33,7 +33,7 @@ const meta: Meta<StoryArgs> = {
             </section>
         )
     ],
-    parameters: { layout: 'fullscreen' },
+    parameters: { layout: 'fullscreen', docs: { description: { component: "Image with mouse-driven zoom-and-pan on hover. Cursor position drives the transform-origin so the image pans toward the area under the cursor." } } },
     argTypes: {
         src: { table: { disable: true } },
         alt: { control: { type: 'text' } },
