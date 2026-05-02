@@ -459,3 +459,21 @@ a.project-card {
         width: 56%;
     }
 }
+/* Disabled action chip — used for private/inactive repo links. Visually
+   muted, non-clickable, with a small lock indicator to signal "private". */
+.featured-project-actions .featured-project-action--disabled {
+    opacity: 0.55;
+    cursor: not-allowed;
+    pointer-events: auto;
+}
+
+.featured-project-actions .featured-project-action--disabled:hover {
+    background: transparent;
+    color: inherit;
+}
+
+.featured-project-action-lock {
+    margin-left: 0.4em;
+    font-size: 0.85em;
+    filter: grayscale(1);
+}
