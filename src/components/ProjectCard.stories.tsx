@@ -4,7 +4,7 @@ import { userEvent, within } from 'storybook/test';
 import ProjectCard from './ProjectCard';
 import '../assets/styles/Projects.css';
 
-import orbyTv from '../assets/images/projects/orby-tv-2.png';
+import trimAgency from '../assets/images/projects/trim-agency-512.png';
 import cSolutions from '../assets/images/projects/c-solutions-512.png';
 import filthyFood from '../assets/images/projects/filthy-food-512.png';
 
@@ -40,10 +40,10 @@ type Story = StoryObj<typeof ProjectCard>;
 
 export const Default: Story = {
     args: {
-        title: 'Orby TV',
+        title: 'T R I M Agency',
         description: 'Web Development',
-        imageURL: orbyTv,
-        url: 'https://orby.tv'
+        imageURL: trimAgency,
+        url: '//www.trimagency.com/'
     }
 };
 
