@@ -59,8 +59,13 @@ const MomentumTabs = <T extends string>({
         transitionTimers.current = [];
     };
 
+    // Gated on `enabled` so we only measure once the parent signals the
+    // section is in view. Important when the parent has `content-visibility: auto`
+    // — without `enabled`, this effect would fire on first mount with a layout
+    // that's been skipped, yielding zero-width measurements that then get
+    // frozen by the initializedRef guard.
     useLayoutEffect(() => {
-        if (initializedRef.current) return;
+        if (initializedRef.current || !enabled) return;
         initializedRef.current = true;
         const el = buttonRefs.current[active];
         if (el) {
@@ -71,7 +76,7 @@ const MomentumTabs = <T extends string>({
                 height: el.offsetHeight
             });
         }
-    }, [active]);
+    }, [enabled, active]);
 
     // Initial wrap animation. Held until `enabled` flips to true (so the section
     // can defer it until scrolled into view). Fires exactly once.
