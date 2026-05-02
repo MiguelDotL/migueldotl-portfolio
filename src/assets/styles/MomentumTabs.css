@@ -24,6 +24,14 @@
     color: #fff;
 }
 
+/* Suppress the default browser focus outline entirely — the perimeter
+   trace + frosted background already serve as the active/focus indicator,
+   so a separate accessibility outline would be visual noise. */
+.momentum-tab:focus,
+.momentum-tab:focus-visible {
+    outline: none;
+}
+
 /* Frosted-glass background fades in once the perimeter trace finishes wrapping
    the active tab. Pseudo-element sits behind the text inside the tab area. */
 .momentum-tab::before {
