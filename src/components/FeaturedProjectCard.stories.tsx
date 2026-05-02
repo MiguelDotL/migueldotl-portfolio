@@ -4,10 +4,11 @@ import FeaturedProjectCard from './FeaturedProjectCard';
 import NpmPlainIcon from './NpmPlainIcon';
 import '../assets/styles/Projects.css';
 
-import orbyTv from '../assets/images/projects/orby-tv-2.png';
+import branchBeaconImg from '../assets/images/projects/branch-beacon.png';
+import bcbsMain from '../assets/images/projects/bcbs-main.png';
 
-const placeholderBranchBeacon = orbyTv;
-const placeholderBcbs = orbyTv;
+const placeholderBranchBeacon = branchBeaconImg;
+const placeholderBcbs = bcbsMain;
 
 const meta: Meta<typeof FeaturedProjectCard> = {
     title: 'Components/FeaturedProjectCard',
@@ -92,6 +93,7 @@ export const BranchBeacon: Story = {
 };
 
 export const BcbsNc: Story = {
+    name: 'BCBS NC',
     args: {
         title: 'BCBS NC — LiteHouse',
         subtitle: 'Enterprise client',

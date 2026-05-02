@@ -4,7 +4,7 @@ import '../assets/styles/Projects.css';
 import './ProjectCardHoverExploration.stories.css';
 import ProjectCard from './ProjectCard';
 
-import orbyTv from '../assets/images/projects/orby-tv-2-512.png';
+import trimAgency from '../assets/images/projects/trim-agency-512.png';
 
 type SampleCard = {
     title: string;
@@ -13,9 +13,9 @@ type SampleCard = {
 };
 
 const sample: SampleCard = {
-    title: 'Orby TV',
+    title: 'T R I M Agency',
     role: 'Web Development',
-    image: orbyTv
+    image: trimAgency
 };
 
 const SectionWrap = ({

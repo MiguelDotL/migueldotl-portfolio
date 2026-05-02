@@ -12,7 +12,6 @@ import trimAgency from '../assets/images/projects/trim-agency-512.png';
 import cSolutions from '../assets/images/projects/c-solutions-512.png';
 import filthyFood from '../assets/images/projects/filthy-food-512.png';
 import federated from '../assets/images/projects/federated-512.png';
-import orbyTV from '../assets/images/projects/orby-tv-2-512.png';
 import voicepoolImg from '../assets/images/projects/voicepool.png';
 import patternArchiveDashboard from '../assets/images/projects/pattern-archive-dashboard.png';
 import patternArchiveWizard from '../assets/images/projects/pattern-archive-wizard-editor.png';
@@ -64,12 +63,6 @@ const clientProjects = [
         description: 'Web Development',
         imageURL: cSolutions,
         url: '//csolutions-us.com/'
-    },
-    {
-        title: 'Orby TV',
-        description: 'Web Development',
-        imageURL: orbyTV,
-        url: '//orbytv.com/'
     },
     {
         title: 'Federated Insurance',
