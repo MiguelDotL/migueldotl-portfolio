@@ -1,4 +1,4 @@
-import type { Meta } from '@storybook/react-vite';
+import type { Meta, StoryObj } from '@storybook/react-vite';
 import { Container, Row } from 'react-bootstrap';
 import FeaturedProjectCard from './FeaturedProjectCard';
 import NpmPlainIcon from './NpmPlainIcon';
@@ -26,12 +26,44 @@ const meta: Meta<typeof FeaturedProjectCard> = {
             </section>
         )
     ],
-    parameters: { layout: 'fullscreen' }
+    parameters: { layout: 'fullscreen' },
+    argTypes: {
+        title: {
+            control: { type: 'text' },
+            description: 'Project name shown as heading'
+        },
+        subtitle: {
+            control: { type: 'text' },
+            description: 'Optional eyebrow above title'
+        },
+        description: {
+            control: { type: 'text' },
+            description: 'Project body copy'
+        },
+        techStack: {
+            control: { type: 'object' },
+            description: 'Tech tags listed under description'
+        },
+        imageURL: {
+            control: { type: 'text' },
+            description: 'Image src; ignored when imageSlot is provided'
+        },
+        imageSlot: {
+            control: false,
+            description: 'Custom image node; takes precedence over imageURL'
+        },
+        actions: {
+            control: { type: 'object' },
+            description: 'Link/action buttons rendered below body'
+        }
+    }
 };
 
 export default meta;
 
-export const BranchBeacon = {
+type Story = StoryObj<typeof FeaturedProjectCard>;
+
+export const BranchBeacon: Story = {
     args: {
         title: 'branch-beacon',
         subtitle: 'First npm package',
@@ -59,7 +91,7 @@ export const BranchBeacon = {
     }
 };
 
-export const BcbsNc = {
+export const BcbsNc: Story = {
     args: {
         title: 'BCBS NC — LiteHouse',
         subtitle: 'Enterprise client',
@@ -73,7 +105,7 @@ export const BcbsNc = {
     }
 };
 
-export const BothFeatured = {
+export const BothFeatured: Story = {
     render: () => (
         <>
             <FeaturedProjectCard
@@ -110,4 +142,15 @@ export const BothFeatured = {
             />
         </>
     )
+};
+
+export const Playground: Story = {
+    args: {
+        title: 'Sample Project',
+        subtitle: 'Playground',
+        description: 'Edit any control to preview the card layout.',
+        techStack: ['React', 'TypeScript'],
+        imageURL: placeholderBranchBeacon,
+        actions: [{ label: 'View', url: '#' }]
+    }
 };

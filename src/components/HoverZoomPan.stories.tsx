@@ -69,6 +69,8 @@ type Story = StoryObj<StoryArgs>;
 
 export const Default: Story = {};
 
+export const Playground: Story = {};
+
 export const SubtleZoom: Story = {
     args: { zoomScale: 1.06 }
 };

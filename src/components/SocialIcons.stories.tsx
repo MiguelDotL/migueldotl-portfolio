@@ -1,4 +1,5 @@
-import type { Meta } from '@storybook/react-vite';
+import type { Meta, StoryObj } from '@storybook/react-vite';
+import { action } from 'storybook/actions';
 import SocialIcons from './SocialIcons';
 
 import linkedInIcon from '../assets/images/icons/linked-in.svg';
@@ -19,12 +20,24 @@ const meta: Meta<typeof SocialIcons> = {
                 <Story />
             </div>
         )
-    ]
+    ],
+    argTypes: {
+        config: {
+            control: { type: 'object' },
+            description: 'Icons to render (className, icon, url, label)'
+        },
+        onHover: {
+            action: 'iconHover',
+            description: 'Fires on per-icon hover with the icon label'
+        }
+    }
 };
 
 export default meta;
 
-export const NavBarSocials = {
+type Story = StoryObj<typeof SocialIcons>;
+
+export const NavBarSocials: Story = {
     args: {
         config: [
             {
@@ -49,7 +62,7 @@ export const NavBarSocials = {
     }
 };
 
-export const FooterSocials = {
+export const FooterSocials: Story = {
     args: {
         config: [
             { className: 'codepen', icon: codepenIcon, url: '//codepen.io/MiguelDotL', label: 'CodePen' },
@@ -58,5 +71,26 @@ export const FooterSocials = {
             { className: 'codecademy', icon: codecademyIcon, url: '//www.codecademy.com/profiles/MiguelDotL', label: 'Codecademy' },
             { className: 'duolingo', icon: duolingoIcon, url: '//www.duolingo.com/profile/MiguelDotL', label: 'Duolingo' }
         ]
+    }
+};
+
+export const Playground: Story = {
+    args: {
+        config: [
+            {
+                className: 'linked-in',
+                icon: linkedInIcon,
+                url: 'https://www.linkedin.com/in/migueldot/',
+                label: 'LinkedIn'
+            },
+            {
+                className: 'github',
+                icon: githubIcon,
+                url: '//github.com/MiguelDotL',
+                label: 'GitHub'
+            },
+            { className: 'codepen', icon: codepenIcon, url: '//codepen.io/MiguelDotL', label: 'CodePen' }
+        ],
+        onHover: action('iconHover')
     }
 };

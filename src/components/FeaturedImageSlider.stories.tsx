@@ -51,6 +51,10 @@ const meta: Meta<StoryArgs> = {
     ],
     parameters: { layout: 'fullscreen' },
     argTypes: {
+        images: {
+            control: { type: 'object' },
+            description: 'Slides to cycle through (src + alt)'
+        },
         indicator: {
             control: { type: 'radio' },
             options: [
@@ -59,21 +63,21 @@ const meta: Meta<StoryArgs> = {
                 'segmented-progress',
                 'outlined-dots'
             ],
-            description: 'Visual variant for the active-slide indicator'
+            description: 'Visual style for the active-slide indicator'
         },
         controls: {
             control: { type: 'check' },
             options: ['arrows', 'click-image', 'keyboard', 'swipe'],
             description:
-                'Interaction methods. Auto-advance + hover-pause are always on.'
+                'Enabled input methods (multiselect); autoplay + hover-pause always on'
         },
         intervalMs: {
             control: { type: 'number', min: 1500, max: 12000, step: 500 },
-            description: 'Auto-advance interval in milliseconds'
+            description: 'Autoplay interval in milliseconds'
         },
         imagePosition: {
             control: { type: 'text' },
-            description: 'CSS object-position applied to each slide image'
+            description: 'CSS object-position applied to each slide'
         }
     },
     args: {
