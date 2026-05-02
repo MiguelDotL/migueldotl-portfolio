@@ -27,7 +27,7 @@ const meta: Meta<typeof FeaturedProjectCard> = {
             </section>
         )
     ],
-    parameters: { layout: 'fullscreen' },
+    parameters: { layout: 'fullscreen', docs: { description: { component: "The card layout used in the Featured + Personal Projects tabs. Renders a title, subtitle, description, tech stack chips, an image slot, and action buttons." } } },
     argTypes: {
         title: {
             control: { type: 'text' },

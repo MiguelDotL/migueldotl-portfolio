@@ -21,7 +21,7 @@ const meta: Meta<typeof PreFooter> = {
             </footer>
         )
     ],
-    parameters: { layout: 'fullscreen' }
+    parameters: { layout: 'fullscreen', docs: { description: { component: "The 'Built With' attribution block that sits between the page content and the Footer. Has a negative top margin to overlap into the section above on the live site." } } }
 };
 
 export default meta;

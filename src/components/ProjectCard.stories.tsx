@@ -23,9 +23,7 @@ const meta: Meta<typeof ProjectCard> = {
             </section>
         )
     ],
-    parameters: {
-        layout: 'fullscreen'
-    },
+    parameters: { layout: 'fullscreen', docs: { description: { component: "Single card used in the Client Projects grid. Shows an image with a hover overlay revealing title + description + view-site button." } } },
     argTypes: {
         title: { control: { type: 'text' }, description: 'Project name' },
         description: { control: { type: 'text' }, description: 'Short tagline' },

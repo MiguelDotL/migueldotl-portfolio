@@ -176,7 +176,7 @@ const Tilt = () => (
 
 const meta: Meta = {
     title: 'Process/ProjectCardHover',
-    parameters: { layout: 'fullscreen' }
+    parameters: { layout: 'fullscreen', docs: { description: { component: "Side-by-side comparison of nine hover-reveal effects considered for the ProjectCard before the chosen approach landed." } } }
 };
 export default meta;
 

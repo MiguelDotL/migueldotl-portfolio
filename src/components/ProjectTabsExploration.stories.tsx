@@ -595,7 +595,7 @@ const StackedSectionsVariant = () => (
 
 const meta: Meta = {
     title: 'Process/ProjectTabs',
-    parameters: { layout: 'fullscreen' },
+    parameters: { layout: 'fullscreen', docs: { description: { component: "Five tab-indicator approaches compared side by side before MomentumTabs (the perimeter-trace approach) won." } } },
     /* Each variant relies on useLayoutEffect to measure tab buttons and
        paint the active indicator. When Storybook switches between variants
        in this same file, React reuses the subtree and the measurement

@@ -11,7 +11,7 @@ const meta: Meta<typeof NavBar> = {
             </div>
         )
     ],
-    parameters: { layout: 'fullscreen' }
+    parameters: { layout: 'fullscreen', docs: { description: { component: "Fixed navigation bar that scroll-spies the active section. Collapses to a hamburger on smaller viewports." } } }
 };
 
 export default meta;

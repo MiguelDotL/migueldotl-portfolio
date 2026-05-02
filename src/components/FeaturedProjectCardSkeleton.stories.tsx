@@ -20,7 +20,7 @@ const meta: Meta<typeof FeaturedProjectCardSkeleton> = {
             </section>
         )
     ],
-    parameters: { layout: 'fullscreen' }
+    parameters: { layout: 'fullscreen', docs: { description: { component: "Loading-state placeholder matching the FeaturedProjectCard layout." } } }
 };
 
 export default meta;
