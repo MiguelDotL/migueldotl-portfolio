@@ -4,7 +4,7 @@ import '../assets/styles/Skills.css';
 import 'react-multi-carousel/lib/styles.css';
 
 const meta: Meta<typeof SkillsCarousel> = {
-    title: 'Components/SkillsCarousel',
+    title: 'Components/Composites/SkillsCarousel',
     component: SkillsCarousel,
     decorators: [
         // id="skills" is required by SkillsCarousel's keyboard-nav IntersectionObserver.

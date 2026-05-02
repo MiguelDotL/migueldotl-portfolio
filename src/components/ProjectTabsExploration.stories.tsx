@@ -594,7 +594,7 @@ const StackedSectionsVariant = () => (
 );
 
 const meta: Meta = {
-    title: 'Explorations/ProjectTabs',
+    title: 'Process/ProjectTabs',
     parameters: { layout: 'fullscreen' },
     /* Each variant relies on useLayoutEffect to measure tab buttons and
        paint the active indicator. When Storybook switches between variants

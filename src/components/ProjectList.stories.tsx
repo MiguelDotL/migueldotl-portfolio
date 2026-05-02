@@ -16,7 +16,7 @@ const sampleProjects = [
 ];
 
 const meta: Meta<typeof ProjectList> = {
-    title: 'Components/ProjectList',
+    title: 'Components/Composites/ProjectList',
     component: ProjectList,
     decorators: [
         (Story) => (

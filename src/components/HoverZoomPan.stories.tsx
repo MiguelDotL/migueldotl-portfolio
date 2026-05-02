@@ -13,7 +13,7 @@ type StoryArgs = {
 };
 
 const meta: Meta<StoryArgs> = {
-    title: 'Components/HoverZoomPan',
+    title: 'Components/Composites/HoverZoomPan',
     decorators: [
         (Story) => (
             <section

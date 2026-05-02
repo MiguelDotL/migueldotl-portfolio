@@ -1,7 +1,7 @@
 import Footer from './Footer';
 
 const meta = {
-    title: 'Sections/Footer',
+    title: 'Showcase/Sections/Footer',
     component: Footer,
     parameters: { layout: 'fullscreen' }
 };
