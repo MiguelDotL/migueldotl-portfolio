@@ -20,8 +20,8 @@ _[TODO: Miguel — short paragraph in your own voice: who you are, what you buil
 ## Local development
 
 ```bash
-git clone https://github.com/MiguelDotL/react-portfolio.git
-cd react-portfolio
+git clone https://github.com/MiguelDotL/migueldotl-portfolio.git
+cd migueldotl-portfolio
 npm install
 npm run dev
 ```
