@@ -568,7 +568,15 @@ const StackedSectionsVariant = () => (
 
 const meta: Meta = {
     title: 'Explorations/ProjectTabs',
-    parameters: { layout: 'fullscreen' }
+    parameters: { layout: 'fullscreen' },
+    /* Each variant relies on useLayoutEffect to measure tab buttons and
+       paint the active indicator. When Storybook switches between variants
+       in this same file, React reuses the subtree and the measurement
+       effect doesn't re-run, so the indicator is missing until a refresh.
+       Keying the wrapper on the story id forces a fresh mount per story. */
+    decorators: [
+        (Story, ctx) => <div key={ctx.id}><Story /></div>
+    ]
 };
 export default meta;
 
