@@ -89,16 +89,21 @@
 }
 
 .contact form input:user-invalid,
-.contact form textarea:user-invalid {
+.contact form textarea:user-invalid,
+.contact form input[aria-invalid="true"],
+.contact form textarea[aria-invalid="true"] {
     border-color: rgba(239, 68, 68, 0.95);
     background: rgba(239, 68, 68, 0.12);
     box-shadow: 0 0 0 1px rgba(239, 68, 68, 0.45);
 }
 
 .contact form input:user-invalid:focus,
-.contact form textarea:user-invalid:focus {
+.contact form textarea:user-invalid:focus,
+.contact form input[aria-invalid="true"]:focus,
+.contact form textarea[aria-invalid="true"]:focus {
     background: rgba(255, 255, 255, 1);
     color: var(--dark-grey);
+    border-color: rgba(220, 38, 38, 1);
 }
 
 .contact form input:focus::placeholder, .contact form textarea:focus::placeholder {
