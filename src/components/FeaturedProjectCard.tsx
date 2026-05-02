@@ -41,7 +41,7 @@ const FeaturedProjectCard = (props: FeaturedProject) => {
             <div className="featured-project-card">
                 <div className="featured-project-image">
                     {props.imageSlot ?? (
-                        props.imageURL && <img src={props.imageURL} alt={props.title} />
+                        props.imageURL && <img src={props.imageURL} alt={props.title} loading="lazy" />
                     )}
                 </div>
                 <div className="featured-project-body">

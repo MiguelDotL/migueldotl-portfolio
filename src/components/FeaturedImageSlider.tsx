@@ -37,6 +37,12 @@ const FeaturedImageSlider = ({
     const [paused, setPaused] = useState(false);
     const [progress, setProgress] = useState(0);
     const [lightboxOpen, setLightboxOpen] = useState(false);
+    // Pause rAF when scrolled off-screen so multiple sliders don't keep ticking
+    // when the section isn't visible. Defaults to true so we don't autoplay
+    // until we've actually observed visibility (avoids a brief tick before the
+    // observer fires).
+    const [offScreen, setOffScreen] = useState(true);
+    const rootRef = useRef<HTMLDivElement>(null);
     const swipeStartX = useRef<number | null>(null);
 
     const useArrows = controls.includes('arrows');
@@ -48,8 +54,27 @@ const FeaturedImageSlider = ({
     const prev = () => setIndex((i) => (i - 1 + images.length) % images.length);
 
     // Pause autoplay while the lightbox is open so the slide doesn't advance
-    // out from under the user.
-    const effectivelyPaused = paused || lightboxOpen;
+    // out from under the user. Also pause when off-screen.
+    const effectivelyPaused = paused || lightboxOpen || offScreen;
+
+    useEffect(() => {
+        const el = rootRef.current;
+        if (!el) return;
+        // Skip when IntersectionObserver isn't available (e.g. older test envs).
+        if (typeof IntersectionObserver === 'undefined') {
+            // eslint-disable-next-line react-hooks/set-state-in-effect
+            setOffScreen(false);
+            return;
+        }
+        const io = new IntersectionObserver(
+            ([entry]) => {
+                setOffScreen(!entry.isIntersecting);
+            },
+            { rootMargin: '100px' }
+        );
+        io.observe(el);
+        return () => io.disconnect();
+    }, []);
 
     useEffect(() => {
         // Reset progress when the active slide changes so the segmented-progress
@@ -146,6 +171,7 @@ const FeaturedImageSlider = ({
 
     return (
         <div
+            ref={rootRef}
             className="featured-image-slider"
             tabIndex={useKeyboard ? 0 : -1}
             onMouseEnter={() => setPaused(true)}
@@ -161,6 +187,7 @@ const FeaturedImageSlider = ({
                     key={img.src}
                     src={img.src}
                     alt={img.alt}
+                    loading="lazy"
                     className={`featured-image-slider__slide ${
                         i === index ? 'is-active' : ''
                     } is-clickable`}
