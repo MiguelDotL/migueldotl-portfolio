@@ -39,6 +39,18 @@ export const TAB_ANIMATION_2026_05_02: TabAnimationPreset = {
     indicatorExpandMs: 700
 };
 
+/* Preset A — slash expand only. Keeps every other indicator phase, kills
+   the trailing tail. Total indicator 740ms, synced with content. Risk:
+   100ms expand can feel abrupt — loses the "settle around new tab"
+   character. */
+export const TAB_ANIMATION_SNAPPIER_TAIL_CUT: TabAnimationPreset = {
+    fadeMs: 369,
+    indicatorShrinkMs: 280,
+    indicatorSlideStretchMs: 140,
+    indicatorSlideContractMs: 220,
+    indicatorExpandMs: 100
+};
+
 /* Preset B — proportional 0.55× scaling on every indicator phase.
    Preserves the timeline's character (same phase ratios as 2026-05-02)
    but cuts total indicator duration to 737ms — synced exactly with the
@@ -49,6 +61,18 @@ export const TAB_ANIMATION_SNAPPIER_PROPORTIONAL: TabAnimationPreset = {
     indicatorSlideStretchMs: 77,
     indicatorSlideContractMs: 121,
     indicatorExpandMs: 385
+};
+
+/* Preset D — halve expand only. Keeps the original feel and just trims
+   the worst offender. Total indicator 990ms — still trails content by
+   252ms but much less than the original 602ms. Middle ground if A/B
+   feel too aggressive. */
+export const TAB_ANIMATION_SNAPPIER_HALF_EXPAND: TabAnimationPreset = {
+    fadeMs: 369,
+    indicatorShrinkMs: 280,
+    indicatorSlideStretchMs: 140,
+    indicatorSlideContractMs: 220,
+    indicatorExpandMs: 350
 };
 
 /** Active preset. Swap this to A/B test different timings. */
