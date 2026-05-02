@@ -594,7 +594,7 @@ const StackedSectionsVariant = () => (
 );
 
 const meta: Meta = {
-    title: 'Process/ProjectTabs',
+    title: 'Design Iterations/ProjectTabs',
     parameters: { layout: 'fullscreen', docs: { description: { component: "Five tab-indicator approaches compared side by side before MomentumTabs (the perimeter-trace approach) won." } } },
     /* Each variant relies on useLayoutEffect to measure tab buttons and
        paint the active indicator. When Storybook switches between variants

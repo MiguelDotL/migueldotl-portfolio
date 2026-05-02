@@ -21,7 +21,7 @@ type StoryArgs = {
 };
 
 const meta: Meta<StoryArgs> = {
-    title: 'Process/FeaturedImageSlider',
+    title: 'Design Iterations/FeaturedImageSlider',
     decorators: [
         (Story) => (
             <section
