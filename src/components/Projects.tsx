@@ -10,6 +10,8 @@ import FeaturedImageSlider from './FeaturedImageSlider';
 import HoverZoomPan from './HoverZoomPan';
 import NpmPlainIcon from './NpmPlainIcon';
 
+import { TAB_ANIMATION } from './projectsTabAnimation';
+
 import generalProvision from '../assets/images/projects/general-provision-512.png';
 import trimAgency from '../assets/images/projects/trim-agency-512.png';
 import cSolutions from '../assets/images/projects/c-solutions-512.png';
@@ -69,7 +71,7 @@ const clientProjects = [
     }
 ];
 
-const TAB_FADE_MS = 369;
+const TAB_FADE_MS = TAB_ANIMATION.fadeMs;
 
 const Projects = () => {
     const { ref, inView } = useInView({ triggerOnce: true });
