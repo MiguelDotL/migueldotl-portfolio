@@ -32,15 +32,13 @@
     outline: none;
 }
 
-/* Frosted-glass background fades in once the perimeter trace finishes wrapping
-   the active tab. Pseudo-element sits behind the text inside the tab area. */
+/* Active-tab fill layer — kept transparent. Perimeter trace alone marks
+   the active tab; the pseudo + .is-frosted toggle stay so a future skin
+   can drop a background back in without re-wiring the JS animation. */
 .momentum-tab::before {
     content: "";
     position: absolute;
     inset: 0;
-    background: rgba(255, 255, 255, 0.05);
-    backdrop-filter: blur(6px) saturate(1.3);
-    -webkit-backdrop-filter: blur(6px) saturate(1.3);
     opacity: 0;
     transition: opacity 280ms ease;
     pointer-events: none;
