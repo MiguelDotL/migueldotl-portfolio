@@ -19,6 +19,12 @@
     opacity: 1;
 }
 
+/* Inactive slides are absolutely stacked on top of the active one in DOM
+   order, so without this they'd capture clicks meant for the active slide. */
+.featured-image-slider__slide:not(.is-active) {
+    pointer-events: none;
+}
+
 .featured-image-slider__slide.is-clickable.is-active {
     cursor: pointer;
 }
@@ -170,7 +176,7 @@
 }
 
 .featured-image-slider:hover .featured-image-slider__arrow,
-.featured-image-slider:focus-within .featured-image-slider__arrow {
+.featured-image-slider:has(:focus-visible) .featured-image-slider__arrow {
     opacity: 1;
 }
 
@@ -184,4 +190,92 @@
 
 .featured-image-slider__arrow--next {
     right: 0.6em;
+}
+
+
+/* Lightbox: full-viewport overlay shown when an image is clicked.
+   Rendered via React Portal to document.body so it escapes any ancestor
+   transform/filter/backdrop-filter that would trap position:fixed inside
+   the parent card's containing block. */
+.featured-image-slider__lightbox {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.88);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 4vh 4vw;
+    cursor: zoom-out;
+    animation: featured-image-slider-lightbox-fade 180ms ease-out;
+}
+
+@keyframes featured-image-slider-lightbox-fade {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+.featured-image-slider__lightbox-img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    cursor: default;
+    box-shadow: 0 24px 60px rgba(0, 0, 0, 0.6);
+}
+
+.featured-image-slider__lightbox-close,
+.featured-image-slider__lightbox-arrow {
+    position: absolute;
+    background: rgba(255, 255, 255, 0.08);
+    color: #fff;
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    cursor: pointer;
+    transition: background 180ms ease, transform 180ms ease;
+}
+
+.featured-image-slider__lightbox-close:hover,
+.featured-image-slider__lightbox-arrow:hover {
+    background: rgba(255, 255, 255, 0.18);
+}
+
+.featured-image-slider__lightbox-close {
+    top: 2vh;
+    right: 2vw;
+    width: 2.4em;
+    height: 2.4em;
+    border-radius: 50%;
+    font-size: 1.4em;
+    line-height: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.featured-image-slider__lightbox-arrow {
+    top: 50%;
+    transform: translateY(-50%);
+    width: 2em;
+    height: 2em;
+    border-radius: 50%;
+    font-size: 1.2em;
+    line-height: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.featured-image-slider__lightbox-arrow:hover {
+    transform: translateY(-50%) scale(1.05);
+}
+
+.featured-image-slider__lightbox-arrow--prev {
+    left: 2vw;
+}
+
+.featured-image-slider__lightbox-arrow--next {
+    right: 2vw;
 }
