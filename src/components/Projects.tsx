@@ -69,16 +69,28 @@ const clientProjects = [
     }
 ];
 
-const TAB_FADE_MS = 320;
+const TAB_FADE_MS = 369;
 
 const Projects = () => {
     const { ref, inView } = useInView({ triggerOnce: true });
     const [activeTab, setActiveTab] = useState<Tab>('Featured');
-    // Tab content fades out → swap → fades in. `displayedTab` lags `activeTab`
-    // during the fade-out window so the old content stays visible until opacity
-    // hits 0, then we swap and let it fade back in.
+    // Tab content slides + fades out → swap → slides + fades in. `displayedTab`
+    // lags `activeTab` during the exit window so the old content stays visible
+    // until it's faded/translated out, then we swap and the new content runs
+    // its enter animation.
     const [displayedTab, setDisplayedTab] = useState<Tab>('Featured');
-    const [isFading, setIsFading] = useState(false);
+    type Phase = 'idle' | 'exiting' | 'entering';
+    type Direction = 'forward' | 'backward';
+    const [phase, setPhase] = useState<Phase>('idle');
+    const [direction, setDirection] = useState<Direction>('forward');
+
+    const handleTabChange = (next: Tab) => {
+        if (next === activeTab) return;
+        const oldIdx = TABS.indexOf(activeTab);
+        const newIdx = TABS.indexOf(next);
+        setDirection(newIdx > oldIdx ? 'forward' : 'backward');
+        setActiveTab(next);
+    };
     // Smooth height transition as tab content changes. ResizeObserver tracks the
     // inner content's height; the shell wraps it with `overflow: hidden` and a
     // CSS transition on `height` so the section grows/shrinks fluidly instead of
@@ -99,16 +111,22 @@ const Projects = () => {
 
     useEffect(() => {
         if (activeTab === displayedTab) return;
-        // Drive the fade-out → swap → fade-in sequence imperatively in response
-        // to activeTab changes. setState inside effect is required here.
+        // Drive the exit → swap → enter sequence imperatively. setState inside
+        // effect is required here.
         // eslint-disable-next-line react-hooks/set-state-in-effect
-        setIsFading(true);
+        setPhase('exiting');
         const t = window.setTimeout(() => {
             setDisplayedTab(activeTab);
-            setIsFading(false);
+            setPhase('entering');
         }, TAB_FADE_MS);
         return () => window.clearTimeout(t);
     }, [activeTab, displayedTab]);
+
+    useEffect(() => {
+        if (phase !== 'entering') return;
+        const t = window.setTimeout(() => setPhase('idle'), TAB_FADE_MS);
+        return () => window.clearTimeout(t);
+    }, [phase, displayedTab]);
 
     return (
         <section id="projects" className="projects">
@@ -162,7 +180,7 @@ const Projects = () => {
                             <MomentumTabs
                                 tabs={TABS}
                                 active={activeTab}
-                                onChange={setActiveTab}
+                                onChange={handleTabChange}
                                 enabled={inView}
                             />
                             <div
@@ -175,7 +193,13 @@ const Projects = () => {
                             >
                                 <div
                                     ref={innerRef}
-                                    className={`tab-content-fade ${isFading ? 'is-fading' : ''}`}
+                                    className={`tab-content-fade ${
+                                        phase === 'exiting'
+                                            ? `is-exiting is-exiting--${direction}`
+                                            : phase === 'entering'
+                                            ? `is-entering--${direction}`
+                                            : ''
+                                    }`}
                                 >
                                     {displayedTab === 'Featured' && (
                                         <Row>
@@ -192,11 +216,24 @@ const Projects = () => {
                                                 imageSlot={
                                                     <FeaturedImageSlider
                                                         images={[
-                                                            { src: bcbsMain, alt: 'BCBS NC homepage' },
-                                                            { src: bcbsLitehouse, alt: 'BCBS NC vision plan page' },
-                                                            { src: bcbsProviders, alt: 'BCBS NC providers page' }
+                                                            {
+                                                                src: bcbsMain,
+                                                                alt: 'BCBS NC homepage'
+                                                            },
+                                                            {
+                                                                src: bcbsLitehouse,
+                                                                alt: 'BCBS NC vision plan page'
+                                                            },
+                                                            {
+                                                                src: bcbsProviders,
+                                                                alt: 'BCBS NC providers page'
+                                                            }
                                                         ]}
-                                                        controls={['arrows', 'keyboard', 'swipe']}
+                                                        controls={[
+                                                            'arrows',
+                                                            'keyboard',
+                                                            'swipe'
+                                                        ]}
                                                     />
                                                 }
                                                 actions={[
@@ -229,8 +266,16 @@ const Projects = () => {
                                                             className="accent"
                                                         >
                                                             Web Component
-                                                        </a>
-                                                        {' '}that keeps your current git branch visible in the browser as a sanity check. Automatically styled to the host project's design tokens, with color-coding that alerts you to protected branches. Published to npm with Storybook docs and backend references for Express, FastAPI, Flask, and Go.
+                                                        </a>{' '}
+                                                        that keeps your current git branch
+                                                        visible in the browser as a sanity
+                                                        check. Automatically styled to the
+                                                        host project's design tokens, with
+                                                        color-coding that alerts you to
+                                                        protected branches. Published to
+                                                        npm with Storybook docs and
+                                                        backend references for Express,
+                                                        FastAPI, Flask, and Go.
                                                     </>
                                                 }
                                                 techStack={[
@@ -243,7 +288,6 @@ const Projects = () => {
                                                     <HoverZoomPan
                                                         src={branchBeaconImg}
                                                         alt="Branch Beacon"
-                                                        zoomScale={2.06}
                                                     />
                                                 }
                                                 actions={[
@@ -260,7 +304,12 @@ const Projects = () => {
                                                     {
                                                         label: 'Repo',
                                                         url: 'https://github.com/MiguelDotL/branch-beacon',
-                                                        icon: <i className="devicon-github-original" aria-hidden />
+                                                        icon: (
+                                                            <i
+                                                                className="devicon-github-original"
+                                                                aria-hidden
+                                                            />
+                                                        )
                                                     }
                                                 ]}
                                             />
@@ -284,16 +333,25 @@ const Projects = () => {
                                                     'ElevenLabs API'
                                                 ]}
                                                 imageSlot={
-                                                    <HoverZoomPan
-                                                        src={voicepoolImg}
-                                                        alt="Voicepool fleet dashboard"
+                                                    <FeaturedImageSlider
+                                                        images={[
+                                                            {
+                                                                src: voicepoolImg,
+                                                                alt: 'Voicepool fleet dashboard'
+                                                            }
+                                                        ]}
                                                     />
                                                 }
                                                 actions={[
                                                     {
                                                         label: 'Repo',
                                                         url: 'https://github.com/MiguelDotL/voicepool',
-                                                        icon: <i className="devicon-github-original" aria-hidden />
+                                                        icon: (
+                                                            <i
+                                                                className="devicon-github-original"
+                                                                aria-hidden
+                                                            />
+                                                        )
                                                     }
                                                 ]}
                                             />
@@ -311,11 +369,24 @@ const Projects = () => {
                                                 imageSlot={
                                                     <FeaturedImageSlider
                                                         images={[
-                                                            { src: patternArchiveDashboard, alt: 'Pattern Archive dashboard with active build queue' },
-                                                            { src: patternArchiveLibrary, alt: 'Pattern Archive library with ready-to-publish queue and uploaded videos' },
-                                                            { src: patternArchiveWizard, alt: 'Pattern Archive wizard editor with timeline and clip pool' }
+                                                            {
+                                                                src: patternArchiveDashboard,
+                                                                alt: 'Pattern Archive dashboard with active build queue'
+                                                            },
+                                                            {
+                                                                src: patternArchiveLibrary,
+                                                                alt: 'Pattern Archive library with ready-to-publish queue and uploaded videos'
+                                                            },
+                                                            {
+                                                                src: patternArchiveWizard,
+                                                                alt: 'Pattern Archive wizard editor with timeline and clip pool'
+                                                            }
                                                         ]}
-                                                        controls={['arrows', 'keyboard', 'swipe']}
+                                                        controls={[
+                                                            'arrows',
+                                                            'keyboard',
+                                                            'swipe'
+                                                        ]}
                                                         imagePosition="top"
                                                     />
                                                 }
@@ -323,7 +394,12 @@ const Projects = () => {
                                                     {
                                                         label: 'Repo',
                                                         url: 'https://github.com/MiguelDotL/PatternArchive',
-                                                        icon: <i className="devicon-github-original" aria-hidden />,
+                                                        icon: (
+                                                            <i
+                                                                className="devicon-github-original"
+                                                                aria-hidden
+                                                            />
+                                                        ),
                                                         disabled: true,
                                                         disabledReason: 'Private repo'
                                                     }
