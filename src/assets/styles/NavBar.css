@@ -89,16 +89,19 @@ span.navbar-text {
 }
 
 /* ==== Social Icons ==== */
-.social-icons a.social-icon {
+/* Scoped to nav.navbar so these overrides don't bleed into the Footer
+   or standalone Storybook usages of SocialIcons — without the scope,
+   `width: 45%` would stretch the icons globally once NavBar.css loads. */
+nav.navbar .social-icons a.social-icon {
   width: 45%;
   transition: all 0.3s ease-in-out;
 }
 
-.social-icons a.social-icon.twitter img {
+nav.navbar .social-icons a.social-icon.twitter img {
   width: 45%;
 }
 
-.social-icons a.social-icon.github img {
+nav.navbar .social-icons a.social-icon.github img {
   width: 50%;
   padding: 0.1em 0.1em 0 0;
 }
