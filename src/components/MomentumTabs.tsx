@@ -1,10 +1,11 @@
 import { useEffect, useLayoutEffect, useRef, useState } from 'react';
 import '../assets/styles/MomentumTabs.css';
+import { TAB_ANIMATION } from './projectsTabAnimation';
 
-const SHRINK_MS = 280;
-const SLIDE_STRETCH_MS = 140;
-const SLIDE_CONTRACT_MS = 220;
-const EXPAND_MS = 700;
+const SHRINK_MS = TAB_ANIMATION.indicatorShrinkMs;
+const SLIDE_STRETCH_MS = TAB_ANIMATION.indicatorSlideStretchMs;
+const SLIDE_CONTRACT_MS = TAB_ANIMATION.indicatorSlideContractMs;
+const EXPAND_MS = TAB_ANIMATION.indicatorExpandMs;
 
 type MomentumTabsProps<T extends string> = {
     tabs: readonly T[];

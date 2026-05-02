@@ -7,7 +7,7 @@ import '../assets/styles/Projects.css';
 import branchBeaconImg from '../assets/images/projects/branch-beacon.png';
 
 type StoryArgs = {
-    /** Total scale percent on hover. 100 = no change, 106 = 6% bigger. */
+    /** Total scale percent on hover. 100 = no change, 163 = 63% bigger. */
     zoomPercent: number;
     transitionMs: number;
 };
@@ -40,7 +40,7 @@ const meta: Meta<StoryArgs> = {
         }
     },
     args: {
-        zoomPercent: 106,
+        zoomPercent: 163,
         transitionMs: 693
     },
     render: (args) => (
@@ -81,18 +81,14 @@ type Story = StoryObj<StoryArgs>;
 
 export const Playground: Story = {};
 
-export const Zoom106Default: Story = {
-    args: { zoomPercent: 106, transitionMs: 693 }
-};
-
 export const SubtleZoom: Story = {
     args: { zoomPercent: 103, transitionMs: 693 }
 };
 
 export const StrongerZoom: Story = {
-    args: { zoomPercent: 125, transitionMs: 693 }
+    args: { zoomPercent: 200, transitionMs: 693 }
 };
 
 export const SlowTransition: Story = {
-    args: { zoomPercent: 106, transitionMs: 1100 }
+    args: { zoomPercent: 163, transitionMs: 1100 }
 };

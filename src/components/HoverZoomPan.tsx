@@ -3,13 +3,13 @@ import { useState, type MouseEvent } from 'react';
 type Props = {
     src: string;
     alt: string;
-    /** Multiplier on hover (1.06 = 106%). Defaults to 1.06. */
+    /** Multiplier on hover (1.63 = 163%). Defaults to 1.63. */
     zoomScale?: number;
     /** Transition duration in ms for zoom in/out. Defaults to 693. */
     transitionMs?: number;
 };
 
-const HoverZoomPan = ({ src, alt, zoomScale = 1.06, transitionMs = 693 }: Props) => {
+const HoverZoomPan = ({ src, alt, zoomScale = 1.63, transitionMs = 963 }: Props) => {
     const [origin, setOrigin] = useState({ x: 50, y: 50 });
     const [hovered, setHovered] = useState(false);
 
