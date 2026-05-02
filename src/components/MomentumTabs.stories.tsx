@@ -12,7 +12,7 @@ type StoryArgs = {
 };
 
 const meta: Meta<StoryArgs> = {
-    title: 'Components/MomentumTabs',
+    title: 'Components/Composites/MomentumTabs',
     decorators: [
         (Story) => (
             <section

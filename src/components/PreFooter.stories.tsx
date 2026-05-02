@@ -3,7 +3,7 @@ import PreFooter from './PreFooter';
 import '../assets/styles/Footer.css';
 
 const meta: Meta<typeof PreFooter> = {
-    title: 'Components/PreFooter',
+    title: 'Components/Composites/PreFooter',
     component: PreFooter,
     decorators: [
         (Story) => (

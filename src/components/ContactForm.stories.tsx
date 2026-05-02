@@ -6,7 +6,7 @@ import ContactForm from './ContactForm';
 import '../assets/styles/Contact.css';
 
 const meta: Meta<typeof ContactForm> = {
-    title: 'Components/ContactForm',
+    title: 'Components/Composites/ContactForm',
     component: ContactForm,
     decorators: [
         (Story) => (

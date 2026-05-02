@@ -16,6 +16,19 @@ const preview = {
       // 'error' - fail CI on a11y violations
       // 'off' - skip a11y checks entirely
       test: "todo"
+    },
+
+    options: {
+      // Showcase first (the portfolio narrative), Components second (the
+      // building blocks), Process last (the design-process artifacts).
+      // Within each top-level bucket, sub-buckets and stories sort alphabetically.
+      storySort: {
+        order: [
+          'Showcase', ['Sections'],
+          'Components', ['Composites', 'Primitives', 'Skeletons'],
+          'Process'
+        ]
+      }
     }
   },
 };

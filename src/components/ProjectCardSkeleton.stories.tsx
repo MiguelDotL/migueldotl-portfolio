@@ -4,7 +4,7 @@ import ProjectCardSkeleton from './ProjectCardSkeleton';
 import '../assets/styles/Projects.css';
 
 const meta: Meta<typeof ProjectCardSkeleton> = {
-    title: 'Components/ProjectCardSkeleton',
+    title: 'Components/Skeletons/ProjectCardSkeleton',
     component: ProjectCardSkeleton,
     decorators: [
         (Story) => (

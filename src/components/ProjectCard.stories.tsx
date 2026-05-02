@@ -9,7 +9,7 @@ import cSolutions from '../assets/images/projects/c-solutions-512.png';
 import filthyFood from '../assets/images/projects/filthy-food-512.png';
 
 const meta: Meta<typeof ProjectCard> = {
-    title: 'Components/ProjectCard',
+    title: 'Components/Primitives/ProjectCard',
     component: ProjectCard,
     decorators: [
         (Story) => (

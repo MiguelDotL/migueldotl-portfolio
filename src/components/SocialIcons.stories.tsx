@@ -12,7 +12,7 @@ import codecademyIcon from '../assets/images/icons/codecademy-icon.svg';
 import duolingoIcon from '../assets/images/icons/duolingo-icon.svg';
 
 const meta: Meta<typeof SocialIcons> = {
-    title: 'Components/SocialIcons',
+    title: 'Components/Primitives/SocialIcons',
     component: SocialIcons,
     decorators: [
         (Story) => (

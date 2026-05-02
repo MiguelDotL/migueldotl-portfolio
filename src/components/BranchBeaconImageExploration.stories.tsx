@@ -13,7 +13,7 @@ type StoryArgs = {
 };
 
 const meta: Meta<StoryArgs> = {
-    title: 'Explorations/BranchBeaconImage',
+    title: 'Process/BranchBeaconImage',
     decorators: [
         (Story) => (
             <section

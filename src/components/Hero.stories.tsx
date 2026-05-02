@@ -1,7 +1,7 @@
 import Hero from './Hero';
 
 const meta = {
-    title: 'Sections/Hero',
+    title: 'Showcase/Sections/Hero',
     component: Hero,
     parameters: { layout: 'fullscreen' }
 };

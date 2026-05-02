@@ -175,7 +175,7 @@ const Tilt = () => (
 );
 
 const meta: Meta = {
-    title: 'Explorations/ProjectCardHover',
+    title: 'Process/ProjectCardHover',
     parameters: { layout: 'fullscreen' }
 };
 export default meta;

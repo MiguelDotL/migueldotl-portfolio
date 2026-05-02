@@ -11,7 +11,7 @@ const placeholderBranchBeacon = branchBeaconImg;
 const placeholderBcbs = bcbsMain;
 
 const meta: Meta<typeof FeaturedProjectCard> = {
-    title: 'Components/FeaturedProjectCard',
+    title: 'Components/Composites/FeaturedProjectCard',
     component: FeaturedProjectCard,
     decorators: [
         (Story) => (

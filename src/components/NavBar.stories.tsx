@@ -2,7 +2,7 @@ import type { Meta } from '@storybook/react-vite';
 import NavBar from './NavBar';
 
 const meta: Meta<typeof NavBar> = {
-    title: 'Sections/NavBar',
+    title: 'Showcase/Sections/NavBar',
     component: NavBar,
     decorators: [
         (Story) => (

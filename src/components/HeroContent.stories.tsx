@@ -5,7 +5,7 @@ import bitmojiSpacePlanet from '../assets/images/bitmoji/bitmoji-space-planet-2.
 import '../assets/styles/Hero.css';
 
 const meta: Meta<typeof HeroContent> = {
-    title: 'Components/HeroContent',
+    title: 'Components/Composites/HeroContent',
     component: HeroContent,
     decorators: [
         // Decorator mimics the parent Hero layout so HeroContent renders next to

@@ -29,7 +29,7 @@ type StoryArgs = {
 };
 
 const meta: Meta<StoryArgs> = {
-    title: 'Components/FeaturedImageSlider',
+    title: 'Components/Composites/FeaturedImageSlider',
     decorators: [
         (Story) => (
             <section

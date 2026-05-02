@@ -2,7 +2,7 @@ import type { Meta } from '@storybook/react-vite';
 import Skills from './Skills';
 
 const meta: Meta<typeof Skills> = {
-    title: 'Sections/Skills',
+    title: 'Showcase/Sections/Skills',
     component: Skills,
     decorators: [
         (Story) => (

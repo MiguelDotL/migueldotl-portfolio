@@ -18,7 +18,7 @@ import patternArchiveWizard from '../assets/images/projects/pattern-archive-wiza
 import patternArchiveLibrary from '../assets/images/projects/pattern-archive-library.png';
 
 const meta: Meta<typeof Projects> = {
-    title: 'Sections/Projects',
+    title: 'Showcase/Sections/Projects',
     component: Projects,
     parameters: { layout: 'fullscreen' }
 };
