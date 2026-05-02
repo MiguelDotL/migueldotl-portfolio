@@ -29,7 +29,8 @@ test.describe('MomentumTabs', () => {
     test('tabs realign after viewport resize', async ({ page }) => {
         await page.setViewportSize({ width: 1280, height: 800 });
         await page.goto('/#projects');
-        const activeTab = page.getByRole('tab', { selected: true });
+        const tabBar = page.locator('.momentum-tabs');
+        const activeTab = tabBar.locator('.momentum-tab.is-active').first();
         await activeTab.scrollIntoViewIfNeeded();
         const perimeter = page.locator('.momentum-tabs__perimeter').first();
 
