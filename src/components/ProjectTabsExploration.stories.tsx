@@ -37,9 +37,18 @@ const PillFillSlidingVariant = () => {
 
     useLayoutEffect(() => {
         if (initializedRef.current) return;
-        initializedRef.current = true;
-        const el = buttonRefs.current[active];
-        if (el) setIndicator({ left: el.offsetLeft, width: el.offsetWidth });
+        let attempts = 0;
+        const tryMeasure = () => {
+            if (initializedRef.current) return;
+            const el = buttonRefs.current[active];
+            if (el && el.offsetWidth > 0) {
+                initializedRef.current = true;
+                setIndicator({ left: el.offsetLeft, width: el.offsetWidth });
+                return;
+            }
+            if (attempts++ < 5) requestAnimationFrame(tryMeasure);
+        };
+        tryMeasure();
     }, [active]);
 
     const handleClick = (tab: Tab) => {
@@ -134,12 +143,22 @@ const UnderlineVariant = () => {
     const initializedRef = useRef(false);
 
     // Mount-only init via ref-guard. Subsequent transitions are driven imperatively
-    // by handleClick (phased stretch → contract).
+    // by handleClick (phased stretch → contract). Retry via rAF so we don't get
+    // stuck with a 0-width measurement if layout isn't settled at the first run.
     useLayoutEffect(() => {
         if (initializedRef.current) return;
-        initializedRef.current = true;
-        const el = buttonRefs.current[active];
-        if (el) setIndicator({ left: el.offsetLeft, width: el.offsetWidth });
+        let attempts = 0;
+        const tryMeasure = () => {
+            if (initializedRef.current) return;
+            const el = buttonRefs.current[active];
+            if (el && el.offsetWidth > 0) {
+                initializedRef.current = true;
+                setIndicator({ left: el.offsetLeft, width: el.offsetWidth });
+                return;
+            }
+            if (attempts++ < 5) requestAnimationFrame(tryMeasure);
+        };
+        tryMeasure();
     }, [active]);
 
     const handleClick = (tab: Tab) => {
@@ -272,14 +291,22 @@ const MomentumTraceVariant = () => {
 
     useLayoutEffect(() => {
         if (initializedRef.current) return;
-        initializedRef.current = true;
-        const m = measure(active);
-        // setState here is required — DOM offsets aren't readable until mount.
-        // eslint-disable-next-line react-hooks/set-state-in-effect
-        if (m) setIndicator(m);
-        // Next frame so the SVG renders at 0-visible before the expand transition kicks in.
-        const t = window.setTimeout(() => setExpanded(true), 50);
-        transitionTimers.current.push(t);
+        let attempts = 0;
+        const tryMeasure = () => {
+            if (initializedRef.current) return;
+            const m = measure(active);
+            if (m && m.width > 0) {
+                initializedRef.current = true;
+                 
+                setIndicator(m);
+                // Next frame so the SVG renders at 0-visible before the expand transition kicks in.
+                const t = window.setTimeout(() => setExpanded(true), 50);
+                transitionTimers.current.push(t);
+                return;
+            }
+            if (attempts++ < 5) requestAnimationFrame(tryMeasure);
+        };
+        tryMeasure();
     }, [active]);
 
     const handleClick = (next: Tab) => {
@@ -568,7 +595,15 @@ const StackedSectionsVariant = () => (
 
 const meta: Meta = {
     title: 'Explorations/ProjectTabs',
-    parameters: { layout: 'fullscreen' }
+    parameters: { layout: 'fullscreen' },
+    /* Each variant relies on useLayoutEffect to measure tab buttons and
+       paint the active indicator. When Storybook switches between variants
+       in this same file, React reuses the subtree and the measurement
+       effect doesn't re-run, so the indicator is missing until a refresh.
+       Keying the wrapper on the story id forces a fresh mount per story. */
+    decorators: [
+        (Story, ctx) => <div key={ctx.id}><Story /></div>
+    ]
 };
 export default meta;
 

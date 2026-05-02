@@ -3,15 +3,14 @@ import { Tab } from 'react-bootstrap';
 import ProjectList from './ProjectList';
 import '../assets/styles/Projects.css';
 
-import orbyTV from '../assets/images/projects/orby-tv-2-512.png';
+import trimAgency from '../assets/images/projects/trim-agency-512.png';
 import cSolutions from '../assets/images/projects/c-solutions-512.png';
 import filthyFood from '../assets/images/projects/filthy-food-512.png';
-import trimAgency from '../assets/images/projects/trim-agency-512.png';
 import federated from '../assets/images/projects/federated-512.png';
 import generalProvision from '../assets/images/projects/general-provision-512.png';
 
 const sampleProjects = [
-    { title: 'Orby TV', description: 'Web Development', imageURL: orbyTV, url: '//orbytv.com/' },
+    { title: 'T R I M Agency', description: 'Web Development', imageURL: trimAgency, url: '//www.trimagency.com/' },
     { title: 'C Solutions', description: 'Web Development', imageURL: cSolutions, url: '//csolutions-us.com/' },
     { title: 'Filthy Food', description: 'Web Development', imageURL: filthyFood, url: '//filthyfood.com/' }
 ];
@@ -58,12 +57,11 @@ export const OneProject: Story = {
     }
 };
 
-export const SixProjects: Story = {
+export const FiveProjects: Story = {
     args: {
         projects: [
             { title: 'T R I M Agency', description: 'Web Development', imageURL: trimAgency, url: '//www.trimagency.com/' },
             { title: 'C Solutions', description: 'Web Development', imageURL: cSolutions, url: '//csolutions-us.com/' },
-            { title: 'Orby TV', description: 'Web Development', imageURL: orbyTV, url: '//orbytv.com/' },
             { title: 'Federated Insurance', description: 'Web Development', imageURL: federated, url: '//www.federated.ca/' },
             { title: 'Filthy Food', description: 'Ecommerce', imageURL: filthyFood, url: '//filthyfood.com/' },
             { title: 'General Provision', description: 'Web Development', imageURL: generalProvision, url: '//generalprovision.com/' }
@@ -74,7 +72,7 @@ export const SixProjects: Story = {
 export const LongTitlesGrid: Story = {
     args: {
         projects: [
-            { title: 'Some Project With An Unusually Long Title', description: 'Web Development', imageURL: orbyTV, url: '#' },
+            { title: 'Some Project With An Unusually Long Title', description: 'Web Development', imageURL: trimAgency, url: '#' },
             { title: 'Another Long Project Title For Wrap Testing', description: 'Ecommerce + Backend Engineering', imageURL: cSolutions, url: '#' },
             { title: 'A Third One With A Lot Of Words', description: 'Web Development', imageURL: filthyFood, url: '#' }
         ]

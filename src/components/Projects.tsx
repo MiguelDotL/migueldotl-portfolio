@@ -73,8 +73,16 @@ const clientProjects = [
 
 const TAB_FADE_MS = TAB_ANIMATION.fadeMs;
 
-const Projects = () => {
-    const { ref, inView } = useInView({ triggerOnce: true });
+type ProjectsProps = {
+    /** Force the in-view state to start true. Used by Storybook stories
+        where the IntersectionObserver doesn't fire reliably in the
+        canvas iframe. Production callers should leave this false (default)
+        so the MomentumTabs wrap animation reveals on scroll. */
+    initialInView?: boolean;
+};
+
+const Projects = ({ initialInView = false }: ProjectsProps = {}) => {
+    const { ref, inView } = useInView({ triggerOnce: true, initialInView });
     const [activeTab, setActiveTab] = useState<Tab>('Featured');
     // Tab content slides + fades out → swap → slides + fades in. `displayedTab`
     // lags `activeTab` during the exit window so the old content stays visible
