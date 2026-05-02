@@ -26,8 +26,12 @@ const meta: Meta<typeof Projects> = {
 export default meta;
 
 // Default renders the full Projects section (Featured tab is the default).
-// The MomentumTabs animation runs as it does on the live site.
-export const Default = {};
+// `initialInView` forces the in-view state true so the MomentumTabs
+// perimeter draws around the active tab — IO doesn't fire reliably in
+// Storybook's iframe canvas.
+export const Default = {
+    args: { initialInView: true }
+};
 
 // `ClientTab` and `PersonalTab` render the inner per-tab content (the same
 // `<Row>` Projects.tsx renders for those tabs) wrapped in the section
