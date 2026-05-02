@@ -35,6 +35,7 @@ const HoverZoomPan = ({ src, alt, zoomScale = 1.63, transitionMs = 963 }: Props)
             <img
                 src={src}
                 alt={alt}
+                loading="lazy"
                 style={{
                     width: '100%',
                     height: '100%',
