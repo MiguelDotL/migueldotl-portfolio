@@ -29,10 +29,6 @@
     color: var(--almost-white);
 }
 
-.projects #pill-tabs.nav.nav-pills {
-    display: none;
-}
-
 .projects .nav.nav-pills {
     width: 72%;
     margin: 3.5em auto;
@@ -130,14 +126,20 @@ a.project-card {
 }
 
 .project-card .btn.btn-outline-secondary {
-    border: 2px solid #fff;
+    border: 1px solid #fff;
+    border-radius: 0;
     color: var(--base-font-color);
     margin: 1em auto;
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(10px) saturate(1.3);
+    -webkit-backdrop-filter: blur(10px) saturate(1.3);
     transition: 0.3s ease-in-out;
 }
 
 .project-card .btn.btn-outline-secondary:hover {
-    background-color: rgb(0 0 0/.3);
+    background-color: rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(10px) saturate(1.3);
+    -webkit-backdrop-filter: blur(10px) saturate(1.3);
 }
 
 .project-image {
@@ -155,16 +157,27 @@ a.project-card {
 
 .project-image::before {
     content: "";
-    background: var(--base-gradient);
-    opacity: 0.85;
+    /* Frosted-glass overlay: same brand gradient at reduced alpha + backdrop blur
+       so the image shows through, blurred and tinted, instead of solid color. */
+    background: linear-gradient(
+        90.21deg,
+        rgba(170, 54, 124, 0.55) -5.91%,
+        rgba(74, 47, 189, 0.55) 111.58%
+    );
+    backdrop-filter: blur(14px) saturate(1.4);
+    -webkit-backdrop-filter: blur(14px) saturate(1.4);
     position: absolute;
     width: 100%;
     height: 0;
-    transition: 0.4s ease-in-out;
+    transition: height 300ms ease-in-out;
+    /* On leave: wait 200ms for text to start fading, then slide gradient down. */
+    transition-delay: 100ms;
 }
 
 .project-image:hover::before {
     height: 100%;
+    /* On enter: slide gradient up immediately. */
+    transition-delay: 0s;
 }
 
 .project-content {
@@ -173,16 +186,22 @@ a.project-card {
     top: 100%;
     left: 50%;
     transform: translate(-50%, -50%);
-    transition: 0.5s ease-in-out;
+    transition: top 300ms ease-in-out, opacity 300ms ease-in-out;
+    /* On leave: text/button fade out immediately. */
+    transition-delay: 0s;
     opacity: 0;
     width: 100%;
     padding: 0 1.5rem;
     box-sizing: border-box;
+    /* Subtle drop shadow on text + button so they pop against the frosted glass. */
+    filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.45));
 }
 
 .project-image:hover .project-content {
     top: 50%;
     opacity: 1;
+    /* On enter: wait 200ms (gradient mid-rise) before fading text in. */
+    transition-delay: 100ms;
 }
 
 .project-content h4 {
@@ -198,6 +217,220 @@ a.project-card {
     font-weight: 400;
     font-size: 15px;
     letter-spacing: 0.8px;
+}
+
+/* ==== Tab content fade + height transition ==== */
+.tab-content-shell {
+    overflow: hidden;
+    transition: height 320ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.tab-content-fade {
+    opacity: 1;
+    transition: opacity 320ms ease-in-out;
+}
+
+.tab-content-fade.is-fading {
+    opacity: 0;
+}
+
+/* ==== Featured Project Cards ==== */
+.featured-project-col {
+    margin-bottom: 2em;
+}
+
+.featured-project-card {
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 0.6em;
+    overflow: hidden;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    transition: 0.3s ease-in-out;
+}
+
+.featured-project-card:hover {
+    border-color: rgba(255, 255, 255, 0.18);
+    transform: translateY(-2px);
+}
+
+.featured-project-image {
+    aspect-ratio: 16 / 9;
+    overflow: hidden;
+    background: linear-gradient(131deg, rgba(170, 54, 124, 0.4), rgba(74, 47, 189, 0.4));
+}
+
+.featured-project-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.featured-project-body {
+    padding: 1.6em 1.8em 1.8em;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
+
+.featured-project-subtitle {
+    display: inline-block;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 1.2px;
+    text-transform: uppercase;
+    color: transparent;
+    background: var(--base-gradient);
+    -webkit-background-clip: text;
+    background-clip: text;
+    margin-bottom: 0.3em;
+}
+
+.featured-project-title {
+    font-size: 24px;
+    font-weight: 700;
+    line-height: 1.2em;
+    margin: 0 0 0.6em;
+    color: var(--almost-white);
+}
+
+.featured-project-title-link {
+    color: inherit;
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+.featured-project-title-link:hover,
+.featured-project-title-link:focus-visible {
+    color: inherit;
+    text-decoration: underline;
+    text-underline-offset: 4px;
+}
+
+.featured-project-description {
+    font-size: 15px;
+    line-height: 1.6em;
+    color: var(--light-grey);
+    margin-bottom: 1.2em;
+    flex: 1;
+}
+
+.featured-project-stack {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 1.4em;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5em;
+}
+
+.featured-project-stack li {
+    font-size: 12px;
+    font-weight: 500;
+    padding: 0.25em 0.7em;
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    border-radius: 999px;
+    color: var(--light-grey);
+    background: rgba(255, 255, 255, 0.03);
+}
+
+.featured-project-actions {
+    display: flex;
+    gap: 0.6em;
+    flex-wrap: wrap;
+}
+
+.featured-project-actions .btn.btn-outline-secondary {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5em;
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    border-radius: 0;
+    color: #fff;
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(10px) saturate(1.3);
+    -webkit-backdrop-filter: blur(10px) saturate(1.3);
+    transition: background-color 0.3s ease-in-out, border-color 0.3s ease-in-out;
+}
+
+.featured-project-action-icon {
+    display: inline-flex;
+    align-items: center;
+    line-height: 1;
+    font-size: 1.15em;
+}
+
+.featured-project-actions .btn.btn-outline-secondary:hover {
+    background-color: rgba(255, 255, 255, 0.12);
+    border-color: rgba(255, 255, 255, 0.4);
+    color: #fff;
+}
+
+/* ==== Skeletons ==== */
+.skeleton-shimmer {
+    background: linear-gradient(
+        90deg,
+        rgba(255, 255, 255, 0.04) 25%,
+        rgba(255, 255, 255, 0.09) 50%,
+        rgba(255, 255, 255, 0.04) 75%
+    );
+    background-size: 200% 100%;
+    animation: skeleton-shimmer 1.6s ease-in-out infinite;
+    border-radius: 4px;
+}
+
+@keyframes skeleton-shimmer {
+    0% { background-position: 200% 0; }
+    100% { background-position: -200% 0; }
+}
+
+.featured-project-card--skeleton .featured-project-image {
+    border-radius: 0;
+}
+
+.skeleton-text {
+    height: 14px;
+    margin-bottom: 0.6em;
+}
+
+.skeleton-text--label {
+    height: 10px;
+    width: 35%;
+    margin-bottom: 0.8em;
+}
+
+.skeleton-text--title {
+    height: 22px;
+    width: 60%;
+    margin-bottom: 1em;
+}
+
+.skeleton-text--short {
+    width: 70%;
+    margin-bottom: 1.4em;
+}
+
+.skeleton-chips {
+    display: flex;
+    gap: 0.5em;
+    margin-bottom: 1.4em;
+}
+
+.skeleton-chip {
+    height: 22px;
+    width: 70px;
+    border-radius: 999px;
+}
+
+.skeleton-button {
+    height: 38px;
+    width: 130px;
+    border-radius: 4px;
+}
+
+.project-card--skeleton .project-image {
+    aspect-ratio: 1 / 1;
 }
 
 .background-image-right {
@@ -225,4 +458,22 @@ a.project-card {
     .projects p.copy {
         width: 56%;
     }
+}
+/* Disabled action chip — used for private/inactive repo links. Visually
+   muted, non-clickable, with a small lock indicator to signal "private". */
+.featured-project-actions .featured-project-action--disabled {
+    opacity: 0.55;
+    cursor: not-allowed;
+    pointer-events: auto;
+}
+
+.featured-project-actions .featured-project-action--disabled:hover {
+    background: transparent;
+    color: inherit;
+}
+
+.featured-project-action-lock {
+    margin-left: 0.4em;
+    font-size: 0.85em;
+    filter: grayscale(1);
 }

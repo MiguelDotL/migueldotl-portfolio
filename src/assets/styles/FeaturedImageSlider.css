@@ -1,0 +1,281 @@
+.featured-image-slider {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    outline: none;
+}
+
+.featured-image-slider__slide {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0;
+    transition: opacity 600ms ease-in-out;
+}
+
+.featured-image-slider__slide.is-active {
+    opacity: 1;
+}
+
+/* Inactive slides are absolutely stacked on top of the active one in DOM
+   order, so without this they'd capture clicks meant for the active slide. */
+.featured-image-slider__slide:not(.is-active) {
+    pointer-events: none;
+}
+
+.featured-image-slider__slide.is-clickable.is-active {
+    cursor: pointer;
+}
+
+/* ---- Frosted dots (production default) ---- */
+.featured-image-slider__dots {
+    position: absolute;
+    bottom: 0.7em;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 0.45em;
+    z-index: 1;
+}
+
+.featured-image-slider__dots--frosted {
+    padding: 0.4em 0.7em;
+}
+
+.featured-image-slider__dots--frosted .featured-image-slider__dot {
+    background: rgba(255, 255, 255, 0.25);
+    backdrop-filter: blur(10px) saturate(1.3);
+    -webkit-backdrop-filter: blur(10px) saturate(1.3);
+    border: 1px solid rgba(255, 255, 255, 0.35);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.45);
+}
+
+.featured-image-slider__dots--frosted .featured-image-slider__dot:hover {
+    background: rgba(255, 255, 255, 0.45);
+}
+
+.featured-image-slider__dots--frosted .featured-image-slider__dot.is-active {
+    background: rgba(255, 255, 255, 0.85);
+    border-color: rgba(255, 255, 255, 0.7);
+}
+
+.featured-image-slider__dot {
+    width: 8px;
+    height: 8px;
+    padding: 0;
+    border: none;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.45);
+    cursor: pointer;
+    transition: background-color 0.25s ease, transform 0.25s ease;
+}
+
+.featured-image-slider__dot:hover {
+    background: rgba(255, 255, 255, 0.75);
+}
+
+.featured-image-slider__dot.is-active {
+    background: #fff;
+    transform: scale(1.2);
+}
+
+/* ---- Outlined dots (no pill backing, ring + shadow for contrast) ---- */
+.featured-image-slider__dots--outlined .featured-image-slider__dot {
+    background: rgba(255, 255, 255, 0.85);
+    border: 1px solid rgba(0, 0, 0, 0.55);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+}
+
+.featured-image-slider__dots--outlined .featured-image-slider__dot.is-active {
+    background: #fff;
+    border-color: #000;
+}
+
+/* ---- Numeric counter ---- */
+.featured-image-slider__counter {
+    position: absolute;
+    top: 0.7em;
+    right: 0.8em;
+    z-index: 1;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    color: #fff;
+    padding: 0.3em 0.7em;
+    border-radius: 999px;
+    background: rgba(0, 0, 0, 0.35);
+    backdrop-filter: blur(10px) saturate(1.3);
+    -webkit-backdrop-filter: blur(10px) saturate(1.3);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+/* ---- Segmented progress (Instagram-stories style) ---- */
+.featured-image-slider__segments {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    display: flex;
+    align-items: flex-end;
+    gap: 0.35em;
+    z-index: 1;
+    padding: 1.2em 0.7em 0.7em;
+    background: linear-gradient(
+        to top,
+        rgba(0, 0, 0, 0.45) 0%,
+        rgba(0, 0, 0, 0) 100%
+    );
+    pointer-events: none;
+}
+
+.featured-image-slider__segment {
+    flex: 1;
+    height: 3px;
+    padding: 0;
+    border: none;
+    border-radius: 2px;
+    background: rgba(255, 255, 255, 0.35);
+    overflow: hidden;
+    cursor: pointer;
+    pointer-events: auto;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+}
+
+.featured-image-slider__segment-fill {
+    display: block;
+    height: 100%;
+    background: #fff;
+    transition: width 80ms linear;
+}
+
+/* ---- Hover-reveal arrows ---- */
+.featured-image-slider__arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    background: rgba(0, 0, 0, 0.4);
+    backdrop-filter: blur(10px) saturate(1.3);
+    -webkit-backdrop-filter: blur(10px) saturate(1.3);
+    color: #fff;
+    font-size: 22px;
+    line-height: 1;
+    cursor: pointer;
+    z-index: 2;
+    opacity: 0;
+    transition: opacity 200ms ease, background-color 200ms ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+}
+
+.featured-image-slider:hover .featured-image-slider__arrow,
+.featured-image-slider:has(:focus-visible) .featured-image-slider__arrow {
+    opacity: 1;
+}
+
+.featured-image-slider__arrow:hover {
+    background: rgba(0, 0, 0, 0.6);
+}
+
+.featured-image-slider__arrow--prev {
+    left: 0.6em;
+}
+
+.featured-image-slider__arrow--next {
+    right: 0.6em;
+}
+
+
+/* Lightbox: full-viewport overlay shown when an image is clicked.
+   Rendered via React Portal to document.body so it escapes any ancestor
+   transform/filter/backdrop-filter that would trap position:fixed inside
+   the parent card's containing block. */
+.featured-image-slider__lightbox {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.88);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 4vh 4vw;
+    cursor: zoom-out;
+    animation: featured-image-slider-lightbox-fade 180ms ease-out;
+}
+
+@keyframes featured-image-slider-lightbox-fade {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+.featured-image-slider__lightbox-img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    cursor: default;
+    box-shadow: 0 24px 60px rgba(0, 0, 0, 0.6);
+}
+
+.featured-image-slider__lightbox-close,
+.featured-image-slider__lightbox-arrow {
+    position: absolute;
+    background: rgba(255, 255, 255, 0.08);
+    color: #fff;
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    cursor: pointer;
+    transition: background 180ms ease, transform 180ms ease;
+}
+
+.featured-image-slider__lightbox-close:hover,
+.featured-image-slider__lightbox-arrow:hover {
+    background: rgba(255, 255, 255, 0.18);
+}
+
+.featured-image-slider__lightbox-close {
+    top: 2vh;
+    right: 2vw;
+    width: 2.4em;
+    height: 2.4em;
+    border-radius: 50%;
+    font-size: 1.4em;
+    line-height: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.featured-image-slider__lightbox-arrow {
+    top: 50%;
+    transform: translateY(-50%);
+    width: 2em;
+    height: 2em;
+    border-radius: 50%;
+    font-size: 1.2em;
+    line-height: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.featured-image-slider__lightbox-arrow:hover {
+    transform: translateY(-50%) scale(1.05);
+}
+
+.featured-image-slider__lightbox-arrow--prev {
+    left: 2vw;
+}
+
+.featured-image-slider__lightbox-arrow--next {
+    right: 2vw;
+}

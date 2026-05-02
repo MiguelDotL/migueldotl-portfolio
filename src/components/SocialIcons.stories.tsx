@@ -5,7 +5,7 @@ import linkedInIcon from '../assets/images/icons/linked-in.svg';
 import twitterXIcon from '../assets/images/icons/twitter-x.svg';
 import githubIcon from '../assets/images/icons/github-2.svg';
 import codepenIcon from '../assets/images/icons/codepen-icon.svg';
-import npmIcon from '../assets/images/icons/npm-original-wordmark.svg';
+import npmIcon from 'devicon/icons/npm/npm-original-wordmark.svg';
 import codewarsIcon from '../assets/images/icons/codewars-icon.svg';
 import codecademyIcon from '../assets/images/icons/codecademy-icon.svg';
 import duolingoIcon from '../assets/images/icons/duolingo-icon.svg';

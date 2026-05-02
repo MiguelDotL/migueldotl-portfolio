@@ -37,7 +37,6 @@ export default meta;
 
 export const ThreeProjects = {
     args: {
-        projects: sampleProjects,
-        eventKey: 'client'
+        projects: sampleProjects
     }
 };

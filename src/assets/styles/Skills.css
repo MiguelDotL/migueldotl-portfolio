@@ -105,6 +105,37 @@
     opacity: 1;
 }
 
+/* The typescript-plain glyph draws the blue square with "TS" as transparent
+   cutouts (evenodd fill). An ::after pseudo-element sits behind the glyph as
+   a white square — visible through the cutouts as white "TS" — fading in/out
+   with active state. */
+.skills-slider .item i.devicon-typescript-plain {
+    position: relative !important;
+    width: 1em !important;
+    height: 1em !important;
+    isolation: isolate !important;
+    margin: 0 auto 15px !important;
+}
+
+.skills-slider .item i.devicon-typescript-plain::after {
+    content: "" !important;
+    position: absolute !important;
+    top: 3% !important;
+    right: 3%;
+    bottom: 3% !important;
+    left: 3% !important;
+    background: #fff !important;
+    z-index: -1 !important;
+    opacity: 0 !important;
+    visibility: hidden !important;
+    transition: opacity 0.4s ease-in-out, visibility 0.4s ease-in-out !important;
+}
+
+.skills-slider .react-multi-carousel-item.is-current i.devicon-typescript-plain::after {
+    opacity: 1 !important;
+    visibility: visible !important;
+}
+
 
 .background-image-left {
     top: 28%;
