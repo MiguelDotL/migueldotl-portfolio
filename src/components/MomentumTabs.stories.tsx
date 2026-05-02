@@ -72,6 +72,8 @@ type Story = StoryObj<StoryArgs>;
 
 export const Default: Story = {};
 
+export const Playground: Story = {};
+
 export const LongLabels: Story = {
     args: {
         tabs: [
