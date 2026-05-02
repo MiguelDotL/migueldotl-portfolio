@@ -9,7 +9,6 @@ import FeaturedProjectCard from './FeaturedProjectCard';
 import FeaturedImageSlider from './FeaturedImageSlider';
 import HoverZoomPan from './HoverZoomPan';
 import NpmPlainIcon from './NpmPlainIcon';
-import ProjectCard from './ProjectCard';
 
 import generalProvision from '../assets/images/projects/general-provision-512.png';
 import trimAgency from '../assets/images/projects/trim-agency-512.png';
@@ -22,6 +21,9 @@ import bcbsLitehouse from '../assets/images/projects/bcbs-litehouse.png';
 import bcbsProviders from '../assets/images/projects/bcbs-providers.png';
 import voicepoolImg from '../assets/images/projects/voicepool.png';
 import branchBeaconImg from '../assets/images/projects/branch-beacon.png';
+import patternArchiveDashboard from '../assets/images/projects/pattern-archive-dashboard.png';
+import patternArchiveWizard from '../assets/images/projects/pattern-archive-wizard-editor.png';
+import patternArchiveLibrary from '../assets/images/projects/pattern-archive-library.png';
 
 import colorPop from '../assets/images/backgrounds/color-pop-2.png';
 
@@ -269,17 +271,63 @@ const Projects = () => {
                                     )}
                                     {displayedTab === 'Personal' && (
                                         <Row>
-                                            <ProjectCard
-                                                title="Pattern Archive"
-                                                description="Faceless YouTube automation pipeline"
-                                                imageURL={orbyTV}
-                                                url="#"
-                                            />
-                                            <ProjectCard
+                                            <FeaturedProjectCard
                                                 title="Voicepool"
-                                                description="Open-source TTS / ElevenLabs fleet dashboard"
-                                                imageURL={voicepoolImg}
-                                                url="#"
+                                                subtitle="Custom dashboard"
+                                                description="Open-source dashboard for managing a fleet of ElevenLabs accounts. Tracks account usage, routes TTS calls to whichever account has the most capacity, and provisions new accounts end-to-end with one click."
+                                                techStack={[
+                                                    'TypeScript',
+                                                    'React',
+                                                    'Vite',
+                                                    'Express',
+                                                    'Playwright',
+                                                    'ElevenLabs API'
+                                                ]}
+                                                imageSlot={
+                                                    <HoverZoomPan
+                                                        src={voicepoolImg}
+                                                        alt="Voicepool fleet dashboard"
+                                                    />
+                                                }
+                                                actions={[
+                                                    {
+                                                        label: 'Repo',
+                                                        url: 'https://github.com/MiguelDotL/voicepool',
+                                                        icon: <i className="devicon-github-original" aria-hidden />
+                                                    }
+                                                ]}
+                                            />
+                                            <FeaturedProjectCard
+                                                title="Pattern Archive"
+                                                subtitle="Automated video pipeline"
+                                                description="Video production pipeline with a Storybook-driven React UI, AI-assisted script generation driven by a structured prompt guide, and end-to-end automation from script to publish. Each iteration informed by real use."
+                                                techStack={[
+                                                    'React',
+                                                    'FastAPI',
+                                                    'Whisper',
+                                                    'FFmpeg',
+                                                    'YouTube Data API'
+                                                ]}
+                                                imageSlot={
+                                                    <FeaturedImageSlider
+                                                        images={[
+                                                            { src: patternArchiveDashboard, alt: 'Pattern Archive dashboard with active build queue' },
+                                                            { src: patternArchiveLibrary, alt: 'Pattern Archive library with ready-to-publish queue and uploaded videos' },
+                                                            { src: patternArchiveWizard, alt: 'Pattern Archive wizard editor with timeline and clip pool' }
+                                                        ]}
+                                                        controls={['arrows', 'keyboard', 'swipe']}
+                                                        imagePosition="top"
+                                                    />
+                                                }
+                                                actions={[
+                                                    {
+                                                        label: 'Repo',
+                                                        url: 'https://github.com/MiguelDotL/PatternArchive',
+                                                        icon: <i className="devicon-github-original" aria-hidden />,
+                                                        disabled: true,
+                                                        disabledReason: 'Private repo'
+                                                    }
+                                                ]}
                                             />
                                         </Row>
                                     )}
