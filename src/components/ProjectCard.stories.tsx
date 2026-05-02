@@ -70,7 +70,7 @@ export const Playground: Story = {
     args: {
         title: 'Sample Project',
         description: 'Edit any control to preview',
-        imageURL: orbyTv,
+        imageURL: trimAgency,
         url: '#'
     }
 };
@@ -78,10 +78,10 @@ export const Playground: Story = {
 // Drives the hover overlay state for snapshot coverage of the hovered look.
 export const Hovered: Story = {
     args: {
-        title: 'Orby TV',
+        title: 'T R I M Agency',
         description: 'Web Development',
-        imageURL: orbyTv,
-        url: 'https://orby.tv'
+        imageURL: trimAgency,
+        url: '//www.trimagency.com/'
     },
     play: async ({ canvasElement }) => {
         const card = within(canvasElement).getAllByRole('img')[0]
