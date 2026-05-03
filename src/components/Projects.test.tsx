@@ -19,7 +19,7 @@ describe('Projects', () => {
         const clientProjectTitles = [
             'T R I M Agency',
             'C Solutions',
-            'Orby TV',
+            'Exotic Car Trader',
             'Federated Insurance',
             'Filthy Food',
             'General Provision'
