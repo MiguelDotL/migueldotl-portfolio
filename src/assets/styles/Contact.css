@@ -240,7 +240,7 @@
     font-weight: 700;
     padding: 14px 48px;
     min-width: 11em;
-    width: 100%;
+    width: auto;
     position: relative;
     z-index: 2;
     transition: opacity 0.3s ease-in-out, background-color 0.3s ease-in-out, color 0.3s ease-in-out;
