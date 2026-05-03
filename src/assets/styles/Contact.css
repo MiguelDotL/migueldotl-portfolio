@@ -138,6 +138,13 @@
     text-align: left;
 }
 
+/* Textareas have margin-bottom: 32px (vs 8px on inputs) for breathing
+   room before the submit row. When an error follows, pull it up so the
+   gap matches the tighter input + error spacing. */
+.contact form textarea + .field-error {
+    margin-top: -28px;
+}
+
 .contact form .submit-container {
     display: flex;
     flex-direction: column;
