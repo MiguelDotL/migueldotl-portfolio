@@ -198,7 +198,6 @@ const ContactForm = () => {
             ref={formRef}
             onSubmit={onFormSubmit}
             noValidate
-            className={formStatus.success !== null ? "is-resolved" : ""}
         >
             <input
                 type="text"

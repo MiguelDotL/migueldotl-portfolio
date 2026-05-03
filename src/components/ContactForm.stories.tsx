@@ -221,6 +221,25 @@ export const MalformedEmail: Story = {
     }
 };
 
+// Two required fields empty (First Name and Email). Asserts that on
+// submit, focus moves to the *first* invalid field in document order
+// (First Name) — not whichever field the user last interacted with.
+export const SubmittedInvalid: Story = {
+    play: async ({ canvasElement }) => {
+        const canvas = within(canvasElement);
+        await userEvent.type(
+            canvas.getByPlaceholderText(/Last Name/i),
+            'Smith'
+        );
+        await userEvent.type(
+            canvas.getByPlaceholderText(/Message/i),
+            "Loved your portfolio — would like to chat about a senior frontend role."
+        );
+        await userEvent.click(canvas.getByRole('button', { name: /send/i }));
+        await expect(canvas.getByPlaceholderText(/First Name/i)).toHaveFocus();
+    }
+};
+
 // Message under the 20-character minimum. Clicking Send surfaces
 // "Please write at least 20 characters." inline under the textarea.
 export const MessageTooShort: Story = {
