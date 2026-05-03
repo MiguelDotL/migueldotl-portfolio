@@ -126,7 +126,7 @@ const ContactForm = () => {
     return (
         <form
             onSubmit={onFormSubmit}
-            className={formStatus.success === false ? "has-form-error" : ""}
+            className={formStatus.success !== null ? "is-resolved" : ""}
         >
             <input
                 type="text"
