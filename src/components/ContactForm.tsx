@@ -124,7 +124,10 @@ const ContactForm = () => {
             : "";
 
     return (
-        <form onSubmit={onFormSubmit}>
+        <form
+            onSubmit={onFormSubmit}
+            className={formStatus.success === false ? "has-form-error" : ""}
+        >
             <input
                 type="text"
                 name="botcheck"

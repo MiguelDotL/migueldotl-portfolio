@@ -106,6 +106,23 @@
     border-color: rgba(220, 38, 38, 1);
 }
 
+/* When the form-level error banner is up (API/server failure), suppress
+   per-field :user-invalid styling — the issue isn't with the field
+   contents, so the red highlighting is misleading. */
+.contact form.has-form-error input:user-invalid,
+.contact form.has-form-error textarea:user-invalid {
+    border-color: rgba(255, 255, 255, 0.5);
+    background: rgba(255, 255, 255, 0.1);
+    box-shadow: none;
+}
+
+.contact form.has-form-error input:user-invalid:focus,
+.contact form.has-form-error textarea:user-invalid:focus {
+    background: rgba(255, 255, 255, 1);
+    color: var(--dark-grey);
+    border-color: rgba(255, 255, 255, 0.5);
+}
+
 .contact form input:focus::placeholder, .contact form textarea:focus::placeholder {
     color: var(--dark-grey);
     opacity: 0.8;
