@@ -98,7 +98,8 @@ const ContactForm = () => {
             })
             .catch((error: Error) => {
                 setFormStatus({
-                    ...formStatus,
+                    success: false,
+                    status: null,
                     error: error.message,
                     message: "Oops! Request Failed. Please try again soon"
                 });
