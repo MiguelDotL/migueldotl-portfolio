@@ -332,18 +332,3 @@
 
 }
 
-@media screen and (min-width:992px) {
-    .contact form .submit-container {
-        flex-direction: row;
-        align-items: center;
-    }
-
-    .contact form button {
-        width: auto;
-    }
-
-    .contact form .form-status-message {
-        margin: 0 0 0 2em;
-        flex: 1;
-    }
-}
