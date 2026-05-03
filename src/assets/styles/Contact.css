@@ -240,7 +240,7 @@
     font-weight: 700;
     padding: 14px 48px;
     min-width: 11em;
-    width: auto;
+    width: 100%;
     position: relative;
     z-index: 2;
     transition: opacity 0.3s ease-in-out, background-color 0.3s ease-in-out, color 0.3s ease-in-out;
@@ -332,3 +332,8 @@
 
 }
 
+@media screen and (min-width:992px) {
+    .contact form button {
+        width: auto;
+    }
+}
