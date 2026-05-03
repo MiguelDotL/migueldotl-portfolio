@@ -219,7 +219,7 @@ const SkillsCarousel = () => {
                                 loading="lazy"
                             />
                         )}
-                        <h5>{skill.name}</h5>
+                        <span className="skill-name">{skill.name}</span>
                     </div>
                 );
             })}
