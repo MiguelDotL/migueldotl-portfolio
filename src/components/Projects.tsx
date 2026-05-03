@@ -17,7 +17,7 @@ import trimAgency from '../assets/images/projects/trim-agency-512.png';
 import cSolutions from '../assets/images/projects/c-solutions-512.png';
 import filthyFood from '../assets/images/projects/filthy-food-512.png';
 import federated from '../assets/images/projects/federated-512.png';
-import orbyTV from '../assets/images/projects/orby-tv-2-512.png';
+import exoticCarTrader from '../assets/images/projects/exotic-car-trader-512.png';
 import bcbsMain from '../assets/images/projects/bcbs-main.png';
 import bcbsLitehouse from '../assets/images/projects/bcbs-litehouse.png';
 import bcbsProviders from '../assets/images/projects/bcbs-providers.png';
@@ -46,10 +46,10 @@ const clientProjects = [
         url: '//csolutions-us.com/'
     },
     {
-        title: 'Orby TV',
+        title: 'Exotic Car Trader',
         description: 'Web Development',
-        imageURL: orbyTV,
-        url: '//orbytv.com/'
+        imageURL: exoticCarTrader,
+        url: '//www.exoticcartrader.com/'
     },
     {
         title: 'Federated Insurance',
