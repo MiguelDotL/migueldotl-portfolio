@@ -67,6 +67,15 @@
     opacity: 1;
 }
 
+/* Skill name was an <h5> previously — switched to <span> to fix Lighthouse
+   heading-order audit (page hierarchy went h2 Skills → h5 skip). Restore
+   the original visual size + weight so the carousel reads identically. */
+.skills-slider .item .skill-name {
+    display: block;
+    font-size: 1.25rem;
+    font-weight: 500;
+}
+
 .skills-slider li[aria-hidden="false"]>.item i.devicon,
 .skills-slider li[aria-hidden="false"]>.item img.custom-skill-icon {
     filter: brightness(1) invert(0);
