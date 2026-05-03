@@ -155,7 +155,7 @@ export const Success: Story = {
 
 // Failure path. Mock rejects with a network error so the form surfaces
 // the "Oops! Request Failed" message.
-export const Error: Story = {
+export const Failed: Story = {
     render: () => (
         <MockedContactForm response={{ kind: 'network-error' }} delayMs={50} />
     ),
