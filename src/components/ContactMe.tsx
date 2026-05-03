@@ -4,6 +4,7 @@ import { useInView } from "react-intersection-observer";
 import ContactForm from "./ContactForm";
 
 import contactImage from "../assets/images/bitmoji/bitmoji-laptop-2.png";
+import contactImageWebp from "../assets/images/bitmoji/bitmoji-laptop-2.webp";
 
 const ContactMe = () => {
     const { ref, inView } = useInView({ triggerOnce: true });
@@ -20,10 +21,13 @@ const ContactMe = () => {
                             }`}
                         >
                             <h2 className="hire-me nowrap">Wanna Hire Me?</h2>
-                            <img
-                                src={contactImage}
-                                alt="Caricature of Miguel working at a laptop"
-                            />
+                            <picture>
+                                <source srcSet={contactImageWebp} type="image/webp" />
+                                <img
+                                    src={contactImage}
+                                    alt="Caricature of Miguel working at a laptop"
+                                />
+                            </picture>
                         </div>
                     </Col>
                     <Col md={6} className="contact-form-container">

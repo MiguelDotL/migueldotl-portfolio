@@ -42,6 +42,7 @@ import patternArchiveLibrary from '../assets/images/projects/pattern-archive-lib
 import patternArchiveLibraryWebp from '../assets/images/projects/pattern-archive-library.webp';
 
 import colorPop from '../assets/images/backgrounds/color-pop-2.png';
+import colorPopWebp from '../assets/images/backgrounds/color-pop-2.webp';
 
 const TABS = ['Client', 'Featured', 'Personal'] as const;
 type Tab = (typeof TABS)[number];
@@ -160,13 +161,16 @@ const Projects = ({ initialInView = false }: ProjectsProps = {}) => {
 
     return (
         <section id="projects" className="projects">
-            <img
-                src={colorPop}
-                alt=""
-                aria-hidden="true"
-                className="background-image-right"
-                loading="lazy"
-            />
+            <picture>
+                <source srcSet={colorPopWebp} type="image/webp" />
+                <img
+                    src={colorPop}
+                    alt=""
+                    aria-hidden="true"
+                    className="background-image-right"
+                    loading="lazy"
+                />
+            </picture>
             <Container>
                 <Row>
                     <Col>
