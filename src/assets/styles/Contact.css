@@ -135,7 +135,7 @@
     background: transparent;
     border: 1px solid transparent;
     border-radius: 0.4em;
-    padding: 13px 26px;
+    padding: 13px 13px;
     animation: status-box-fade 0.35s ease-out 0.7s forwards;
 }
 
