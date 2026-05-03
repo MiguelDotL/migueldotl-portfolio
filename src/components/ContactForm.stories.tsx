@@ -40,15 +40,15 @@ export const Empty: Story = {};
 const fillFields = async (canvas: ReturnType<typeof within>) => {
     await userEvent.type(
         canvas.getByPlaceholderText(/First Name/i),
-        'Miguel'
+        'Alex'
     );
     await userEvent.type(
         canvas.getByPlaceholderText(/Last Name/i),
-        'Lozano'
+        'Smith'
     );
     await userEvent.type(
         canvas.getByPlaceholderText(/Email Address/i),
-        'miguel@example.com'
+        'alex.smith@example.com'
     );
     await userEvent.type(
         canvas.getByPlaceholderText(/Phone Number/i),
@@ -66,7 +66,7 @@ export const Filled: Story = {
         const canvas = within(canvasElement);
         await fillFields(canvas);
         await expect(canvas.getByPlaceholderText(/First Name/i)).toHaveValue(
-            'Miguel'
+            'Alex'
         );
     }
 };
@@ -166,5 +166,31 @@ export const Failed: Story = {
         await expect(
             await canvas.findByText(/Oops! Request Failed/i)
         ).toBeInTheDocument();
+    }
+};
+
+// Client-side validation error. Every required field is filled except
+// Last Name; clicking Send triggers the browser's HTML5 validation,
+// blocks submit, and flips :user-invalid on the empty Last Name field.
+export const Error: Story = {
+    play: async ({ canvasElement }) => {
+        const canvas = within(canvasElement);
+        await userEvent.type(
+            canvas.getByPlaceholderText(/First Name/i),
+            'Alex'
+        );
+        await userEvent.type(
+            canvas.getByPlaceholderText(/Email Address/i),
+            'alex.smith@example.com'
+        );
+        await userEvent.type(
+            canvas.getByPlaceholderText(/Phone Number/i),
+            '5555550100'
+        );
+        await userEvent.type(
+            canvas.getByPlaceholderText(/Message/i),
+            "Loved your portfolio — would like to chat about a senior frontend role."
+        );
+        await userEvent.click(canvas.getByRole('button', { name: /send/i }));
     }
 };

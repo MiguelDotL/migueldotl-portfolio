@@ -77,7 +77,7 @@ export const Filled: Story = {
                 <input
                     type="text"
                     name="firstName"
-                    defaultValue="Miguel"
+                    defaultValue="Alex"
                     placeholder="First Name *"
                     aria-label="First Name (required)"
                     required
@@ -87,7 +87,7 @@ export const Filled: Story = {
                 <input
                     type="email"
                     name="email"
-                    defaultValue="miguel@example.com"
+                    defaultValue="alex.smith@example.com"
                     placeholder="Email Address *"
                     aria-label="Email Address (required)"
                     required
