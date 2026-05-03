@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import type { ChangeEvent, FormEvent } from "react";
 import axios from "axios";
 import { Col, Row } from "react-bootstrap";
@@ -11,6 +11,43 @@ type FormStatus = {
 };
 
 type SubmitResponse = { status: number; data: { success: boolean; message: string } };
+
+const initialValues = {
+    firstName: "",
+    lastName: "",
+    email: "",
+    phone: "",
+    message: "",
+    botcheck: ""
+};
+
+type FormValues = typeof initialValues;
+type FieldName = "firstName" | "lastName" | "email" | "message";
+type FieldErrors = Partial<Record<FieldName, string>>;
+
+const MESSAGE_MIN_LENGTH = 20;
+const FIELD_ORDER: FieldName[] = ["firstName", "lastName", "email", "message"];
+
+const validate = (values: FormValues): FieldErrors => {
+    const errs: FieldErrors = {};
+    if (!values.firstName.trim()) {
+        errs.firstName = "First name is required.";
+    }
+    if (!values.lastName.trim()) {
+        errs.lastName = "Last name is required.";
+    }
+    if (!values.email.trim()) {
+        errs.email = "Email is required.";
+    } else if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(values.email.trim())) {
+        errs.email = "Enter a valid email address.";
+    }
+    if (!values.message.trim()) {
+        errs.message = "Message is required.";
+    } else if (values.message.trim().length < MESSAGE_MIN_LENGTH) {
+        errs.message = `Please write at least ${MESSAGE_MIN_LENGTH} characters.`;
+    }
+    return errs;
+};
 
 const submitForm = async (
     payload: Record<string, string>
@@ -31,25 +68,24 @@ const submitForm = async (
 };
 
 const ContactForm = () => {
-    const initialValues = {
-        firstName: "",
-        lastName: "",
-        email: "",
-        phone: "",
-        message: "",
-        botcheck: ""
-    };
-    const [formValues, setFormValues] = useState(initialValues);
+    const [formValues, setFormValues] = useState<FormValues>(initialValues);
     const [buttonText, setButtonText] = useState("Send");
     const [loading, setLoading] = useState(false);
+    const [submitAttempted, setSubmitAttempted] = useState(false);
     const [formStatus, setFormStatus] = useState<FormStatus>({
         status: null,
         success: null,
         error: null,
         message: ""
     });
+    const formRef = useRef<HTMLFormElement>(null);
 
     const isSent = formStatus.success === true;
+
+    // Errors render only after the user attempts submit. Derived from
+    // formValues each render, so messages clear themselves as fields are
+    // fixed without needing a separate effect/state.
+    const errors: FieldErrors = submitAttempted ? validate(formValues) : {};
 
     const onFormChange = () => {
         return (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -65,6 +101,19 @@ const ContactForm = () => {
     const onFormSubmit = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         if (loading || isSent) return;
+
+        const errs = validate(formValues);
+        setSubmitAttempted(true);
+        if (Object.keys(errs).length > 0) {
+            const firstInvalid = FIELD_ORDER.find((f) => errs[f]);
+            if (firstInvalid) {
+                formRef.current
+                    ?.querySelector<HTMLElement>(`[name="${firstInvalid}"]`)
+                    ?.focus();
+            }
+            return;
+        }
+
         setButtonText("Sending...");
         setLoading(true);
 
@@ -84,6 +133,7 @@ const ContactForm = () => {
                         message: "Thanks for reaching out, I'll be in touch!"
                     });
                     setFormValues(initialValues);
+                    setSubmitAttempted(false);
                     setButtonText("Sent ✓");
                 } else {
                     setFormStatus({
@@ -123,9 +173,31 @@ const ContactForm = () => {
             ? "danger"
             : "";
 
+    const fieldError = (name: FieldName) => {
+        const err = errors[name];
+        if (!err) return null;
+        return (
+            <span
+                id={`${name}-error`}
+                role="alert"
+                aria-live="polite"
+                className="field-error"
+            >
+                {err}
+            </span>
+        );
+    };
+
+    const ariaProps = (name: FieldName) => ({
+        "aria-invalid": !!errors[name],
+        "aria-describedby": errors[name] ? `${name}-error` : undefined
+    });
+
     return (
         <form
+            ref={formRef}
             onSubmit={onFormSubmit}
+            noValidate
             className={formStatus.success !== null ? "is-resolved" : ""}
         >
             <input
@@ -149,7 +221,9 @@ const ContactForm = () => {
                         autoComplete="given-name"
                         onChange={onFormChange()}
                         required
+                        {...ariaProps("firstName")}
                     />
+                    {fieldError("firstName")}
                 </Col>
                 <Col className="px-1" sm={6}>
                     <input
@@ -161,7 +235,9 @@ const ContactForm = () => {
                         autoComplete="family-name"
                         onChange={onFormChange()}
                         required
+                        {...ariaProps("lastName")}
                     />
+                    {fieldError("lastName")}
                 </Col>
             </Row>
             <Row>
@@ -175,7 +251,9 @@ const ContactForm = () => {
                         autoComplete="email"
                         onChange={onFormChange()}
                         required
+                        {...ariaProps("email")}
                     />
+                    {fieldError("email")}
                 </Col>
                 <Col className="px-1" sm={6}>
                     <input
@@ -197,9 +275,12 @@ const ContactForm = () => {
                         placeholder="Message *"
                         aria-label="Message (required)"
                         autoComplete="off"
+                        minLength={MESSAGE_MIN_LENGTH}
                         onChange={onFormChange()}
                         required
+                        {...ariaProps("message")}
                     />
+                    {fieldError("message")}
                 </Col>
                 <div className={containerClasses}>
                     <button

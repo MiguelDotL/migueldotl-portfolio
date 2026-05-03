@@ -170,8 +170,8 @@ export const Failed: Story = {
 };
 
 // Client-side validation error. Every required field is filled except
-// Last Name; clicking Send triggers the browser's HTML5 validation,
-// blocks submit, and flips :user-invalid on the empty Last Name field.
+// Last Name; clicking Send triggers React validation, blocks submit, and
+// surfaces an inline "Last name is required." message under the field.
 export const Error: Story = {
     play: async ({ canvasElement }) => {
         const canvas = within(canvasElement);
@@ -190,6 +190,57 @@ export const Error: Story = {
         await userEvent.type(
             canvas.getByPlaceholderText(/Message/i),
             "Loved your portfolio — would like to chat about a senior frontend role."
+        );
+        await userEvent.click(canvas.getByRole('button', { name: /send/i }));
+    }
+};
+
+// Malformed email — all required fields filled, but the email value is
+// missing the @-and-domain. Clicking Send surfaces "Enter a valid email
+// address." inline under the email input.
+export const MalformedEmail: Story = {
+    play: async ({ canvasElement }) => {
+        const canvas = within(canvasElement);
+        await userEvent.type(
+            canvas.getByPlaceholderText(/First Name/i),
+            'Alex'
+        );
+        await userEvent.type(
+            canvas.getByPlaceholderText(/Last Name/i),
+            'Smith'
+        );
+        await userEvent.type(
+            canvas.getByPlaceholderText(/Email Address/i),
+            'not-an-email'
+        );
+        await userEvent.type(
+            canvas.getByPlaceholderText(/Message/i),
+            "Loved your portfolio — would like to chat about a senior frontend role."
+        );
+        await userEvent.click(canvas.getByRole('button', { name: /send/i }));
+    }
+};
+
+// Message under the 20-character minimum. Clicking Send surfaces
+// "Please write at least 20 characters." inline under the textarea.
+export const MessageTooShort: Story = {
+    play: async ({ canvasElement }) => {
+        const canvas = within(canvasElement);
+        await userEvent.type(
+            canvas.getByPlaceholderText(/First Name/i),
+            'Alex'
+        );
+        await userEvent.type(
+            canvas.getByPlaceholderText(/Last Name/i),
+            'Smith'
+        );
+        await userEvent.type(
+            canvas.getByPlaceholderText(/Email Address/i),
+            'alex.smith@example.com'
+        );
+        await userEvent.type(
+            canvas.getByPlaceholderText(/Message/i),
+            'Hi.'
         );
         await userEvent.click(canvas.getByRole('button', { name: /send/i }));
     }
