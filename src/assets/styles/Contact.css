@@ -30,6 +30,7 @@
 
 .contact img {
     width: 92%;
+    max-width: 480px;
     filter: drop-shadow(3px 3px 42px rgba(155, 155, 155, 0.5));
     filter: drop-shadow(10px 14px 13px rgba(20, 20, 20, 0.8));
 }
