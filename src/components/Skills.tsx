@@ -3,6 +3,7 @@ import { Container, Row } from "react-bootstrap";
 import { useInView } from "react-intersection-observer";
 import "react-multi-carousel/lib/styles.css";
 import colorPop from "../assets/images/backgrounds/color-pop.png";
+import colorPopWebp from "../assets/images/backgrounds/color-pop.webp";
 import SkillsCarousel from "./SkillsCarousel";
 
 const Skills = () => {
@@ -10,13 +11,16 @@ const Skills = () => {
 
     return (
         <section id="skills" className="skills">
-            <img
-                src={colorPop}
-                alt=""
-                aria-hidden="true"
-                className="background-image-left"
-                loading="lazy"
-            />
+            <picture>
+                <source srcSet={colorPopWebp} type="image/webp" />
+                <img
+                    src={colorPop}
+                    alt=""
+                    aria-hidden="true"
+                    className="background-image-left"
+                    loading="lazy"
+                />
+            </picture>
             <Container>
                 <Row>
                     <div className="skills-content">

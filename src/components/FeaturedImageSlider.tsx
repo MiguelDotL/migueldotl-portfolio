@@ -4,6 +4,8 @@ import '../assets/styles/FeaturedImageSlider.css';
 
 export type FeaturedImageSlide = {
     src: string;
+    /** Optional WebP source served via <picture> when supported. */
+    srcWebp?: string;
     alt: string;
 };
 
@@ -183,18 +185,20 @@ const FeaturedImageSlider = ({
             onPointerUp={handlePointerUp}
         >
             {images.map((img, i) => (
-                <img
-                    key={img.src}
-                    src={img.src}
-                    alt={img.alt}
-                    loading="lazy"
-                    className={`featured-image-slider__slide ${
-                        i === index ? 'is-active' : ''
-                    } is-clickable`}
-                    aria-hidden={i !== index}
-                    onClick={i === index ? handleSlideClick : undefined}
-                    style={{ objectPosition: imagePosition }}
-                />
+                <picture key={img.src}>
+                    {img.srcWebp && <source srcSet={img.srcWebp} type="image/webp" />}
+                    <img
+                        src={img.src}
+                        alt={img.alt}
+                        loading="lazy"
+                        className={`featured-image-slider__slide ${
+                            i === index ? 'is-active' : ''
+                        } is-clickable`}
+                        aria-hidden={i !== index}
+                        onClick={i === index ? handleSlideClick : undefined}
+                        style={{ objectPosition: imagePosition }}
+                    />
+                </picture>
             ))}
 
             {useArrows && images.length > 1 && (
@@ -272,12 +276,17 @@ const FeaturedImageSlider = ({
                     aria-label={images[index].alt}
                     onClick={() => setLightboxOpen(false)}
                 >
-                    <img
-                        src={images[index].src}
-                        alt={images[index].alt}
-                        className="featured-image-slider__lightbox-img"
-                        onClick={(e) => e.stopPropagation()}
-                    />
+                    <picture>
+                        {images[index].srcWebp && (
+                            <source srcSet={images[index].srcWebp} type="image/webp" />
+                        )}
+                        <img
+                            src={images[index].src}
+                            alt={images[index].alt}
+                            className="featured-image-slider__lightbox-img"
+                            onClick={(e) => e.stopPropagation()}
+                        />
+                    </picture>
                     <button
                         type="button"
                         aria-label="Close"

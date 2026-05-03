@@ -2,6 +2,7 @@ import type { Meta } from '@storybook/react-vite';
 import { Col, Container, Row } from 'react-bootstrap';
 import HeroContent from './HeroContent';
 import bitmojiSpacePlanet from '../assets/images/bitmoji/bitmoji-space-planet-2.png';
+import bitmojiSpacePlanetWebp from '../assets/images/bitmoji/bitmoji-space-planet-2.webp';
 import '../assets/styles/Hero.css';
 
 const meta: Meta<typeof HeroContent> = {
@@ -26,11 +27,14 @@ const meta: Meta<typeof HeroContent> = {
                             <Story />
                         </Col>
                         <Col className="image-col" xs={12} md={5} xl={5}>
-                            <img
-                                className="floating-image"
-                                src={bitmojiSpacePlanet}
-                                alt="Floating Caricature"
-                            />
+                            <picture>
+                                <source srcSet={bitmojiSpacePlanetWebp} type="image/webp" />
+                                <img
+                                    className="floating-image"
+                                    src={bitmojiSpacePlanet}
+                                    alt="Floating Caricature"
+                                />
+                            </picture>
                         </Col>
                     </Row>
                 </Container>
