@@ -27,7 +27,7 @@ const SocialIcons = ({ config, onHover }: SocialIconsProps) => {
                         onMouseEnter={() => onHover?.(social.label)}
                         onMouseLeave={() => onHover?.(null)}
                     >
-                        <img src={social.icon} alt={social.label} />
+                        <img src={social.icon} alt={social.label} loading="lazy" />
                     </a>
                 );
             })}

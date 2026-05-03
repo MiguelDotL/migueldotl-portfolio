@@ -197,6 +197,7 @@ const SkillsCarousel = () => {
                                 className={`custom-skill-icon ${
                                     isCrossFade ? "icon-inactive" : ""
                                 }`}
+                                loading="lazy"
                             />
                         ) : (
                             skill.class && (
@@ -215,6 +216,7 @@ const SkillsCarousel = () => {
                                 className={`custom-skill-icon ${
                                     isCrossFade ? "icon-active" : ""
                                 }`}
+                                loading="lazy"
                             />
                         )}
                         <h5>{skill.name}</h5>

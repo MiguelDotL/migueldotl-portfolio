@@ -82,6 +82,9 @@ const Footer = () => {
                                     className="logo"
                                     src={logo}
                                     alt="Miguel Lozano Logo"
+                                    width={42}
+                                    height={42}
+                                    loading="lazy"
                                 />
                             </div>
                         </Col>
