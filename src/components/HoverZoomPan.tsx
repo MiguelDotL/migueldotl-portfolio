@@ -2,6 +2,8 @@ import { useState, type MouseEvent } from 'react';
 
 type Props = {
     src: string;
+    /** Optional WebP source served via <picture> when supported. */
+    srcWebp?: string;
     alt: string;
     /** Multiplier on hover (1.63 = 163%). Defaults to 1.63. */
     zoomScale?: number;
@@ -9,7 +11,13 @@ type Props = {
     transitionMs?: number;
 };
 
-const HoverZoomPan = ({ src, alt, zoomScale = 1.63, transitionMs = 963 }: Props) => {
+const HoverZoomPan = ({
+    src,
+    srcWebp,
+    alt,
+    zoomScale = 1.63,
+    transitionMs = 963
+}: Props) => {
     const [origin, setOrigin] = useState({ x: 50, y: 50 });
     const [hovered, setHovered] = useState(false);
 
@@ -18,6 +26,15 @@ const HoverZoomPan = ({ src, alt, zoomScale = 1.63, transitionMs = 963 }: Props)
         const x = ((e.clientX - rect.left) / rect.width) * 100;
         const y = ((e.clientY - rect.top) / rect.height) * 100;
         setOrigin({ x, y });
+    };
+
+    const imgStyle: React.CSSProperties = {
+        width: '100%',
+        height: '100%',
+        objectFit: 'cover',
+        transformOrigin: `${origin.x}% ${origin.y}%`,
+        transform: hovered ? `scale(${zoomScale})` : 'scale(1)',
+        transition: `transform ${transitionMs}ms cubic-bezier(0.4, 0, 0.2, 1)`
     };
 
     return (
@@ -32,19 +49,10 @@ const HoverZoomPan = ({ src, alt, zoomScale = 1.63, transitionMs = 963 }: Props)
             onMouseLeave={() => setHovered(false)}
             onMouseMove={handleMouseMove}
         >
-            <img
-                src={src}
-                alt={alt}
-                loading="lazy"
-                style={{
-                    width: '100%',
-                    height: '100%',
-                    objectFit: 'cover',
-                    transformOrigin: `${origin.x}% ${origin.y}%`,
-                    transform: hovered ? `scale(${zoomScale})` : 'scale(1)',
-                    transition: `transform ${transitionMs}ms cubic-bezier(0.4, 0, 0.2, 1)`
-                }}
-            />
+            <picture>
+                {srcWebp && <source srcSet={srcWebp} type="image/webp" />}
+                <img src={src} alt={alt} loading="lazy" style={imgStyle} />
+            </picture>
         </div>
     );
 };

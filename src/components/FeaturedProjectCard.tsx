@@ -17,6 +17,8 @@ export type FeaturedProject = {
     description: ReactNode;
     techStack?: string[];
     imageURL?: string;
+    /** Optional WebP source for the imageURL fallback path. */
+    imageURLWebp?: string;
     imageSlot?: ReactNode;
     actions?: FeaturedAction[];
 };
@@ -41,7 +43,14 @@ const FeaturedProjectCard = (props: FeaturedProject) => {
             <div className="featured-project-card">
                 <div className="featured-project-image">
                     {props.imageSlot ?? (
-                        props.imageURL && <img src={props.imageURL} alt={props.title} loading="lazy" />
+                        props.imageURL && (
+                            <picture>
+                                {props.imageURLWebp && (
+                                    <source srcSet={props.imageURLWebp} type="image/webp" />
+                                )}
+                                <img src={props.imageURL} alt={props.title} loading="lazy" />
+                            </picture>
+                        )
                     )}
                 </div>
                 <div className="featured-project-body">
