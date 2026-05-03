@@ -142,8 +142,10 @@ const Projects = ({ initialInView = false }: ProjectsProps = {}) => {
         <section id="projects" className="projects">
             <img
                 src={colorPop}
-                alt="decorative background"
+                alt=""
+                aria-hidden="true"
                 className="background-image-right"
+                loading="lazy"
             />
             <Container>
                 <Row>

@@ -12,8 +12,10 @@ const Skills = () => {
         <section id="skills" className="skills">
             <img
                 src={colorPop}
-                alt="decorative background"
+                alt=""
+                aria-hidden="true"
                 className="background-image-left"
+                loading="lazy"
             />
             <Container>
                 <Row>
