@@ -88,8 +88,6 @@
     color: #fff;
 }
 
-.contact form input:user-invalid,
-.contact form textarea:user-invalid,
 .contact form input[aria-invalid="true"],
 .contact form textarea[aria-invalid="true"] {
     border-color: rgba(239, 68, 68, 0.95);
@@ -97,8 +95,6 @@
     box-shadow: 0 0 0 1px rgba(239, 68, 68, 0.45);
 }
 
-.contact form input:user-invalid:focus,
-.contact form textarea:user-invalid:focus,
 .contact form input[aria-invalid="true"]:focus,
 .contact form textarea[aria-invalid="true"]:focus {
     background: rgba(255, 255, 255, 1);
@@ -109,6 +105,22 @@
 .contact form input:focus::placeholder, .contact form textarea:focus::placeholder {
     color: var(--dark-grey);
     opacity: 0.8;
+}
+
+.contact form .field-error {
+    display: block;
+    color: #fca5a5;
+    font-size: 0.875em;
+    line-height: 1.3;
+    margin: -4px 0 8px 4px;
+    text-align: left;
+}
+
+/* Textareas have margin-bottom: 32px (vs 8px on inputs) for breathing
+   room before the submit row. When an error follows, pull it up so the
+   gap matches the tighter input + error spacing. */
+.contact form textarea + .field-error {
+    margin-top: -28px;
 }
 
 .contact form .submit-container {
@@ -135,7 +147,7 @@
     background: transparent;
     border: 1px solid transparent;
     border-radius: 0.4em;
-    padding: 13px 26px;
+    padding: 13px 13px;
     animation: status-box-fade 0.35s ease-out 0.7s forwards;
 }
 

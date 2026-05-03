@@ -40,15 +40,15 @@ export const Empty: Story = {};
 const fillFields = async (canvas: ReturnType<typeof within>) => {
     await userEvent.type(
         canvas.getByPlaceholderText(/First Name/i),
-        'Miguel'
+        'Alex'
     );
     await userEvent.type(
         canvas.getByPlaceholderText(/Last Name/i),
-        'Lozano'
+        'Smith'
     );
     await userEvent.type(
         canvas.getByPlaceholderText(/Email Address/i),
-        'miguel@example.com'
+        'alex.smith@example.com'
     );
     await userEvent.type(
         canvas.getByPlaceholderText(/Phone Number/i),
@@ -66,7 +66,7 @@ export const Filled: Story = {
         const canvas = within(canvasElement);
         await fillFields(canvas);
         await expect(canvas.getByPlaceholderText(/First Name/i)).toHaveValue(
-            'Miguel'
+            'Alex'
         );
     }
 };
@@ -155,7 +155,7 @@ export const Success: Story = {
 
 // Failure path. Mock rejects with a network error so the form surfaces
 // the "Oops! Request Failed" message.
-export const Error: Story = {
+export const Failed: Story = {
     render: () => (
         <MockedContactForm response={{ kind: 'network-error' }} delayMs={50} />
     ),
@@ -166,5 +166,101 @@ export const Error: Story = {
         await expect(
             await canvas.findByText(/Oops! Request Failed/i)
         ).toBeInTheDocument();
+    }
+};
+
+// Client-side validation error. Every required field is filled except
+// Last Name; clicking Send triggers React validation, blocks submit, and
+// surfaces an inline "Last name is required." message under the field.
+export const Error: Story = {
+    play: async ({ canvasElement }) => {
+        const canvas = within(canvasElement);
+        await userEvent.type(
+            canvas.getByPlaceholderText(/First Name/i),
+            'Alex'
+        );
+        await userEvent.type(
+            canvas.getByPlaceholderText(/Email Address/i),
+            'alex.smith@example.com'
+        );
+        await userEvent.type(
+            canvas.getByPlaceholderText(/Phone Number/i),
+            '5555550100'
+        );
+        await userEvent.type(
+            canvas.getByPlaceholderText(/Message/i),
+            "Loved your portfolio — would like to chat about a senior frontend role."
+        );
+        await userEvent.click(canvas.getByRole('button', { name: /send/i }));
+    }
+};
+
+// Malformed email — all required fields filled, but the email value is
+// missing the @-and-domain. Clicking Send surfaces "Enter a valid email
+// address." inline under the email input.
+export const MalformedEmail: Story = {
+    play: async ({ canvasElement }) => {
+        const canvas = within(canvasElement);
+        await userEvent.type(
+            canvas.getByPlaceholderText(/First Name/i),
+            'Alex'
+        );
+        await userEvent.type(
+            canvas.getByPlaceholderText(/Last Name/i),
+            'Smith'
+        );
+        await userEvent.type(
+            canvas.getByPlaceholderText(/Email Address/i),
+            'not-an-email'
+        );
+        await userEvent.type(
+            canvas.getByPlaceholderText(/Message/i),
+            "Loved your portfolio — would like to chat about a senior frontend role."
+        );
+        await userEvent.click(canvas.getByRole('button', { name: /send/i }));
+    }
+};
+
+// Two required fields empty (First Name and Email). Asserts that on
+// submit, focus moves to the *first* invalid field in document order
+// (First Name) — not whichever field the user last interacted with.
+export const SubmittedInvalid: Story = {
+    play: async ({ canvasElement }) => {
+        const canvas = within(canvasElement);
+        await userEvent.type(
+            canvas.getByPlaceholderText(/Last Name/i),
+            'Smith'
+        );
+        await userEvent.type(
+            canvas.getByPlaceholderText(/Message/i),
+            "Loved your portfolio — would like to chat about a senior frontend role."
+        );
+        await userEvent.click(canvas.getByRole('button', { name: /send/i }));
+        await expect(canvas.getByPlaceholderText(/First Name/i)).toHaveFocus();
+    }
+};
+
+// Message under the 20-character minimum. Clicking Send surfaces
+// "Please write at least 20 characters." inline under the textarea.
+export const MessageTooShort: Story = {
+    play: async ({ canvasElement }) => {
+        const canvas = within(canvasElement);
+        await userEvent.type(
+            canvas.getByPlaceholderText(/First Name/i),
+            'Alex'
+        );
+        await userEvent.type(
+            canvas.getByPlaceholderText(/Last Name/i),
+            'Smith'
+        );
+        await userEvent.type(
+            canvas.getByPlaceholderText(/Email Address/i),
+            'alex.smith@example.com'
+        );
+        await userEvent.type(
+            canvas.getByPlaceholderText(/Message/i),
+            'Hi.'
+        );
+        await userEvent.click(canvas.getByRole('button', { name: /send/i }));
     }
 };
