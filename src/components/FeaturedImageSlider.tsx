@@ -87,6 +87,14 @@ const FeaturedImageSlider = ({
 
     useEffect(() => {
         if (effectivelyPaused || images.length <= 1) return;
+        // Only the segmented-progress indicator actually reads `progress`.
+        // For other indicators, gate the autoplay loop on a single setTimeout
+        // instead of a 60Hz rAF + setState — saves ~60 component rerenders
+        // per second of autoplay.
+        if (indicator !== 'segmented-progress') {
+            const t = window.setTimeout(next, intervalMs);
+            return () => window.clearTimeout(t);
+        }
         let raf = 0;
         const start = performance.now() - progress * intervalMs;
         const tick = (now: number) => {
@@ -101,7 +109,7 @@ const FeaturedImageSlider = ({
         raf = requestAnimationFrame(tick);
         return () => cancelAnimationFrame(raf);
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [effectivelyPaused, intervalMs, images.length, index]);
+    }, [effectivelyPaused, intervalMs, images.length, index, indicator]);
 
     // Lightbox keyboard nav: Esc closes, arrows navigate.
     useEffect(() => {

@@ -53,11 +53,23 @@ const MomentumTabs = <T extends string>({
     // Mirror of `isResizing` accessible synchronously inside the resize handler
     // so we only fire setState once per resize session, not on every tick.
     const isResizingRef = useRef(false);
+    // Mirror of `active` for the resize handler — lets us attach the listener
+    // once on mount instead of re-attaching it every time `active` changes.
+    const activeRef = useRef(active);
+    useEffect(() => {
+        activeRef.current = active;
+    }, [active]);
 
     const clearTimers = () => {
         transitionTimers.current.forEach((id) => window.clearTimeout(id));
         transitionTimers.current = [];
     };
+
+    // Drain pending click-animation timers on unmount so they can't fire
+    // setState on an unmounted component.
+    useEffect(() => {
+        return () => clearTimers();
+    }, []);
 
     // Gated on `enabled` so we only measure once the parent signals the
     // section is in view. Important when the parent has `content-visibility: auto`
@@ -95,6 +107,8 @@ const MomentumTabs = <T extends string>({
     // Keep the indicator pinned to the active tab when the viewport resizes.
     // Fade out on first resize tick (gated by ref so setState fires once per
     // session, not per tick), re-measure + fade back in once resize idles.
+    // Listener is attached once on mount; the handler reads the latest
+    // `active` via activeRef to avoid re-attaching on every tab change.
     useEffect(() => {
         let settleTimer: number | undefined;
         const handleResize = () => {
@@ -105,7 +119,7 @@ const MomentumTabs = <T extends string>({
             if (settleTimer !== undefined) window.clearTimeout(settleTimer);
             settleTimer = window.setTimeout(() => {
                 if (!isAnimatingRef.current) {
-                    const el = buttonRefs.current[active];
+                    const el = buttonRefs.current[activeRef.current];
                     if (el) {
                         setIndicator({
                             left: el.offsetLeft,
@@ -130,7 +144,7 @@ const MomentumTabs = <T extends string>({
             window.removeEventListener('resize', handleResize);
             if (settleTimer !== undefined) window.clearTimeout(settleTimer);
         };
-    }, [active]);
+    }, []);
 
     const handleClick = (next: T) => {
         if (next === active) return;
