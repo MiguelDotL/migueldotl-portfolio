@@ -22,8 +22,6 @@ export type UseFormSubmitReturn = {
      * Returns true on success so the caller can clear its own field state.
      */
     submit: (payload: Record<string, string>) => Promise<boolean>;
-    /** Manually reset back to idle (e.g. to allow re-submission). */
-    reset: () => void;
 };
 
 // ---------------------------------------------------------------------------
@@ -105,14 +103,7 @@ function useFormSubmit(): UseFormSubmitReturn {
         }
     }, [status]);
 
-    const reset = useCallback(() => {
-        setStatus('idle');
-        setMessage('');
-        setErrorMessage(null);
-        setButtonLabel('Send');
-    }, []);
-
-    return { status, message, errorMessage, buttonLabel, submit, reset };
+    return { status, message, errorMessage, buttonLabel, submit };
 }
 
 export default useFormSubmit;

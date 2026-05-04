@@ -154,28 +154,3 @@ describe('useFormSubmit — guard: no double-submit', () => {
     });
 });
 
-describe('useFormSubmit — reset', () => {
-    beforeEach(() => {
-        vi.clearAllMocks();
-    });
-
-    test('reset() returns hook to idle state after an error', async () => {
-        vi.mocked(axios.post).mockRejectedValueOnce(new Error('Timeout'));
-
-        const { result } = renderHook(() => useFormSubmit());
-        await act(async () => {
-            await result.current.submit(payload);
-        });
-
-        expect(result.current.status).toBe('error');
-
-        act(() => {
-            result.current.reset();
-        });
-
-        expect(result.current.status).toBe('idle');
-        expect(result.current.message).toBe('');
-        expect(result.current.errorMessage).toBeNull();
-        expect(result.current.buttonLabel).toBe('Send');
-    });
-});
