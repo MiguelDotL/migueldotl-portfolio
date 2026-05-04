@@ -9,7 +9,7 @@ const ProjectList = ({ projects }: ProjectListProps) => {
     return (
         <Row>
             {projects.map((project) => {
-                return <ProjectCard key={project.url} {...project} />;
+                return <ProjectCard key={project.title} {...project} />;
             })}
         </Row>
     );
