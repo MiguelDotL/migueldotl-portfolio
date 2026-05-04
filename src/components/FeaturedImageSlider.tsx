@@ -1,7 +1,12 @@
 import { useEffect, useRef, useState } from 'react';
-import { createPortal } from 'react-dom';
 import SliderArrowButton from './SliderArrowButton';
 import ResponsiveImage from './ResponsiveImage';
+import SliderFrostedDots from './SliderFrostedDots';
+import SliderOutlinedDots from './SliderOutlinedDots';
+import SliderSegmentedProgress from './SliderSegmentedProgress';
+import SliderCounterIndicator from './SliderCounterIndicator';
+import LightboxOverlay from './LightboxOverlay';
+import useCarouselAutoplay from '../hooks/useCarouselAutoplay';
 import '../assets/styles/FeaturedImageSlider.css';
 
 export type FeaturedImageSlide = {
@@ -39,14 +44,7 @@ const FeaturedImageSlider = ({
 }: FeaturedImageSliderProps) => {
     const [index, setIndex] = useState(0);
     const [paused, setPaused] = useState(false);
-    const [progress, setProgress] = useState(0);
     const [lightboxOpen, setLightboxOpen] = useState(false);
-    // Pause rAF when scrolled off-screen so multiple sliders don't keep ticking
-    // when the section isn't visible. Defaults to true so we don't autoplay
-    // until we've actually observed visibility (avoids a brief tick before the
-    // observer fires).
-    const [offScreen, setOffScreen] = useState(true);
-    const rootRef = useRef<HTMLDivElement>(null);
     const swipeStartX = useRef<number | null>(null);
 
     const useArrows = controls.includes('arrows');
@@ -57,62 +55,14 @@ const FeaturedImageSlider = ({
     const next = () => setIndex((i) => (i + 1) % images.length);
     const prev = () => setIndex((i) => (i - 1 + images.length) % images.length);
 
-    // Pause autoplay while the lightbox is open so the slide doesn't advance
-    // out from under the user. Also pause when off-screen.
-    const effectivelyPaused = paused || lightboxOpen || offScreen;
-
-    useEffect(() => {
-        const el = rootRef.current;
-        if (!el) return;
-        // Skip when IntersectionObserver isn't available (e.g. older test envs).
-        if (typeof IntersectionObserver === 'undefined') {
-            // eslint-disable-next-line react-hooks/set-state-in-effect
-            setOffScreen(false);
-            return;
-        }
-        const io = new IntersectionObserver(
-            ([entry]) => {
-                // entry is always present — IO fires at least one per observed element.
-                if (entry) setOffScreen(!entry.isIntersecting);
-            },
-            { rootMargin: '100px' }
-        );
-        io.observe(el);
-        return () => io.disconnect();
-    }, []);
-
-    useEffect(() => {
-        // Reset progress when the active slide changes so the segmented-progress
-        // bar restarts from 0 for the new slide.
-        // eslint-disable-next-line react-hooks/set-state-in-effect
-        setProgress(0);
-    }, [index]);
-
-    useEffect(() => {
-        if (effectivelyPaused || images.length <= 1) return;
-        // Only the segmented-progress indicator actually reads `progress`.
-        // For other indicators, gate the autoplay loop on a single setTimeout
-        // instead of a 60Hz rAF + setState — saves ~60 component rerenders
-        // per second of autoplay.
-        if (indicator !== 'segmented-progress') {
-            const t = window.setTimeout(next, intervalMs);
-            return () => window.clearTimeout(t);
-        }
-        let raf = 0;
-        const start = performance.now() - progress * intervalMs;
-        const tick = (now: number) => {
-            const p = Math.min((now - start) / intervalMs, 1);
-            setProgress(p);
-            if (p < 1) {
-                raf = requestAnimationFrame(tick);
-            } else {
-                next();
-            }
-        };
-        raf = requestAnimationFrame(tick);
-        return () => cancelAnimationFrame(raf);
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [effectivelyPaused, intervalMs, images.length, index, indicator]);
+    const { ref: rootRef, progress } = useCarouselAutoplay({
+        totalSlides: images.length,
+        activeIndex: index,
+        intervalMs,
+        indicator,
+        paused: paused || lightboxOpen,
+        onAdvance: next
+    });
 
     // Lightbox keyboard nav: Esc closes, arrows navigate.
     useEffect(() => {
@@ -157,30 +107,6 @@ const FeaturedImageSlider = ({
         if (useClickImage) next();
         else setLightboxOpen(true);
     };
-
-    const dotIndicator = (variant: 'frosted' | 'outlined') => (
-        <div
-            className={`featured-image-slider__dots featured-image-slider__dots--${variant}`}
-            role="tablist"
-        >
-            {images.map((img, i) => (
-                <button
-                    key={img.src}
-                    type="button"
-                    role="tab"
-                    aria-label={`Show image ${i + 1}`}
-                    aria-selected={i === index}
-                    className={`featured-image-slider__dot ${
-                        i === index ? 'is-active' : ''
-                    }`}
-                    onClick={(e) => {
-                        e.stopPropagation();
-                        setIndex(i);
-                    }}
-                />
-            ))}
-        </div>
-    );
 
     // index is always valid — it's clamped to [0, images.length-1] by setIndex.
     const activeSlide = images[index]!;
@@ -230,87 +156,45 @@ const FeaturedImageSlider = ({
             )}
 
             {indicator === 'segmented-progress' && images.length > 1 && (
-                <div className="featured-image-slider__segments" role="tablist">
-                    {images.map((img, i) => {
-                        const fill =
-                            i < index ? 1 : i === index ? progress : 0;
-                        return (
-                            <button
-                                key={img.src}
-                                type="button"
-                                role="tab"
-                                aria-label={`Show image ${i + 1}`}
-                                aria-selected={i === index}
-                                className="featured-image-slider__segment"
-                                onClick={(e) => {
-                                    e.stopPropagation();
-                                    setIndex(i);
-                                }}
-                            >
-                                <span
-                                    className="featured-image-slider__segment-fill"
-                                    style={{ width: `${fill * 100}%` }}
-                                />
-                            </button>
-                        );
-                    })}
-                </div>
+                <SliderSegmentedProgress
+                    images={images}
+                    currentIndex={index}
+                    progress={progress}
+                    onSelect={setIndex}
+                />
             )}
 
             {indicator === 'counter' && images.length > 1 && (
-                <div
-                    className="featured-image-slider__counter"
-                    aria-live="polite"
-                >
-                    {index + 1} / {images.length}
-                </div>
+                <SliderCounterIndicator
+                    currentIndex={index}
+                    totalSlides={images.length}
+                />
             )}
 
-            {indicator === 'frosted-dots' && images.length > 1 && dotIndicator('frosted')}
-            {indicator === 'outlined-dots' && images.length > 1 && dotIndicator('outlined')}
+            {indicator === 'frosted-dots' && images.length > 1 && (
+                <SliderFrostedDots
+                    images={images}
+                    currentIndex={index}
+                    onSelect={setIndex}
+                />
+            )}
 
-            {lightboxOpen && createPortal(
-                <div
-                    className="featured-image-slider__lightbox"
-                    role="dialog"
-                    aria-modal="true"
-                    aria-label={activeSlide.alt}
-                    onClick={() => setLightboxOpen(false)}
-                >
-                    <ResponsiveImage
-                        src={activeSlide.src}
-                        srcWebp={activeSlide.srcWebp}
-                        alt={activeSlide.alt}
-                        className="featured-image-slider__lightbox-img"
-                        onClick={(e) => e.stopPropagation()}
-                    />
-                    <button
-                        type="button"
-                        aria-label="Close"
-                        className="featured-image-slider__lightbox-close"
-                        onClick={(e) => {
-                            e.stopPropagation();
-                            setLightboxOpen(false);
-                        }}
-                    >
-                        ×
-                    </button>
-                    {images.length > 1 && (
-                        <>
-                            <SliderArrowButton
-                                direction="prev"
-                                classScope="featured-image-slider__lightbox-arrow"
-                                onClick={prev}
-                            />
-                            <SliderArrowButton
-                                direction="next"
-                                classScope="featured-image-slider__lightbox-arrow"
-                                onClick={next}
-                            />
-                        </>
-                    )}
-                </div>,
-                document.body
+            {indicator === 'outlined-dots' && images.length > 1 && (
+                <SliderOutlinedDots
+                    images={images}
+                    currentIndex={index}
+                    onSelect={setIndex}
+                />
+            )}
+
+            {lightboxOpen && (
+                <LightboxOverlay
+                    images={images}
+                    activeSlide={activeSlide}
+                    onClose={() => setLightboxOpen(false)}
+                    onPrev={prev}
+                    onNext={next}
+                />
             )}
         </div>
     );
