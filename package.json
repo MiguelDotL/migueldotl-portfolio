@@ -72,6 +72,7 @@
     "puppeteer": "^24.42.0",
     "sharp": "^0.34.5",
     "storybook": "^10.3.6",
+    "subset-font": "^2.5.0",
     "typescript": "^6.0.3",
     "typescript-eslint": "^8.59.1",
     "vite": "^8.0.10",
