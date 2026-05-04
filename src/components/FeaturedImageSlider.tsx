@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
+import SliderArrowButton from './SliderArrowButton';
 import '../assets/styles/FeaturedImageSlider.css';
 
 export type FeaturedImageSlide = {
@@ -211,28 +212,16 @@ const FeaturedImageSlider = ({
 
             {useArrows && images.length > 1 && (
                 <>
-                    <button
-                        type="button"
-                        aria-label="Previous image"
-                        className="featured-image-slider__arrow featured-image-slider__arrow--prev"
-                        onClick={(e) => {
-                            e.stopPropagation();
-                            prev();
-                        }}
-                    >
-                        <span aria-hidden>‹</span>
-                    </button>
-                    <button
-                        type="button"
-                        aria-label="Next image"
-                        className="featured-image-slider__arrow featured-image-slider__arrow--next"
-                        onClick={(e) => {
-                            e.stopPropagation();
-                            next();
-                        }}
-                    >
-                        <span aria-hidden>›</span>
-                    </button>
+                    <SliderArrowButton
+                        direction="prev"
+                        classScope="featured-image-slider__arrow"
+                        onClick={prev}
+                    />
+                    <SliderArrowButton
+                        direction="next"
+                        classScope="featured-image-slider__arrow"
+                        onClick={next}
+                    />
                 </>
             )}
 
@@ -308,28 +297,16 @@ const FeaturedImageSlider = ({
                     </button>
                     {images.length > 1 && (
                         <>
-                            <button
-                                type="button"
-                                aria-label="Previous image"
-                                className="featured-image-slider__lightbox-arrow featured-image-slider__lightbox-arrow--prev"
-                                onClick={(e) => {
-                                    e.stopPropagation();
-                                    prev();
-                                }}
-                            >
-                                <span aria-hidden>‹</span>
-                            </button>
-                            <button
-                                type="button"
-                                aria-label="Next image"
-                                className="featured-image-slider__lightbox-arrow featured-image-slider__lightbox-arrow--next"
-                                onClick={(e) => {
-                                    e.stopPropagation();
-                                    next();
-                                }}
-                            >
-                                <span aria-hidden>›</span>
-                            </button>
+                            <SliderArrowButton
+                                direction="prev"
+                                classScope="featured-image-slider__lightbox-arrow"
+                                onClick={prev}
+                            />
+                            <SliderArrowButton
+                                direction="next"
+                                classScope="featured-image-slider__lightbox-arrow"
+                                onClick={next}
+                            />
                         </>
                     )}
                 </div>,
