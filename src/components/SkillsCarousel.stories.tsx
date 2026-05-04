@@ -1,4 +1,5 @@
-import type { Meta } from '@storybook/react-vite';
+import type { Meta, StoryObj } from '@storybook/react-vite';
+import { userEvent } from 'storybook/test';
 import SkillsCarousel from './SkillsCarousel';
 import '../assets/styles/Skills.css';
 import 'react-multi-carousel/lib/styles.css';
@@ -28,4 +29,38 @@ const meta: Meta<typeof SkillsCarousel> = {
 
 export default meta;
 
-export const Default = {};
+type Story = StoryObj<typeof SkillsCarousel>;
+
+export const Default: Story = {};
+
+// Drives the keyboard-nav useEffect (ArrowLeft/Right while section is in
+// view) and the carousel's beforeChange/afterChange handlers via
+// react-multi-carousel's chevron buttons.
+export const KeyboardAndArrowNav: Story = {
+    play: async ({ canvasElement }) => {
+        // Wait for IntersectionObserver to flip isInView=true (threshold 0.5)
+        // and for centeredIndex to initialize (the 100ms setTimeout in the
+        // mount effect).
+        await new Promise((r) => setTimeout(r, 250));
+
+        await userEvent.keyboard('{ArrowRight}');
+        await new Promise((r) => setTimeout(r, 200));
+        await userEvent.keyboard('{ArrowRight}');
+        await new Promise((r) => setTimeout(r, 200));
+        await userEvent.keyboard('{ArrowLeft}');
+        await new Promise((r) => setTimeout(r, 200));
+
+        // Direct clicks on react-multi-carousel's chevron buttons exercise
+        // afterChange's snap detection branch — keep going forward enough to
+        // potentially hit the end-clone region.
+        const next = canvasElement.querySelector(
+            '.react-multiple-carousel__arrow--right'
+        ) as HTMLElement | null;
+        if (next) {
+            for (let i = 0; i < 3; i++) {
+                await userEvent.click(next);
+                await new Promise((r) => setTimeout(r, 200));
+            }
+        }
+    }
+};
