@@ -26,9 +26,6 @@ const ContactMe = () => {
                                 <img
                                     src={contactImage}
                                     alt="Caricature of Miguel working at a laptop"
-                                    width={1592}
-                                    height={1592}
-                                    loading="lazy"
                                 />
                             </picture>
                         </div>
