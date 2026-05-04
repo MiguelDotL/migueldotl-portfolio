@@ -26,7 +26,7 @@
     "e2e:ui": "playwright test --ui",
     "e2e:headed": "playwright test --headed",
     "e2e:install": "playwright install",
-    "smoke": "node scripts/smoke-test.mjs",
+    "smoke": "playwright test e2e/smoke.spec.ts",
     "chromatic": "chromatic --project-token=$CHROMATIC_PROJECT_TOKEN",
     "chromatic:baseline": "chromatic --project-token=$CHROMATIC_PROJECT_TOKEN --auto-accept-changes",
     "storybook": "storybook dev -p 6006",
