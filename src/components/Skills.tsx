@@ -18,6 +18,8 @@ const Skills = () => {
                     alt=""
                     aria-hidden="true"
                     className="background-image-left"
+                    width={776}
+                    height={1064}
                     loading="lazy"
                 />
             </picture>

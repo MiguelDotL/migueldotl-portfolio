@@ -168,6 +168,8 @@ const Projects = ({ initialInView = false }: ProjectsProps = {}) => {
                     alt=""
                     aria-hidden="true"
                     className="background-image-right"
+                    width={667}
+                    height={1064}
                     loading="lazy"
                 />
             </picture>

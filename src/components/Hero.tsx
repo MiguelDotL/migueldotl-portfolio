@@ -19,6 +19,9 @@ const Hero = () => {
                                 className="floating-image"
                                 src={bitmojiSpacePlanet}
                                 alt="Floating Caricature"
+                                width={1592}
+                                height={1592}
+                                fetchPriority="high"
                             />
                         </picture>
                     </Col>
