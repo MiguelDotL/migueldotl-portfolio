@@ -93,21 +93,21 @@ export {
 export const CLIENT_PROJECTS: Project[] = [
     {
         title: 'T R I M Agency',
-        description: 'Web Development',
+        description: 'Agency Web App',
         imageURL: trimAgency,
         imageURLWebp: trimAgencyWebp,
         url: '//www.trimagency.com/'
     },
     {
         title: 'C Solutions',
-        description: 'Web Development',
+        description: 'Marketing Website',
         imageURL: cSolutions,
         imageURLWebp: cSolutionsWebp,
         url: '//csolutions-us.com/'
     },
     {
         title: 'Exotic Car Trader',
-        description: 'Web Development',
+        description: 'Ecommerce Web App',
         imageURL: exoticCarTrader,
         imageURLWebp: exoticCarTraderWebp,
         url: '//www.exoticcartrader.com/'
@@ -128,7 +128,7 @@ export const CLIENT_PROJECTS: Project[] = [
     },
     {
         title: 'General Provision',
-        description: 'Web Development',
+        description: 'Membership & Marketing Site',
         imageURL: generalProvision,
         imageURLWebp: generalProvisionWebp,
         url: '//generalprovision.com/'
