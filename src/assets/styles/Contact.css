@@ -28,8 +28,12 @@
     transition: all 0.3s ease-in-out;
 }
 
+/* .contact img sizing rule moved to index.css (eager) so the lazy
+   ContactMe chunk's CSS load timing can't leave the bitmoji rendering
+   at intrinsic 1592px before the chunk's stylesheet arrives. The
+   drop-shadow filter stays here — purely visual, FOUC is fine. */
+
 .contact img {
-    width: 92%;
     filter: drop-shadow(3px 3px 42px rgba(155, 155, 155, 0.5));
     filter: drop-shadow(10px 14px 13px rgba(20, 20, 20, 0.8));
 }

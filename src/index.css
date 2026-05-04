@@ -133,6 +133,14 @@ p.danger {
   white-space: nowrap;
 }
 
+/* Sizing for the contact bitmoji lives in main CSS (eager) so it isn't
+   gated on ContactMe's lazy chunk loading. Without this rule loaded, the
+   img renders at its intrinsic 1592px before the chunk's stylesheet
+   arrives. Filter / drop-shadow stay in Contact.css — purely visual. */
+.contact img {
+  width: 92%;
+}
+
 p.copy {
   color: var(--lighter-grey);
   font-size: 1em;
