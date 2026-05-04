@@ -82,7 +82,7 @@ export const Hovered: Story = {
         url: '//www.trimagency.com/'
     },
     play: async ({ canvasElement }) => {
-        const card = within(canvasElement).getAllByRole('img')[0]
+        const card = within(canvasElement).getAllByRole('img')[0]!
             .closest('.project-card');
         if (card) await userEvent.hover(card);
     }

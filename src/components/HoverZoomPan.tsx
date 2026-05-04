@@ -1,7 +1,7 @@
 import { useRef, useState, type MouseEvent } from 'react';
 import ResponsiveImage from './ResponsiveImage';
 
-type Props = {
+export type HoverZoomPanProps = {
     src: string;
     /** Optional WebP source served via <picture> when supported. */
     srcWebp?: string;
@@ -18,7 +18,7 @@ const HoverZoomPan = ({
     alt,
     zoomScale = 1.63,
     transitionMs = 963
-}: Props) => {
+}: HoverZoomPanProps) => {
     // transformOrigin is purely visual state — write it to the DOM directly via
     // ref instead of going through React state. setState on every mousemove
     // would force a full component rerender 60+ times per second.

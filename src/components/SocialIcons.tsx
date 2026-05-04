@@ -7,7 +7,7 @@ export type SocialIconConfig = {
     label: string;
 };
 
-type SocialIconsProps = {
+export type SocialIconsProps = {
     config: SocialIconConfig[];
     onHover?: (label: string | null) => void;
 };

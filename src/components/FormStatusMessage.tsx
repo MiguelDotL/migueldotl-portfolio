@@ -1,6 +1,6 @@
 type Variant = 'success' | 'danger' | null;
 
-type Props = {
+export type FormStatusMessageProps = {
     /** Visual variant. `null` renders nothing — useful for the pre-submit state. */
     variant: Variant;
     message: string;
@@ -14,7 +14,7 @@ const ICON: Record<Exclude<Variant, null>, { className: string; glyph: string }>
 // Inline status banner shown after a contact-form submit attempt.
 // Styling lives in Contact.css under `.contact form .form-status-message`.
 // Renders the role=status + aria-live wiring so consumers don't have to.
-const FormStatusMessage = ({ variant, message }: Props) => {
+const FormStatusMessage = ({ variant, message }: FormStatusMessageProps) => {
     const icon = variant ? ICON[variant] : null;
     return (
         <div

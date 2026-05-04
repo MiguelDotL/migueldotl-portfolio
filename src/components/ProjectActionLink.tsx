@@ -10,13 +10,13 @@ export type ProjectAction = {
     disabledReason?: string;
 };
 
-type Props = { action: ProjectAction };
+export type ProjectActionLinkProps = { action: ProjectAction };
 
 // Action chip used under FeaturedProjectCard. Renders as <a> when active
 // or <span aria-disabled> when locked (e.g. private repo). Both share the
 // `.btn .btn-outline-secondary` base — the disabled variant adds a lock
 // glyph + dimmed style via `.featured-project-action--disabled`.
-const ProjectActionLink = ({ action }: Props) => {
+const ProjectActionLink = ({ action }: ProjectActionLinkProps) => {
     if (action.disabled) {
         return (
             <span

@@ -53,7 +53,7 @@ export const ThreeProjects: Story = {
 
 export const OneProject: Story = {
     args: {
-        projects: [sampleProjects[0]]
+        projects: [sampleProjects[0]!]
     }
 };
 
