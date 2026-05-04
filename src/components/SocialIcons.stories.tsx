@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { action } from 'storybook/actions';
+import { fn, userEvent, within } from 'storybook/test';
 import SocialIcons from './SocialIcons';
 
 import linkedInIcon from '../assets/images/icons/linked-in.svg';
@@ -93,5 +94,26 @@ export const Playground: Story = {
             { className: 'codepen', icon: codepenIcon, url: '//codepen.io/MiguelDotL', label: 'CodePen' }
         ],
         onHover: action('iconHover')
+    }
+};
+
+// Drives the onMouseEnter / onMouseLeave callbacks (only fire when the
+// onHover prop is supplied — they're dead lines otherwise).
+export const HoverInteracted: Story = {
+    args: {
+        config: [
+            {
+                className: 'linked-in',
+                icon: linkedInIcon,
+                url: 'https://www.linkedin.com/in/migueldot/',
+                label: 'LinkedIn'
+            }
+        ],
+        onHover: fn()
+    },
+    play: async ({ canvasElement }) => {
+        const link = within(canvasElement).getByRole('link', { name: /LinkedIn/ });
+        await userEvent.hover(link);
+        await userEvent.unhover(link);
     }
 };
