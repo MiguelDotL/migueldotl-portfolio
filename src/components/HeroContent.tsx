@@ -1,16 +1,14 @@
 import { useEffect, useRef, useState } from 'react';
 import { ArrowRightCircle } from 'react-bootstrap-icons';
 import TaglineBadge from './TaglineBadge';
+import { advanceTyping, initialTypingState, type TypingState } from './heroTyping';
 
 const HeroContent = () => {
     const ref = useRef<HTMLDivElement | null>(null);
     const [inView, setInView] = useState(false);
-    const [isTyping, setIsTyping] = useState(true);
-    const [jobTitle, setJobTitle] = useState('');
-    const [roleCount, setRoleCount] = useState(0);
-    const [typingDelay, setTypingDelay] = useState(() => 200 - Math.random() * 50);
-    const roles = ['Front-End', 'Back-End', 'Full-Stack Developer   '];
-    const pauseTime = 3456; // time between typing and deleting
+    const [typing, setTyping] = useState<TypingState>(() =>
+        initialTypingState(200 - Math.random() * 50)
+    );
     const yearsOfExp = new Date().getFullYear() - 2016;
 
     // Native IntersectionObserver replaces react-intersection-observer to keep
@@ -34,40 +32,16 @@ const HeroContent = () => {
         return () => io.disconnect();
     }, []);
 
-    // doTyping reads four state values via closure. Stash the latest closure
-    // in a ref and have the interval call ref.current() so the interval only
-    // recreates when typingDelay changes (3 times per cycle: type→pause→delete),
-    // not on every keystroke.
-    const doTypingRef = useRef<() => void>(() => {});
+    // Drive the typing state machine on a setTimeout cadence — each tick
+    // schedules the next based on the new state's typingDelay. Self-
+    // resubscribing setTimeout is cleaner than setInterval here because
+    // the cadence changes every tick (type / pause / delete / handoff).
     useEffect(() => {
-        doTypingRef.current = () => {
-            const currentRole = roleCount % roles.length;
-            const fullText = roles[currentRole];
-            const currentText = isTyping
-                ? fullText.substring(0, jobTitle.length + 1)
-                : fullText.substring(0, jobTitle.length - 1);
-
-            setJobTitle(currentText);
-
-            if (!isTyping) {
-                setTypingDelay(100);
-            }
-
-            if (isTyping && currentText === fullText) {
-                setIsTyping(false);
-                setTypingDelay(pauseTime);
-            } else if (!isTyping && currentText === '') {
-                setIsTyping(true);
-                setRoleCount(roleCount + 1);
-                setTypingDelay(321);
-            }
-        };
-    });
-
-    useEffect(() => {
-        const typingTicker = setInterval(() => doTypingRef.current(), typingDelay);
-        return () => clearInterval(typingTicker);
-    }, [typingDelay]);
+        const t = window.setTimeout(() => {
+            setTyping((prev) => advanceTyping(prev));
+        }, typing.typingDelay);
+        return () => window.clearTimeout(t);
+    }, [typing]);
 
     return (
         <div
@@ -79,7 +53,7 @@ const HeroContent = () => {
             <TaglineBadge>Thanks for dropping by</TaglineBadge>
             <h1 className="intro-header">Hi, I'm Miguel!</h1>
             <h1>
-                I'm a <span className="typing-text">{jobTitle}</span>
+                I'm a <span className="typing-text">{typing.jobTitle}</span>
             </h1>
             <p className="copy">
                 My journey into programming began in 2005. I now have over{' '}
