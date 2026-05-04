@@ -51,12 +51,11 @@ const NavBar = () => {
         };
 
         onScroll();
-        const w = window as unknown as {
-            requestIdleCallback?: typeof requestIdleCallback;
-            cancelIdleCallback?: typeof cancelIdleCallback;
-        };
-        const ric = w.requestIdleCallback;
-        const cic = w.cancelIdleCallback;
+        // requestIdleCallback/cancelIdleCallback are in lib.dom but absent in
+        // Safari pre-2022. The runtime guard below (`if (ric)`) handles that
+        // case — no cast needed since lib.dom types them on Window.
+        const ric = window.requestIdleCallback;
+        const cic = window.cancelIdleCallback;
         let idleHandle: number | undefined;
         let timeoutHandle: number | undefined;
         const attach = () => {
