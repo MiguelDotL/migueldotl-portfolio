@@ -1,36 +1,14 @@
 import '../assets/styles/Projects.css';
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Col, Container, Row } from 'react-bootstrap';
-import { Globe } from 'react-bootstrap-icons';
 import useInViewOnce from '../hooks/useInViewOnce';
-import ProjectList from './ProjectList';
 import MomentumTabs from './MomentumTabs';
-import FeaturedProjectCard from './FeaturedProjectCard';
-import FeaturedImageSlider from './FeaturedImageSlider';
-import HoverZoomPan from './HoverZoomPan';
-import NpmPlainIcon from './NpmPlainIcon';
+import FeaturedTabContent from './FeaturedTabContent';
+import ClientTabContent from './ClientTabContent';
+import PersonalTabContent from './PersonalTabContent';
+import useHeightTransition from '../hooks/useHeightTransition';
 
 import { TAB_ANIMATION } from './projectsTabAnimation';
-
-import {
-    CLIENT_PROJECTS,
-    bcbsMain,
-    bcbsMainWebp,
-    bcbsLitehouse,
-    bcbsLitehouseWebp,
-    bcbsProviders,
-    bcbsProvidersWebp,
-    voicepoolImg,
-    voicepoolImgWebp,
-    branchBeaconImg,
-    branchBeaconImgWebp,
-    patternArchiveDashboard,
-    patternArchiveDashboardWebp,
-    patternArchiveWizard,
-    patternArchiveWizardWebp,
-    patternArchiveLibrary,
-    patternArchiveLibraryWebp
-} from '../data/projects';
 
 import colorPop from '../assets/images/backgrounds/color-pop-2.png';
 import colorPopWebp from '../assets/images/backgrounds/color-pop-2.webp';
@@ -75,23 +53,11 @@ const Projects = ({ initialInView = false }: ProjectsProps = {}) => {
         setDirection(newIdx > oldIdx ? 'forward' : 'backward');
         setActiveTab(next);
     };
-    // Smooth height transition as tab content changes. ResizeObserver tracks the
-    // inner content's height; the shell wraps it with `overflow: hidden` and a
-    // CSS transition on `height` so the section grows/shrinks fluidly instead of
-    // snapping when content swaps.
-    const innerRef = useRef<HTMLDivElement>(null);
-    const [shellHeight, setShellHeight] = useState<number | null>(null);
 
-    useEffect(() => {
-        if (!innerRef.current) return;
-        const ro = new ResizeObserver(() => {
-            if (innerRef.current) {
-                setShellHeight(innerRef.current.scrollHeight);
-            }
-        });
-        ro.observe(innerRef.current);
-        return () => ro.disconnect();
-    }, []);
+    // Smooth height transition as tab content changes. The hook attaches a
+    // ResizeObserver to the inner div; the shell wraps it with `overflow: hidden`
+    // and a CSS transition on `height` so the section grows/shrinks fluidly.
+    const { ref: innerRef, height: shellHeight } = useHeightTransition<HTMLDivElement>([]);
 
     useEffect(() => {
         if (activeTab === displayedTab) return;
@@ -190,220 +156,9 @@ const Projects = ({ initialInView = false }: ProjectsProps = {}) => {
                                             : ''
                                     }`}
                                 >
-                                    {displayedTab === 'Featured' && (
-                                        <Row>
-                                            <FeaturedProjectCard
-                                                title="BCBS NC — LiteHouse"
-                                                subtitle="Component library"
-                                                description="Reusable component library standardizing UI and expediting development across internal products in Blue Cross Blue Shield of North Carolina's ecosystem."
-                                                techStack={[
-                                                    'Lit',
-                                                    'Web Components',
-                                                    'TypeScript',
-                                                    'Storybook'
-                                                ]}
-                                                imageSlot={
-                                                    <FeaturedImageSlider
-                                                        images={[
-                                                            {
-                                                                src: bcbsMain,
-                                                                srcWebp: bcbsMainWebp,
-                                                                alt: 'BCBS NC homepage'
-                                                            },
-                                                            {
-                                                                src: bcbsLitehouse,
-                                                                srcWebp: bcbsLitehouseWebp,
-                                                                alt: 'BCBS NC vision plan page'
-                                                            },
-                                                            {
-                                                                src: bcbsProviders,
-                                                                srcWebp: bcbsProvidersWebp,
-                                                                alt: 'BCBS NC providers page'
-                                                            }
-                                                        ]}
-                                                        controls={[
-                                                            'arrows',
-                                                            'keyboard',
-                                                            'swipe'
-                                                        ]}
-                                                    />
-                                                }
-                                                actions={[
-                                                    {
-                                                        label: 'See Library in Use',
-                                                        url: 'https://www.bluecrossnc.com/',
-                                                        icon: <Globe />
-                                                    }
-                                                ]}
-                                            />
-                                            <FeaturedProjectCard
-                                                title="Branch Beacon"
-                                                subtitle="npm package"
-                                                description={
-                                                    <>
-                                                        A lightweight{' '}
-                                                        <a
-                                                            href="https://www.npmjs.com/package/branch-beacon"
-                                                            rel="noreferrer"
-                                                            target="_blank"
-                                                            className="accent"
-                                                        >
-                                                            React
-                                                        </a>
-                                                        {' / '}
-                                                        <a
-                                                            href="https://www.npmjs.com/package/branch-beacon-element"
-                                                            rel="noreferrer"
-                                                            target="_blank"
-                                                            className="accent"
-                                                        >
-                                                            Web Component
-                                                        </a>{' '}
-                                                        that keeps your current git branch
-                                                        visible in the browser as a sanity
-                                                        check. Automatically styled to the
-                                                        host project's design tokens, with
-                                                        color-coding that alerts you to
-                                                        protected branches. Published to
-                                                        npm with Storybook docs and
-                                                        backend references for Express,
-                                                        FastAPI, Flask, and Go.
-                                                    </>
-                                                }
-                                                techStack={[
-                                                    'TypeScript',
-                                                    'React',
-                                                    'Vite',
-                                                    'npm'
-                                                ]}
-                                                imageSlot={
-                                                    <HoverZoomPan
-                                                        src={branchBeaconImg}
-                                                        srcWebp={branchBeaconImgWebp}
-                                                        alt="Branch Beacon"
-                                                    />
-                                                }
-                                                actions={[
-                                                    {
-                                                        label: 'React',
-                                                        url: 'https://www.npmjs.com/package/branch-beacon',
-                                                        icon: <NpmPlainIcon />
-                                                    },
-                                                    {
-                                                        label: 'Web Component',
-                                                        url: 'https://www.npmjs.com/package/branch-beacon-element',
-                                                        icon: <NpmPlainIcon />
-                                                    },
-                                                    {
-                                                        label: 'Repo',
-                                                        url: 'https://github.com/MiguelDotL/branch-beacon',
-                                                        icon: (
-                                                            <i
-                                                                className="devicon-github-original"
-                                                                aria-hidden
-                                                            />
-                                                        )
-                                                    }
-                                                ]}
-                                            />
-                                        </Row>
-                                    )}
-                                    {displayedTab === 'Client' && (
-                                        <ProjectList projects={CLIENT_PROJECTS} />
-                                    )}
-                                    {displayedTab === 'Personal' && (
-                                        <Row>
-                                            <FeaturedProjectCard
-                                                title="Voicepool"
-                                                subtitle="Custom dashboard"
-                                                description="Open-source dashboard for managing a fleet of ElevenLabs accounts. Tracks account usage, routes TTS calls to whichever account has the most capacity, and provisions new accounts end-to-end with one click."
-                                                techStack={[
-                                                    'TypeScript',
-                                                    'React',
-                                                    'Vite',
-                                                    'Express',
-                                                    'Playwright',
-                                                    'ElevenLabs API'
-                                                ]}
-                                                imageSlot={
-                                                    <FeaturedImageSlider
-                                                        images={[
-                                                            {
-                                                                src: voicepoolImg,
-                                                                srcWebp: voicepoolImgWebp,
-                                                                alt: 'Voicepool fleet dashboard'
-                                                            }
-                                                        ]}
-                                                    />
-                                                }
-                                                actions={[
-                                                    {
-                                                        label: 'Repo',
-                                                        url: 'https://github.com/MiguelDotL/voicepool',
-                                                        icon: (
-                                                            <i
-                                                                className="devicon-github-original"
-                                                                aria-hidden
-                                                            />
-                                                        )
-                                                    }
-                                                ]}
-                                            />
-                                            <FeaturedProjectCard
-                                                title="Pattern Archive"
-                                                subtitle="Automated video pipeline"
-                                                description="Video production pipeline with a Storybook-driven React UI, AI-assisted script generation driven by a structured prompt guide, and end-to-end automation from script to publish. Each iteration informed by real use."
-                                                techStack={[
-                                                    'React',
-                                                    'FastAPI',
-                                                    'Whisper',
-                                                    'FFmpeg',
-                                                    'YouTube Data API'
-                                                ]}
-                                                imageSlot={
-                                                    <FeaturedImageSlider
-                                                        images={[
-                                                            {
-                                                                src: patternArchiveDashboard,
-                                                                srcWebp: patternArchiveDashboardWebp,
-                                                                alt: 'Pattern Archive dashboard with active build queue'
-                                                            },
-                                                            {
-                                                                src: patternArchiveLibrary,
-                                                                srcWebp: patternArchiveLibraryWebp,
-                                                                alt: 'Pattern Archive library with ready-to-publish queue and uploaded videos'
-                                                            },
-                                                            {
-                                                                src: patternArchiveWizard,
-                                                                srcWebp: patternArchiveWizardWebp,
-                                                                alt: 'Pattern Archive wizard editor with timeline and clip pool'
-                                                            }
-                                                        ]}
-                                                        controls={[
-                                                            'arrows',
-                                                            'keyboard',
-                                                            'swipe'
-                                                        ]}
-                                                        imagePosition="top"
-                                                    />
-                                                }
-                                                actions={[
-                                                    {
-                                                        label: 'Repo',
-                                                        url: 'https://github.com/MiguelDotL/PatternArchive',
-                                                        icon: (
-                                                            <i
-                                                                className="devicon-github-original"
-                                                                aria-hidden
-                                                            />
-                                                        ),
-                                                        disabled: true,
-                                                        disabledReason: 'Private repo'
-                                                    }
-                                                ]}
-                                            />
-                                        </Row>
-                                    )}
+                                    {displayedTab === 'Featured' && <FeaturedTabContent />}
+                                    {displayedTab === 'Client' && <ClientTabContent />}
+                                    {displayedTab === 'Personal' && <PersonalTabContent />}
                                 </div>
                             </div>
                         </div>
