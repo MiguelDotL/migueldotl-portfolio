@@ -2,24 +2,27 @@
    chunk instead of blocking initial paint. (Skills is the only consumer
    of devicon-* class glyphs.) */
 
-/* ==== Fonts ==== */
+/* ==== Fonts ====
+   woff2 is brotli-compressed by spec — 30-70% smaller than the source
+   TTFs. Centra TTF originals are kept in src/assets/fonts/ for
+   re-running scripts/build-fonts.mjs but are not shipped to prod. */
 @font-face {
   font-family: Centra;
-  src: url("/src/assets/fonts/CentraNo2-Book.ttf");
+  src: url("/src/assets/fonts/CentraNo2-Book.woff2") format("woff2");
   font-weight: 400;
   font-display: swap;
 }
 
 @font-face {
   font-family: Centra;
-  src: url("/src/assets/fonts/CentraNo2-Medium.ttf");
+  src: url("/src/assets/fonts/CentraNo2-Medium.woff2") format("woff2");
   font-weight: 500;
   font-display: swap;
 }
 
 @font-face {
   font-family: Centra;
-  src: url("/src/assets/fonts/CentraNo2-Bold.ttf");
+  src: url("/src/assets/fonts/CentraNo2-Bold.woff2") format("woff2");
   font-weight: 700;
   font-display: swap;
 }
