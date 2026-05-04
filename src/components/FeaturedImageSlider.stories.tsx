@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { Container, Row } from 'react-bootstrap';
+import { fireEvent, userEvent, within } from 'storybook/test';
 import FeaturedImageSlider, {
     type SliderControl,
     type SliderIndicator
@@ -121,5 +122,93 @@ export const WithKeyboardAndSwipe: Story = {
     args: {
         images: triptych,
         controls: ['keyboard', 'swipe']
+    }
+};
+
+export const SegmentedProgress: Story = {
+    args: {
+        images: triptych,
+        indicator: 'segmented-progress'
+    }
+};
+
+export const Counter: Story = {
+    args: {
+        images: triptych,
+        indicator: 'counter'
+    }
+};
+
+export const OutlinedDots: Story = {
+    args: {
+        images: triptych,
+        indicator: 'outlined-dots'
+    }
+};
+
+export const ClickToAdvance: Story = {
+    args: {
+        images: triptych,
+        controls: ['click-image']
+    }
+};
+
+// Drives the arrow buttons + dot picker so next/prev/setIndex paths
+// are all hit, plus the click-to-open lightbox path.
+export const Interacted: Story = {
+    args: {
+        images: triptych,
+        controls: ['arrows']
+    },
+    play: async ({ canvasElement }) => {
+        const canvas = within(canvasElement);
+        await userEvent.click(canvas.getByRole('button', { name: /Next image/ }));
+        await userEvent.click(canvas.getByRole('button', { name: /Next image/ }));
+        await userEvent.click(canvas.getByRole('button', { name: /Previous image/ }));
+        await userEvent.click(canvas.getByRole('tab', { name: /Show image 1/ }));
+    }
+};
+
+// Exercises keyboard nav + swipe pointer handlers.
+export const KeyboardAndSwipeInteracted: Story = {
+    args: {
+        images: triptych,
+        controls: ['keyboard', 'swipe']
+    },
+    play: async ({ canvasElement }) => {
+        const slider = canvasElement.querySelector(
+            '.featured-image-slider'
+        ) as HTMLElement | null;
+        if (!slider) return;
+        slider.focus();
+        await userEvent.keyboard('{ArrowRight}');
+        await userEvent.keyboard('{ArrowLeft}');
+        // Swipe left → next
+        fireEvent.pointerDown(slider, { clientX: 200 });
+        fireEvent.pointerUp(slider, { clientX: 100 });
+        // Swipe right → prev
+        fireEvent.pointerDown(slider, { clientX: 100 });
+        fireEvent.pointerUp(slider, { clientX: 250 });
+        // Below threshold → no-op
+        fireEvent.pointerDown(slider, { clientX: 100 });
+        fireEvent.pointerUp(slider, { clientX: 110 });
+    }
+};
+
+// Opens the lightbox by clicking the active slide, then exercises
+// keyboard nav and the close button.
+export const LightboxOpened: Story = {
+    args: {
+        images: triptych
+    },
+    play: async ({ canvasElement }) => {
+        const activeSlide = canvasElement.querySelector(
+            '.featured-image-slider__slide.is-active'
+        ) as HTMLElement | null;
+        if (!activeSlide) return;
+        await userEvent.click(activeSlide);
+        await userEvent.keyboard('{ArrowRight}');
+        await userEvent.keyboard('{ArrowLeft}');
+        await userEvent.keyboard('{Escape}');
     }
 };

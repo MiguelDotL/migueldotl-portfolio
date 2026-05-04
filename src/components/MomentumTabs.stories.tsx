@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { Container, Row } from 'react-bootstrap';
+import { userEvent, within } from 'storybook/test';
 import MomentumTabs from './MomentumTabs';
 import '../assets/styles/Projects.css';
 import '../assets/styles/MomentumTabs.css';
@@ -89,5 +90,37 @@ export const TwoTabs: Story = {
     args: {
         tabs: ['Featured', 'Archive'],
         active: 'Featured'
+    }
+};
+
+// Drives the full click animation pipeline (retract → slide → expand → wrap)
+// in both directions so handleClick covers the cw and ccw branches.
+export const ClickedThroughTabs: Story = {
+    play: async ({ canvasElement }) => {
+        const canvas = within(canvasElement);
+        // Featured (default) → Personal (cw) → Client (ccw) → Featured (cw)
+        await userEvent.click(canvas.getByRole('tab', { name: /Personal/ }));
+        await new Promise((r) => setTimeout(r, 850));
+        await userEvent.click(canvas.getByRole('tab', { name: /Client/ }));
+        await new Promise((r) => setTimeout(r, 850));
+        await userEvent.click(canvas.getByRole('tab', { name: /Featured/ }));
+        await new Promise((r) => setTimeout(r, 850));
+    }
+};
+
+// Exercises the keyboard navigation handlers (Arrow keys, Home, End).
+export const KeyboardNavigated: Story = {
+    play: async ({ canvasElement }) => {
+        const canvas = within(canvasElement);
+        const featuredTab = canvas.getByRole('tab', { name: /Featured/ });
+        featuredTab.focus();
+        await userEvent.keyboard('{ArrowRight}');
+        await new Promise((r) => setTimeout(r, 850));
+        await userEvent.keyboard('{ArrowLeft}');
+        await new Promise((r) => setTimeout(r, 850));
+        await userEvent.keyboard('{End}');
+        await new Promise((r) => setTimeout(r, 850));
+        await userEvent.keyboard('{Home}');
+        await new Promise((r) => setTimeout(r, 850));
     }
 };
