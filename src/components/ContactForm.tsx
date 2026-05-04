@@ -2,6 +2,7 @@ import { useRef, useState } from "react";
 import type { ChangeEvent, FormEvent } from "react";
 import axios from "axios";
 import { Col, Row } from "react-bootstrap";
+import FormStatusMessage from "./FormStatusMessage";
 
 type FormStatus = {
     status: number | null;
@@ -166,12 +167,12 @@ const ContactForm = () => {
         .filter(Boolean)
         .join(" ");
 
-    const statusClass =
+    const statusVariant: 'success' | 'danger' | null =
         formStatus.success === true
-            ? "success"
+            ? 'success'
             : formStatus.success === false
-            ? "danger"
-            : "";
+            ? 'danger'
+            : null;
 
     const fieldError = (name: FieldName) => {
         const err = errors[name];
@@ -288,23 +289,10 @@ const ContactForm = () => {
                     >
                         <span>{buttonText}</span>
                     </button>
-                    <div
-                        className={`form-status-message ${statusClass}`}
-                        role="status"
-                        aria-live="polite"
-                    >
-                        {isSent && (
-                            <span className="envelope-icon" aria-hidden="true">
-                                {"\u{1F4E8}"}
-                            </span>
-                        )}
-                        {formStatus.success === false && (
-                            <span className="error-icon" aria-hidden="true">
-                                {"\u{1F605}"}
-                            </span>
-                        )}
-                        <p>{formStatus.message}</p>
-                    </div>
+                    <FormStatusMessage
+                        variant={statusVariant}
+                        message={formStatus.message}
+                    />
                 </div>
             </Row>
         </form>

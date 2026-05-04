@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { ArrowRightCircle } from 'react-bootstrap-icons';
+import TaglineBadge from './TaglineBadge';
 
 const HeroContent = () => {
     const ref = useRef<HTMLDivElement | null>(null);
@@ -75,7 +76,7 @@ const HeroContent = () => {
                 inView && 'animate__animated animate__fadeIn animate__slower'
             }`}
         >
-            <span className="tagline">Thanks for dropping by</span>
+            <TaglineBadge>Thanks for dropping by</TaglineBadge>
             <h1 className="intro-header">Hi, I'm Miguel!</h1>
             <h1>
                 I'm a <span className="typing-text">{jobTitle}</span>
