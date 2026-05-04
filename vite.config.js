@@ -39,30 +39,9 @@ const preloadLcpImage = () => ({
   }
 });
 
-// Convert Vite's auto-injected <link rel="stylesheet"> for the main CSS
-// bundle into a non-blocking preload + onload swap, with a <noscript>
-// fallback for users without JS. Removes the largest render-blocking
-// resource (~600ms wasted on first paint per Lighthouse). FOUC risk:
-// page may briefly render unstyled before the swap. Acceptable here
-// because Hero is mostly typography + bitmoji, not heavily styled.
-const asyncMainCss = () => ({
-  name: 'async-main-css',
-  apply: 'build',
-  enforce: 'post',
-  transformIndexHtml: {
-    order: 'post',
-    handler(html) {
-      return html.replace(
-        /<link rel="stylesheet"([^>]*) href="([^"]+)">/g,
-        '<link rel="preload" as="style"$1 href="$2" onload="this.onload=null;this.rel=\'stylesheet\'"><noscript><link rel="stylesheet"$1 href="$2"></noscript>'
-      );
-    }
-  }
-});
-
 // More info at: https://storybook.js.org/docs/next/writing-tests/integrations/vitest-addon
 export default defineConfig({
-  plugins: [react(), preloadLcpImage(), asyncMainCss()],
+  plugins: [react(), preloadLcpImage()],
   base: "/",
   server: {
     port: 3000,
