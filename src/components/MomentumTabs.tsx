@@ -1,10 +1,10 @@
 import { useEffect, useLayoutEffect, useRef, useState } from 'react';
 import '../assets/styles/MomentumTabs.css';
 import { TAB_ANIMATION } from './projectsTabAnimation';
+import useTabAnimation, { type IndicatorBox } from '../hooks/useTabAnimation';
+import { computeIndicatorPath } from '../hooks/indicatorPath';
 
 const SHRINK_MS = TAB_ANIMATION.indicatorShrinkMs;
-const SLIDE_STRETCH_MS = TAB_ANIMATION.indicatorSlideStretchMs;
-const SLIDE_CONTRACT_MS = TAB_ANIMATION.indicatorSlideContractMs;
 const EXPAND_MS = TAB_ANIMATION.indicatorExpandMs;
 
 export type MomentumTabsProps<T extends string> = {
@@ -22,31 +22,11 @@ const MomentumTabs = <T extends string>({
     onChange,
     enabled = true
 }: MomentumTabsProps<T>) => {
-    const [indicator, setIndicator] = useState<{
-        left: number;
-        top: number;
-        width: number;
-        height: number;
-    } | null>(null);
-    const [direction, setDirection] = useState<'cw' | 'ccw'>('cw');
-    const [expanded, setExpanded] = useState(false);
-    const [retracting, setRetracting] = useState(false);
-    const [retractMode, setRetractMode] = useState<'forward' | 'reverse'>('forward');
-    // Tracks which tab the SVG is currently positioned on for animation purposes.
-    // Decoupled from `active` so that active updates immediately on click (ARIA,
-    // color), while the SVG only remounts at handoff time (after retract completes).
-    const [svgTab, setSvgTab] = useState<T>(active);
-    // True only when the perimeter trace has fully wrapped the active tab.
-    // Drives the frosted-glass tab background — appears after wrap completes,
-    // hides immediately on click while the line retracts/slides/re-wraps.
-    const [wrapComplete, setWrapComplete] = useState(false);
+    const [indicator, setIndicator] = useState<IndicatorBox | null>(null);
     const buttonRefs = useRef<Record<string, HTMLButtonElement | null>>({});
     const initializedRef = useRef(false);
-    const expandKickedRef = useRef(false);
-    const transitionTimers = useRef<number[]>([]);
     // Set while a tab-switch or initial-wrap animation is in flight so the
     // resize listener doesn't overwrite mid-animation indicator coords.
-    const isAnimatingRef = useRef(false);
     // Fade the perimeter/underline out during resize and back in once resize
     // settles, hiding the brief jump when indicator coords snap to new layout.
     const [isResizing, setIsResizing] = useState(false);
@@ -60,16 +40,14 @@ const MomentumTabs = <T extends string>({
         activeRef.current = active;
     }, [active]);
 
-    const clearTimers = () => {
-        transitionTimers.current.forEach((id) => window.clearTimeout(id));
-        transitionTimers.current = [];
-    };
-
-    // Drain pending click-animation timers on unmount so they can't fire
-    // setState on an unmounted component.
-    useEffect(() => {
-        return () => clearTimers();
-    }, []);
+    const { animState, isAnimatingRef, handleClick: animHandleClick } = useTabAnimation(active, {
+        enabled,
+        indicator,
+        tabs,
+        buttonRefs: buttonRefs as React.MutableRefObject<Record<string, HTMLButtonElement | null>>,
+        onChange: (tab) => onChange(tab as T),
+        onIndicatorChange: setIndicator
+    });
 
     // Gated on `enabled` so we only measure once the parent signals the
     // section is in view. Important when the parent has `content-visibility: auto`
@@ -89,20 +67,6 @@ const MomentumTabs = <T extends string>({
             });
         }
     }, [enabled, active]);
-
-    // Initial wrap animation. Held until `enabled` flips to true (so the section
-    // can defer it until scrolled into view). Fires exactly once.
-    useLayoutEffect(() => {
-        if (expandKickedRef.current || !enabled || !indicator) return;
-        expandKickedRef.current = true;
-        isAnimatingRef.current = true;
-        const t = window.setTimeout(() => setExpanded(true), 80);
-        const tFrost = window.setTimeout(() => {
-            setWrapComplete(true);
-            isAnimatingRef.current = false;
-        }, 80 + EXPAND_MS);
-        transitionTimers.current.push(t, tFrost);
-    }, [enabled, indicator]);
 
     // Keep the indicator pinned to the active tab when the viewport resizes.
     // Fade out on first resize tick (gated by ref so setState fires once per
@@ -144,74 +108,10 @@ const MomentumTabs = <T extends string>({
             window.removeEventListener('resize', handleResize);
             if (settleTimer !== undefined) window.clearTimeout(settleTimer);
         };
-    }, []);
+    }, [isAnimatingRef]);
 
     const handleClick = (next: T) => {
-        if (next === active) return;
-        clearTimers();
-        isAnimatingRef.current = true;
-        const sourceEl = buttonRefs.current[active];
-        const targetEl = buttonRefs.current[next];
-        if (!sourceEl || !targetEl) return;
-
-        // Snapshot source + target measurements at click time so the animation isn't
-        // affected by the immediate `active` prop change.
-        const sourceBox = {
-            left: sourceEl.offsetLeft,
-            top: sourceEl.offsetTop,
-            width: sourceEl.offsetWidth,
-            height: sourceEl.offsetHeight
-        };
-        const targetBox = {
-            left: targetEl.offsetLeft,
-            top: targetEl.offsetTop,
-            width: targetEl.offsetWidth,
-            height: targetEl.offsetHeight
-        };
-
-        const sourceIdx = tabs.indexOf(active);
-        const targetIdx = tabs.indexOf(next);
-        const dir = targetIdx > sourceIdx ? 'cw' : 'ccw';
-        const isShift = dir !== direction;
-
-        // Notify parent immediately so ARIA + visual color update without delay.
-        onChange(next);
-        setWrapComplete(false);
-        setRetractMode(isShift ? 'reverse' : 'forward');
-        setRetracting(true);
-        setExpanded(false);
-
-        const t1 = window.setTimeout(() => {
-            const stretchLeft = Math.min(sourceBox.left, targetBox.left);
-            const stretchRight = Math.max(
-                sourceBox.left + sourceBox.width,
-                targetBox.left + targetBox.width
-            );
-            setIndicator({
-                left: stretchLeft,
-                top: sourceBox.top,
-                width: stretchRight - stretchLeft,
-                height: sourceBox.height
-            });
-        }, SHRINK_MS);
-
-        const t2 = window.setTimeout(() => {
-            setSvgTab(next);
-            setDirection(dir);
-            setRetracting(false);
-            setIndicator(targetBox);
-        }, SHRINK_MS + SLIDE_STRETCH_MS);
-
-        const t3 = window.setTimeout(() => {
-            setExpanded(true);
-        }, SHRINK_MS + SLIDE_STRETCH_MS + SLIDE_CONTRACT_MS);
-
-        const t4 = window.setTimeout(() => {
-            setWrapComplete(true);
-            isAnimatingRef.current = false;
-        }, SHRINK_MS + SLIDE_STRETCH_MS + SLIDE_CONTRACT_MS + EXPAND_MS);
-
-        transitionTimers.current.push(t1, t2, t3, t4);
+        animHandleClick(next, active);
     };
 
     const handleKeyDown = (e: React.KeyboardEvent<HTMLButtonElement>) => {
@@ -237,15 +137,15 @@ const MomentumTabs = <T extends string>({
 
     const width = indicator?.width ?? 0;
     const height = indicator?.height ?? 0;
-    const sideLength = 2 * height + width;
-    const pathD =
-        direction === 'cw'
-            ? `M ${width} ${height} L ${width} 0 L 0 0 L 0 ${height}`
-            : `M 0 ${height} L 0 0 L ${width} 0 L ${width} ${height}`;
-    const dashArray = expanded
-        ? `${sideLength} 0`
-        : `0 ${Math.max(sideLength, 1)}`;
-    const dashOffset = retracting && retractMode === 'forward' ? -sideLength : 0;
+
+    const { pathD, dashArray, dashOffset } = computeIndicatorPath({
+        width,
+        height,
+        direction: animState.direction,
+        expanded: animState.expanded,
+        retracting: animState.retracting,
+        retractMode: animState.retractMode
+    });
 
     return (
         <div className="momentum-tabs" role="tablist">
@@ -261,7 +161,7 @@ const MomentumTabs = <T extends string>({
                     onClick={() => handleClick(tab)}
                     onKeyDown={handleKeyDown}
                     className={`momentum-tab ${active === tab ? 'is-active' : ''} ${
-                        active === tab && wrapComplete ? 'is-frosted' : ''
+                        active === tab && animState.wrapComplete ? 'is-frosted' : ''
                     }`}
                 >
                     {tab} Projects
@@ -279,7 +179,7 @@ const MomentumTabs = <T extends string>({
                         }}
                     />
                     <svg
-                        key={`${svgTab}-${direction}`}
+                        key={`${animState.svgTab}-${animState.direction}`}
                         aria-hidden
                         className={`momentum-tabs__perimeter ${isResizing ? 'is-resizing' : ''}`}
                         style={{
@@ -306,9 +206,9 @@ const MomentumTabs = <T extends string>({
                                 strokeDasharray: dashArray,
                                 strokeDashoffset: dashOffset,
                                 transition: `stroke-dasharray ${
-                                    expanded ? EXPAND_MS : SHRINK_MS
+                                    animState.expanded ? EXPAND_MS : SHRINK_MS
                                 }ms cubic-bezier(0.4, 0, 0.2, 1), stroke-dashoffset ${
-                                    expanded ? EXPAND_MS : SHRINK_MS
+                                    animState.expanded ? EXPAND_MS : SHRINK_MS
                                 }ms cubic-bezier(0.4, 0, 0.2, 1)`
                             }}
                         />
