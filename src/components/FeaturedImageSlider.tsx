@@ -7,6 +7,7 @@ import SliderSegmentedProgress from './SliderSegmentedProgress';
 import SliderCounterIndicator from './SliderCounterIndicator';
 import LightboxOverlay from './LightboxOverlay';
 import useCarouselAutoplay from '../hooks/useCarouselAutoplay';
+import { SLIDER_AUTOPLAY_INTERVAL } from '../config/timings';
 import '../assets/styles/FeaturedImageSlider.css';
 
 export type FeaturedImageSlide = {
@@ -37,7 +38,7 @@ const SWIPE_THRESHOLD_PX = 40;
 
 const FeaturedImageSlider = ({
     images,
-    intervalMs = 3690,
+    intervalMs = SLIDER_AUTOPLAY_INTERVAL,
     indicator = 'frosted-dots',
     controls = [],
     imagePosition = 'center'
