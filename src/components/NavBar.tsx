@@ -62,6 +62,7 @@ const NavBar = () => {
 
     // Scroll spy: active link = last section whose top edge is at or above the trigger line.
     // Monotonic — won't oscillate as sections enter/exit the viewport.
+    // Listener attaches via requestIdleCallback so it doesn't compete with LCP.
     useEffect(() => {
         const sectionIds = navLinks.map(({ name }) => name);
 
@@ -81,8 +82,27 @@ const NavBar = () => {
         };
 
         onScroll();
-        window.addEventListener('scroll', onScroll, { passive: true });
-        return () => window.removeEventListener('scroll', onScroll);
+        const w = window as unknown as {
+            requestIdleCallback?: typeof requestIdleCallback;
+            cancelIdleCallback?: typeof cancelIdleCallback;
+        };
+        const ric = w.requestIdleCallback;
+        const cic = w.cancelIdleCallback;
+        let idleHandle: number | undefined;
+        let timeoutHandle: number | undefined;
+        const attach = () => {
+            window.addEventListener('scroll', onScroll, { passive: true });
+        };
+        if (ric) {
+            idleHandle = ric(attach, { timeout: 2000 });
+        } else {
+            timeoutHandle = window.setTimeout(attach, 1);
+        }
+        return () => {
+            if (idleHandle !== undefined && cic) cic(idleHandle);
+            if (timeoutHandle !== undefined) window.clearTimeout(timeoutHandle);
+            window.removeEventListener('scroll', onScroll);
+        };
     }, []);
 
     const handleToggle = () => {

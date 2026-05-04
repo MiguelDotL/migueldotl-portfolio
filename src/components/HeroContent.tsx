@@ -1,9 +1,9 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { ArrowRightCircle } from 'react-bootstrap-icons';
-import { useInView } from 'react-intersection-observer';
 
 const HeroContent = () => {
-    const { ref, inView } = useInView({ triggerOnce: true });
+    const ref = useRef<HTMLDivElement | null>(null);
+    const [inView, setInView] = useState(false);
     const [isTyping, setIsTyping] = useState(true);
     const [jobTitle, setJobTitle] = useState('');
     const [roleCount, setRoleCount] = useState(0);
@@ -12,40 +12,61 @@ const HeroContent = () => {
     const pauseTime = 3456; // time between typing and deleting
     const yearsOfExp = new Date().getFullYear() - 2016;
 
-    const doTyping = () => {
-        const currentRole = roleCount % roles.length;
-        const fullText = roles[currentRole];
-        const currentText = isTyping
-            ? fullText.substring(0, jobTitle.length + 1)
-            : fullText.substring(0, jobTitle.length - 1);
-
-        setJobTitle(currentText);
-
-        if (!isTyping) {
-            // set how fast we delete characters
-            setTypingDelay(100);
-        }
-
-        if (isTyping && currentText === fullText) {
-            setIsTyping(false);
-            setTypingDelay(pauseTime);
-        } else if (!isTyping && currentText === '') {
-            setIsTyping(true);
-            setRoleCount(roleCount + 1);
-            setTypingDelay(321);
-        }
-    };
-
+    // Native IntersectionObserver replaces react-intersection-observer to keep
+    // the lib out of the main bundle (Skills/Projects/ContactMe lazy chunks
+    // still use it). triggerOnce: disconnect after first hit.
     useEffect(() => {
-        const typingTicker = setInterval(() => {
-            doTyping();
-        }, typingDelay);
+        const el = ref.current;
+        if (!el) return;
+        if (typeof IntersectionObserver === 'undefined') {
+            // eslint-disable-next-line react-hooks/set-state-in-effect
+            setInView(true);
+            return;
+        }
+        const io = new IntersectionObserver(([entry]) => {
+            if (entry.isIntersecting) {
+                setInView(true);
+                io.disconnect();
+            }
+        });
+        io.observe(el);
+        return () => io.disconnect();
+    }, []);
 
-        return () => {
-            clearInterval(typingTicker);
+    // doTyping reads four state values via closure. Stash the latest closure
+    // in a ref and have the interval call ref.current() so the interval only
+    // recreates when typingDelay changes (3 times per cycle: type→pause→delete),
+    // not on every keystroke.
+    const doTypingRef = useRef<() => void>(() => {});
+    useEffect(() => {
+        doTypingRef.current = () => {
+            const currentRole = roleCount % roles.length;
+            const fullText = roles[currentRole];
+            const currentText = isTyping
+                ? fullText.substring(0, jobTitle.length + 1)
+                : fullText.substring(0, jobTitle.length - 1);
+
+            setJobTitle(currentText);
+
+            if (!isTyping) {
+                setTypingDelay(100);
+            }
+
+            if (isTyping && currentText === fullText) {
+                setIsTyping(false);
+                setTypingDelay(pauseTime);
+            } else if (!isTyping && currentText === '') {
+                setIsTyping(true);
+                setRoleCount(roleCount + 1);
+                setTypingDelay(321);
+            }
         };
     });
-    // }, [jobTitle]);
+
+    useEffect(() => {
+        const typingTicker = setInterval(() => doTypingRef.current(), typingDelay);
+        return () => clearInterval(typingTicker);
+    }, [typingDelay]);
 
     return (
         <div
