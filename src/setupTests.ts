@@ -1,21 +1,24 @@
 import '@testing-library/jest-dom';
 
-class IntersectionObserverMock {
-    constructor(callback) {
+class IntersectionObserverMock implements IntersectionObserver {
+    private callback: IntersectionObserverCallback;
+    readonly root: Element | Document | null = null;
+    readonly rootMargin: string = '';
+    readonly thresholds: ReadonlyArray<number> = [];
+    readonly scrollMargin: string = '';
+
+    constructor(callback: IntersectionObserverCallback) {
         this.callback = callback;
     }
-    observe = (target) => {
-        this.callback([{ isIntersecting: true, target }], this);
+    observe = (target: Element) => {
+        this.callback([{ isIntersecting: true, target } as IntersectionObserverEntry], this);
     };
     unobserve = () => {};
     disconnect = () => {};
-    takeRecords = () => [];
-    root = null;
-    rootMargin = '';
-    thresholds = [];
+    takeRecords = (): IntersectionObserverEntry[] => [];
 }
 
-class ResizeObserverMock {
+class ResizeObserverMock implements ResizeObserver {
     observe = () => {};
     unobserve = () => {};
     disconnect = () => {};
@@ -26,7 +29,7 @@ global.ResizeObserver = ResizeObserverMock;
 
 window.matchMedia =
     window.matchMedia ||
-    ((query) => ({
+    ((query: string) => ({
         matches: false,
         media: query,
         onchange: null,
