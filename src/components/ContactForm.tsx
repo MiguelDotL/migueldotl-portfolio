@@ -2,7 +2,14 @@ import { useRef, useState } from "react";
 import type { ChangeEvent, FormEvent } from "react";
 import { Col, Row } from "react-bootstrap";
 import FormStatusMessage from "./FormStatusMessage";
-import useFormSubmit from "../hooks/useFormSubmit";
+import useFormSubmit, { type SubmitStatus } from "../hooks/useFormSubmit";
+
+const BUTTON_LABELS: Record<SubmitStatus, string> = {
+    idle: "Send",
+    submitting: "Sending...",
+    success: "Sent ✓",
+    error: "Send"
+};
 
 const initialValues = {
     firstName: "",
@@ -46,8 +53,9 @@ const ContactForm = () => {
     const [submitAttempted, setSubmitAttempted] = useState(false);
     const formRef = useRef<HTMLFormElement>(null);
 
-    const { status, message, buttonLabel, submit } = useFormSubmit();
+    const { status, message, submit } = useFormSubmit();
 
+    const buttonLabel = BUTTON_LABELS[status];
     const isSent = status === 'success';
 
     // Errors render only after the user attempts submit. Derived from

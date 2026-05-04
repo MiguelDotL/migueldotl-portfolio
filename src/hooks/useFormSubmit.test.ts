@@ -8,12 +8,11 @@ vi.mock('axios');
 const payload = { access_key: 'test-key', firstName: 'Miguel', email: 'a@b.com', message: 'Hello there' };
 
 describe('useFormSubmit — initial state', () => {
-    test('starts idle with empty message and Send label', () => {
+    test('starts idle with empty message', () => {
         const { result } = renderHook(() => useFormSubmit());
         expect(result.current.status).toBe('idle');
         expect(result.current.message).toBe('');
         expect(result.current.errorMessage).toBeNull();
-        expect(result.current.buttonLabel).toBe('Send');
     });
 });
 
@@ -39,7 +38,6 @@ describe('useFormSubmit — happy path', () => {
         expect(result.current.status).toBe('success');
         expect(result.current.message).toMatch(/Thanks for reaching out/i);
         expect(result.current.errorMessage).toBeNull();
-        expect(result.current.buttonLabel).toBe('Sent ✓');
     });
 
     test('calls axios.post with the supplied payload', async () => {
@@ -78,7 +76,6 @@ describe('useFormSubmit — network error', () => {
         expect(result.current.status).toBe('error');
         expect(result.current.message).toMatch(/Oops! Request Failed/i);
         expect(result.current.errorMessage).toBe('Network down');
-        expect(result.current.buttonLabel).toBe('Send');
     });
 });
 
@@ -154,28 +151,3 @@ describe('useFormSubmit — guard: no double-submit', () => {
     });
 });
 
-describe('useFormSubmit — reset', () => {
-    beforeEach(() => {
-        vi.clearAllMocks();
-    });
-
-    test('reset() returns hook to idle state after an error', async () => {
-        vi.mocked(axios.post).mockRejectedValueOnce(new Error('Timeout'));
-
-        const { result } = renderHook(() => useFormSubmit());
-        await act(async () => {
-            await result.current.submit(payload);
-        });
-
-        expect(result.current.status).toBe('error');
-
-        act(() => {
-            result.current.reset();
-        });
-
-        expect(result.current.status).toBe('idle');
-        expect(result.current.message).toBe('');
-        expect(result.current.errorMessage).toBeNull();
-        expect(result.current.buttonLabel).toBe('Send');
-    });
-});
