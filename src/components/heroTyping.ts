@@ -45,7 +45,8 @@ export const initialTypingState = (typingDelay: number): TypingState => ({
  */
 export const advanceTyping = (state: TypingState): TypingState => {
     const currentRole = state.roleCount % ROLES.length;
-    const fullText = ROLES[currentRole];
+    // currentRole is always a valid index — modulo keeps it within [0, ROLES.length-1].
+    const fullText = ROLES[currentRole]!;
     const currentText = state.isTyping
         ? fullText.substring(0, state.jobTitle.length + 1)
         : fullText.substring(0, state.jobTitle.length - 1);

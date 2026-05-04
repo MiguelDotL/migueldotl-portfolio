@@ -49,7 +49,7 @@ const hoverFirstIcon = async ({
 }: {
     canvasElement: HTMLElement;
 }) => {
-    const link = within(canvasElement).getAllByRole('link')[0];
+    const link = within(canvasElement).getAllByRole('link')[0]!;
     await userEvent.hover(link);
     await userEvent.unhover(link);
 };

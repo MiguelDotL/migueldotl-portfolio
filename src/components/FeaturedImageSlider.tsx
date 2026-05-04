@@ -72,7 +72,8 @@ const FeaturedImageSlider = ({
         }
         const io = new IntersectionObserver(
             ([entry]) => {
-                setOffScreen(!entry.isIntersecting);
+                // entry is always present — IO fires at least one per observed element.
+                if (entry) setOffScreen(!entry.isIntersecting);
             },
             { rootMargin: '100px' }
         );
@@ -181,6 +182,9 @@ const FeaturedImageSlider = ({
         </div>
     );
 
+    // index is always valid — it's clamped to [0, images.length-1] by setIndex.
+    const activeSlide = images[index]!;
+
     return (
         <div
             ref={rootRef}
@@ -270,13 +274,13 @@ const FeaturedImageSlider = ({
                     className="featured-image-slider__lightbox"
                     role="dialog"
                     aria-modal="true"
-                    aria-label={images[index].alt}
+                    aria-label={activeSlide.alt}
                     onClick={() => setLightboxOpen(false)}
                 >
                     <ResponsiveImage
-                        src={images[index].src}
-                        srcWebp={images[index].srcWebp}
-                        alt={images[index].alt}
+                        src={activeSlide.src}
+                        srcWebp={activeSlide.srcWebp}
+                        alt={activeSlide.alt}
                         className="featured-image-slider__lightbox-img"
                         onClick={(e) => e.stopPropagation()}
                     />

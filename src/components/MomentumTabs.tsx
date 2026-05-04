@@ -228,7 +228,8 @@ const MomentumTabs = <T extends string>({
         }
         if (nextIdx !== null && nextIdx !== currentIdx) {
             e.preventDefault();
-            const nextTab = tabs[nextIdx];
+            // nextIdx is always within [0, tabs.length-1] — clamped by the conditions above.
+            const nextTab = tabs[nextIdx]!;
             handleClick(nextTab);
             buttonRefs.current[nextTab]?.focus();
         }

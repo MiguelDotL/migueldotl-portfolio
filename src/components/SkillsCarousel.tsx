@@ -43,7 +43,8 @@ const SkillsCarousel = () => {
 
         const observer = new IntersectionObserver(
             ([entry]) => {
-                isInView = entry.isIntersecting && entry.intersectionRatio >= 0.5;
+                // entry is always present — IO fires at least one per observed element.
+                if (entry) isInView = entry.isIntersecting && entry.intersectionRatio >= 0.5;
             },
             { threshold: [0, 0.25, 0.5, 0.75, 1] }
         );

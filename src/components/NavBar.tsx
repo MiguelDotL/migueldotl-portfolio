@@ -41,7 +41,7 @@ const NavBar = () => {
                 .map((id) => document.getElementById(id))
                 .filter((el): el is HTMLElement => el !== null);
 
-            let current: string = sectionIds[0];
+            let current: string = sectionIds[0] ?? '';
             for (const section of sections) {
                 if (section.getBoundingClientRect().top <= triggerY) {
                     current = section.id;

@@ -24,7 +24,8 @@ function useInViewOnce<T extends Element>(): { ref: RefCallback<T>; inView: bool
         }
 
         const io = new IntersectionObserver(([entry]) => {
-            if (entry.isIntersecting) {
+            // entry is always present — IO fires at least one per observed element.
+            if (entry?.isIntersecting) {
                 setInView(true);
                 io.disconnect();
             }
