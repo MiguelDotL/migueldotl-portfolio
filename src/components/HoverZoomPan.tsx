@@ -1,5 +1,6 @@
 import { useRef, useState, type MouseEvent } from 'react';
 import ResponsiveImage from './ResponsiveImage';
+import { HOVER_ZOOM_PAN_TRANSITION } from '../config/timings';
 
 export type HoverZoomPanProps = {
     src: string;
@@ -8,7 +9,7 @@ export type HoverZoomPanProps = {
     alt: string;
     /** Multiplier on hover (1.63 = 163%). Defaults to 1.63. */
     zoomScale?: number;
-    /** Transition duration in ms for zoom in/out. Defaults to 693. */
+    /** Transition duration in ms for zoom in/out. Defaults to 963. */
     transitionMs?: number;
 };
 
@@ -17,7 +18,7 @@ const HoverZoomPan = ({
     srcWebp,
     alt,
     zoomScale = 1.63,
-    transitionMs = 963
+    transitionMs = HOVER_ZOOM_PAN_TRANSITION
 }: HoverZoomPanProps) => {
     // transformOrigin is purely visual state — write it to the DOM directly via
     // ref instead of going through React state. setState on every mousemove
