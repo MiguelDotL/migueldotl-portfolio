@@ -5,24 +5,23 @@ import colorPop from "../assets/images/backgrounds/color-pop.png";
 import colorPopWebp from "../assets/images/backgrounds/color-pop.webp";
 import SkillsCarousel from "./SkillsCarousel";
 import useInViewOnce from "../hooks/useInViewOnce";
+import ResponsiveImage from "./ResponsiveImage";
 
 const Skills = () => {
     const { ref, inView } = useInViewOnce<HTMLDivElement>();
 
     return (
         <section id="skills" className="skills">
-            <picture>
-                <source srcSet={colorPopWebp} type="image/webp" />
-                <img
-                    src={colorPop}
-                    alt=""
-                    aria-hidden="true"
-                    className="background-image-left"
-                    width={776}
-                    height={1064}
-                    loading="lazy"
-                />
-            </picture>
+            <ResponsiveImage
+                src={colorPop}
+                srcWebp={colorPopWebp}
+                alt=""
+                aria-hidden="true"
+                className="background-image-left"
+                width={776}
+                height={1064}
+                loading="lazy"
+            />
             <Container>
                 <Row>
                     <div className="skills-content">

@@ -1,4 +1,5 @@
 import { Col } from "react-bootstrap";
+import ResponsiveImage from "./ResponsiveImage";
 
 export type Project = {
     title: string;
@@ -16,12 +17,12 @@ const ProjectCard = (props: Project) => {
         <Col sm={6} md={4}>
             <div className="project-card">
                 <div className="project-image">
-                    <picture>
-                        {props.imageURLWebp && (
-                            <source srcSet={props.imageURLWebp} type="image/webp" />
-                        )}
-                        <img src={props.imageURL} alt={props.title} loading="lazy" />
-                    </picture>
+                    <ResponsiveImage
+                        src={props.imageURL}
+                        srcWebp={props.imageURLWebp}
+                        alt={props.title}
+                        loading="lazy"
+                    />
                     <div className="project-content">
                         <h3>{props.title}</h3>
                         <span>{props.description}</span>

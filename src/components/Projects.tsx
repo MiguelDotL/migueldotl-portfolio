@@ -34,6 +34,7 @@ import {
 
 import colorPop from '../assets/images/backgrounds/color-pop-2.png';
 import colorPopWebp from '../assets/images/backgrounds/color-pop-2.webp';
+import ResponsiveImage from './ResponsiveImage';
 
 const TABS = ['Client', 'Featured', 'Personal'] as const;
 type Tab = (typeof TABS)[number];
@@ -112,18 +113,16 @@ const Projects = ({ initialInView = false }: ProjectsProps = {}) => {
 
     return (
         <section id="projects" className="projects">
-            <picture>
-                <source srcSet={colorPopWebp} type="image/webp" />
-                <img
-                    src={colorPop}
-                    alt=""
-                    aria-hidden="true"
-                    className="background-image-right"
-                    width={667}
-                    height={1064}
-                    loading="lazy"
-                />
-            </picture>
+            <ResponsiveImage
+                src={colorPop}
+                srcWebp={colorPopWebp}
+                alt=""
+                aria-hidden="true"
+                className="background-image-right"
+                width={667}
+                height={1064}
+                loading="lazy"
+            />
             <Container>
                 <Row>
                     <Col>
