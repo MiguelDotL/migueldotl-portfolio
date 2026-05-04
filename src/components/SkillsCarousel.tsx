@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import CarouselDefault from "react-multi-carousel";
 const Carousel = (CarouselDefault as { default?: typeof CarouselDefault }).default || CarouselDefault;
 import { SKILLS } from "../data/skills";
+import { SKILLS_SNAP_RESET } from "../config/timings";
 
 type CarouselState = {
     currentSlide: number;
@@ -99,7 +100,7 @@ const SkillsCarousel = () => {
         setIsSnapping(true);
         if (snapResetRef.current) clearTimeout(snapResetRef.current);
         // Cover the snap setState + render + paint.
-        snapResetRef.current = setTimeout(() => setIsSnapping(false), 100);
+        snapResetRef.current = setTimeout(() => setIsSnapping(false), SKILLS_SNAP_RESET);
     };
 
     // Toggle `is-current` on the centered <li> by data-index. Carousel wraps

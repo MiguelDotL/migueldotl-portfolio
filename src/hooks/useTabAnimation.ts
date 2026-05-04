@@ -1,5 +1,6 @@
 import { useEffect, useLayoutEffect, useRef, useState } from 'react';
 import { TAB_ANIMATION } from '../components/projectsTabAnimation';
+import { TABS_INITIAL_WRAP_DELAY } from '../config/timings';
 
 const SHRINK_MS = TAB_ANIMATION.indicatorShrinkMs;
 const SLIDE_STRETCH_MS = TAB_ANIMATION.indicatorSlideStretchMs;
@@ -98,11 +99,11 @@ function useTabAnimation(
         if (expandKickedRef.current || !enabled || !indicator) return;
         expandKickedRef.current = true;
         isAnimatingRef.current = true;
-        const t = window.setTimeout(() => setExpanded(true), 80);
+        const t = window.setTimeout(() => setExpanded(true), TABS_INITIAL_WRAP_DELAY);
         const tFrost = window.setTimeout(() => {
             setWrapComplete(true);
             isAnimatingRef.current = false;
-        }, 80 + EXPAND_MS);
+        }, TABS_INITIAL_WRAP_DELAY + EXPAND_MS);
         transitionTimers.current.push(t, tFrost);
     }, [enabled, indicator]);
 

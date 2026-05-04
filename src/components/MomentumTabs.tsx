@@ -3,6 +3,7 @@ import '../assets/styles/MomentumTabs.css';
 import { TAB_ANIMATION } from './projectsTabAnimation';
 import useTabAnimation, { type IndicatorBox } from '../hooks/useTabAnimation';
 import { computeIndicatorPath } from '../hooks/indicatorPath';
+import { TABS_RESIZE_SETTLE } from '../config/timings';
 
 const SHRINK_MS = TAB_ANIMATION.indicatorShrinkMs;
 const EXPAND_MS = TAB_ANIMATION.indicatorExpandMs;
@@ -101,7 +102,7 @@ const MomentumTabs = <T extends string>({
                         setIsResizing(false);
                     });
                 });
-            }, 450);
+            }, TABS_RESIZE_SETTLE);
         };
         window.addEventListener('resize', handleResize);
         return () => {

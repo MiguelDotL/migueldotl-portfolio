@@ -1,5 +1,7 @@
 import { useState, useCallback } from 'react';
 import axios from 'axios';
+import { FORM_MOCK_DELAY } from '../config/timings';
+import { FORM } from '../config/env';
 
 // ---------------------------------------------------------------------------
 // Types
@@ -35,21 +37,21 @@ type SubmitResponse = { status: number; data: { success: boolean; message: strin
  * mocks take full control.
  */
 const dispatchForm = async (payload: Record<string, string>): Promise<SubmitResponse> => {
-    const mock = import.meta.env.VITE_MOCK_FORM;
+    const { mockMode, endpoint } = FORM;
     const isMockable = import.meta.env.DEV && import.meta.env.MODE !== 'test';
 
-    if (isMockable && mock) {
-        await new Promise<void>((resolve) => setTimeout(resolve, 500));
-        if (mock === 'error') {
+    if (isMockable && mockMode) {
+        await new Promise<void>((resolve) => setTimeout(resolve, FORM_MOCK_DELAY));
+        if (mockMode === 'error') {
             return { status: 200, data: { success: false, message: '[MOCK] Spam detected' } };
         }
-        if (mock === 'throw') {
+        if (mockMode === 'throw') {
             throw new Error('[MOCK] Request failed with status code 429');
         }
         return { status: 200, data: { success: true, message: '[MOCK] Email sent' } };
     }
 
-    return axios.post(import.meta.env.VITE_FORM_ENDPOINT, payload);
+    return axios.post(endpoint, payload);
 };
 
 // ---------------------------------------------------------------------------
