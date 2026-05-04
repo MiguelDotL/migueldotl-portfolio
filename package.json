@@ -14,8 +14,7 @@
     "react-bootstrap-icons": "^1.9.1",
     "react-dom": "^18.2.0",
     "react-intersection-observer": "^10.0.3",
-    "react-multi-carousel": "^2.8.2",
-    "web-vitals": "^2.1.4"
+    "react-multi-carousel": "^2.8.2"
   },
   "scripts": {
     "dev": "vite",
@@ -28,6 +27,7 @@
     "e2e:ui": "playwright test --ui",
     "e2e:headed": "playwright test --headed",
     "e2e:install": "playwright install",
+    "smoke": "node scripts/smoke-test.mjs",
     "chromatic": "chromatic --project-token=$CHROMATIC_PROJECT_TOKEN",
     "chromatic:baseline": "chromatic --project-token=$CHROMATIC_PROJECT_TOKEN --auto-accept-changes",
     "storybook": "storybook dev -p 6006",
@@ -68,7 +68,6 @@
     "playwright": "^1.59.1",
     "png-to-ico": "^3.0.1",
     "postcss-font-display": "^0.3.0",
-    "prop-types": "^15.8.1",
     "puppeteer": "^24.42.0",
     "sharp": "^0.34.5",
     "storybook": "^10.3.6",
