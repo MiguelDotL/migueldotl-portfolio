@@ -1,4 +1,6 @@
-@import "devicon";
+/* devicon — moved to Skills.css so it ships with the lazy-loaded Skills
+   chunk instead of blocking initial paint. (Skills is the only consumer
+   of devicon-* class glyphs.) */
 
 /* ==== Fonts ==== */
 @font-face {
