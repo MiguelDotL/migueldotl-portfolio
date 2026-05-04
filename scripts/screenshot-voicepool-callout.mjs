@@ -1,4 +1,4 @@
-import puppeteer from "puppeteer";
+import { chromium } from "@playwright/test";
 
 const url = process.env.VOICEPOOL_URL || "http://localhost:3502/";
 
@@ -19,28 +19,30 @@ const variants = [
     }
 ];
 
-const browser = await puppeteer.launch();
-const page = await browser.newPage();
-await page.setViewport({ width: 1600, height: 900, deviceScaleFactor: 2 });
+const browser = await chromium.launch();
+const context = await browser.newContext({
+    viewport: { width: 1600, height: 900 },
+    deviceScaleFactor: 2
+});
+const page = await context.newPage();
 
-await page.setRequestInterception(true);
 let currentBranch = "main";
-page.on("request", (req) => {
-    const u = req.url();
+await page.route("**/*", (route) => {
+    const u = route.request().url();
     if (u.includes("/api/dev/git-branch")) {
-        req.respond({
+        route.fulfill({
             status: 200,
             contentType: "application/json",
             body: JSON.stringify({ branch: currentBranch })
         });
     } else {
-        req.continue();
+        route.continue();
     }
 });
 
 for (const { branch, out } of variants) {
     currentBranch = branch;
-    await page.goto(url, { waitUntil: "networkidle2" });
+    await page.goto(url, { waitUntil: "networkidle" });
     await new Promise((r) => setTimeout(r, 800));
     // Tighter crop = branch-beacon takes more of the frame when displayed at
     // the same cell width.
