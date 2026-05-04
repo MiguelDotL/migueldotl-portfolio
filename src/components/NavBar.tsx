@@ -2,8 +2,9 @@ import '../assets/styles/NavBar.css';
 
 import { useState, useEffect } from 'react';
 import { Container, Nav, Navbar } from 'react-bootstrap';
-import { FileEarmarkText } from 'react-bootstrap-icons';
 import SocialIcons from './SocialIcons';
+import NavLink from './NavLink';
+import ResumeButton from './ResumeButton';
 
 import logo from '../assets/images/logo.svg';
 import linkedInIcon from '../assets/images/icons/linked-in.svg';
@@ -110,10 +111,6 @@ const NavBar = () => {
         setBgTransparent(!bgTransparent);
     };
 
-    const handleActiveLink = (link: string) => {
-        if (activeLink === link) return 'active';
-    };
-
     const onLinkClick = (linkName: string) => {
         setActiveLink(linkName);
         setBgTransparent(false);
@@ -143,27 +140,18 @@ const NavBar = () => {
                 <Navbar.Collapse id="basic-navbar-nav">
                     <Nav className="me-auto">
                         {navLinks.map(({ name, text }) => (
-                            <Nav.Link
-                                href={`#${name}`}
+                            <NavLink
                                 key={name}
-                                className={`${handleActiveLink(name)} navbar-link`}
+                                name={name}
+                                text={text}
+                                isActive={activeLink === name}
                                 onClick={() => onLinkClick(name)}
-                            >
-                                {text}
-                            </Nav.Link>
+                            />
                         ))}
                     </Nav>
                     <span className="navbar-text">
                         <SocialIcons config={socialsConfig} />
-                        <button
-                            className="resume-button"
-                            onClick={() =>
-                                window.open(`${import.meta.env.BASE_URL}${resumePath.replace(/^\//, '')}`)
-                            }
-                        >
-                            <FileEarmarkText size={20} className="me-2" />
-                            <span>My Resume</span>
-                        </button>
+                        <ResumeButton resumePath={resumePath} />
                     </span>
                 </Navbar.Collapse>
             </Container>
