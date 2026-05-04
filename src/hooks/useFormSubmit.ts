@@ -14,8 +14,6 @@ export type UseFormSubmitReturn = {
     message: string;
     /** Raw error string from the network or API (only set on 'error'). */
     errorMessage: string | null;
-    /** Button label that reflects the current status. */
-    buttonLabel: string;
     /**
      * Fire the submission. Accepts any flat string map — ContactForm passes
      * the Web3Forms payload (access_key + subject + field values).
@@ -69,13 +67,11 @@ function useFormSubmit(): UseFormSubmitReturn {
     const [status, setStatus] = useState<SubmitStatus>('idle');
     const [message, setMessage] = useState('');
     const [errorMessage, setErrorMessage] = useState<string | null>(null);
-    const [buttonLabel, setButtonLabel] = useState('Send');
 
     const submit = useCallback(async (payload: Record<string, string>): Promise<boolean> => {
         if (status === 'submitting' || status === 'success') return false;
 
         setStatus('submitting');
-        setButtonLabel('Sending...');
 
         try {
             const response = await dispatchForm(payload);
@@ -84,13 +80,11 @@ function useFormSubmit(): UseFormSubmitReturn {
                 setStatus('success');
                 setMessage("Thanks for reaching out, I'll be in touch!");
                 setErrorMessage(null);
-                setButtonLabel('Sent ✓');
                 return true;
             } else {
                 setStatus('error');
                 setMessage('Oops! Request Failed. Please try again soon');
                 setErrorMessage(response.data.message ?? 'Submission failed');
-                setButtonLabel('Send');
                 return false;
             }
         } catch (err) {
@@ -98,12 +92,11 @@ function useFormSubmit(): UseFormSubmitReturn {
             setStatus('error');
             setMessage('Oops! Request Failed. Please try again soon');
             setErrorMessage(msg);
-            setButtonLabel('Send');
             return false;
         }
     }, [status]);
 
-    return { status, message, errorMessage, buttonLabel, submit };
+    return { status, message, errorMessage, submit };
 }
 
 export default useFormSubmit;
