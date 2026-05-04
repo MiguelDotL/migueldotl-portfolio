@@ -6,6 +6,7 @@ import SliderOutlinedDots from './SliderOutlinedDots';
 import SliderSegmentedProgress from './SliderSegmentedProgress';
 import SliderCounterIndicator from './SliderCounterIndicator';
 import LightboxOverlay from './LightboxOverlay';
+import useCarouselAutoplay from '../hooks/useCarouselAutoplay';
 import '../assets/styles/FeaturedImageSlider.css';
 
 export type FeaturedImageSlide = {
@@ -43,14 +44,7 @@ const FeaturedImageSlider = ({
 }: FeaturedImageSliderProps) => {
     const [index, setIndex] = useState(0);
     const [paused, setPaused] = useState(false);
-    const [progress, setProgress] = useState(0);
     const [lightboxOpen, setLightboxOpen] = useState(false);
-    // Pause rAF when scrolled off-screen so multiple sliders don't keep ticking
-    // when the section isn't visible. Defaults to true so we don't autoplay
-    // until we've actually observed visibility (avoids a brief tick before the
-    // observer fires).
-    const [offScreen, setOffScreen] = useState(true);
-    const rootRef = useRef<HTMLDivElement>(null);
     const swipeStartX = useRef<number | null>(null);
 
     const useArrows = controls.includes('arrows');
@@ -61,62 +55,14 @@ const FeaturedImageSlider = ({
     const next = () => setIndex((i) => (i + 1) % images.length);
     const prev = () => setIndex((i) => (i - 1 + images.length) % images.length);
 
-    // Pause autoplay while the lightbox is open so the slide doesn't advance
-    // out from under the user. Also pause when off-screen.
-    const effectivelyPaused = paused || lightboxOpen || offScreen;
-
-    useEffect(() => {
-        const el = rootRef.current;
-        if (!el) return;
-        // Skip when IntersectionObserver isn't available (e.g. older test envs).
-        if (typeof IntersectionObserver === 'undefined') {
-            // eslint-disable-next-line react-hooks/set-state-in-effect
-            setOffScreen(false);
-            return;
-        }
-        const io = new IntersectionObserver(
-            ([entry]) => {
-                // entry is always present — IO fires at least one per observed element.
-                if (entry) setOffScreen(!entry.isIntersecting);
-            },
-            { rootMargin: '100px' }
-        );
-        io.observe(el);
-        return () => io.disconnect();
-    }, []);
-
-    useEffect(() => {
-        // Reset progress when the active slide changes so the segmented-progress
-        // bar restarts from 0 for the new slide.
-        // eslint-disable-next-line react-hooks/set-state-in-effect
-        setProgress(0);
-    }, [index]);
-
-    useEffect(() => {
-        if (effectivelyPaused || images.length <= 1) return;
-        // Only the segmented-progress indicator actually reads `progress`.
-        // For other indicators, gate the autoplay loop on a single setTimeout
-        // instead of a 60Hz rAF + setState — saves ~60 component rerenders
-        // per second of autoplay.
-        if (indicator !== 'segmented-progress') {
-            const t = window.setTimeout(next, intervalMs);
-            return () => window.clearTimeout(t);
-        }
-        let raf = 0;
-        const start = performance.now() - progress * intervalMs;
-        const tick = (now: number) => {
-            const p = Math.min((now - start) / intervalMs, 1);
-            setProgress(p);
-            if (p < 1) {
-                raf = requestAnimationFrame(tick);
-            } else {
-                next();
-            }
-        };
-        raf = requestAnimationFrame(tick);
-        return () => cancelAnimationFrame(raf);
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [effectivelyPaused, intervalMs, images.length, index, indicator]);
+    const { ref: rootRef, progress } = useCarouselAutoplay({
+        totalSlides: images.length,
+        activeIndex: index,
+        intervalMs,
+        indicator,
+        paused: paused || lightboxOpen,
+        onAdvance: next
+    });
 
     // Lightbox keyboard nav: Esc closes, arrows navigate.
     useEffect(() => {
