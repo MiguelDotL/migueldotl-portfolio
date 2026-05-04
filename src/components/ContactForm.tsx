@@ -3,6 +3,7 @@ import type { ChangeEvent, FormEvent } from "react";
 import { Col, Row } from "react-bootstrap";
 import FormStatusMessage from "./FormStatusMessage";
 import useFormSubmit, { type SubmitStatus } from "../hooks/useFormSubmit";
+import { FORM } from "../config/env";
 
 const BUTTON_LABELS: Record<SubmitStatus, string> = {
     idle: "Send",
@@ -91,7 +92,7 @@ const ContactForm = () => {
         }
 
         const payload = {
-            access_key: import.meta.env.VITE_FORM_ACCESS_KEY,
+            access_key: FORM.accessKey,
             subject: `Portfolio contact from ${formValues.firstName} ${formValues.lastName}`.trim(),
             ...formValues
         };
