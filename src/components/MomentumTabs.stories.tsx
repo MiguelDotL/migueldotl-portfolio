@@ -108,6 +108,17 @@ export const ClickedThroughTabs: Story = {
     }
 };
 
+// Fires a resize event so the handleResize listener and the debounce
+// settle path (setIsResizing → re-measure → fade back in) are exercised.
+export const ResizeHandled: Story = {
+    play: async () => {
+        window.dispatchEvent(new Event('resize'));
+        // Allow the 450ms settle debounce to run so the full handler body
+        // (including the rAF fade-back-in path) is covered.
+        await new Promise((r) => setTimeout(r, 600));
+    }
+};
+
 // Exercises the keyboard navigation handlers (Arrow keys, Home, End).
 export const KeyboardNavigated: Story = {
     play: async ({ canvasElement }) => {

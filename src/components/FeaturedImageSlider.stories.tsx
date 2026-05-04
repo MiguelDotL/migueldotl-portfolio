@@ -196,7 +196,8 @@ export const KeyboardAndSwipeInteracted: Story = {
 };
 
 // Opens the lightbox by clicking the active slide, then exercises
-// keyboard nav and the close button.
+// keyboard nav, lightbox arrow buttons (rendered in a portal on document.body),
+// and the close button.
 export const LightboxOpened: Story = {
     args: {
         images: triptych
@@ -209,6 +210,11 @@ export const LightboxOpened: Story = {
         await userEvent.click(activeSlide);
         await userEvent.keyboard('{ArrowRight}');
         await userEvent.keyboard('{ArrowLeft}');
+        // The lightbox is rendered via createPortal into document.body —
+        // query from there to reach the lightbox arrow buttons.
+        const body = within(document.body);
+        await userEvent.click(body.getByRole('button', { name: /Next image/ }));
+        await userEvent.click(body.getByRole('button', { name: /Previous image/ }));
         await userEvent.keyboard('{Escape}');
     }
 };
