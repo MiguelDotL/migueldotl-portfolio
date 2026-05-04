@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
-import { ArrowRightCircle } from 'react-bootstrap-icons';
 import TaglineBadge from './TaglineBadge';
+import HeroChatCta from './HeroChatCta';
 import { advanceTyping, initialTypingState, type TypingState } from './heroTyping';
 
 const HeroContent = () => {
@@ -80,13 +80,7 @@ const HeroContent = () => {
                 </a>
                 .
             </p>
-            <button
-                className="hero-contact-button"
-                onClick={() => document.getElementById('contact')?.scrollIntoView()}
-            >
-                Let's Chat
-                <ArrowRightCircle size={25} />
-            </button>
+            <HeroChatCta />
         </div>
     );
 };
