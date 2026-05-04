@@ -67,7 +67,6 @@
     "playwright": "^1.59.1",
     "png-to-ico": "^3.0.1",
     "postcss-font-display": "^0.3.0",
-    "puppeteer": "^24.42.0",
     "sharp": "^0.34.5",
     "storybook": "^10.3.6",
     "subset-font": "^2.5.0",
