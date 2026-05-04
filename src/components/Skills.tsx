@@ -1,13 +1,13 @@
 import "../assets/styles/Skills.css";
 import { Container, Row } from "react-bootstrap";
-import { useInView } from "react-intersection-observer";
 import "react-multi-carousel/lib/styles.css";
 import colorPop from "../assets/images/backgrounds/color-pop.png";
 import colorPopWebp from "../assets/images/backgrounds/color-pop.webp";
 import SkillsCarousel from "./SkillsCarousel";
+import useInViewOnce from "../hooks/useInViewOnce";
 
 const Skills = () => {
-    const { ref, inView } = useInView({ triggerOnce: true });
+    const { ref, inView } = useInViewOnce<HTMLDivElement>();
 
     return (
         <section id="skills" className="skills">

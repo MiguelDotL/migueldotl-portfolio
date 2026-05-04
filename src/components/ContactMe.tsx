@@ -1,13 +1,13 @@
 import "../assets/styles/Contact.css";
 import { Col, Container, Row } from "react-bootstrap";
-import { useInView } from "react-intersection-observer";
 import ContactForm from "./ContactForm";
+import useInViewOnce from "../hooks/useInViewOnce";
 
 import contactImage from "../assets/images/bitmoji/bitmoji-laptop-2.png";
 import contactImageWebp from "../assets/images/bitmoji/bitmoji-laptop-2.webp";
 
 const ContactMe = () => {
-    const { ref, inView } = useInView({ triggerOnce: true });
+    const { ref, inView } = useInViewOnce<HTMLDivElement>();
 
     return (
         <section id="contact" className="contact">

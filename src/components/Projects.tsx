@@ -1,8 +1,8 @@
 import '../assets/styles/Projects.css';
 import { useEffect, useRef, useState } from 'react';
 import { Col, Container, Row } from 'react-bootstrap';
-import { useInView } from 'react-intersection-observer';
 import { Globe } from 'react-bootstrap-icons';
+import useInViewOnce from '../hooks/useInViewOnce';
 import ProjectList from './ProjectList';
 import MomentumTabs from './MomentumTabs';
 import FeaturedProjectCard from './FeaturedProjectCard';
@@ -49,7 +49,12 @@ type ProjectsProps = {
 };
 
 const Projects = ({ initialInView = false }: ProjectsProps = {}) => {
-    const { ref, inView } = useInView({ triggerOnce: true, initialInView });
+    const { ref: ioRef, inView: ioInView } = useInViewOnce<HTMLDivElement>();
+    // initialInView is a Storybook escape hatch — when true, skip the IO
+    // and treat the section as already visible so MomentumTabs draws its
+    // perimeter immediately in the canvas iframe.
+    const inView = initialInView || ioInView;
+    const ref = initialInView ? undefined : ioRef;
     const [activeTab, setActiveTab] = useState<Tab>('Featured');
     // Tab content slides + fades out → swap → slides + fades in. `displayedTab`
     // lags `activeTab` during the exit window so the old content stays visible

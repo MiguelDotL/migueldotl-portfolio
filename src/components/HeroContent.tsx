@@ -1,37 +1,16 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 import TaglineBadge from './TaglineBadge';
 import HeroChatCta from './HeroChatCta';
 import { advanceTyping, initialTypingState, type TypingState } from './heroTyping';
 import { LINKEDIN_URL, DUOLINGO_URL } from '../data/site';
+import useInViewOnce from '../hooks/useInViewOnce';
 
 const HeroContent = () => {
-    const ref = useRef<HTMLDivElement | null>(null);
-    const [inView, setInView] = useState(false);
+    const { ref, inView } = useInViewOnce<HTMLDivElement>();
     const [typing, setTyping] = useState<TypingState>(() =>
         initialTypingState(200 - Math.random() * 50)
     );
     const yearsOfExp = new Date().getFullYear() - 2016;
-
-    // Native IntersectionObserver replaces react-intersection-observer to keep
-    // the lib out of the main bundle (Skills/Projects/ContactMe lazy chunks
-    // still use it). triggerOnce: disconnect after first hit.
-    useEffect(() => {
-        const el = ref.current;
-        if (!el) return;
-        if (typeof IntersectionObserver === 'undefined') {
-            // eslint-disable-next-line react-hooks/set-state-in-effect
-            setInView(true);
-            return;
-        }
-        const io = new IntersectionObserver(([entry]) => {
-            if (entry.isIntersecting) {
-                setInView(true);
-                io.disconnect();
-            }
-        });
-        io.observe(el);
-        return () => io.disconnect();
-    }, []);
 
     // Drive the typing state machine on a setTimeout cadence — each tick
     // schedules the next based on the new state's typingDelay. Self-
