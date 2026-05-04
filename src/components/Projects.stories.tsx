@@ -8,16 +8,13 @@ import FeaturedImageSlider from './FeaturedImageSlider';
 import ProjectList from './ProjectList';
 import '../assets/styles/Projects.css';
 
-import generalProvision from '../assets/images/projects/general-provision-512.png';
-import trimAgency from '../assets/images/projects/trim-agency-512.png';
-import cSolutions from '../assets/images/projects/c-solutions-512.png';
-import exoticCarTrader from '../assets/images/projects/exotic-car-trader-512.png';
-import filthyFood from '../assets/images/projects/filthy-food-512.png';
-import federated from '../assets/images/projects/federated-512.png';
-import voicepoolImg from '../assets/images/projects/voicepool.png';
-import patternArchiveDashboard from '../assets/images/projects/pattern-archive-dashboard.png';
-import patternArchiveWizard from '../assets/images/projects/pattern-archive-wizard-editor.png';
-import patternArchiveLibrary from '../assets/images/projects/pattern-archive-library.png';
+import {
+    CLIENT_PROJECTS,
+    voicepoolImg,
+    patternArchiveDashboard,
+    patternArchiveWizard,
+    patternArchiveLibrary
+} from '../data/projects';
 
 const meta: Meta<typeof Projects> = {
     title: 'Showcase/Sections/Projects',
@@ -74,48 +71,9 @@ const tabSectionDecorator = (children: ReactNode) => (
     </section>
 );
 
-const clientProjects = [
-    {
-        title: 'T R I M Agency',
-        description: 'Web Development',
-        imageURL: trimAgency,
-        url: '//www.trimagency.com/'
-    },
-    {
-        title: 'C Solutions',
-        description: 'Web Development',
-        imageURL: cSolutions,
-        url: '//csolutions-us.com/'
-    },
-    {
-        title: 'Exotic Car Trader',
-        description: 'Web Development',
-        imageURL: exoticCarTrader,
-        url: '//www.exoticcartrader.com/'
-    },
-    {
-        title: 'Federated Insurance',
-        description: 'Web Development',
-        imageURL: federated,
-        url: '//www.federated.ca/'
-    },
-    {
-        title: 'Filthy Food',
-        description: 'Ecommerce',
-        imageURL: filthyFood,
-        url: '//filthyfood.com/'
-    },
-    {
-        title: 'General Provision',
-        description: 'Web Development',
-        imageURL: generalProvision,
-        url: '//generalprovision.com/'
-    }
-];
-
 export const ClientTab = {
     render: () =>
-        tabSectionDecorator(<ProjectList projects={clientProjects} />)
+        tabSectionDecorator(<ProjectList projects={CLIENT_PROJECTS} />)
 };
 
 export const PersonalTab = {

@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import TaglineBadge from './TaglineBadge';
 import HeroChatCta from './HeroChatCta';
 import { advanceTyping, initialTypingState, type TypingState } from './heroTyping';
+import { LINKEDIN_URL, DUOLINGO_URL } from '../data/site';
 
 const HeroContent = () => {
     const ref = useRef<HTMLDivElement | null>(null);
@@ -59,7 +60,7 @@ const HeroContent = () => {
                 My journey into programming began in 2005. I now have over{' '}
                 <a
                     className="accent nowrap"
-                    href="https://www.linkedin.com/in/migueldot/"
+                    href={LINKEDIN_URL}
                     rel="noreferrer"
                     target="_blank"
                 >
@@ -72,7 +73,7 @@ const HeroContent = () => {
                 learning{' '}
                 <a
                     className="accent nowrap"
-                    href="//www.duolingo.com/profile/MiguelDotL"
+                    href={DUOLINGO_URL}
                     rel="noreferrer"
                     target="_blank"
                 >

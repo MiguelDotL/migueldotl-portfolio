@@ -12,85 +12,31 @@ import NpmPlainIcon from './NpmPlainIcon';
 
 import { TAB_ANIMATION } from './projectsTabAnimation';
 
-import generalProvision from '../assets/images/projects/general-provision-512.png';
-import generalProvisionWebp from '../assets/images/projects/general-provision-512.webp';
-import trimAgency from '../assets/images/projects/trim-agency-512.png';
-import trimAgencyWebp from '../assets/images/projects/trim-agency-512.webp';
-import cSolutions from '../assets/images/projects/c-solutions-512.png';
-import cSolutionsWebp from '../assets/images/projects/c-solutions-512.webp';
-import filthyFood from '../assets/images/projects/filthy-food-512.png';
-import filthyFoodWebp from '../assets/images/projects/filthy-food-512.webp';
-import federated from '../assets/images/projects/federated-512.png';
-import federatedWebp from '../assets/images/projects/federated-512.webp';
-import exoticCarTrader from '../assets/images/projects/exotic-car-trader-512.png';
-import exoticCarTraderWebp from '../assets/images/projects/exotic-car-trader-512.webp';
-import bcbsMain from '../assets/images/projects/bcbs-main.png';
-import bcbsMainWebp from '../assets/images/projects/bcbs-main.webp';
-import bcbsLitehouse from '../assets/images/projects/bcbs-litehouse.png';
-import bcbsLitehouseWebp from '../assets/images/projects/bcbs-litehouse.webp';
-import bcbsProviders from '../assets/images/projects/bcbs-providers.png';
-import bcbsProvidersWebp from '../assets/images/projects/bcbs-providers.webp';
-import voicepoolImg from '../assets/images/projects/voicepool.png';
-import voicepoolImgWebp from '../assets/images/projects/voicepool.webp';
-import branchBeaconImg from '../assets/images/projects/branch-beacon.png';
-import branchBeaconImgWebp from '../assets/images/projects/branch-beacon.webp';
-import patternArchiveDashboard from '../assets/images/projects/pattern-archive-dashboard.png';
-import patternArchiveDashboardWebp from '../assets/images/projects/pattern-archive-dashboard.webp';
-import patternArchiveWizard from '../assets/images/projects/pattern-archive-wizard-editor.png';
-import patternArchiveWizardWebp from '../assets/images/projects/pattern-archive-wizard-editor.webp';
-import patternArchiveLibrary from '../assets/images/projects/pattern-archive-library.png';
-import patternArchiveLibraryWebp from '../assets/images/projects/pattern-archive-library.webp';
+import {
+    CLIENT_PROJECTS,
+    bcbsMain,
+    bcbsMainWebp,
+    bcbsLitehouse,
+    bcbsLitehouseWebp,
+    bcbsProviders,
+    bcbsProvidersWebp,
+    voicepoolImg,
+    voicepoolImgWebp,
+    branchBeaconImg,
+    branchBeaconImgWebp,
+    patternArchiveDashboard,
+    patternArchiveDashboardWebp,
+    patternArchiveWizard,
+    patternArchiveWizardWebp,
+    patternArchiveLibrary,
+    patternArchiveLibraryWebp
+} from '../data/projects';
 
 import colorPop from '../assets/images/backgrounds/color-pop-2.png';
 import colorPopWebp from '../assets/images/backgrounds/color-pop-2.webp';
 
 const TABS = ['Client', 'Featured', 'Personal'] as const;
 type Tab = (typeof TABS)[number];
-
-const clientProjects = [
-    {
-        title: 'T R I M Agency',
-        description: 'Web Development',
-        imageURL: trimAgency,
-        imageURLWebp: trimAgencyWebp,
-        url: '//www.trimagency.com/'
-    },
-    {
-        title: 'C Solutions',
-        description: 'Web Development',
-        imageURL: cSolutions,
-        imageURLWebp: cSolutionsWebp,
-        url: '//csolutions-us.com/'
-    },
-    {
-        title: 'Exotic Car Trader',
-        description: 'Web Development',
-        imageURL: exoticCarTrader,
-        imageURLWebp: exoticCarTraderWebp,
-        url: '//www.exoticcartrader.com/'
-    },
-    {
-        title: 'Federated Insurance',
-        description: 'Web Development',
-        imageURL: federated,
-        imageURLWebp: federatedWebp,
-        url: '//www.federated.ca/'
-    },
-    {
-        title: 'Filthy Food',
-        description: 'Ecommerce',
-        imageURL: filthyFood,
-        imageURLWebp: filthyFoodWebp,
-        url: '//filthyfood.com/'
-    },
-    {
-        title: 'General Provision',
-        description: 'Web Development',
-        imageURL: generalProvision,
-        imageURLWebp: generalProvisionWebp,
-        url: '//generalprovision.com/'
-    }
-];
 
 const TAB_FADE_MS = TAB_ANIMATION.fadeMs;
 
@@ -358,7 +304,7 @@ const Projects = ({ initialInView = false }: ProjectsProps = {}) => {
                                         </Row>
                                     )}
                                     {displayedTab === 'Client' && (
-                                        <ProjectList projects={clientProjects} />
+                                        <ProjectList projects={CLIENT_PROJECTS} />
                                     )}
                                     {displayedTab === 'Personal' && (
                                         <Row>
