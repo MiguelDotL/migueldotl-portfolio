@@ -1,7 +1,7 @@
 import { Row } from "react-bootstrap";
 import ProjectCard, { type Project } from "./ProjectCard";
 
-type ProjectListProps = {
+export type ProjectListProps = {
     projects: Project[];
 };
 

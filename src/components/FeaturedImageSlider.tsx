@@ -19,7 +19,7 @@ export type SliderIndicator =
 
 export type SliderControl = 'arrows' | 'click-image' | 'keyboard' | 'swipe';
 
-type Props = {
+export type FeaturedImageSliderProps = {
     images: FeaturedImageSlide[];
     intervalMs?: number;
     indicator?: SliderIndicator;
@@ -36,7 +36,7 @@ const FeaturedImageSlider = ({
     indicator = 'frosted-dots',
     controls = [],
     imagePosition = 'center'
-}: Props) => {
+}: FeaturedImageSliderProps) => {
     const [index, setIndex] = useState(0);
     const [paused, setPaused] = useState(false);
     const [progress, setProgress] = useState(0);

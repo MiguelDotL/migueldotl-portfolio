@@ -7,7 +7,7 @@ const SLIDE_STRETCH_MS = TAB_ANIMATION.indicatorSlideStretchMs;
 const SLIDE_CONTRACT_MS = TAB_ANIMATION.indicatorSlideContractMs;
 const EXPAND_MS = TAB_ANIMATION.indicatorExpandMs;
 
-type MomentumTabsProps<T extends string> = {
+export type MomentumTabsProps<T extends string> = {
     tabs: readonly T[];
     active: T;
     onChange: (tab: T) => void;

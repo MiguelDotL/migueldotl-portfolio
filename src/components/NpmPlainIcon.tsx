@@ -1,4 +1,4 @@
-type Props = {
+export type NpmPlainIconProps = {
     size?: number;
     className?: string;
 };
@@ -11,7 +11,7 @@ type Props = {
  * Single path with even-odd fill: rounded square + "n" silhouette cutout. Use
  * fill=currentColor so the icon picks up the surrounding text color.
  */
-const NpmPlainIcon = ({ size = 16, className }: Props) => (
+const NpmPlainIcon = ({ size = 16, className }: NpmPlainIconProps) => (
     <svg
         viewBox="0 0 128 128"
         width={size}

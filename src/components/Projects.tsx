@@ -42,7 +42,7 @@ type Tab = (typeof TABS)[number];
 
 const TAB_FADE_MS = TAB_ANIMATION.fadeMs;
 
-type ProjectsProps = {
+export type ProjectsProps = {
     /** Force the in-view state to start true. Used by Storybook stories
         where the IntersectionObserver doesn't fire reliably in the
         canvas iframe. Production callers should leave this false (default)

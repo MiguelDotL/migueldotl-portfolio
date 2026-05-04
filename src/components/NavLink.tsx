@@ -1,6 +1,6 @@
 import { Nav } from 'react-bootstrap';
 
-type Props = {
+export type NavLinkProps = {
     /** Section id this link points to (also used as the URL hash). */
     name: string;
     text: string;
@@ -11,7 +11,7 @@ type Props = {
 // Top-level nav link rendered inside NavBar's Nav.Link map. Wraps
 // react-bootstrap's Nav.Link with the active-class logic so the host
 // component doesn't have to build the className string ad-hoc.
-const NavLink = ({ name, text, isActive, onClick }: Props) => (
+const NavLink = ({ name, text, isActive, onClick }: NavLinkProps) => (
     <Nav.Link
         href={`#${name}`}
         className={`${isActive ? 'active' : ''} navbar-link`}

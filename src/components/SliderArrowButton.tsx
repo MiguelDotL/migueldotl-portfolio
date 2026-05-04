@@ -1,6 +1,6 @@
 type Direction = 'prev' | 'next';
 
-type Props = {
+export type SliderArrowButtonProps = {
     direction: Direction;
     /** CSS class scope. The slider chrome uses `featured-image-slider__arrow`,
         the lightbox chrome uses `featured-image-slider__lightbox-arrow`. */
@@ -22,7 +22,7 @@ const GLYPH: Record<Direction, string> = {
 // the slider chrome and the open lightbox. Same markup, different CSS
 // class scopes — keep classScope explicit so callers control which
 // chrome the button belongs to.
-const SliderArrowButton = ({ direction, classScope, onClick }: Props) => (
+const SliderArrowButton = ({ direction, classScope, onClick }: SliderArrowButtonProps) => (
     <button
         type="button"
         aria-label={LABEL[direction]}
