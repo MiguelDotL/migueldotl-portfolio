@@ -39,7 +39,7 @@ describe('ContactForm', () => {
         await user.type(screen.getByPlaceholderText(/Last Name/i), 'Lozano');
         await user.type(screen.getByPlaceholderText(/Email Address/i), 'a@b.com');
         await user.type(screen.getByPlaceholderText(/Phone Number/i), '5555550100');
-        await user.type(screen.getByPlaceholderText(/Message/i), 'Hello!');
+        await user.type(screen.getByPlaceholderText(/Message/i), 'Hello there, this is a long enough message.');
     };
 
     test('submits Web3Forms payload and shows success message', async () => {
@@ -62,7 +62,7 @@ describe('ContactForm', () => {
         expect(payload.access_key).toBeDefined();
         expect(payload.firstName).toBe('Miguel');
         expect(payload.email).toBe('a@b.com');
-        expect(payload.message).toBe('Hello!');
+        expect(payload.message).toBe('Hello there, this is a long enough message.');
         expect(payload.botcheck).toBe('');
 
         await waitFor(() => {
