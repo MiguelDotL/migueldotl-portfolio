@@ -67,6 +67,20 @@ async function buildDeviconSubset() {
         rules.push(
             `.devicon-${cls}:before { content: "\\${m[2].codePointAt(0).toString(16)}"; }`
         );
+
+        // The brand-color `.colored` rule lives next to the :before in
+        // devicon's CSS but often inside a compound selector with the
+        // matching `-wordmark` variant we don't ship. Match any rule whose
+        // selector list includes `.devicon-<cls>.colored`, then re-emit it
+        // as a single-class rule. Some classes legitimately have no
+        // colored rule (the icon ships at its native color); skip those.
+        const colorRe = new RegExp(
+            `[^}]*\\.devicon-${cls}\\.colored[^}]*\\{color:(#[A-Fa-f0-9]+)\\}`
+        );
+        const c = css.match(colorRe);
+        if (c) {
+            rules.push(`.devicon-${cls}.colored { color: ${c[1]}; }`);
+        }
     }
 
     const ttf = await fs.readFile(fontPath);
