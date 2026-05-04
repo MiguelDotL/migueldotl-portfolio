@@ -23,7 +23,7 @@ const ProjectCard = (props: Project) => {
                         <img src={props.imageURL} alt={props.title} loading="lazy" />
                     </picture>
                     <div className="project-content">
-                        <h4>{props.title}</h4>
+                        <h3>{props.title}</h3>
                         <span>{props.description}</span>
                         <a
                             href={props.url}

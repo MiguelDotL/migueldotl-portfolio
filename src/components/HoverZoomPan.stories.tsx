@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { Container, Row } from 'react-bootstrap';
+import { fireEvent, userEvent, within } from 'storybook/test';
 import HoverZoomPan from './HoverZoomPan';
 import '../assets/styles/Projects.css';
 
@@ -77,4 +78,20 @@ export const SubtleZoom: Story = {
 
 export const StrongerZoom: Story = {
     args: { zoomScale: 2.25 }
+};
+
+// Drives the mouseenter / mousemove / mouseleave handlers so coverage
+// reflects the hover transform-origin path.
+export const Hovered: Story = {
+    play: async ({ canvasElement }) => {
+        const img = within(canvasElement).getByRole('img');
+        const container = img.parentElement?.parentElement;
+        if (!container) return;
+        await userEvent.hover(container);
+        // userEvent.hover doesn't carry coords; fire a couple of moves
+        // directly so the transform-origin assignment runs.
+        fireEvent.mouseMove(container, { clientX: 200, clientY: 100 });
+        fireEvent.mouseMove(container, { clientX: 50, clientY: 250 });
+        await userEvent.unhover(container);
+    }
 };

@@ -1,6 +1,7 @@
 import type { ReactNode } from 'react';
 import type { Meta } from '@storybook/react-vite';
 import { Col, Container, Row } from 'react-bootstrap';
+import { userEvent, within } from 'storybook/test';
 import Projects from './Projects';
 import FeaturedProjectCard from './FeaturedProjectCard';
 import FeaturedImageSlider from './FeaturedImageSlider';
@@ -31,6 +32,23 @@ export default meta;
 // Storybook's iframe canvas.
 export const Default = {
     args: { initialInView: true }
+};
+
+// Drives the full tab-switch animation pipeline (exit → swap → enter)
+// in both directions so handleTabChange covers forward + backward paths
+// and all three tab content branches render.
+export const TabSwitched = {
+    args: { initialInView: true },
+    play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
+        const canvas = within(canvasElement);
+        // Featured (default) → Personal (forward) → Client (backward) → Featured (forward)
+        await userEvent.click(canvas.getByRole('tab', { name: /Personal/ }));
+        await new Promise((r) => setTimeout(r, 700));
+        await userEvent.click(canvas.getByRole('tab', { name: /Client/ }));
+        await new Promise((r) => setTimeout(r, 700));
+        await userEvent.click(canvas.getByRole('tab', { name: /Featured/ }));
+        await new Promise((r) => setTimeout(r, 700));
+    }
 };
 
 // `ClientTab` and `PersonalTab` render the inner per-tab content (the same

@@ -209,7 +209,7 @@ a.project-card {
     transition-delay: 100ms;
 }
 
-.project-content h4 {
+.project-content h3 {
     font-size: 30px;
     font-weight: 700;
     letter-spacing: 0.8px;

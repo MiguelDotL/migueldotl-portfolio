@@ -1,4 +1,4 @@
-import type { Meta } from '@storybook/react-vite';
+import type { Meta, StoryObj } from '@storybook/react-vite';
 import NavBar from './NavBar';
 
 const meta: Meta<typeof NavBar> = {
@@ -16,4 +16,18 @@ const meta: Meta<typeof NavBar> = {
 
 export default meta;
 
-export const Default = {};
+type Story = StoryObj<typeof NavBar>;
+
+export const Default: Story = {};
+
+// Drives the scroll-spy + hasScrolled effect bodies so the scroll
+// listeners run in coverage. Avoids clicking anchor links — those
+// trigger iframe navigation and crash the browser test session.
+export const Scrolled: Story = {
+    play: async () => {
+        Object.defineProperty(window, 'scrollY', { value: 200, configurable: true });
+        window.dispatchEvent(new Event('scroll'));
+        Object.defineProperty(window, 'scrollY', { value: 0, configurable: true });
+        window.dispatchEvent(new Event('scroll'));
+    }
+};
