@@ -1,4 +1,5 @@
 import { useRef, useState, type MouseEvent } from 'react';
+import ResponsiveImage from './ResponsiveImage';
 
 type Props = {
     src: string;
@@ -59,10 +60,14 @@ const HoverZoomPan = ({
             onMouseLeave={handleMouseLeave}
             onMouseMove={handleMouseMove}
         >
-            <picture>
-                {srcWebp && <source srcSet={srcWebp} type="image/webp" />}
-                <img ref={imgRef} src={src} alt={alt} loading="lazy" style={imgStyle} />
-            </picture>
+            <ResponsiveImage
+                ref={imgRef}
+                src={src}
+                srcWebp={srcWebp}
+                alt={alt}
+                loading="lazy"
+                style={imgStyle}
+            />
         </div>
     );
 };

@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
 import SliderArrowButton from './SliderArrowButton';
+import ResponsiveImage from './ResponsiveImage';
 import '../assets/styles/FeaturedImageSlider.css';
 
 export type FeaturedImageSlide = {
@@ -194,20 +195,19 @@ const FeaturedImageSlider = ({
             onPointerUp={handlePointerUp}
         >
             {images.map((img, i) => (
-                <picture key={img.src}>
-                    {img.srcWebp && <source srcSet={img.srcWebp} type="image/webp" />}
-                    <img
-                        src={img.src}
-                        alt={img.alt}
-                        loading="lazy"
-                        className={`featured-image-slider__slide ${
-                            i === index ? 'is-active' : ''
-                        } is-clickable`}
-                        aria-hidden={i !== index}
-                        onClick={i === index ? handleSlideClick : undefined}
-                        style={{ objectPosition: imagePosition }}
-                    />
-                </picture>
+                <ResponsiveImage
+                    key={img.src}
+                    src={img.src}
+                    srcWebp={img.srcWebp}
+                    alt={img.alt}
+                    loading="lazy"
+                    className={`featured-image-slider__slide ${
+                        i === index ? 'is-active' : ''
+                    } is-clickable`}
+                    aria-hidden={i !== index}
+                    onClick={i === index ? handleSlideClick : undefined}
+                    style={{ objectPosition: imagePosition }}
+                />
             ))}
 
             {useArrows && images.length > 1 && (
@@ -273,17 +273,13 @@ const FeaturedImageSlider = ({
                     aria-label={images[index].alt}
                     onClick={() => setLightboxOpen(false)}
                 >
-                    <picture>
-                        {images[index].srcWebp && (
-                            <source srcSet={images[index].srcWebp} type="image/webp" />
-                        )}
-                        <img
-                            src={images[index].src}
-                            alt={images[index].alt}
-                            className="featured-image-slider__lightbox-img"
-                            onClick={(e) => e.stopPropagation()}
-                        />
-                    </picture>
+                    <ResponsiveImage
+                        src={images[index].src}
+                        srcWebp={images[index].srcWebp}
+                        alt={images[index].alt}
+                        className="featured-image-slider__lightbox-img"
+                        onClick={(e) => e.stopPropagation()}
+                    />
                     <button
                         type="button"
                         aria-label="Close"

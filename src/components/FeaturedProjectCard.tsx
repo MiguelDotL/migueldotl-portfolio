@@ -2,6 +2,7 @@ import { ReactNode } from "react";
 import { Col } from "react-bootstrap";
 import TechStackList from "./TechStackList";
 import ProjectActionLink, { type ProjectAction } from "./ProjectActionLink";
+import ResponsiveImage from "./ResponsiveImage";
 
 export type FeaturedAction = ProjectAction;
 
@@ -38,12 +39,12 @@ const FeaturedProjectCard = (props: FeaturedProject) => {
                 <div className="featured-project-image">
                     {props.imageSlot ?? (
                         props.imageURL && (
-                            <picture>
-                                {props.imageURLWebp && (
-                                    <source srcSet={props.imageURLWebp} type="image/webp" />
-                                )}
-                                <img src={props.imageURL} alt={props.title} loading="lazy" />
-                            </picture>
+                            <ResponsiveImage
+                                src={props.imageURL}
+                                srcWebp={props.imageURLWebp}
+                                alt={props.title}
+                                loading="lazy"
+                            />
                         )
                     )}
                 </div>

@@ -5,44 +5,7 @@ import PreFooter from "./PreFooter";
 import SocialIcons from "./SocialIcons";
 
 import logo from "../assets/images/logo.svg";
-import codepenIcon from "../assets/images/icons/codepen-icon.svg";
-import npmIcon from "devicon/icons/npm/npm-original-wordmark.svg";
-import codewarsIcon from "../assets/images/icons/codewars-icon.svg";
-import codecademyIcon from "../assets/images/icons/codecademy-icon.svg";
-import duolingoIcon from "../assets/images/icons/duolingo-icon.svg";
-
-const socialsConfig = [
-    {
-        className: "codepen",
-        icon: codepenIcon,
-        url: "//codepen.io/MiguelDotL",
-        label: "CodePen"
-    },
-    {
-        className: "npm",
-        icon: npmIcon,
-        url: "//www.npmjs.com/~migueldotl",
-        label: "npm"
-    },
-    {
-        className: "codewars",
-        icon: codewarsIcon,
-        url: "//www.codewars.com/users/MiguelDotL",
-        label: "Codewars"
-    },
-    {
-        className: "codecademy",
-        icon: codecademyIcon,
-        url: "//www.codecademy.com/profiles/MiguelDotL",
-        label: "Codecademy"
-    },
-    {
-        className: "duolingo",
-        icon: duolingoIcon,
-        url: "//www.duolingo.com/profile/MiguelDotL",
-        label: "Duolingo"
-    }
-];
+import { FOOTER_SOCIALS } from "../data/socials";
 
 const Footer = () => {
     const [hoveredLabel, setHoveredLabel] = useState<string | null>(null);
@@ -62,7 +25,7 @@ const Footer = () => {
                                     <span className="hovered-label">{hoveredLabel}</span>
                                 </span>
                                 <SocialIcons
-                                    config={socialsConfig}
+                                    config={FOOTER_SOCIALS}
                                     onHover={setHoveredLabel}
                                 />
                             </div>

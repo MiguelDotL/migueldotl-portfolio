@@ -7,46 +7,14 @@ import NavLink from './NavLink';
 import ResumeButton from './ResumeButton';
 
 import logo from '../assets/images/logo.svg';
-import linkedInIcon from '../assets/images/icons/linked-in.svg';
-import twitterXIcon from '../assets/images/icons/twitter-x.svg';
-import githubIcon from '../assets/images/icons/github-2.svg';
-
-const navLinks = [
-    { name: 'home', text: 'Home' },
-    { name: 'skills', text: 'Skills' },
-    { name: 'projects', text: 'Projects' },
-    { name: 'contact', text: 'Contact' }
-];
+import { NAV_LINKS, RESUME_PATH } from '../data/site';
+import { NAV_SOCIALS } from '../data/socials';
 
 const NavBar = () => {
     const [expanded, setExpanded] = useState(false);
     const [activeLink, setActiveLink] = useState('home');
     const [hasScrolled, setHasScrolled] = useState(false);
     const [bgTransparent, setBgTransparent] = useState(false);
-
-    const socialsConfig = [
-        {
-            className: 'linked-in',
-            icon: linkedInIcon,
-            url: 'https://www.linkedin.com/in/migueldot/',
-            label: 'LinkedIn'
-        },
-        {
-            className: 'twitter',
-            icon: twitterXIcon,
-            // icon: twitterIcon,
-            url: '//twitter.com/MiguelDotL',
-            label: 'X (Twitter)'
-        },
-        {
-            className: 'github',
-            icon: githubIcon,
-            url: '//github.com/MiguelDotL',
-            label: 'GitHub'
-        }
-    ];
-
-    const resumePath = '/resources/miguel_lozano_resume_2024.pdf';
 
     useEffect(() => {
         const onScroll = () => {
@@ -65,7 +33,7 @@ const NavBar = () => {
     // Monotonic — won't oscillate as sections enter/exit the viewport.
     // Listener attaches via requestIdleCallback so it doesn't compete with LCP.
     useEffect(() => {
-        const sectionIds = navLinks.map(({ name }) => name);
+        const sectionIds = NAV_LINKS.map(({ name }) => name);
 
         const onScroll = () => {
             const triggerY = 100;
@@ -73,7 +41,7 @@ const NavBar = () => {
                 .map((id) => document.getElementById(id))
                 .filter((el): el is HTMLElement => el !== null);
 
-            let current = sectionIds[0];
+            let current: string = sectionIds[0];
             for (const section of sections) {
                 if (section.getBoundingClientRect().top <= triggerY) {
                     current = section.id;
@@ -139,7 +107,7 @@ const NavBar = () => {
 
                 <Navbar.Collapse id="basic-navbar-nav">
                     <Nav className="me-auto">
-                        {navLinks.map(({ name, text }) => (
+                        {NAV_LINKS.map(({ name, text }) => (
                             <NavLink
                                 key={name}
                                 name={name}
@@ -150,8 +118,8 @@ const NavBar = () => {
                         ))}
                     </Nav>
                     <span className="navbar-text">
-                        <SocialIcons config={socialsConfig} />
-                        <ResumeButton resumePath={resumePath} />
+                        <SocialIcons config={NAV_SOCIALS} />
+                        <ResumeButton resumePath={RESUME_PATH} />
                     </span>
                 </Navbar.Collapse>
             </Container>
