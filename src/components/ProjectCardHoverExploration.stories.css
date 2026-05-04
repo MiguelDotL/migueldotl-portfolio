@@ -1,0 +1,459 @@
+/* Shared base for all hover-exploration cards. Width is driven by the parent
+   Bootstrap Col (sm=6 md=4) so each variant renders at exactly the same width
+   as the live ProjectCard. Aspect-ratio 8/5 matches the source image's natural
+   proportions (the live ProjectCard inherits this from the unconstrained img). */
+.hv-card {
+    display: block;
+    width: 100%;
+    color: inherit;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.hv-card h4 {
+    font-size: 24px;
+    font-weight: 700;
+    line-height: 1.1em;
+    margin: 0 0 0.2em;
+    color: #fff;
+}
+
+.hv-card span {
+    display: block;
+    font-style: italic;
+    font-weight: 400;
+    font-size: 14px;
+    color: var(--light-grey);
+}
+
+/* ---- 1. Current ---- */
+.hv-card--current {
+    position: relative;
+    border-radius: 0.6em;
+    overflow: hidden;
+    aspect-ratio: 8 / 5;
+}
+
+.hv-card--current img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.hv-card--current::before {
+    content: "";
+    position: absolute;
+    inset: auto 0 0 0;
+    height: 0;
+    background: linear-gradient(131deg, #AA367C 28%, #4A2FBD 71%);
+    opacity: 0.85;
+    transition: height 0.4s ease-in-out;
+}
+
+.hv-card--current:hover::before {
+    height: 100%;
+}
+
+.hv-current__overlay {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 0 1.5em;
+    opacity: 0;
+    transition: opacity 0.4s ease-in-out;
+}
+
+.hv-card--current:hover .hv-current__overlay {
+    opacity: 1;
+}
+
+.hv-current__overlay span { color: rgba(255,255,255,0.85); }
+
+/* ---- 2. Zoom + caption band ---- */
+.hv-card--zoom {
+    border-radius: 0.6em;
+    overflow: hidden;
+    position: relative;
+    aspect-ratio: 8 / 5;
+}
+
+.hv-zoom__image-wrap {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+}
+
+.hv-zoom__image-wrap img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s cubic-bezier(0.2, 0, 0.2, 1);
+    display: block;
+}
+
+.hv-card--zoom:hover .hv-zoom__image-wrap img {
+    transform: scale(1.06);
+}
+
+.hv-zoom__caption {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    padding: 1.2em 1.4em;
+    background: linear-gradient(
+        to top,
+        rgba(15, 15, 15, 0.95) 0%,
+        rgba(15, 15, 15, 0.6) 70%,
+        transparent 100%
+    );
+    transform: translateY(40%);
+    opacity: 0;
+    transition: transform 0.35s cubic-bezier(0.2, 0, 0.2, 1), opacity 0.3s ease;
+}
+
+.hv-card--zoom:hover .hv-zoom__caption {
+    transform: translateY(0);
+    opacity: 1;
+}
+
+/* ---- 3. Scale + shadow lift, caption overlay on hover ---- */
+.hv-card--lift {
+    position: relative;
+    border-radius: 0.6em;
+    overflow: hidden;
+    aspect-ratio: 8 / 5;
+    transition: transform 0.35s cubic-bezier(0.2, 0, 0.2, 1), box-shadow 0.35s ease;
+    box-shadow: 0 0 0 transparent;
+}
+
+.hv-card--lift img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.hv-card--lift:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 16px 40px rgba(170, 54, 124, 0.35), 0 0 0 1px rgba(255,255,255,0.08);
+}
+
+.hv-lift__caption {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    padding: 1.2em 1.4em;
+    background: linear-gradient(
+        to top,
+        rgba(15, 15, 15, 0.95) 0%,
+        rgba(15, 15, 15, 0.6) 70%,
+        transparent 100%
+    );
+    transform: translateY(40%);
+    opacity: 0;
+    transition: transform 0.35s cubic-bezier(0.2, 0, 0.2, 1), opacity 0.3s ease;
+}
+
+.hv-card--lift:hover .hv-lift__caption {
+    transform: translateY(0);
+    opacity: 1;
+}
+
+/* ---- 4. Glassmorphism ---- */
+.hv-card--glass {
+    position: relative;
+    border-radius: 0.6em;
+    overflow: hidden;
+    aspect-ratio: 8 / 5;
+}
+
+.hv-card--glass img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.hv-glass__overlay {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    padding: 1.4em 1.4em 1.6em;
+    background: rgba(15, 15, 15, 0.45);
+    backdrop-filter: blur(18px) saturate(1.4);
+    -webkit-backdrop-filter: blur(18px) saturate(1.4);
+    border-top: 1px solid rgba(255,255,255,0.12);
+    transform: translateY(100%);
+    transition: transform 0.4s cubic-bezier(0.2, 0, 0.2, 1);
+}
+
+.hv-card--glass:hover .hv-glass__overlay {
+    transform: translateY(0);
+}
+
+/* ---- 5. Border glow ---- */
+.hv-card--border {
+    position: relative;
+    padding: 2px;
+    border-radius: 0.65em;
+    transition: transform 0.35s ease;
+    aspect-ratio: 8 / 5;
+}
+
+.hv-border__glow {
+    position: absolute;
+    inset: 0;
+    border-radius: 0.65em;
+    background: linear-gradient(131deg, #AA367C 28%, #4A2FBD 71%);
+    opacity: 0;
+    transition: opacity 0.35s ease;
+    z-index: 0;
+}
+
+.hv-card--border:hover .hv-border__glow {
+    opacity: 1;
+}
+
+.hv-border__inner {
+    position: relative;
+    z-index: 1;
+    border-radius: 0.55em;
+    overflow: hidden;
+    width: 100%;
+    height: 100%;
+}
+
+.hv-card--border img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.hv-card--border:hover {
+    transform: translateY(-2px);
+}
+
+.hv-border__caption {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    padding: 1.2em 1.4em;
+    background: linear-gradient(
+        to top,
+        rgba(15, 15, 15, 0.95) 0%,
+        rgba(15, 15, 15, 0.6) 70%,
+        transparent 100%
+    );
+    transform: translateY(40%);
+    opacity: 0;
+    transition: transform 0.35s cubic-bezier(0.2, 0, 0.2, 1), opacity 0.3s ease;
+}
+
+.hv-card--border:hover .hv-border__caption {
+    transform: translateY(0);
+    opacity: 1;
+}
+
+/* ---- 6. Grayscale → color ---- */
+.hv-card--gs {
+    position: relative;
+    border-radius: 0.6em;
+    overflow: hidden;
+    aspect-ratio: 8 / 5;
+}
+
+.hv-card--gs img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    filter: grayscale(1) brightness(0.85);
+    transition: filter 0.45s ease;
+}
+
+.hv-card--gs:hover img {
+    filter: grayscale(0) brightness(1);
+}
+
+.hv-gs__caption {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    padding: 1em 1.4em 1.2em;
+    background: linear-gradient(
+        to top,
+        rgba(15, 15, 15, 0.92) 0%,
+        rgba(15, 15, 15, 0.4) 80%,
+        transparent 100%
+    );
+    transform: translateY(0);
+    opacity: 1;
+    transition: opacity 0.35s ease;
+}
+
+.hv-card--gs:hover .hv-gs__caption {
+    opacity: 0.95;
+}
+
+/* ---- 7. Diagonal sweep ---- */
+.hv-card--sweep {
+    position: relative;
+    border-radius: 0.6em;
+    overflow: hidden;
+    aspect-ratio: 8 / 5;
+}
+
+.hv-card--sweep img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.hv-sweep__band {
+    position: absolute;
+    top: -50%;
+    left: -120%;
+    width: 60%;
+    height: 200%;
+    background: linear-gradient(131deg, #AA367C 28%, #4A2FBD 71%);
+    opacity: 0;
+    transform: rotate(15deg);
+    transition: left 0.55s cubic-bezier(0.2, 0, 0.2, 1), opacity 0.3s ease;
+    pointer-events: none;
+}
+
+.hv-card--sweep:hover .hv-sweep__band {
+    left: 100%;
+    opacity: 0.85;
+}
+
+.hv-sweep__caption {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 0 1.5em;
+    opacity: 0;
+    transition: opacity 0.4s ease 0.15s;
+}
+
+.hv-card--sweep:hover .hv-sweep__caption {
+    opacity: 1;
+}
+
+/* ---- 8. Ken Burns ---- */
+.hv-card--kb {
+    position: relative;
+    border-radius: 0.6em;
+    overflow: hidden;
+    aspect-ratio: 8 / 5;
+}
+
+.hv-kb__image-wrap {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+}
+
+.hv-kb__image-wrap img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transform: scale(1) translate(0, 0);
+    transition: transform 5s ease-out;
+}
+
+.hv-card--kb:hover .hv-kb__image-wrap img {
+    transform: scale(1.18) translate(-3%, -2%);
+}
+
+.hv-kb__caption {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    padding: 1.2em 1.4em;
+    background: linear-gradient(
+        to top,
+        rgba(15, 15, 15, 0.92) 0%,
+        rgba(15, 15, 15, 0.4) 80%,
+        transparent 100%
+    );
+    transform: translateY(40%);
+    opacity: 0;
+    transition: transform 0.4s cubic-bezier(0.2, 0, 0.2, 1), opacity 0.3s ease;
+}
+
+.hv-card--kb:hover .hv-kb__caption {
+    transform: translateY(0);
+    opacity: 1;
+}
+
+/* ---- 9. Tilt ---- */
+.hv-card--tilt {
+    position: relative;
+    perspective: 1000px;
+    aspect-ratio: 8 / 5;
+}
+
+.hv-tilt__plane {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    border-radius: 0.6em;
+    overflow: hidden;
+    transform-style: preserve-3d;
+    transform: rotateX(0) rotateY(0) scale(1);
+    transition: transform 0.4s cubic-bezier(0.2, 0, 0.2, 1), box-shadow 0.4s ease;
+    box-shadow: 0 0 0 transparent;
+}
+
+.hv-card--tilt:hover .hv-tilt__plane {
+    transform: rotateX(6deg) rotateY(-6deg) scale(1.03);
+    box-shadow: 14px 24px 50px rgba(74, 47, 189, 0.35), -10px 10px 30px rgba(170, 54, 124, 0.25);
+}
+
+.hv-card--tilt img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.hv-tilt__caption {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    padding: 1.2em 1.4em;
+    background: linear-gradient(
+        to top,
+        rgba(15, 15, 15, 0.92) 0%,
+        rgba(15, 15, 15, 0.4) 80%,
+        transparent 100%
+    );
+    transform: translateY(40%);
+    opacity: 0;
+    transition: transform 0.35s cubic-bezier(0.2, 0, 0.2, 1), opacity 0.3s ease;
+}
+
+.hv-card--tilt:hover .hv-tilt__caption {
+    transform: translateY(0);
+    opacity: 1;
+}

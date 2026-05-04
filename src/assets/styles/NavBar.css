@@ -89,16 +89,20 @@ span.navbar-text {
 }
 
 /* ==== Social Icons ==== */
-.social-icons a.social-icon {
-  width: 45%;
+/* Per-image size tweaks for nav-context only (Twitter X glyph reads
+   smaller, GitHub silhouette nudged). The base `.social-icons
+   a.social-icon` sizing (42x42 circles) lives in Socials.css and is
+   shared with Footer + standalone usages — overriding the container
+   `width` here would mismatch the 42px height and paint ellipses. */
+nav.navbar .social-icons a.social-icon {
   transition: all 0.3s ease-in-out;
 }
 
-.social-icons a.social-icon.twitter img {
+nav.navbar .social-icons a.social-icon.twitter img {
   width: 45%;
 }
 
-.social-icons a.social-icon.github img {
+nav.navbar .social-icons a.social-icon.github img {
   width: 50%;
   padding: 0.1em 0.1em 0 0;
 }

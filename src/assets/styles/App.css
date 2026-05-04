@@ -36,3 +36,39 @@
     transform: rotate(360deg);
   }
 }
+
+/* Suppress all default browser focus/active rings + tap highlights on
+   interactive elements. Component-level styles (active tab perimeter,
+   button hover, etc.) carry the visual feedback instead. */
+button,
+a,
+input,
+textarea,
+select,
+[role="button"],
+[role="tab"],
+[tabindex] {
+    -webkit-tap-highlight-color: transparent;
+}
+
+button:focus,
+button:focus-visible,
+button:active,
+a:focus,
+a:focus-visible,
+a:active,
+input:focus,
+input:focus-visible,
+textarea:focus,
+textarea:focus-visible,
+select:focus,
+select:focus-visible,
+[role="button"]:focus,
+[role="button"]:focus-visible,
+[role="tab"]:focus,
+[role="tab"]:focus-visible,
+[tabindex]:focus,
+[tabindex]:focus-visible {
+    outline: none;
+    box-shadow: none;
+}

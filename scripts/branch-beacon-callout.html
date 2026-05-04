@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>branch-beacon — callout mockup</title>
+    <style>
+        :root {
+            --bg: #0f0f0f;
+            --panel: #16181c;
+            --border: rgba(255, 255, 255, 0.12);
+            --text: rgba(255, 255, 255, 0.92);
+            --muted: rgba(255, 255, 255, 0.6);
+            --accent-a: #AA367C;
+            --accent-b: #4A2FBD;
+        }
+
+        * { box-sizing: border-box; }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            background: var(--bg);
+            color: var(--text);
+            font-family: 'Centra No2', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+        }
+
+        .stage {
+            width: 100%;
+        }
+
+        /* === Full-bleed Voicepool screenshot — fills the viewport width === */
+        .scene {
+            position: relative;
+            width: 100vw;
+            overflow: visible; /* let callout extend outside if needed */
+        }
+
+        .scene__shot {
+            display: block;
+            width: 100%;
+            height: auto;
+        }
+
+        /* White outline rectangle highlighting where branch-beacon renders
+           inside the Voicepool header. Nudge percentages to land exactly. */
+        .scene__highlight {
+            position: absolute;
+            left: 18.3%;
+            top: 1.6%;
+            width: 7%;
+            height: 4.5%;
+            border: 3px solid #fff;
+            pointer-events: none;
+        }
+
+        /* === Callout floats over the screenshot, top-left corner pinned to
+               where branch-beacon renders in the Voicepool header. Adjust
+               top/left to land exactly on the indicator. === */
+        .scene__callout {
+            position: absolute;
+            top: 1.2%;
+            left: 19%;
+            width: 38%;
+            background: var(--panel);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            box-shadow: 0 16px 40px rgba(0, 0, 0, 0.6);
+            overflow: hidden;
+            z-index: 3;
+        }
+
+        .scene__callout-zoom {
+            display: block;
+            /* Pin to top-left of callout — no centering, no margin. */
+            margin: 0;
+            max-width: 100%;
+        }
+
+        /* === Comparison row wrapped in a frosted-glass container with an
+               angled callout line emerging from the top edge. === */
+        .compare {
+            position: relative;
+            z-index: 3;
+            /* Negative top margin lifts the box up over the screenshot.
+               Stable regardless of compare-box height (number of rows). */
+            margin: -45.3vw auto 64px;
+            max-width: 1280px;
+            padding: 36px 32px 39px;
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(14px) saturate(1.3);
+            -webkit-backdrop-filter: blur(14px) saturate(1.3);
+            border: 3px solid #fff;
+            border-radius: 0;
+        }
+
+        /* SVG converging lines — drawn over the .scene with viewBox-percent coords.
+           Three lines all terminate at the highlight box (~22, 5) and originate
+           above each crop in the compare container (~17, ~50, ~83 across, ~60 down). */
+        .callout-lines {
+            position: absolute;
+            inset: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            overflow: visible;
+            z-index: 2;
+        }
+
+        .callout-lines line {
+            stroke: #fff;
+            stroke-width: 3;
+            vector-effect: non-scaling-stroke;
+        }
+
+        .compare__legend {
+            margin: 0 0 22px;
+            font-size: 13px;
+            line-height: 1.5;
+            letter-spacing: 1.6px;
+            text-transform: uppercase;
+            color: var(--muted);
+            text-align: center;
+            font-family: ui-monospace, SFMono-Regular, monospace;
+        }
+
+        .compare__legend-swatch {
+            font-weight: 700;
+            font-family: ui-monospace, SFMono-Regular, monospace;
+        }
+
+        .compare__legend-swatch--main { color: #ff5d6c; }
+        .compare__legend-swatch--dev { color: #f5a623; }
+        .compare__legend-swatch--feat { color: #3fd6a3; }
+        .compare__legend-swatch--fix { color: #ff8c42; }
+        .compare__legend-swatch--chore { color: #b0b3b8; }
+
+        .compare__row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 28px;
+        }
+
+        .compare__row + .compare__row {
+            margin-top: 28px;
+        }
+
+        .compare__row--centered {
+            justify-content: center;
+        }
+
+        .compare__row--centered .compare__cell {
+            flex: 0 0 auto;
+            width: calc((100% - 56px) / 3);
+        }
+
+        .compare__cell {
+            position: relative;
+            background: rgba(0, 0, 0, 0.25);
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            border-radius: 0;
+            overflow: hidden;
+            flex: 1 1 0;
+            transition: transform 0.45s cubic-bezier(0.2, 0, 0.2, 1),
+                box-shadow 0.45s ease;
+        }
+
+
+        .compare__cell:hover {
+            transform: translateY(-8px) scale(1.03);
+            box-shadow: 0 24px 50px rgba(170, 54, 124, 0.3);
+            z-index: 2;
+            position: relative;
+        }
+
+        .compare__cell img {
+            display: block;
+            width: 100%;
+        }
+
+        .compare__cell-label {
+            display: block;
+            padding: 0.65em 1em;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 1.4px;
+            text-transform: uppercase;
+            color: var(--muted);
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            font-family: ui-monospace, SFMono-Regular, monospace;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="stage">
+        <div class="scene">
+            <img
+                class="scene__shot"
+                src="../src/assets/images/projects/voicepool.png"
+                alt="Voicepool dashboard with mocked fleet data"
+            />
+            <span class="scene__highlight" aria-hidden="true"></span>
+            <svg
+                class="callout-lines"
+                viewBox="0 0 100 100"
+                preserveAspectRatio="none"
+                aria-hidden="true"
+            >
+                <!-- Single callout line from the bottom-right corner of the
+                     highlight box down to the compare container below. -->
+                <line x1="25.3" y1="6.1" x2="50" y2="20" />
+            </svg>
+        </div>
+
+        <!-- Comparison row: branch-beacon across three branch states -->
+        <div class="compare">
+            <p class="compare__legend">
+                Color-coding alerts you to
+                <span class="compare__legend-swatch compare__legend-swatch--main">protected branches</span>
+                at a glance:
+            </p>
+            <div class="compare__row">
+                <div class="compare__cell">
+                    <img
+                        src="../src/assets/images/projects/branch-beacon-voicepool-crop.png"
+                        alt="branch-beacon showing main"
+                    />
+                </div>
+                <div class="compare__cell">
+                    <img
+                        src="../src/assets/images/projects/branch-beacon-voicepool-crop-dev.png"
+                        alt="branch-beacon showing dev"
+                    />
+                </div>
+                <div class="compare__cell">
+                    <img
+                        src="../src/assets/images/projects/branch-beacon-voicepool-crop-feat.png"
+                        alt="branch-beacon showing feat/dashboard-redesign"
+                    />
+                </div>
+            </div>
+            <div class="compare__row compare__row--centered">
+                <div class="compare__cell">
+                    <img
+                        src="../src/assets/images/projects/branch-beacon-voicepool-crop-fix.png"
+                        alt="branch-beacon showing fix/auth-422"
+                    />
+                </div>
+                <div class="compare__cell">
+                    <img
+                        src="../src/assets/images/projects/branch-beacon-voicepool-crop-chore.png"
+                        alt="branch-beacon showing chore/deps"
+                    />
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

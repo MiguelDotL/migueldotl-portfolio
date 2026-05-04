@@ -1,22 +1,30 @@
-@import "devicon";
+/* devicon — moved to Skills.css so it ships with the lazy-loaded Skills
+   chunk instead of blocking initial paint. (Skills is the only consumer
+   of devicon-* class glyphs.) */
 
-/* ==== Fonts ==== */
+/* ==== Fonts ====
+   woff2 is brotli-compressed by spec — 30-70% smaller than the source
+   TTFs. Centra TTF originals are kept in src/assets/fonts/ for
+   re-running scripts/build-fonts.mjs but are not shipped to prod. */
 @font-face {
   font-family: Centra;
-  src: url("/src/assets/fonts/CentraNo2-Book.ttf");
+  src: url("/src/assets/fonts/CentraNo2-Book.woff2") format("woff2");
   font-weight: 400;
+  font-display: swap;
 }
 
 @font-face {
   font-family: Centra;
-  src: url("/src/assets/fonts/CentraNo2-Medium.ttf");
+  src: url("/src/assets/fonts/CentraNo2-Medium.woff2") format("woff2");
   font-weight: 500;
+  font-display: swap;
 }
 
 @font-face {
   font-family: Centra;
-  src: url("/src/assets/fonts/CentraNo2-Bold.ttf");
+  src: url("/src/assets/fonts/CentraNo2-Bold.woff2") format("woff2");
   font-weight: 700;
+  font-display: swap;
 }
 
 :root {
@@ -126,6 +134,14 @@ p.danger {
 
 .nowrap {
   white-space: nowrap;
+}
+
+/* Sizing for the contact bitmoji lives in main CSS (eager) so it isn't
+   gated on ContactMe's lazy chunk loading. Without this rule loaded, the
+   img renders at its intrinsic 1592px before the chunk's stylesheet
+   arrives. Filter / drop-shadow stay in Contact.css — purely visual. */
+.contact img {
+  width: 92%;
 }
 
 p.copy {
@@ -284,4 +300,16 @@ p.copy {
 .animate__fadeInLeft {
   -webkit-animation-name: fadeInLeft;
   animation-name: fadeInLeft;
+}
+
+/* ==== Reduced motion preference ==== */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }

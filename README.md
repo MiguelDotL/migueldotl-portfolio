@@ -1,78 +1,60 @@
-# Getting Started with Create React App
+# Miguel Lozano — Portfolio
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+> _[TODO: Miguel — one-line tagline / personal voice. Example: "Front-end engineer building thoughtful, accessible web experiences."]_
 
-## Available Scripts
+**Live site:** [migueldotl.github.io](https://migueldotl.github.io)
 
-In the project directory, you can run:
+---
 
-### `npm start`
+## About
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+_[TODO: Miguel — short paragraph in your own voice: who you are, what you build, what you care about. This is the first thing recruiters read after the live site, so it should feel like you, not me.]_
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## Tech stack
 
-### `npm test`
+- **Framework:** React 18
+- **Styling:** Bootstrap 5 + custom CSS
+- **Build:** [Vite](https://vitejs.dev/) + `@vitejs/plugin-react`
+- **Hosting:** GitHub Pages (built artifact pushed to [`migueldotl.github.io`](https://github.com/MiguelDotL/migueldotl.github.io))
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Local development
 
-### `npm run build`
+```bash
+git clone https://github.com/MiguelDotL/migueldotl-portfolio.git
+cd migueldotl-portfolio
+npm install
+npm run dev
+```
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+App runs at [http://localhost:3000](http://localhost:3000).
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## Build
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+```bash
+npm run build
+```
 
-### `npm run eject`
+Outputs to `dist/`.
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+## Project structure
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+```
+src/
+├── components/    # React components (NavBar, Hero, Projects, Skills, ContactForm, ...)
+├── apis/          # External API clients (form backend)
+├── assets/
+│   ├── images/    # Project screenshots, icons, backgrounds
+│   ├── fonts/     # Custom fonts
+│   └── styles/    # Component-specific CSS
+└── index.jsx      # Entry point
+```
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+## Credits
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+- Hero background image: [Freepik](https://www.freepik.com/free-vector/gradient-galaxy-background_14212522.htm)
+- Skill and tooling icons: [DevIcons](https://devicon.dev/)
+- Social and educational icons: [SVG Repo](https://www.svgrepo.com/)
 
-## Learn More
+## License
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
-
-# react-portfolio
-
-### Credits
-
--   Hero Background Image: [Freepik](https://www.freepik.com/free-vector/gradient-galaxy-background_14212522.htm#position=13)
--   Skill and Tooling SVG Icons: [DevIcons](https://devicon.dev/)
--   Social and Educational SVG Icons: [SVG Repo](https://www.svgrepo.com/)
+[MIT](./LICENSE) © 2026 Miguel Lozano
