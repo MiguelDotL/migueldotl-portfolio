@@ -21,7 +21,7 @@ const Hero = () => {
                                 alt="Floating Caricature"
                                 width={1592}
                                 height={1592}
-                                fetchPriority="high"
+                                {...{ fetchpriority: "high" }}
                             />
                         </picture>
                     </Col>

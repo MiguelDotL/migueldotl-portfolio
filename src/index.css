@@ -1,4 +1,6 @@
-@import "devicon";
+/* devicon — moved to Skills.css so it ships with the lazy-loaded Skills
+   chunk instead of blocking initial paint. (Skills is the only consumer
+   of devicon-* class glyphs.) */
 
 /* ==== Fonts ==== */
 @font-face {
@@ -129,6 +131,14 @@ p.danger {
 
 .nowrap {
   white-space: nowrap;
+}
+
+/* Sizing for the contact bitmoji lives in main CSS (eager) so it isn't
+   gated on ContactMe's lazy chunk loading. Without this rule loaded, the
+   img renders at its intrinsic 1592px before the chunk's stylesheet
+   arrives. Filter / drop-shadow stay in Contact.css — purely visual. */
+.contact img {
+  width: 92%;
 }
 
 p.copy {
