@@ -2,6 +2,15 @@ import { test, expect } from '@playwright/test';
 
 test.describe('contact form', () => {
     test('happy path: fills + submits + shows success', async ({ page }) => {
+        // Intercept Web3Forms POST and force success regardless of env vars.
+        await page.route('**/api.web3forms.com/**', async (route) => {
+            await route.fulfill({
+                status: 200,
+                contentType: 'application/json',
+                body: JSON.stringify({ success: true, message: 'Email sent' }),
+            });
+        });
+
         await page.goto('/#contact');
         await page.getByLabel('First Name (required)').fill('Test');
         await page.getByLabel('Last Name (required)').fill('User');
@@ -13,7 +22,7 @@ test.describe('contact form', () => {
 
         const status = page.getByRole('status');
         await expect(status).toContainText(/Thanks for reaching out/i);
-        await expect(page.getByRole('button')).toContainText(/Sent/);
+        await expect(page.getByRole('button', { name: /sent/i })).toBeVisible();
     });
 
     test('empty submit blocked by HTML5 validation', async ({ page }) => {

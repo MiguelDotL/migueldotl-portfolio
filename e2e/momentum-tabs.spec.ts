@@ -22,7 +22,13 @@ test.describe('MomentumTabs', () => {
 
     test('perimeter SVG present and aria-hidden', async ({ page }) => {
         await page.goto('/#projects');
+        // Ensure the projects section is scrolled into view so the
+        // IntersectionObserver fires and enables MomentumTabs to measure.
+        const tabBar = page.locator('.momentum-tabs');
+        await tabBar.scrollIntoViewIfNeeded();
         const perimeter = page.locator('.momentum-tabs__perimeter');
+        // Wait for the SVG to render — it appears after the indicator effect runs.
+        await expect(perimeter.first()).toBeVisible({ timeout: 10000 });
         await expect(perimeter.first()).toHaveAttribute('aria-hidden', 'true');
     });
 
