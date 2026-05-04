@@ -11,6 +11,7 @@ import '../assets/styles/Projects.css';
 import generalProvision from '../assets/images/projects/general-provision-512.png';
 import trimAgency from '../assets/images/projects/trim-agency-512.png';
 import cSolutions from '../assets/images/projects/c-solutions-512.png';
+import exoticCarTrader from '../assets/images/projects/exotic-car-trader-512.png';
 import filthyFood from '../assets/images/projects/filthy-food-512.png';
 import federated from '../assets/images/projects/federated-512.png';
 import voicepoolImg from '../assets/images/projects/voicepool.png';
@@ -85,6 +86,12 @@ const clientProjects = [
         description: 'Web Development',
         imageURL: cSolutions,
         url: '//csolutions-us.com/'
+    },
+    {
+        title: 'Exotic Car Trader',
+        description: 'Web Development',
+        imageURL: exoticCarTrader,
+        url: '//www.exoticcartrader.com/'
     },
     {
         title: 'Federated Insurance',
