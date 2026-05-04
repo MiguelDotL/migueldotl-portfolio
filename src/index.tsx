@@ -1,4 +1,7 @@
-import "bootstrap/dist/css/bootstrap.min.css";
+// Slim Bootstrap import: we only use Container/Row/Col (grid) + the reset
+// (reboot). Skipping the full bundle saves ~170KB raw CSS.
+import "bootstrap/dist/css/bootstrap-reboot.min.css";
+import "bootstrap/dist/css/bootstrap-grid.min.css";
 
 import React from "react";
 import ReactDOM from "react-dom/client";
