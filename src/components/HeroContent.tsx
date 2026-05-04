@@ -4,6 +4,7 @@ import HeroChatCta from './HeroChatCta';
 import { advanceTyping, initialTypingState, type TypingState } from './heroTyping';
 import { LINKEDIN_URL, DUOLINGO_URL } from '../data/site';
 import useInViewOnce from '../hooks/useInViewOnce';
+import { FADE_IN_SLOWER } from '../constants/animationClasses';
 
 const HeroContent = () => {
     const { ref, inView } = useInViewOnce<HTMLDivElement>();
@@ -27,7 +28,7 @@ const HeroContent = () => {
         <div
             ref={ref}
             className={`content ${
-                inView && 'animate__animated animate__fadeIn animate__slower'
+                inView && FADE_IN_SLOWER
             }`}
         >
             <TaglineBadge>Thanks for dropping by</TaglineBadge>

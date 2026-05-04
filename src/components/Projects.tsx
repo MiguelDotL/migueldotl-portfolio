@@ -35,6 +35,7 @@ import {
 import colorPop from '../assets/images/backgrounds/color-pop-2.png';
 import colorPopWebp from '../assets/images/backgrounds/color-pop-2.webp';
 import ResponsiveImage from './ResponsiveImage';
+import { FADE_IN_SLOWER } from '../constants/animationClasses';
 
 const TABS = ['Client', 'Featured', 'Personal'] as const;
 type Tab = (typeof TABS)[number];
@@ -130,7 +131,7 @@ const Projects = ({ initialInView = false }: ProjectsProps = {}) => {
                             ref={ref}
                             className={`content animate__opacity-0 ${
                                 inView &&
-                                'animate__animated animate__fadeIn animate__slower'
+                                FADE_IN_SLOWER
                             }`}
                         >
                             <h2>Projects</h2>

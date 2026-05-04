@@ -6,6 +6,7 @@ import colorPopWebp from "../assets/images/backgrounds/color-pop.webp";
 import SkillsCarousel from "./SkillsCarousel";
 import useInViewOnce from "../hooks/useInViewOnce";
 import ResponsiveImage from "./ResponsiveImage";
+import { FADE_IN_SLOWER } from "../constants/animationClasses";
 
 const Skills = () => {
     const { ref, inView } = useInViewOnce<HTMLDivElement>();
@@ -29,7 +30,7 @@ const Skills = () => {
                             ref={ref}
                             className={`animate__opacity-0 ${
                                 inView &&
-                                "animate__animated animate__fadeIn animate__slower"
+                                FADE_IN_SLOWER
                             }`}
                         >
                             <h2>Skills</h2>

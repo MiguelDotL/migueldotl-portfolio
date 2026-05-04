@@ -3,6 +3,7 @@ import { Col, Container, Row } from "react-bootstrap";
 import ContactForm from "./ContactForm";
 import useInViewOnce from "../hooks/useInViewOnce";
 import ResponsiveImage from "./ResponsiveImage";
+import { FADE_IN } from "../constants/animationClasses";
 
 import contactImage from "../assets/images/bitmoji/bitmoji-laptop-2.png";
 import contactImageWebp from "../assets/images/bitmoji/bitmoji-laptop-2.webp";
@@ -18,7 +19,7 @@ const ContactMe = () => {
                         <div
                             ref={ref}
                             className={`content animate__opacity-0 ${
-                                inView && "animate__animated animate__fadeIn"
+                                inView && FADE_IN
                             }`}
                         >
                             <h2 className="hire-me nowrap">Wanna Hire Me?</h2>
