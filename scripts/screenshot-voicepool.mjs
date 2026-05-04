@@ -1,4 +1,4 @@
-import puppeteer from "puppeteer";
+import { chromium } from "@playwright/test";
 
 const url = process.env.VOICEPOOL_URL || "http://localhost:3502/";
 const out = "src/assets/images/projects/voicepool.png";
@@ -87,33 +87,35 @@ const mockAccounts = [
     }
 ];
 
-const browser = await puppeteer.launch();
-const page = await browser.newPage();
+const browser = await chromium.launch();
+const context = await browser.newContext({
+    viewport: { width: 1280, height: 720 },
+    deviceScaleFactor: 2
+});
+const page = await context.newPage();
+
 // Smaller 16:9 viewport so Voicepool's centered table fills more relative
 // width — less padding on the sides in the final image.
-await page.setViewport({ width: 1280, height: 720, deviceScaleFactor: 2 });
-
-await page.setRequestInterception(true);
-page.on("request", (req) => {
-    const u = req.url();
+await page.route("**/*", (route) => {
+    const u = route.request().url();
     if (u.endsWith("/api/accounts") || u.includes("/api/accounts?")) {
-        req.respond({
+        route.fulfill({
             status: 200,
             contentType: "application/json",
             body: JSON.stringify(mockAccounts)
         });
     } else if (u.endsWith("/api/accounts/refresh")) {
-        req.respond({
+        route.fulfill({
             status: 200,
             contentType: "application/json",
             body: JSON.stringify({ refreshed: mockAccounts.length })
         });
     } else {
-        req.continue();
+        route.continue();
     }
 });
 
-await page.goto(url, { waitUntil: "networkidle2" });
+await page.goto(url, { waitUntil: "networkidle" });
 // Brief settle so the React app renders the mocked rows + any animations land.
 await new Promise((r) => setTimeout(r, 1500));
 await page.screenshot({ path: out, type: "png", fullPage: false });

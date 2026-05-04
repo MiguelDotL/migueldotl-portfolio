@@ -1,4 +1,4 @@
-import puppeteer from "puppeteer";
+import { chromium } from "@playwright/test";
 
 // Same viewport + retina as screenshot-bcbs-litehouse.mjs so the slider
 // rotation is visually consistent. Drives the BCBS LiteHouse component
@@ -6,10 +6,13 @@ import puppeteer from "puppeteer";
 const url = "https://www.bluecrossnc.com/providers/network-participation";
 const out = "src/assets/images/projects/bcbs-providers.png";
 
-const browser = await puppeteer.launch({ headless: "new" });
-const page = await browser.newPage();
-await page.setViewport({ width: 1792, height: 1008, deviceScaleFactor: 2 });
-await page.goto(url, { waitUntil: "networkidle2", timeout: 60000 });
+const browser = await chromium.launch();
+const context = await browser.newContext({
+    viewport: { width: 1792, height: 1008 },
+    deviceScaleFactor: 2
+});
+const page = await context.newPage();
+await page.goto(url, { waitUntil: "networkidle", timeout: 60000 });
 await new Promise((r) => setTimeout(r, 4000));
 
 await page.click(".login-button");
