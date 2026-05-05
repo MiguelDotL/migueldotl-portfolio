@@ -57,17 +57,80 @@ const MomentumTabs = <T extends string>({
     // frozen by the initializedRef guard.
     useLayoutEffect(() => {
         if (initializedRef.current || !enabled) return;
-        initializedRef.current = true;
-        const el = buttonRefs.current[active];
-        if (el) {
-            setIndicator({
-                left: el.offsetLeft,
-                top: el.offsetTop,
-                width: el.offsetWidth,
-                height: el.offsetHeight
-            });
-        }
+        // Retry across rAF ticks so we don't lock in a zero-width measurement
+        // when the active button hasn't finished layout (font load, content-
+        // visibility skip, etc.). The init flag only flips once we get a real
+        // box; if all retries fail we leave it false so a future trigger
+        // (resize, active change) can try again.
+        let attempts = 0;
+        const tryMeasure = () => {
+            if (initializedRef.current) return;
+            const el = buttonRefs.current[active];
+            if (el && el.offsetWidth > 0) {
+                initializedRef.current = true;
+                setIndicator({
+                    left: el.offsetLeft,
+                    top: el.offsetTop,
+                    width: el.offsetWidth,
+                    height: el.offsetHeight
+                });
+                return;
+            }
+            if (attempts++ < 5) requestAnimationFrame(tryMeasure);
+        };
+        tryMeasure();
     }, [enabled, active]);
+
+    // Watch the active button for size changes and re-measure on each change.
+    // Catches the cases the rAF retry and fonts.ready don't: any reflow that
+    // happens after initial measurement (slow font swap, content shift, parent
+    // width change). RO fires once immediately on observe with current size,
+    // which doubles as a final correction pass for the initial measurement.
+    useEffect(() => {
+        if (!enabled) return;
+        if (typeof ResizeObserver === 'undefined') return;
+        const el = buttonRefs.current[active];
+        if (!el) return;
+        const ro = new ResizeObserver(() => {
+            if (isAnimatingRef.current) return;
+            if (el.offsetWidth > 0) {
+                setIndicator({
+                    left: el.offsetLeft,
+                    top: el.offsetTop,
+                    width: el.offsetWidth,
+                    height: el.offsetHeight
+                });
+            }
+        });
+        ro.observe(el);
+        return () => ro.disconnect();
+    }, [enabled, active, isAnimatingRef]);
+
+    // Re-measure once web fonts finish loading. The initial useLayoutEffect
+    // can fire while system fallback fonts are still in use, which renders the
+    // active tab slightly smaller than its final size. Without this, the
+    // indicator coords get cached against the fallback-font box and the
+    // perimeter trace ends up offset from the now-bigger active tab.
+    useEffect(() => {
+        if (!enabled) return;
+        if (typeof document === 'undefined' || !document.fonts) return;
+        let cancelled = false;
+        document.fonts.ready.then(() => {
+            if (cancelled || isAnimatingRef.current) return;
+            const el = buttonRefs.current[activeRef.current];
+            if (el && el.offsetWidth > 0) {
+                setIndicator({
+                    left: el.offsetLeft,
+                    top: el.offsetTop,
+                    width: el.offsetWidth,
+                    height: el.offsetHeight
+                });
+            }
+        });
+        return () => {
+            cancelled = true;
+        };
+    }, [enabled, isAnimatingRef]);
 
     // Keep the indicator pinned to the active tab when the viewport resizes.
     // Fade out on first resize tick (gated by ref so setState fires once per

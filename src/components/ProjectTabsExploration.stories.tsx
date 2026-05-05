@@ -78,7 +78,7 @@ const PillFillSlidingVariant = () => {
     return (
         <SectionWrap>
             <h3 style={{ color: 'var(--light-grey)', marginBottom: '1em' }}>
-                Pill-fill rubber — gradient pill stretches across source+target then contracts to target
+                Rubber Pill-Fill — the gradient pill rubber-bands across both tabs before settling on the new one.
             </h3>
             <div
                 style={{
@@ -189,7 +189,7 @@ const UnderlineVariant = () => {
     return (
         <SectionWrap>
             <h3 style={{ color: 'var(--light-grey)', marginBottom: '1em' }}>
-                Underline — bold, grey/white, stretch-and-contract slide
+                Underline slide — a thick line under the active tab stretches across to the new one, then contracts to fit. Classic and minimal, but loses the gradient shape.
             </h3>
             <div
                 ref={containerRef}
@@ -396,7 +396,7 @@ const MomentumTraceVariant = () => {
     return (
         <SectionWrap>
             <h3 style={{ color: 'var(--light-grey)', marginBottom: '1em' }}>
-                Momentum trace — rubber underline slide + directional perimeter wrap; forward retract on continued momentum, reverse retract on directional shift
+                Momentum trace — the rubber underline slide, and a thin line that traces around the active tab in the direction you&rsquo;re moving. Reverse direction and the trace rewinds. The version that ultimately shipped.
             </h3>
             <div
                 ref={containerRef}
@@ -524,7 +524,7 @@ const BigTextVariant = () => {
     return (
         <SectionWrap>
             <h3 style={{ color: 'var(--light-grey)', marginBottom: '1em' }}>
-                Big-text — Featured centered, activation cascades through intermediate tabs
+                Big-text cascade — no indicator at all. Tabs are large titles, the active one centered. Click a non-adjacent tab and the highlight cascades through the in-between ones. Editorial feel.
             </h3>
             <div
                 style={{
@@ -571,7 +571,7 @@ const BigTextVariant = () => {
 const StackedSectionsVariant = () => (
     <SectionWrap>
         <h3 style={{ color: 'var(--light-grey)', marginBottom: '1em' }}>
-            No tabs — stacked sections (everything visible, no clicking)
+            No tabs at all — drops the navigation pattern. Every project group is its own section, top to bottom. Zero clicking, but loses the side-by-side comparison framing.
         </h3>
         {TABS.map((tab) => (
             <div key={tab} style={{ marginBottom: '3em' }}>
