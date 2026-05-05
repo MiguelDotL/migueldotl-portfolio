@@ -30,6 +30,11 @@ export default {
                               /^is-/,
                               /^has-/,
                               /^react-multi-carousel/,
+                              // Note inconsistent library naming: most classes
+                              // are `react-multi-carousel-*` (singular) but the
+                              // arrows are `react-multiple-carousel__arrow*`
+                              // (plural). Both prefixes need to be safelisted.
+                              /^react-multiple-carousel/,
                               /^col-/,
                               /^row/,
                               /^container/,
