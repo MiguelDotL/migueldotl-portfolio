@@ -11,7 +11,7 @@ export type NavLink = (typeof NAV_LINKS)[number];
 
 // ── Resume ────────────────────────────────────────────────────────────────────
 
-export const RESUME_PATH = '/resources/miguel_lozano_resume_2024.pdf';
+export const RESUME_PATH = '/resources/miguel_lozano_resume_2026.pdf';
 
 // ── Key external URLs ─────────────────────────────────────────────────────────
 
