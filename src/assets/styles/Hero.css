@@ -37,7 +37,13 @@
 
 .hero .content .tagline {
     display: inline-block;
-    background: linear-gradient(90.21deg, rgba(170, 54, 124, 0.5) -5.91%, rgba(74, 47, 189, 0.5) 111.58%);
+    /* Solid background-color underlies the gradient so axe-core can compute
+       contrast (it can't see through layered alpha + ancestor pseudo
+       overlays). The 50% alpha gradient still paints over this; visual
+       result is unchanged because the area behind the tagline was already
+       near-black via .hero::before. */
+    background-color: var(--bg-color);
+    background-image: linear-gradient(90.21deg, rgba(170, 54, 124, 0.5) -5.91%, rgba(74, 47, 189, 0.5) 111.58%);
     border: 1px solid rgba(255, 255, 255, 0.5);
     font-size: 20px;
     font-size: .8em;
