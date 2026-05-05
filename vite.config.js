@@ -11,33 +11,39 @@ const dirname = typeof __dirname !== 'undefined' ? __dirname : path.dirname(file
 // HTML so the browser can fetch it in parallel with the JS bundle instead
 // of waiting for React to discover it. The asset filename is hashed by
 // Vite at build time, so we look it up in the bundle map.
-const preloadLcpImage = () => ({
-  name: 'preload-lcp-image',
-  apply: 'build',
-  transformIndexHtml: {
-    order: 'post',
-    handler(_html, ctx) {
-      if (!ctx.bundle) return;
-      const key = Object.keys(ctx.bundle).find(
-        (k) => k.includes('bitmoji-space-planet-2') && k.endsWith('.webp')
-      );
-      if (!key) return;
-      return [
-        {
-          tag: 'link',
-          attrs: {
-            rel: 'preload',
-            as: 'image',
-            type: 'image/webp',
-            href: `/${key}`,
-            fetchpriority: 'high'
-          },
-          injectTo: 'head'
-        }
-      ];
+const preloadLcpImage = () => {
+  let base = '/';
+  return {
+    name: 'preload-lcp-image',
+    apply: 'build',
+    configResolved(resolved) {
+      base = resolved.base || '/';
+    },
+    transformIndexHtml: {
+      order: 'post',
+      handler(_html, ctx) {
+        if (!ctx.bundle) return;
+        const key = Object.keys(ctx.bundle).find(
+          (k) => k.includes('bitmoji-space-planet-2') && k.endsWith('.webp')
+        );
+        if (!key) return;
+        return [
+          {
+            tag: 'link',
+            attrs: {
+              rel: 'preload',
+              as: 'image',
+              type: 'image/webp',
+              href: `${base}${key}`,
+              fetchpriority: 'high'
+            },
+            injectTo: 'head'
+          }
+        ];
+      }
     }
-  }
-});
+  };
+};
 
 // More info at: https://storybook.js.org/docs/next/writing-tests/integrations/vitest-addon
 export default defineConfig({
