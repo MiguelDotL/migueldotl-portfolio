@@ -221,14 +221,32 @@ a.project-card {
     letter-spacing: 0.8px;
 }
 
-/* ==== Tab content fade + height transition ==== */
-.tab-content-shell {
-    overflow: hidden;
-    transition: height 320ms cubic-bezier(0.4, 0, 0.2, 1);
+/* ==== Tab content stack ==== */
+/* All three tab content blocks are mounted in a single CSS grid cell so the
+   container's natural height equals the TALLEST tab's content — no layout
+   shift on swap. Inactive panes are hidden via opacity + visibility +
+   pointer-events but still contribute to the grid height calculation.
+   The displayed pane drives the existing serial fade-out → swap → fade-in
+   animation via the .is-displayed + phase-class combo (matching Projects.tsx). */
+.tab-content-stack {
+    display: grid;
+    grid-template-areas: "stack";
 }
 
-.tab-content-fade {
+.tab-pane {
+    grid-area: stack;
+    visibility: hidden;
+    opacity: 0;
+    pointer-events: none;
+}
+
+/* The displayed pane is the visible one (matches `displayedTab` in JSX,
+   which lags `activeTab` during the exit window so the OLD tab keeps
+   running its exit animation before the swap). */
+.tab-pane.is-displayed {
+    visibility: visible;
     opacity: 1;
+    pointer-events: auto;
     transform: translateX(0);
     transition: opacity 369ms ease-in-out,
         transform 369ms cubic-bezier(0.4, 0, 0.2, 1);
@@ -236,31 +254,31 @@ a.project-card {
 
 /* Exit: outgoing content slides AWAY from the direction of the clicked tab.
    Click right → slides left. Click left → slides right. */
-.tab-content-fade.is-exiting {
+.tab-pane.is-displayed.is-exiting {
     opacity: 0;
 }
-.tab-content-fade.is-exiting--forward {
+.tab-pane.is-displayed.is-exiting--forward {
     transform: translateX(-32px);
 }
-.tab-content-fade.is-exiting--backward {
+.tab-pane.is-displayed.is-exiting--backward {
     transform: translateX(32px);
 }
 
 /* Enter: incoming content slides IN from the direction of the clicked tab.
    Click right → enters from right. Click left → enters from left. */
-@keyframes tab-content-enter-forward {
+@keyframes tab-pane-enter-forward {
     from { opacity: 0; transform: translateX(32px); }
     to   { opacity: 1; transform: translateX(0); }
 }
-@keyframes tab-content-enter-backward {
+@keyframes tab-pane-enter-backward {
     from { opacity: 0; transform: translateX(-32px); }
     to   { opacity: 1; transform: translateX(0); }
 }
-.tab-content-fade.is-entering--forward {
-    animation: tab-content-enter-forward 369ms cubic-bezier(0.4, 0, 0.2, 1);
+.tab-pane.is-displayed.is-entering--forward {
+    animation: tab-pane-enter-forward 369ms cubic-bezier(0.4, 0, 0.2, 1);
 }
-.tab-content-fade.is-entering--backward {
-    animation: tab-content-enter-backward 369ms cubic-bezier(0.4, 0, 0.2, 1);
+.tab-pane.is-displayed.is-entering--backward {
+    animation: tab-pane-enter-backward 369ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 /* ==== Featured Project Cards ==== */
