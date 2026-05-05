@@ -14,9 +14,16 @@ type StoryArgs = {
 
 const meta: Meta<StoryArgs> = {
     title: 'Components/Composites/MomentumTabs',
+    /* MomentumTabs caches its initial indicator measurement in
+       `initializedRef`. Without a story-id key, switching between stories
+       reuses the component instance — useLayoutEffect short-circuits on the
+       stale ref and the indicator stays pinned to the previous story's
+       active button. Keying the wrapper on ctx.id forces a fresh mount per
+       story so the measurement runs again. */
     decorators: [
-        (Story) => (
+        (Story, ctx) => (
             <section
+                key={ctx.id}
                 className="projects"
                 style={{ background: 'var(--almost-black)', padding: '4rem 1rem' }}
             >
