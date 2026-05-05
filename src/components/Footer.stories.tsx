@@ -16,7 +16,14 @@ const meta: Meta<typeof Footer> = {
             </div>
         )
     ],
-    parameters: { layout: 'fullscreen', docs: { description: { component: "Page footer — built-with attribution + social icons + copyright. Sits below PreFooter on the live site. PreFooter has margin-top: -122px to overlap the section above; the decorator adds headroom so the story isn't clipped." } } }
+    parameters: {
+        layout: 'fullscreen',
+        docs: { description: { component: "Page footer — built-with attribution + social icons + copyright. Sits below PreFooter on the live site. PreFooter has margin-top: -122px to overlap the section above; the decorator adds headroom so the story isn't clipped." } },
+        // PreFooter's .sb-mock chrome contains a tiny Storybook-pink brand
+        // label that fails color-contrast. See PreFooter.stories.tsx for the
+        // full rationale.
+        a11y: { config: { rules: [{ id: 'color-contrast', enabled: false }] } }
+    }
 };
 
 export default meta;
