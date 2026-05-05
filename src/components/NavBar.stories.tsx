@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { userEvent } from 'storybook/test';
+import { userEvent, within } from 'storybook/test';
 import NavBar from './NavBar';
 
 const meta: Meta<typeof NavBar> = {
@@ -33,10 +33,11 @@ export const Scrolled: Story = {
     }
 };
 
-// Drives the mobile collapse toggle (handleToggle) — the Bootstrap
-// Navbar.Toggle is hidden via CSS at desktop widths but the button
-// element is still present in the DOM, so we can click it directly.
+// Drives the mobile collapse toggle (handleToggle) at mobile viewport
+// width where Bootstrap renders the hamburger. Both clicks so we exercise
+// expanded=true and expanded=false paths through handleToggle.
 export const ToggleCollapsed: Story = {
+    parameters: { viewport: { defaultViewport: 'mobile1' } },
     play: async ({ canvasElement }) => {
         const toggle = canvasElement.querySelector(
             'button.navbar-toggler'
@@ -44,5 +45,20 @@ export const ToggleCollapsed: Story = {
         if (!toggle) return;
         await userEvent.click(toggle);
         await userEvent.click(toggle);
+    }
+};
+
+// Stubs window.open and clicks the resume button to exercise its onClick
+// handler without actually opening a new browser tab in the test runner.
+export const ResumeButtonClicked: Story = {
+    play: async ({ canvasElement, step }) => {
+        await step('stub window.open', () => {
+            // Replace window.open with a no-op so the click doesn't try to
+            // navigate the test browser to an external URL.
+            window.open = (() => null) as unknown as typeof window.open;
+        });
+        const canvas = within(canvasElement);
+        const resumeBtn = canvas.getByRole('button', { name: /My Resume/i });
+        await userEvent.click(resumeBtn);
     }
 };

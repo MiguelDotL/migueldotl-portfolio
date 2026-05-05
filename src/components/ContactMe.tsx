@@ -1,13 +1,15 @@
 import "../assets/styles/Contact.css";
 import { Col, Container, Row } from "react-bootstrap";
-import { useInView } from "react-intersection-observer";
 import ContactForm from "./ContactForm";
+import useInViewOnce from "../hooks/useInViewOnce";
+import ResponsiveImage from "./ResponsiveImage";
+import { FADE_IN } from "../constants/animationClasses";
 
 import contactImage from "../assets/images/bitmoji/bitmoji-laptop-2.png";
 import contactImageWebp from "../assets/images/bitmoji/bitmoji-laptop-2.webp";
 
 const ContactMe = () => {
-    const { ref, inView } = useInView({ triggerOnce: true });
+    const { ref, inView } = useInViewOnce<HTMLDivElement>();
 
     return (
         <section id="contact" className="contact">
@@ -17,17 +19,15 @@ const ContactMe = () => {
                         <div
                             ref={ref}
                             className={`content animate__opacity-0 ${
-                                inView && "animate__animated animate__fadeIn"
+                                inView && FADE_IN
                             }`}
                         >
                             <h2 className="hire-me nowrap">Wanna Hire Me?</h2>
-                            <picture>
-                                <source srcSet={contactImageWebp} type="image/webp" />
-                                <img
-                                    src={contactImage}
-                                    alt="Caricature of Miguel working at a laptop"
-                                />
-                            </picture>
+                            <ResponsiveImage
+                                src={contactImage}
+                                srcWebp={contactImageWebp}
+                                alt="Caricature of Miguel working at a laptop"
+                            />
                         </div>
                     </Col>
                     <Col md={6} className="contact-form-container">

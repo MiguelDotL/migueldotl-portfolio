@@ -1,16 +1,16 @@
 import { useRef, useState } from "react";
 import type { ChangeEvent, FormEvent } from "react";
-import axios from "axios";
 import { Col, Row } from "react-bootstrap";
+import FormStatusMessage from "./FormStatusMessage";
+import useFormSubmit, { type SubmitStatus } from "../hooks/useFormSubmit";
+import { FORM } from "../config/env";
 
-type FormStatus = {
-    status: number | null;
-    success: boolean | null;
-    error: string | null;
-    message: string;
+const BUTTON_LABELS: Record<SubmitStatus, string> = {
+    idle: "Send",
+    submitting: "Sending...",
+    success: "Sent ✓",
+    error: "Send"
 };
-
-type SubmitResponse = { status: number; data: { success: boolean; message: string } };
 
 const initialValues = {
     firstName: "",
@@ -49,38 +49,15 @@ const validate = (values: FormValues): FieldErrors => {
     return errs;
 };
 
-const submitForm = async (
-    payload: Record<string, string>
-): Promise<SubmitResponse> => {
-    const mock = import.meta.env.VITE_MOCK_FORM;
-    const isMockable = import.meta.env.DEV && import.meta.env.MODE !== "test";
-    if (isMockable && mock) {
-        await new Promise((resolve) => setTimeout(resolve, 500));
-        if (mock === "error") {
-            return { status: 200, data: { success: false, message: "[MOCK] Spam detected" } };
-        }
-        if (mock === "throw") {
-            throw new Error("[MOCK] Request failed with status code 429");
-        }
-        return { status: 200, data: { success: true, message: "[MOCK] Email sent" } };
-    }
-    return axios.post(import.meta.env.VITE_FORM_ENDPOINT, payload);
-};
-
 const ContactForm = () => {
     const [formValues, setFormValues] = useState<FormValues>(initialValues);
-    const [buttonText, setButtonText] = useState("Send");
-    const [loading, setLoading] = useState(false);
     const [submitAttempted, setSubmitAttempted] = useState(false);
-    const [formStatus, setFormStatus] = useState<FormStatus>({
-        status: null,
-        success: null,
-        error: null,
-        message: ""
-    });
     const formRef = useRef<HTMLFormElement>(null);
 
-    const isSent = formStatus.success === true;
+    const { status, message, submit } = useFormSubmit();
+
+    const buttonLabel = BUTTON_LABELS[status];
+    const isSent = status === 'success';
 
     // Errors render only after the user attempts submit. Derived from
     // formValues each render, so messages clear themselves as fields are
@@ -98,9 +75,9 @@ const ContactForm = () => {
         };
     };
 
-    const onFormSubmit = (e: FormEvent<HTMLFormElement>) => {
+    const onFormSubmit = async (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        if (loading || isSent) return;
+        if (status === 'submitting' || isSent) return;
 
         const errs = validate(formValues);
         setSubmitAttempted(true);
@@ -114,48 +91,18 @@ const ContactForm = () => {
             return;
         }
 
-        setButtonText("Sending...");
-        setLoading(true);
-
         const payload = {
-            access_key: import.meta.env.VITE_FORM_ACCESS_KEY,
+            access_key: FORM.accessKey,
             subject: `Portfolio contact from ${formValues.firstName} ${formValues.lastName}`.trim(),
             ...formValues
         };
 
-        submitForm(payload)
-            .then((response) => {
-                if (response.data.success) {
-                    setFormStatus({
-                        success: true,
-                        status: response.status,
-                        error: null,
-                        message: "Thanks for reaching out, I'll be in touch!"
-                    });
-                    setFormValues(initialValues);
-                    setSubmitAttempted(false);
-                    setButtonText("Sent ✓");
-                } else {
-                    setFormStatus({
-                        success: false,
-                        status: response.status,
-                        error: response.data.message ?? "Submission failed",
-                        message: "Oops! Request Failed. Please try again soon"
-                    });
-                    setButtonText("Send");
-                }
-                setLoading(false);
-            })
-            .catch((error: Error) => {
-                setFormStatus({
-                    success: false,
-                    status: null,
-                    error: error.message,
-                    message: "Oops! Request Failed. Please try again soon"
-                });
-                setLoading(false);
-                setButtonText("Send");
-            });
+        const succeeded = await submit(payload);
+
+        if (succeeded) {
+            setFormValues(initialValues);
+            setSubmitAttempted(false);
+        }
     };
 
     const containerClasses = [
@@ -166,12 +113,12 @@ const ContactForm = () => {
         .filter(Boolean)
         .join(" ");
 
-    const statusClass =
-        formStatus.success === true
-            ? "success"
-            : formStatus.success === false
-            ? "danger"
-            : "";
+    const statusVariant: 'success' | 'danger' | null =
+        status === 'success'
+            ? 'success'
+            : status === 'error'
+            ? 'danger'
+            : null;
 
     const fieldError = (name: FieldName) => {
         const err = errors[name];
@@ -284,27 +231,14 @@ const ContactForm = () => {
                 <div className={containerClasses}>
                     <button
                         type="submit"
-                        disabled={loading || isSent}
+                        disabled={status === 'submitting' || isSent}
                     >
-                        <span>{buttonText}</span>
+                        <span>{buttonLabel}</span>
                     </button>
-                    <div
-                        className={`form-status-message ${statusClass}`}
-                        role="status"
-                        aria-live="polite"
-                    >
-                        {isSent && (
-                            <span className="envelope-icon" aria-hidden="true">
-                                {"\u{1F4E8}"}
-                            </span>
-                        )}
-                        {formStatus.success === false && (
-                            <span className="error-icon" aria-hidden="true">
-                                {"\u{1F605}"}
-                            </span>
-                        )}
-                        <p>{formStatus.message}</p>
-                    </div>
+                    <FormStatusMessage
+                        variant={statusVariant}
+                        message={message}
+                    />
                 </div>
             </Row>
         </form>

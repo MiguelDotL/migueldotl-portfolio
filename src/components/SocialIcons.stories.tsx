@@ -39,6 +39,21 @@ export default meta;
 
 type Story = StoryObj<typeof SocialIcons>;
 
+// Each story plays a hover/unhover on the first icon so per-story
+// coverage exercises the onMouseEnter/onMouseLeave arrow handlers
+// (lines 27-28 in SocialIcons.tsx). Without this the per-story panel
+// shows funcs 3 and 4 as uncalled even though the aggregate report
+// hits them via HoverInteracted.
+const hoverFirstIcon = async ({
+    canvasElement
+}: {
+    canvasElement: HTMLElement;
+}) => {
+    const link = within(canvasElement).getAllByRole('link')[0]!;
+    await userEvent.hover(link);
+    await userEvent.unhover(link);
+};
+
 export const NavBarSocials: Story = {
     args: {
         config: [
@@ -61,7 +76,8 @@ export const NavBarSocials: Story = {
                 label: 'GitHub'
             }
         ]
-    }
+    },
+    play: hoverFirstIcon
 };
 
 export const FooterSocials: Story = {
@@ -73,7 +89,8 @@ export const FooterSocials: Story = {
             { className: 'codecademy', icon: codecademyIcon, url: '//www.codecademy.com/profiles/MiguelDotL', label: 'Codecademy' },
             { className: 'duolingo', icon: duolingoIcon, url: '//www.duolingo.com/profile/MiguelDotL', label: 'Duolingo' }
         ]
-    }
+    },
+    play: hoverFirstIcon
 };
 
 export const Playground: Story = {
@@ -94,7 +111,8 @@ export const Playground: Story = {
             { className: 'codepen', icon: codepenIcon, url: '//codepen.io/MiguelDotL', label: 'CodePen' }
         ],
         onHover: action('iconHover')
-    }
+    },
+    play: hoverFirstIcon
 };
 
 // Drives the onMouseEnter / onMouseLeave callbacks (only fire when the

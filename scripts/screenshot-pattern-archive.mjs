@@ -1,4 +1,4 @@
-import puppeteer from "puppeteer";
+import { chromium } from "@playwright/test";
 
 const url = process.env.PA_URL || "http://localhost:5173";
 const outDir = "src/assets/images/projects";
@@ -42,18 +42,20 @@ const mockProjects = [
 
 const projectsById = Object.fromEntries(mockProjects.map((p) => [p.project_id, p]));
 
-const browser = await puppeteer.launch({ headless: "new" });
-const page = await browser.newPage();
-await page.setViewport({ width: 1440, height: 900, deviceScaleFactor: 2 });
+const browser = await chromium.launch();
+const context = await browser.newContext({
+    viewport: { width: 1440, height: 900 },
+    deviceScaleFactor: 2
+});
+const page = await context.newPage();
 
-await page.setRequestInterception(true);
-page.on("request", (req) => {
-    const u = new URL(req.url());
-    const path = u.pathname;
+await page.route("**/*", (route) => {
+    const u = new URL(route.request().url());
+    const reqPath = u.pathname;
 
     // Mock the projects list
-    if (path === "/api/projects") {
-        return req.respond({
+    if (reqPath === "/api/projects") {
+        return route.fulfill({
             status: 200,
             contentType: "application/json",
             body: JSON.stringify(mockProjects)
@@ -62,7 +64,7 @@ page.on("request", (req) => {
 
     // Mock pairs list with 4 newly-paired entries (status='paired') so
     // the autopilot banner reads "1 actively building of 5 in flight".
-    if (path === "/api/pairs") {
+    if (reqPath === "/api/pairs") {
         const newPairs = Array.from({ length: 4 }, (_, i) => {
             const idx = i + 13;
             const projectId = String(idx).padStart(4, "0");
@@ -75,7 +77,7 @@ page.on("request", (req) => {
                 project_id: projectId
             };
         });
-        return req.respond({
+        return route.fulfill({
             status: 200,
             contentType: "application/json",
             body: JSON.stringify(newPairs)
@@ -83,12 +85,12 @@ page.on("request", (req) => {
     }
 
     // Mock individual project lookups (used by Wizard)
-    const projMatch = path.match(/^\/api\/projects\/([^/]+)$/);
+    const projMatch = reqPath.match(/^\/api\/projects\/([^/]+)$/);
     if (projMatch) {
         const id = projMatch[1];
         const proj = projectsById[id];
         if (proj) {
-            return req.respond({
+            return route.fulfill({
                 status: 200,
                 contentType: "application/json",
                 body: JSON.stringify(proj)
@@ -99,7 +101,7 @@ page.on("request", (req) => {
     // Mock the YouTube uploaded-videos list (Library's "Uploaded" section).
     // 5 entries total: 3 scheduled (private, future scheduled_at) + 2
     // posted (public). Generic titles only.
-    if (path === "/api/youtube/videos") {
+    if (reqPath === "/api/youtube/videos") {
         const entries = [
             { title: "The Open Door", scheduled: true, daysOffset: 3 },
             { title: "The Quiet Echo", scheduled: true, daysOffset: 2 },
@@ -129,7 +131,7 @@ page.on("request", (req) => {
                 local_thumbnail: ""
             };
         });
-        return req.respond({
+        return route.fulfill({
             status: 200,
             contentType: "application/json",
             body: JSON.stringify({
@@ -142,15 +144,15 @@ page.on("request", (req) => {
 
     // Mock build-progress endpoints with a partial-progress payload so the
     // queue rows render their progress bars.
-    if (path.match(/\/build-progress$/)) {
-        return req.respond({
+    if (reqPath.match(/\/build-progress$/)) {
+        return route.fulfill({
             status: 200,
             contentType: "application/json",
             body: JSON.stringify({ stage: "building", overall_pct: 58, sub_stage: "pass2" })
         });
     }
-    if (path.match(/\/broll-progress$/)) {
-        return req.respond({
+    if (reqPath.match(/\/broll-progress$/)) {
+        return route.fulfill({
             status: 200,
             contentType: "application/json",
             body: JSON.stringify({ stage: "broll", overall_pct: 65 })
@@ -160,8 +162,8 @@ page.on("request", (req) => {
     // Mock worker status so the building project shows as actively
     // running (active_project_ids → 'active' rowState → green sub-line
     // with segmented progress bar in the queue row).
-    if (path === "/api/worker/status") {
-        return req.respond({
+    if (reqPath === "/api/worker/status") {
+        return route.fulfill({
             status: 200,
             contentType: "application/json",
             body: JSON.stringify({
@@ -177,7 +179,7 @@ page.on("request", (req) => {
     }
 
     // Pass everything else through (youtube/status, etc.)
-    req.continue();
+    route.continue();
 });
 
 const shots = [
@@ -188,7 +190,7 @@ const shots = [
 ];
 
 for (const { name, route, waitMs } of shots) {
-    await page.goto(`${url}${route}`, { waitUntil: "networkidle2" });
+    await page.goto(`${url}${route}`, { waitUntil: "networkidle" });
     await new Promise((r) => setTimeout(r, waitMs));
     // Library page caps the "Uploaded" list height with overflow-y:auto
     // (3 rows collapsed, ~viewport when expanded). Inject a style override

@@ -514,7 +514,7 @@ const BigTextVariant = () => {
 
         let delay = 0;
         for (let i = sourceIdx + step; step > 0 ? i <= targetIdx : i >= targetIdx; i += step) {
-            const tab = BIG_TEXT_TABS[i];
+            const tab = BIG_TEXT_TABS[i]!;
             const t = window.setTimeout(() => setActive(tab), delay);
             cascadeTimers.current.push(t);
             delay += stepDelay;

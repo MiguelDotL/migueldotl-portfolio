@@ -1,13 +1,15 @@
 import { useRef, useState, type MouseEvent } from 'react';
+import ResponsiveImage from './ResponsiveImage';
+import { HOVER_ZOOM_PAN_TRANSITION } from '../config/timings';
 
-type Props = {
+export type HoverZoomPanProps = {
     src: string;
     /** Optional WebP source served via <picture> when supported. */
     srcWebp?: string;
     alt: string;
     /** Multiplier on hover (1.63 = 163%). Defaults to 1.63. */
     zoomScale?: number;
-    /** Transition duration in ms for zoom in/out. Defaults to 693. */
+    /** Transition duration in ms for zoom in/out. Defaults to 963. */
     transitionMs?: number;
 };
 
@@ -16,8 +18,8 @@ const HoverZoomPan = ({
     srcWebp,
     alt,
     zoomScale = 1.63,
-    transitionMs = 963
-}: Props) => {
+    transitionMs = HOVER_ZOOM_PAN_TRANSITION
+}: HoverZoomPanProps) => {
     // transformOrigin is purely visual state — write it to the DOM directly via
     // ref instead of going through React state. setState on every mousemove
     // would force a full component rerender 60+ times per second.
@@ -59,10 +61,14 @@ const HoverZoomPan = ({
             onMouseLeave={handleMouseLeave}
             onMouseMove={handleMouseMove}
         >
-            <picture>
-                {srcWebp && <source srcSet={srcWebp} type="image/webp" />}
-                <img ref={imgRef} src={src} alt={alt} loading="lazy" style={imgStyle} />
-            </picture>
+            <ResponsiveImage
+                ref={imgRef}
+                src={src}
+                srcWebp={srcWebp}
+                alt={alt}
+                loading="lazy"
+                style={imgStyle}
+            />
         </div>
     );
 };

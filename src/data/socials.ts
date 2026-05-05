@@ -1,0 +1,70 @@
+import linkedInIcon from '../assets/images/icons/linked-in.svg';
+import twitterXIcon from '../assets/images/icons/twitter-x.svg';
+import githubIcon from '../assets/images/icons/github-2.svg';
+import codepenIcon from '../assets/images/icons/codepen-icon.svg';
+import npmIcon from 'devicon/icons/npm/npm-original-wordmark.svg';
+import codewarsIcon from '../assets/images/icons/codewars-icon.svg';
+import codecademyIcon from '../assets/images/icons/codecademy-icon.svg';
+import duolingoIcon from '../assets/images/icons/duolingo-icon.svg';
+
+// ── Type (re-exported from SocialIcons) ──────────────────────────────────────
+
+export type { SocialIconConfig } from '../components/SocialIcons';
+
+// ── Data ──────────────────────────────────────────────────────────────────────
+
+/** Social links shown in the NavBar (LinkedIn, X, GitHub). */
+export const NAV_SOCIALS = [
+    {
+        className: 'linked-in',
+        icon: linkedInIcon,
+        url: 'https://www.linkedin.com/in/migueldot/',
+        label: 'LinkedIn'
+    },
+    {
+        className: 'twitter',
+        icon: twitterXIcon,
+        url: '//twitter.com/MiguelDotL',
+        label: 'X (Twitter)'
+    },
+    {
+        className: 'github',
+        icon: githubIcon,
+        url: '//github.com/MiguelDotL',
+        label: 'GitHub'
+    }
+] as const satisfies import('../components/SocialIcons').SocialIconConfig[];
+
+/** Social links shown in the Footer (CodePen, npm, Codewars, Codecademy, Duolingo). */
+export const FOOTER_SOCIALS = [
+    {
+        className: 'codepen',
+        icon: codepenIcon,
+        url: '//codepen.io/MiguelDotL',
+        label: 'CodePen'
+    },
+    {
+        className: 'npm',
+        icon: npmIcon,
+        url: '//www.npmjs.com/~migueldotl',
+        label: 'npm'
+    },
+    {
+        className: 'codewars',
+        icon: codewarsIcon,
+        url: '//www.codewars.com/users/MiguelDotL',
+        label: 'Codewars'
+    },
+    {
+        className: 'codecademy',
+        icon: codecademyIcon,
+        url: '//www.codecademy.com/profiles/MiguelDotL',
+        label: 'Codecademy'
+    },
+    {
+        className: 'duolingo',
+        icon: duolingoIcon,
+        url: '//www.duolingo.com/profile/MiguelDotL',
+        label: 'Duolingo'
+    }
+] as const satisfies import('../components/SocialIcons').SocialIconConfig[];
