@@ -118,8 +118,18 @@ button {
   background-color: transparent;
 }
 
-input:focus, textarea:focus, select:focus {
+/* Suppress all default browser focus/active rings + Bootstrap's
+   focus box-shadow rings on interactive elements. Component-level
+   styles (active tab perimeter, button hover, etc.) carry the
+   visual feedback. Note: blanket suppression trades keyboard a11y
+   visibility — re-add subtle :focus-visible indicators if needed. */
+button:focus, button:focus-visible, button:active,
+a:focus, a:focus-visible, a:active,
+input:focus, input:focus-visible,
+textarea:focus, textarea:focus-visible,
+select:focus, select:focus-visible {
   outline: none;
+  box-shadow: none;
 }
 
 /* .success, */
