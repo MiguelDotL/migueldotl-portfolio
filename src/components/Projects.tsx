@@ -6,7 +6,6 @@ import MomentumTabs from './MomentumTabs';
 import FeaturedTabContent from './FeaturedTabContent';
 import ClientTabContent from './ClientTabContent';
 import PersonalTabContent from './PersonalTabContent';
-import useHeightTransition from '../hooks/useHeightTransition';
 
 import { TAB_ANIMATION } from './projectsTabAnimation';
 
@@ -53,11 +52,6 @@ const Projects = ({ initialInView = false }: ProjectsProps = {}) => {
         setDirection(newIdx > oldIdx ? 'forward' : 'backward');
         setActiveTab(next);
     };
-
-    // Smooth height transition as tab content changes. The hook attaches a
-    // ResizeObserver to the inner div; the shell wraps it with `overflow: hidden`
-    // and a CSS transition on `height` so the section grows/shrinks fluidly.
-    const { ref: innerRef, height: shellHeight } = useHeightTransition<HTMLDivElement>([]);
 
     useEffect(() => {
         if (activeTab === displayedTab) return;
@@ -138,28 +132,31 @@ const Projects = ({ initialInView = false }: ProjectsProps = {}) => {
                                 onChange={handleTabChange}
                                 enabled={inView}
                             />
-                            <div
-                                className="tab-content-shell"
-                                style={
-                                    shellHeight !== null
-                                        ? { height: shellHeight }
-                                        : undefined
-                                }
-                            >
-                                <div
-                                    ref={innerRef}
-                                    className={`tab-content-fade ${
-                                        phase === 'exiting'
+                            <div className="tab-content-stack">
+                                {(['Featured', 'Client', 'Personal'] as const).map((tab) => {
+                                    const isDisplayed = displayedTab === tab;
+                                    const phaseClass = !isDisplayed
+                                        ? ''
+                                        : phase === 'exiting'
                                             ? `is-exiting is-exiting--${direction}`
                                             : phase === 'entering'
-                                            ? `is-entering--${direction}`
-                                            : ''
-                                    }`}
-                                >
-                                    {displayedTab === 'Featured' && <FeaturedTabContent />}
-                                    {displayedTab === 'Client' && <ClientTabContent />}
-                                    {displayedTab === 'Personal' && <PersonalTabContent />}
-                                </div>
+                                                ? `is-entering--${direction}`
+                                                : '';
+                                    const className = `tab-pane ${
+                                        isDisplayed ? 'is-displayed' : ''
+                                    } ${phaseClass}`.trim().replace(/\s+/g, ' ');
+                                    return (
+                                        <div
+                                            key={tab}
+                                            className={className}
+                                            aria-hidden={!isDisplayed}
+                                        >
+                                            {tab === 'Featured' && <FeaturedTabContent />}
+                                            {tab === 'Client' && <ClientTabContent />}
+                                            {tab === 'Personal' && <PersonalTabContent />}
+                                        </div>
+                                    );
+                                })}
                             </div>
                         </div>
                     </Col>
