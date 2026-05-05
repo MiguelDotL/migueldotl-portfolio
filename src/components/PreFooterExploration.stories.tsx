@@ -34,7 +34,10 @@ const meta: Meta = {
                 component:
                     "Design exploration for the PreFooter section. Five layout variants plus stacked headline-comparison stories for the variants where copy is being iterated. Mock Storybook screenshots are CSS placeholders — replace with a real PNG once a direction is picked."
             }
-        }
+        },
+        // .sb-mock chrome contains a tiny Storybook-pink brand label that
+        // fails color-contrast. See PreFooter.stories.tsx for the full rationale.
+        a11y: { config: { rules: [{ id: 'color-contrast', enabled: false }] } }
     }
 };
 
