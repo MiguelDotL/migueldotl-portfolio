@@ -55,6 +55,337 @@
     padding: 0 1rem 2rem;
 }
 
+/* Registered angle property so the GH gradient can rotate smoothly when
+   the SB button is hovered. CSS can't transition gradient strings, but it
+   can transition a registered <angle> custom property used inside one. */
+@property --cta-grad-angle {
+    syntax: '<angle>';
+    inherits: false;
+    initial-value: 131deg;
+}
+
+/* === New layout: split screenshot + copy === */
+
+.built-with.v-screenshot {
+    padding: 32px 32px 28px;
+}
+
+.v-screenshot__h {
+    text-align: left;
+    margin-bottom: 1em;
+}
+
+.built-with .lead-copy {
+    color: var(--mid-grey);
+    font-size: 0.95rem;
+    line-height: 1.55;
+    margin-bottom: 1.5em;
+}
+
+.built-with .lead-copy a {
+    background: linear-gradient(131deg, #aa367c 28%, #4a2fbd 71%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+    font-weight: 600;
+    text-decoration: underline;
+    text-decoration-color: #aa367c;
+    text-underline-offset: 2px;
+    text-decoration-thickness: 1.5px;
+    transition: text-decoration-thickness 0.15s ease, text-decoration-color 0.15s ease;
+}
+
+.built-with .lead-copy a:hover {
+    text-decoration-color: #4a2fbd;
+    text-decoration-thickness: 2.5px;
+}
+
+.cta-row {
+    display: flex;
+    justify-content: center;
+    gap: 0.8em;
+    flex-wrap: wrap;
+    margin-bottom: 0.4em;
+}
+
+.cta-row--start {
+    justify-content: flex-start;
+}
+
+/* Rectangular button shape — applied on the cta-row to flip both buttons
+   inside from pill (default 999px) to sharp rectangle. Matches the
+   Contact form Send button pattern. */
+.cta-row--rect .cta-btn {
+    border-radius: 0;
+}
+
+.cta-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5em;
+    padding: 0.7em 1.4em;
+    border-radius: 999px;
+    font-weight: 600;
+    text-decoration: none;
+    --cta-grad-angle: 131deg;
+    background: linear-gradient(var(--cta-grad-angle), #aa367c 28%, #4a2fbd 71%);
+    color: #fff;
+    transition:
+        transform 0.18s ease,
+        box-shadow 0.18s ease,
+        --cta-grad-angle 0.3s ease-in-out,
+        background-color 0.25s ease,
+        color 0.25s ease,
+        border-color 0.25s ease;
+    border: 0;
+    line-height: 1.2;
+}
+
+
+/* On SB hover, rotate the GH gradient 180°. Combined with SB filling pink
+   at its left edge, the two buttons read as one continuous gradient that
+   has flipped — purple ends up on GH's left, pink in the middle (GH right
+   + SB left), purple back on SB's right. */
+.cta-row:has(.cta-btn--alt:hover) .cta-btn:not(.cta-btn--alt) {
+    --cta-grad-angle: 311deg;
+}
+
+.cta-btn img {
+    filter: brightness(0) invert(1);
+}
+
+.cta-btn:hover {
+    transform: translateY(-2px);
+    color: #fff;
+    box-shadow: 0 8px 18px rgba(74, 47, 189, 0.25);
+}
+
+.cta-btn--alt {
+    background: transparent;
+    color: #4a2fbd;
+    border: 2px solid #4a2fbd;
+    padding: calc(0.7em - 2px) calc(1.4em - 2px);
+    position: relative;
+    overflow: hidden;
+    isolation: isolate;
+}
+
+/* Left-to-right gradient fill on hover. Pink-left, purple-right —
+   continuing the GH gradient as it rotates: GH's right edge becomes pink,
+   SB's left edge picks it up at pink, and SB transitions back to purple
+   at its right. */
+.cta-btn--alt::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 0;
+    height: 100%;
+    background: linear-gradient(131deg, #aa367c 28%, #4a2fbd 71%);
+    transition: width 0.3s ease-in-out;
+    z-index: -1;
+    pointer-events: none;
+}
+
+.cta-btn--alt:hover::before {
+    width: 100%;
+}
+
+.cta-btn--alt img {
+    filter: none;
+}
+
+.cta-btn--alt .sb-icon__inner {
+    fill: #fff;
+    transition: fill 0.3s ease-in-out;
+}
+
+.cta-btn--alt:hover {
+    color: #fff;
+    transform: none;
+    box-shadow: none;
+}
+
+.cta-btn--alt:hover .sb-icon__inner {
+    fill: #aa367c;
+}
+
+.v-screenshot .tech-label {
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: #3d3a55;
+    margin: 2.5em 0 1em;
+}
+
+.tech-badges {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4em;
+}
+
+.tech-badges li {
+    font-size: 0.72rem;
+    font-weight: 500;
+    letter-spacing: 0.3px;
+    color: #4a2fbd;
+    background: rgba(74, 47, 189, 0.08);
+    padding: 0.28em 0.7em;
+    border-radius: 999px;
+    white-space: nowrap;
+}
+
+.sb-frame {
+    display: block;
+    position: relative;
+    border-radius: 14px;
+    overflow: hidden;
+    text-decoration: none;
+    box-shadow: 0 12px 32px rgba(20, 20, 40, 0.25);
+}
+
+/* SB-chrome wrapper: topbar + sidebar + canvas (iframe inside canvas) */
+.sb-mock {
+    width: 100%;
+    aspect-ratio: 16 / 10;
+    background: #fafafc;
+    border-radius: 12px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+.sb-mock__topbar {
+    height: 28px;
+    background: #fff;
+    border-bottom: 1px solid #ececf2;
+    display: flex;
+    align-items: center;
+    padding: 0 0.7em;
+    justify-content: space-between;
+    flex-shrink: 0;
+}
+
+.sb-mock__brand {
+    font-size: 0.7rem;
+    font-weight: 700;
+    color: #ff4785;
+    letter-spacing: 0.3px;
+}
+
+.sb-mock__dots {
+    display: inline-flex;
+    gap: 4px;
+}
+
+.sb-mock__dots i {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #e3e3eb;
+    display: inline-block;
+}
+
+.sb-mock__body {
+    flex: 1;
+    display: flex;
+    min-height: 0;
+}
+
+.sb-mock__sidebar {
+    width: 28%;
+    background: #f6f9fc;
+    padding: 0.8em 0.6em;
+    border-right: 1px solid #ececf2;
+    flex-shrink: 0;
+}
+
+.sb-mock__sidebar-group {
+    margin-bottom: 0.9em;
+}
+
+.sb-mock__sidebar-line {
+    height: 7px;
+    background: #d8dde6;
+    border-radius: 4px;
+    margin: 0.45em 0;
+}
+
+.sb-mock__sidebar-line.w70 { width: 70%; }
+.sb-mock__sidebar-line.w65 { width: 65%; }
+.sb-mock__sidebar-line.w60 { width: 60%; }
+.sb-mock__sidebar-line.w55 { width: 55%; }
+.sb-mock__sidebar-line.w50 { width: 50%; }
+.sb-mock__sidebar-line.w45 { width: 45%; }
+.sb-mock__sidebar-line.active { background: #ff4785; }
+
+.sb-mock__canvas {
+    flex: 1;
+    background: #fafafc;
+    min-width: 0;
+    overflow: hidden;
+    position: relative;
+    display: flex;
+    align-items: stretch;
+    justify-content: stretch;
+    padding: 2% 2.5% 0;
+}
+
+/* The card-in-canvas — the iframe sits inside this lifted white panel with
+   breathing room from the canvas top + sides. The bottom is flush with the
+   canvas edge (no bottom rounding) so the iframe content reaches the floor. */
+.sb-mock__card {
+    flex: 1;
+    background: #fff;
+    border-radius: 8px 8px 0 0;
+    box-shadow: 0 -2px 16px rgba(0, 0, 0, 0.08);
+    overflow: hidden;
+}
+
+/* Iframe renders at a wider virtual viewport (111%) and scales to fit
+   (0.9). Slight zoom-out gives the SB story a touch more horizontal room
+   while staying close to natural size. */
+.sb-mock__iframe {
+    width: 111.11%;
+    height: 111.11%;
+    transform: scale(0.9);
+    transform-origin: 0 0;
+    border: 0;
+    display: block;
+    pointer-events: none;
+    background: #fff;
+}
+
+.sb-frame__overlay {
+    position: absolute;
+    inset: auto 0 0 0;
+    padding: 0.7em;
+    background: linear-gradient(0deg, rgba(0, 0, 0, 0.65) 0%, transparent 100%);
+    color: #fff;
+    text-align: center;
+    font-weight: 600;
+    opacity: 0;
+    transition: opacity 0.2s ease;
+}
+
+.sb-frame:hover .sb-frame__overlay {
+    opacity: 1;
+}
+
+@media (max-width: 768px) {
+    .v-screenshot__h {
+        text-align: center;
+    }
+    .cta-row--start {
+        justify-content: center;
+    }
+}
+
 
 
 /* ==== Footer ==== */
