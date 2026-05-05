@@ -35,6 +35,12 @@ export default {
                               // arrows are `react-multiple-carousel__arrow*`
                               // (plural). Both prefixes need to be safelisted.
                               /^react-multiple-carousel/,
+                              // Slider chrome (incl. lightbox) builds modifier
+                              // classes at runtime via template literals like
+                              // `${classScope}--${direction}` — PurgeCSS can't
+                              // see those in source, so safelist the whole
+                              // featured-image-slider__ family.
+                              /^featured-image-slider/,
                               /^col-/,
                               /^row/,
                               /^container/,
