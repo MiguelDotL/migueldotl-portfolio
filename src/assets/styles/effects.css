@@ -126,3 +126,144 @@
         transform: translateY(calc(-1 * var(--float-distance, 1em)));
     }
 }
+
+
+/*
+ * .shimmer — animated linear-gradient sweep for skeleton placeholders.
+ * Originally on Projects.css `.skeleton-shimmer`. Drop on any element
+ * that should look like it's loading.
+ *
+ * Tune via CSS variables:
+ *   --shimmer-base      (default rgba(255,255,255,0.04)) — base tint
+ *   --shimmer-highlight (default rgba(255,255,255,0.09)) — sweep tint
+ *   --shimmer-duration  (default 1.6s) — full sweep duration
+ */
+.shimmer {
+    background: linear-gradient(
+        90deg,
+        var(--shimmer-base, rgba(255, 255, 255, 0.04)) 25%,
+        var(--shimmer-highlight, rgba(255, 255, 255, 0.09)) 50%,
+        var(--shimmer-base, rgba(255, 255, 255, 0.04)) 75%
+    );
+    background-size: 200% 100%;
+    animation: shimmer-sweep var(--shimmer-duration, 1.6s) ease-in-out infinite;
+    border-radius: 4px;
+}
+
+@keyframes shimmer-sweep {
+    0% {
+        background-position: 200% 0;
+    }
+    100% {
+        background-position: -200% 0;
+    }
+}
+
+
+/*
+ * .fade-scale-in — modal/lightbox/dialog open transition. Element
+ * fades in (and optionally scales up from a slightly smaller size).
+ * Run-once via animation, not a state toggle.
+ *
+ * Originally on FeaturedImageSlider.css `.featured-image-slider__lightbox`.
+ *
+ * Tune via CSS variables:
+ *   --fade-scale-from    (default 0.96) — starting scale (1 = no scale)
+ *   --fade-scale-duration (default 180ms) — animation duration
+ */
+.fade-scale-in {
+    animation: fade-scale-in var(--fade-scale-duration, 180ms) ease-out;
+}
+
+@keyframes fade-scale-in {
+    from {
+        opacity: 0;
+        transform: scale(var(--fade-scale-from, 0.96));
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+
+/*
+ * .gradient-pair — two adjacent buttons that share a continuous gradient.
+ * The primary is filled; the secondary is outlined and fills L→R on hover.
+ * When the secondary is hovered, the primary's gradient angle rotates
+ * 180° so the visual gradient appears to flow across both buttons.
+ *
+ * Origin: PreFooter "The Repo" + "Storybook" CTA pair.
+ *
+ * Tune via CSS variables on the .gradient-pair container:
+ *   --gp-color-1       (default #aa367c) — gradient stop 1
+ *   --gp-color-2       (default #4a2fbd) — gradient stop 2
+ *   --gp-angle-base    (default 131deg)  — primary's base angle
+ *   --gp-angle-flipped (default 311deg)  — primary's hovered-state angle
+ *
+ * Browser support:
+ *   - Requires @property (Safari 16.4+, Chrome 85+, Firefox 128+).
+ *   - Uses :has() for cross-button coordination (Safari 15.4+,
+ *     Chrome 105+, Firefox 121+).
+ *
+ * Usage:
+ *   <div class="gradient-pair">
+ *     <a class="gradient-pair__primary">Primary</a>
+ *     <a class="gradient-pair__secondary">Secondary</a>
+ *   </div>
+ */
+@property --gp-angle {
+    syntax: '<angle>';
+    inherits: false;
+    initial-value: 131deg;
+}
+
+.gradient-pair__primary {
+    --gp-angle: var(--gp-angle-base, 131deg);
+    background: linear-gradient(
+        var(--gp-angle),
+        var(--gp-color-1, #aa367c) 28%,
+        var(--gp-color-2, #4a2fbd) 71%
+    );
+    color: #fff;
+    transition: --gp-angle 0.3s ease-in-out;
+}
+
+.gradient-pair__secondary {
+    position: relative;
+    overflow: hidden;
+    isolation: isolate;
+    background: transparent;
+    color: var(--gp-color-2, #4a2fbd);
+    border: 2px solid var(--gp-color-2, #4a2fbd);
+    transition: color 0.25s ease;
+}
+
+.gradient-pair__secondary::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 0;
+    height: 100%;
+    background: linear-gradient(
+        var(--gp-angle-base, 131deg),
+        var(--gp-color-1, #aa367c) 28%,
+        var(--gp-color-2, #4a2fbd) 71%
+    );
+    transition: width 0.3s ease-in-out;
+    z-index: -1;
+    pointer-events: none;
+}
+
+.gradient-pair__secondary:hover {
+    color: #fff;
+}
+
+.gradient-pair__secondary:hover::before {
+    width: 100%;
+}
+
+.gradient-pair:has(.gradient-pair__secondary:hover) .gradient-pair__primary {
+    --gp-angle: var(--gp-angle-flipped, 311deg);
+}
