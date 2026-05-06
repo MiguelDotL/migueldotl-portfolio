@@ -7,13 +7,29 @@ import reactIcon from '../assets/images/icons/react-original.svg';
 import bootstrapIcon from '../assets/images/icons/bootstrap-original.svg';
 import githubIcon from '../assets/images/icons/github.svg';
 
-const REPO_URL = 'https://github.com/MiguelDotL/migueldotl-portfolio';
-const SB_URL = 'https://migueldotl.github.io/storybook';
-const SB_ITERATION_URL = 'https://migueldotl.github.io/storybook/?path=/story/design-iterations-projecttabs--pill-fill-sliding';
-const TECH = ['React', 'TypeScript', 'Bootstrap', 'Chromatic', 'Vite', 'Vitest'];
+export const REPO_URL = 'https://github.com/MiguelDotL/migueldotl-portfolio';
+export const SB_URL = 'https://migueldotl.github.io/storybook';
+export const SB_ITERATION_URL = 'https://migueldotl.github.io/storybook/?path=/story/design-iterations-projecttabs--pill-fill-sliding';
+export const TECH = ['React', 'TypeScript', 'Bootstrap', 'Chromatic', 'Vite', 'Vitest'];
 
 const meta: Meta = {
     title: 'Design Iterations/PreFooter',
+    // Helpers re-used by PreFooterScreenshotExploration.stories.tsx are
+    // exported but should not be treated as stories by Storybook.
+    excludeStories: [
+        'REPO_URL',
+        'SB_URL',
+        'SB_ITERATION_URL',
+        'TECH',
+        'TechBadges',
+        'StorybookIcon',
+        'SbMock',
+        'DEFAULT_LEAD_COPY',
+        'ScreenshotFeatureBody',
+        'HEADLINES',
+        'ComparisonLabel',
+        'PICKED_HEADING'
+    ],
     decorators: [
         (Story) => (
             <footer
@@ -43,7 +59,7 @@ const meta: Meta = {
 
 export default meta;
 
-const TechBadges = ({ items = TECH }: { items?: readonly string[] }) => (
+export const TechBadges = ({ items = TECH }: { items?: readonly string[] }) => (
     <ul className="tech-badges">
         {items.map((t) => (
             <li key={t}>{t}</li>
@@ -51,7 +67,7 @@ const TechBadges = ({ items = TECH }: { items?: readonly string[] }) => (
     </ul>
 );
 
-const StorybookIcon = () => (
+export const StorybookIcon = () => (
     <svg
         xmlns="http://www.w3.org/2000/svg"
         viewBox="0 0 256 319"
@@ -70,7 +86,7 @@ const StorybookIcon = () => (
     </svg>
 );
 
-const SbMock = () => (
+export const SbMock = () => (
     <div className="sb-mock" aria-hidden>
         <div className="sb-mock__topbar">
             <span className="sb-mock__brand">Storybook</span>
@@ -195,7 +211,7 @@ export const CTAsBelowStack = () => (
 
 // === C. Screenshot Feature — split layout, screenshot left, copy + CTA right ===
 
-type ScreenshotBodyProps = {
+export type ScreenshotBodyProps = {
     heading?: React.ReactNode;
     leadCopy?: React.ReactNode;
     tech?: readonly string[];
@@ -204,7 +220,7 @@ type ScreenshotBodyProps = {
     compact?: boolean;
 };
 
-const DEFAULT_LEAD_COPY = (
+export const DEFAULT_LEAD_COPY = (
     <>
         Take a look at{' '}
         <a href={REPO_URL} target="_blank" rel="noopener noreferrer">
@@ -218,7 +234,7 @@ const DEFAULT_LEAD_COPY = (
     </>
 );
 
-const ScreenshotFeatureBody = ({
+export const ScreenshotFeatureBody = ({
     heading,
     leadCopy = DEFAULT_LEAD_COPY,
     tech,
@@ -329,7 +345,7 @@ export const SingleFeatureCard = () => (
 
 // === Headline iteration: rendered comparisons for variants C and E ===
 
-const HEADLINES: Array<{ label: string; heading: React.ReactNode | undefined }> = [
+export const HEADLINES: Array<{ label: string; heading: React.ReactNode | undefined }> = [
     { label: 'Peek under the hood', heading: <>Peek <span>under the hood</span>.</> },
     { label: 'Behind the scenes', heading: <>Behind the <span>scenes</span>.</> },
     { label: "How it's built", heading: <>How it&rsquo;s <span>built</span>.</> },
@@ -337,7 +353,7 @@ const HEADLINES: Array<{ label: string; heading: React.ReactNode | undefined }> 
     { label: 'No heading', heading: undefined }
 ];
 
-const ComparisonLabel = ({ children }: { children: React.ReactNode }) => (
+export const ComparisonLabel = ({ children }: { children: React.ReactNode }) => (
     <p
         style={{
             color: '#fff',
@@ -354,17 +370,6 @@ const ComparisonLabel = ({ children }: { children: React.ReactNode }) => (
     </p>
 );
 
-export const ScreenshotFeatureHeadlines = () => (
-    <>
-        {HEADLINES.map(({ label, heading }) => (
-            <div key={label}>
-                <ComparisonLabel>{label}</ComparisonLabel>
-                <ScreenshotFeatureBody heading={heading} compact />
-            </div>
-        ))}
-    </>
-);
-
 export const SingleFeatureCardHeadlines = () => (
     <>
         {HEADLINES.map(({ label, heading }) => (
@@ -376,75 +381,9 @@ export const SingleFeatureCardHeadlines = () => (
     </>
 );
 
-const PICKED_HEADING = <>Peek <span>under the hood</span>.</>;
+export const PICKED_HEADING = <>Peek <span>under the hood</span>.</>;
 
-// === Tech-stack iteration for the Screenshot Feature variant ===
-
-const TECH_STACKS: Array<{ label: string; items: readonly string[] }> = [
-    {
-        label: '8 — full story (default)',
-        items: ['React', 'TypeScript', 'Vite', 'React Bootstrap', 'Storybook', 'Vitest', 'Testing Library', 'Chromatic']
-    },
-    {
-        label: '6 — lean',
-        items: ['React', 'TypeScript', 'Vite', 'React Bootstrap', 'Storybook', 'Vitest']
-    },
-    {
-        label: '5 — most curated',
-        items: ['React', 'TypeScript', 'Vite', 'Storybook', 'Vitest']
-    },
-    {
-        label: '10 — verbose',
-        items: ['React', 'TypeScript', 'Vite', 'React Bootstrap', 'Storybook', 'Vitest', 'Testing Library', 'Chromatic', 'ESLint', 'PurgeCSS']
-    }
-];
-
-export const ScreenshotFeatureTechStacks = () => (
-    <>
-        {TECH_STACKS.map(({ label, items }) => (
-            <div key={label}>
-                <ComparisonLabel>{label}</ComparisonLabel>
-                <ScreenshotFeatureBody heading={PICKED_HEADING} tech={items} compact />
-            </div>
-        ))}
-    </>
-);
-
-// === Storybook button background iteration ===
-
-const SB_BUTTON_BG_VARIANTS: Array<{ label: string; className: string }> = [
-    { label: 'Current — transparent', className: 'cta-btn cta-btn--alt' },
-    { label: 'Chip-tinted purple', className: 'cta-btn cta-btn--alt cta-btn--alt-tint-purple' },
-    { label: 'Pink tint', className: 'cta-btn cta-btn--alt cta-btn--alt-tint-pink' },
-    { label: 'White card with shadow', className: 'cta-btn cta-btn--alt cta-btn--alt-card' }
-];
-
-export const ScreenshotFeatureSbButtonBg = () => (
-    <>
-        {SB_BUTTON_BG_VARIANTS.map(({ label, className }) => (
-            <div key={label}>
-                <ComparisonLabel>{label}</ComparisonLabel>
-                <ScreenshotFeatureBody heading={PICKED_HEADING} sbButtonClass={className} compact />
-            </div>
-        ))}
-    </>
-);
-
-// === Button shape iteration — pill vs rectangular ===
-
-const BTN_SHAPES: Array<{ label: string; className: string }> = [
-    { label: 'Pill — current (999px)', className: 'cta-row cta-row--start' },
-    { label: 'Sharp rectangle — matches Contact form (0)', className: 'cta-row cta-row--start cta-row--rect' },
-    { label: 'Soft rectangle (4px)', className: 'cta-row cta-row--start cta-row--rect-soft' }
-];
-
-export const ScreenshotFeatureBtnShape = () => (
-    <>
-        {BTN_SHAPES.map(({ label, className }) => (
-            <div key={label}>
-                <ComparisonLabel>{label}</ComparisonLabel>
-                <ScreenshotFeatureBody heading={PICKED_HEADING} ctaRowClass={className} compact />
-            </div>
-        ))}
-    </>
-);
+// Iteration stories on top of the Screenshot Feature variant — copy
+// alternatives, tech-stack count, button background, button shape — moved
+// to PreFooterScreenshotExploration.stories.tsx (sub-folder
+// `Design Iterations/PreFooter/Screenshot Feature`).
