@@ -9,7 +9,7 @@ nav.navbar {
 }
 
 nav.navbar.has-bg {
-  background-color: var(--dark-grey);
+  background-color: var(--darker-grey);
 }
 
 nav.navbar .container {
@@ -18,7 +18,7 @@ nav.navbar .container {
 
 nav.navbar.has-scrolled {
   padding: .5em 0;
-  background-color: var(--dark-grey);
+  background-color: var(--darker-grey);
   box-shadow: 0 1px 10px rgb(0 0 0 / 50%);
 }
 

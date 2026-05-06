@@ -366,7 +366,9 @@
 
 /* Iframe renders at a wider virtual viewport (111%) and scales to fit
    (0.9). Slight zoom-out gives the SB story a touch more horizontal room
-   while staying close to natural size. */
+   while staying close to natural size. On mobile the card is too narrow
+   for native-scale story content, so zoom out further (200% viewport,
+   0.5 scale) to fit the whole iteration. */
 .sb-mock__iframe {
     width: 111.11%;
     height: 111.11%;
@@ -376,6 +378,14 @@
     display: block;
     pointer-events: none;
     background: #fff;
+}
+
+@media (max-width: 768px) {
+    .sb-mock__iframe {
+        width: 200%;
+        height: 200%;
+        transform: scale(0.5);
+    }
 }
 
 .sb-frame__overlay {
