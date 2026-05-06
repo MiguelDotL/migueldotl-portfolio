@@ -1,0 +1,55 @@
+import { Meta, Canvas } from '@storybook/addon-docs/blocks';
+import * as Stories from './Lift.stories';
+
+<Meta of={Stories} />
+
+# Lift
+
+Translate-up + shadow-boost on hover. The portfolio's standard "this surface is interactive" feedback. Mirrors what's currently duplicated on `.cta-btn`, `.sb-frame`, and `.featured-project-card`.
+
+## When to use
+
+- Buttons, cards, and other clickable surfaces that should respond to pointer hover.
+- Drop-in replacement for hand-rolled hover translates inside individual component CSS.
+
+## Variants
+
+Three sizes, picked by composition with a modifier class:
+
+| Class | translateY | Shadow |
+|---|---|---|
+| `.lift` | `-2px` | small drop |
+| `.lift.lift--md` | `-4px` | medium drop |
+| `.lift.lift--lg` | `-6px` | large drop |
+
+All variants animate over 0.2s ease.
+
+## API
+
+| Variable | Default | Effect |
+|---|---|---|
+| `--lift-shadow` | size-dependent neutral dark drop | Override the box-shadow per instance |
+
+## Usage
+
+```jsx
+<button className="lift">Default lift</button>
+<a className="lift lift--md">Medium lift</a>
+
+{/* Pink-glow variant via CSS var */}
+<div
+  className="lift lift--md"
+  style={{ '--lift-shadow': '0 12px 32px rgba(170, 54, 124, 0.45)' }}
+>
+  Custom shadow
+</div>
+```
+
+## Examples
+
+<Canvas of={Stories.AllSizes} />
+<Canvas of={Stories.CustomShadow} />
+
+## Caveat — transform stacking
+
+`.lift:hover` sets `transform: translateY(...)`. If the element already has another transform (rotate, scale), they collide. Either drop the existing transform or write a custom hover that composes both into one transform shorthand.

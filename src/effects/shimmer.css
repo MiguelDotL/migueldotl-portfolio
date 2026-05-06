@@ -1,0 +1,30 @@
+/*
+ * .shimmer — animated linear-gradient sweep for skeleton placeholders.
+ * Originally on Projects.css `.skeleton-shimmer`. Drop on any element
+ * that should look like it's loading.
+ *
+ * Tune via CSS variables:
+ *   --shimmer-base      (default rgba(255,255,255,0.04)) — base tint
+ *   --shimmer-highlight (default rgba(255,255,255,0.09)) — sweep tint
+ *   --shimmer-duration  (default 1.6s) — full sweep duration
+ */
+.shimmer {
+    background: linear-gradient(
+        90deg,
+        var(--shimmer-base, rgba(255, 255, 255, 0.04)) 25%,
+        var(--shimmer-highlight, rgba(255, 255, 255, 0.09)) 50%,
+        var(--shimmer-base, rgba(255, 255, 255, 0.04)) 75%
+    );
+    background-size: 200% 100%;
+    animation: shimmer-sweep var(--shimmer-duration, 1.6s) ease-in-out infinite;
+    border-radius: 4px;
+}
+
+@keyframes shimmer-sweep {
+    0% {
+        background-position: 200% 0;
+    }
+    100% {
+        background-position: -200% 0;
+    }
+}

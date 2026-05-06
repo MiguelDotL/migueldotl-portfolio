@@ -1,0 +1,64 @@
+import { Meta, Canvas } from '@storybook/addon-docs/blocks';
+import * as Stories from './FadeScaleIn.stories';
+
+<Meta of={Stories} />
+
+# FadeScaleIn
+
+Modal/lightbox/dialog open transition. Element fades in while scaling up from a slightly smaller size. Run-once via `animation`, not a state toggle.
+
+Originally on the FeaturedImageSlider lightbox overlay.
+
+## When to use
+
+- Modals, dialogs, lightboxes, popovers — any UI that snaps in on open.
+- One-shot transitions where you don't need bidirectional state. (For state-driven open/close, reach for `.fan-out` or roll your own transition.)
+
+## How it works
+
+Single `@keyframes` animation:
+
+- `from`: `opacity: 0; transform: scale(var(--fade-scale-from, 0.96))`
+- `to`: `opacity: 1; transform: scale(1)`
+
+Plays once on mount with `animation`. Element stays at its end state once finished — no infinite loop, no reverse on exit.
+
+## API
+
+| Variable | Default | Effect |
+|---|---|---|
+| `--fade-scale-from` | `0.96` | Starting scale (1 = no scale, just fade) |
+| `--fade-scale-duration` | `180ms` | Animation duration |
+
+## Usage
+
+```jsx
+{isOpen && (
+  <div className="fade-scale-in modal">
+    <h2>Modal content</h2>
+  </div>
+)}
+
+{/* Slower, more dramatic scale */}
+<div
+  className="fade-scale-in"
+  style={{
+    '--fade-scale-from': '0.8',
+    '--fade-scale-duration': '500ms'
+  }}
+>
+  Slow open
+</div>
+```
+
+The `Replay` button in the stories re-mounts the element by changing its key — that's how you'd verify the animation in dev too.
+
+## Examples
+
+<Canvas of={Stories.Default} />
+<Canvas of={Stories.SlowAndStrong} />
+
+## Caveats
+
+- **Mount/unmount only.** Animation runs once when the element mounts. If you want a corresponding fade-out on unmount, you need React Transition Group, Framer Motion, or a CSS transition driven by an `.is-leaving` class — `.fade-scale-in` won't do it.
+- **Initial render gotcha.** If the element is in the DOM at page load, the animation runs immediately and may compete with LCP. For dialogs that open on user action, this is fine. For above-the-fold content, prefer a class-toggle transition.

@@ -1,0 +1,12 @@
+/* ==== Foundations / Effects — barrel ====
+   Imports every effect class so a single global import (in src/index.tsx)
+   makes all of them available. Stories import their per-effect CSS file
+   directly so they render in isolation in Storybook. */
+
+@import './fan-out.css';
+@import './lift.css';
+@import './frosted.css';
+@import './float.css';
+@import './shimmer.css';
+@import './fade-scale-in.css';
+@import './gradient-pair.css';

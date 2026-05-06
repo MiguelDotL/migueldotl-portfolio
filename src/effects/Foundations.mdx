@@ -1,0 +1,67 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+
+<Meta title="Foundations/Overview" />
+
+# Foundations
+
+Pure CSS utility classes. No JSX, no React. You drop them on whatever markup you already have.
+
+## Foundations vs Components — the bright line
+
+| | Foundation | Component |
+|---|---|---|
+| What it is | A CSS class | A React component |
+| How you use it | `<div class="lift">` | `import Button; <Button />` |
+| Owns markup? | No — decorates yours | Yes — provides JSX |
+| Owns state? | Only what `:hover` / `.is-open` toggles give | Can have hooks, refs, effects |
+| Composes by | Combining classes (`<div class="lift frosted">`) | Nesting JSX |
+| Could a non-React project use it? | Yes | No |
+
+If you can drop the class on existing markup without restructuring, it's a Foundation.
+If you have to import and render it as JSX, it's a Component.
+
+## Sub-categories
+
+Effects fall into three discoverable buckets:
+
+- **Motion** — animations or state-driven transitions. Self-running keyframes (`Float`, `Shimmer`) or class-toggle transitions (`FanOut`, `FadeScaleIn`).
+- **Hover** — driven by `:hover`. `Lift`, `GradientPair`.
+- **Material** — static visual treatments. `Frosted`.
+
+## CSS-variable conventions
+
+Every foundation exposes its tunables as CSS custom properties with sensible defaults:
+
+```css
+.lift:hover {
+    box-shadow: var(--lift-shadow, 0 8px 18px rgba(20, 20, 40, 0.25));
+}
+```
+
+This lets you keep one class but customize per-context without writing new CSS:
+
+```jsx
+<div
+    className="lift"
+    style={{ '--lift-shadow': '0 12px 32px rgba(170, 54, 124, 0.45)' }}
+>
+    pink-glow lift
+</div>
+```
+
+## How to add a new foundation
+
+1. Drop a new CSS file in `src/effects/`, e.g. `glow.css`. Top of the file gets a JSDoc-style comment block: what it does, where it came from, what CSS variables it exposes.
+2. Add `@import './glow.css';` to `src/effects/index.css` (the barrel imported once globally in `src/index.tsx`).
+3. Add a matching `Glow.stories.tsx` in the same folder. Title prefix is one of `Foundations/Motion/...`, `Foundations/Hover/...`, or `Foundations/Material/...` depending on what kind of effect it is.
+4. Story imports its own per-effect CSS file directly (`import './glow.css'`), not the barrel — keeps stories isolated.
+
+## Origin
+
+Most foundations were extracted from patterns that emerged organically across the live components — duplicated hover lifts, repeated `backdrop-filter` recipes, the navbar mobile-menu happy accident. Capturing them here is documentation as much as reuse: future refactors won't lose the pattern silently.
+
+The live components keep their original CSS for now. Adoption of the foundations is opportunistic — drop them on new code; refactor the old gradually if it pays for itself.
+
+## Specificity gotcha
+
+Class selectors targeting children (`.fan-out > *`) can lose to component-internal rules with stacked selectors (`.social-icons a.social-icon`). If a foundation isn't taking effect, check the children's existing CSS — combining a foundation with a wrapper class whose own rules touch the same property on the same children will silently override the foundation. The `FanOut` story has a worked example.

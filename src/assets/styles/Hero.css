@@ -107,10 +107,16 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    text-align: center;
+}
+
+.hero .image-col picture {
+    display: block;
+    margin: 0 auto;
 }
 
 .hero img.floating-image {
-    margin: 4em 0 -4em;
+    margin: 4em auto -4em;
     height: auto;
     width: 80%;
     transition: all 0.3s ease-in-out;

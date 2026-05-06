@@ -249,3 +249,8 @@
         font-size: 10em;
     }
 }
+@media (max-width: 767px) {
+    .skills-content {
+        border-radius: 29px;
+    }
+}

@@ -1,0 +1,80 @@
+/*
+ * .gradient-pair — two adjacent buttons that share a continuous gradient.
+ * The primary is filled; the secondary is outlined and fills L→R on hover.
+ * When the secondary is hovered, the primary's gradient angle rotates
+ * 180° so the visual gradient appears to flow across both buttons.
+ *
+ * Origin: PreFooter "The Repo" + "Storybook" CTA pair.
+ *
+ * Tune via CSS variables on the .gradient-pair container:
+ *   --gp-color-1       (default #aa367c) — gradient stop 1
+ *   --gp-color-2       (default #4a2fbd) — gradient stop 2
+ *   --gp-angle-base    (default 131deg)  — primary's base angle
+ *   --gp-angle-flipped (default 311deg)  — primary's hovered-state angle
+ *
+ * Browser support:
+ *   - Requires @property (Safari 16.4+, Chrome 85+, Firefox 128+).
+ *   - Uses :has() for cross-button coordination (Safari 15.4+,
+ *     Chrome 105+, Firefox 121+).
+ *
+ * Usage:
+ *   <div class="gradient-pair">
+ *     <a class="gradient-pair__primary">Primary</a>
+ *     <a class="gradient-pair__secondary">Secondary</a>
+ *   </div>
+ */
+@property --gp-angle {
+    syntax: '<angle>';
+    inherits: false;
+    initial-value: 131deg;
+}
+
+.gradient-pair__primary {
+    --gp-angle: var(--gp-angle-base, 131deg);
+    background: linear-gradient(
+        var(--gp-angle),
+        var(--gp-color-1, #aa367c) 28%,
+        var(--gp-color-2, #4a2fbd) 71%
+    );
+    color: #fff;
+    transition: --gp-angle 0.3s ease-in-out;
+}
+
+.gradient-pair__secondary {
+    position: relative;
+    overflow: hidden;
+    isolation: isolate;
+    background: transparent;
+    color: var(--gp-color-2, #4a2fbd);
+    border: 2px solid var(--gp-color-2, #4a2fbd);
+    transition: color 0.25s ease;
+}
+
+.gradient-pair__secondary::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 0;
+    height: 100%;
+    background: linear-gradient(
+        var(--gp-angle-base, 131deg),
+        var(--gp-color-1, #aa367c) 28%,
+        var(--gp-color-2, #4a2fbd) 71%
+    );
+    transition: width 0.3s ease-in-out;
+    z-index: -1;
+    pointer-events: none;
+}
+
+.gradient-pair__secondary:hover {
+    color: #fff;
+}
+
+.gradient-pair__secondary:hover::before {
+    width: 100%;
+}
+
+.gradient-pair:has(.gradient-pair__secondary:hover) .gradient-pair__primary {
+    --gp-angle: var(--gp-angle-flipped, 311deg);
+}

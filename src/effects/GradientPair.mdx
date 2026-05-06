@@ -1,0 +1,64 @@
+import { Meta, Canvas } from '@storybook/addon-docs/blocks';
+import * as Stories from './GradientPair.stories';
+
+<Meta of={Stories} />
+
+# GradientPair
+
+Two adjacent buttons that share a continuous gradient. Hover the secondary: it fills L→R with the gradient, and the primary's gradient angle rotates 180° so the visual gradient appears to flow continuously across both buttons.
+
+Origin: PreFooter "The Repo" + "Storybook" CTAs.
+
+## When to use
+
+- Paired actions where one is a primary CTA and the other is a secondary (e.g. "View" + "Learn more").
+- When you want the pair to feel coordinated — a hover on one is reflected in the other.
+
+## How it works
+
+Two cooperating mechanisms:
+
+1. **Secondary fill**: a `::before` pseudo-element on `.gradient-pair__secondary` starts at `width: 0` and animates to `100%` on hover, painted with the same gradient as the primary.
+2. **Primary rotation**: when the secondary is hovered, `:has(.gradient-pair__secondary:hover)` on the parent flips a custom property `--gp-angle` from the base angle (131°) to the flipped angle (311°). The primary's `linear-gradient(var(--gp-angle), ...)` re-renders with the new angle. To make this animate (rather than snap), `--gp-angle` is registered with `@property` so the browser knows it's an `<angle>` and can interpolate between values.
+
+## API
+
+| Variable | Default | Effect |
+|---|---|---|
+| `--gp-color-1` | `#aa367c` | Gradient stop 1 |
+| `--gp-color-2` | `#4a2fbd` | Gradient stop 2 |
+| `--gp-angle-base` | `131deg` | Primary's resting angle |
+| `--gp-angle-flipped` | `311deg` | Primary's hovered-state angle (180° from base) |
+
+## Usage
+
+```jsx
+<div className="gradient-pair">
+  <a className="gradient-pair__primary" href="...">Primary</a>
+  <a className="gradient-pair__secondary" href="...">Secondary</a>
+</div>
+
+{/* Custom gradient colors */}
+<div
+  className="gradient-pair"
+  style={{
+    '--gp-color-1': '#0d9488',
+    '--gp-color-2': '#ea580c'
+  }}
+>
+  ...
+</div>
+```
+
+## Examples
+
+<Canvas of={Stories.Default} />
+<Canvas of={Stories.TealOrange} />
+<Canvas of={Stories.FlatRectangle} />
+
+## Caveats
+
+- **Browser support — `@property`.** Safari 16.4+, Chrome 85+, Firefox 128+. Without it, the gradient angle snaps instead of animating; the rest still works.
+- **Browser support — `:has()`.** Safari 15.4+, Chrome 105+, Firefox 121+. Without it, the cross-button coordination doesn't fire — the secondary still fills on its own hover, but the primary stays at its base angle.
+- **Two-button assumption.** The `:has()` selector is hardcoded for one primary + one secondary. Adding a third button or a different child structure breaks the coordination. For richer compositions, treat this as a starting point and fork.
+- **The flipped angle should be 180° from base.** That's what makes the "continuous gradient" illusion work — the pink-end of one button visually meets the pink-start of the other. Picking other angle deltas creates a different visual that may or may not look intentional.

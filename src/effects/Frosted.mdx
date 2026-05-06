@@ -1,0 +1,52 @@
+import { Meta, Canvas } from '@storybook/addon-docs/blocks';
+import * as Stories from './Frosted.stories';
+
+<Meta of={Stories} />
+
+# Frosted
+
+The portfolio's signature glass material — translucent white tint over a backdrop blur and saturate. Used 8+ times across MomentumTabs, FeaturedImageSlider dots/arrows, and project cards.
+
+## When to use
+
+- Floating UI surfaces (dropdowns, popovers, dot indicators) over rich/photographic backgrounds.
+- Anywhere you'd reach for `backdrop-filter: blur(...)` — this codifies the project's specific recipe.
+
+## API
+
+| Variable | Default | Effect |
+|---|---|---|
+| `--frosted-bg` | `rgba(255, 255, 255, 0.05)` | Tint color and opacity |
+| `--frosted-blur` | `10px` | Blur radius |
+| `--frosted-saturate` | `1.3` | Saturation multiplier |
+
+## Usage
+
+```jsx
+<div className="frosted">
+  Glass surface
+</div>
+
+{/* Stronger blur, warmer tint */}
+<div
+  className="frosted"
+  style={{
+    '--frosted-blur': '20px',
+    '--frosted-bg': 'rgba(255, 200, 140, 0.08)'
+  }}
+>
+  Stronger glass
+</div>
+```
+
+## Examples
+
+<Canvas of={Stories.Default} />
+<Canvas of={Stories.TuneBlur} />
+<Canvas of={Stories.TuneTint} />
+
+## Caveats
+
+- **Blur needs detail behind it.** Backdrop-filter is most visible against high-frequency content (text, images). On a flat gradient the effect is barely perceptible — the stories deliberately layer text behind the tile so the blur has something to chew on.
+- **Browser support.** `backdrop-filter` works everywhere modern but may need `-webkit-backdrop-filter` for older Safari (the foundation includes both prefixes). When unsupported, the element falls back to its `--frosted-bg` tint with no blur.
+- **Opaque backgrounds break it.** The element's own `background-color` must be non-opaque, and there must be something visible *behind* it. A solid parent or `background: white` on the element itself defeats the filter.

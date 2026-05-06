@@ -1,0 +1,51 @@
+import { Meta, Canvas } from '@storybook/addon-docs/blocks';
+import * as Stories from './Float.stories';
+
+<Meta of={Stories} />
+
+# Float
+
+Gentle vertical bob. Originally the Hero bitmoji's signature animation (`@keyframes updown` + 6s linear infinite). Generic enough for any decorative floating element.
+
+## When to use
+
+- Decorative imagery (mascots, illustrations, icon clusters) that should feel "alive" without distracting from real content.
+- Hero / above-the-fold focal points where a tiny bit of motion catches the eye.
+
+## How it works
+
+Infinite `transform: translateY` keyframe oscillating between `-var(--float-distance)` and `+var(--float-distance)`. Eased in/out so the reversal at each peak feels organic. Symmetric — no jump on mount.
+
+## API
+
+| Variable | Default | Effect |
+|---|---|---|
+| `--float-distance` | `1em` | Peak displacement up/down |
+| `--float-duration` | `6s` | Full cycle duration |
+
+## Usage
+
+```jsx
+<img className="float" src={mascot} alt="" />
+
+{/* Subtler, slower */}
+<div
+  className="float"
+  style={{
+    '--float-distance': '0.4em',
+    '--float-duration': '10s'
+  }}
+>
+  Slow drift
+</div>
+```
+
+## Examples
+
+<Canvas of={Stories.Default} />
+<Canvas of={Stories.Variants} />
+
+## Caveats
+
+- **Respect `prefers-reduced-motion`.** This foundation runs unconditionally. If you ship it on a high-traffic surface, wrap it in a media query that disables the animation for users who've requested reduced motion.
+- **Layout impact.** `transform: translateY` doesn't reflow neighbors, but if the element has margins/padding tuned visually for its bobbing, surrounding elements may feel uneven.
