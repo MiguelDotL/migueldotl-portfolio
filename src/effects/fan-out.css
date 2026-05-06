@@ -16,6 +16,12 @@
  *   --fan-out-spread          (default  1.5em) — open-state right margin
  *   --fan-out-stacked-opacity (default 0)      — closed-state opacity
  *   --fan-out-spread-opacity  (default 1)      — open-state opacity
+ *   --fan-out-step-duration   (default 0.3s)   — duration of each phase
+ *
+ * The animation runs in two sequential phases:
+ *   on enter:  opacity 0→1 first, then margin -2.6em→1.5em (fan out)
+ *   on exit:   margin 1.5em→-2.6em first (re-stack), then opacity 1→0
+ * Total cycle = 2 × --fan-out-step-duration per direction.
  *
  * Usage:
  *   <div class="fan-out">
@@ -23,20 +29,31 @@
  *   </div>
  *   ...later, toggle .is-open on the .fan-out element or any ancestor.
  */
+/* Closed state — applied as the element transitions back to closed.
+   Margin animates first (re-stack), opacity follows (fade out). */
 .fan-out > * {
     margin-right: var(--fan-out-stacked, -2.6em);
     opacity: var(--fan-out-stacked-opacity, 0);
-    transition: margin 0.3s ease-in-out, opacity 0.3s ease-in-out;
+    transition:
+        margin var(--fan-out-step-duration, 0.3s) ease-in-out,
+        opacity var(--fan-out-step-duration, 0.3s) ease-in-out
+            var(--fan-out-step-duration, 0.3s);
 }
 
 .fan-out > *:last-child {
     margin-right: 0;
 }
 
+/* Open state — applied as the element transitions to open.
+   Opacity animates first (fade in), margin follows (fan out). */
 .fan-out.is-open > *,
 .is-open .fan-out > * {
     margin-right: var(--fan-out-spread, 1.5em);
     opacity: var(--fan-out-spread-opacity, 1);
+    transition:
+        opacity var(--fan-out-step-duration, 0.3s) ease-in-out,
+        margin var(--fan-out-step-duration, 0.3s) ease-in-out
+            var(--fan-out-step-duration, 0.3s);
 }
 
 .fan-out.is-open > *:last-child,

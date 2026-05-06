@@ -41,7 +41,7 @@ const FanOut = ({ style }: { style?: React.CSSProperties }) => {
     const [open, setOpen] = useState(false);
 
     useEffect(() => {
-        const id = window.setInterval(() => setOpen((v) => !v), 1500);
+        const id = window.setInterval(() => setOpen((v) => !v), 2200);
         return () => window.clearInterval(id);
     }, []);
 
