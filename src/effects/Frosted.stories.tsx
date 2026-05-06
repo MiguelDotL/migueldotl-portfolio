@@ -12,22 +12,63 @@ import './frosted.css';
  *   --frosted-blur     (blur radius)
  *   --frosted-saturate (saturation multiplier)
  *
- * Stories render against a vibrant gradient so the blur is visible.
+ * Stories render against a text-wall + diagonal-stripe backdrop. Blur is
+ * most visible against high-frequency content; a flat gradient blurs into
+ * itself and you can barely tell the effect is there.
  */
+const TEXT_WALL = Array.from(
+    { length: 80 },
+    () => 'frosted glass • backdrop-filter • blur • saturate '
+).join('');
+
 const Stage = ({ children }: { children: React.ReactNode }) => (
     <div
         style={{
+            position: 'relative',
             background:
                 'linear-gradient(131deg, #AA367C 0%, #4A2FBD 50%, #1d1d3f 100%)',
             padding: '4em 2em',
             display: 'flex',
             gap: '2em',
             justifyContent: 'center',
+            alignItems: 'center',
             flexWrap: 'wrap',
-            minHeight: '60vh'
+            minHeight: '60vh',
+            overflow: 'hidden'
         }}
     >
-        {children}
+        <div
+            aria-hidden
+            style={{
+                position: 'absolute',
+                inset: 0,
+                padding: '1em',
+                fontFamily: 'monospace',
+                fontSize: 18,
+                fontWeight: 700,
+                lineHeight: 1.2,
+                color: '#fff',
+                background:
+                    'repeating-linear-gradient(45deg, rgba(255,255,255,0) 0 24px, rgba(0,0,0,0.22) 24px 48px)',
+                wordBreak: 'break-all',
+                userSelect: 'none',
+                pointerEvents: 'none',
+                opacity: 0.9
+            }}
+        >
+            {TEXT_WALL}
+        </div>
+        <div
+            style={{
+                position: 'relative',
+                display: 'flex',
+                gap: '2em',
+                flexWrap: 'wrap',
+                justifyContent: 'center'
+            }}
+        >
+            {children}
+        </div>
     </div>
 );
 
