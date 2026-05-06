@@ -1,0 +1,30 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+
+<Meta title="Welcome" />
+
+# migueldotl-portfolio — Storybook
+
+Component library + design system for [migueldotl-portfolio](https://github.com/MiguelDotL/migueldotl-portfolio).
+
+## What's in here
+
+**[Showcase](/?path=/docs/showcase-sections-hero--docs)** — the live page sections. Hero, NavBar, Projects, Skills, ContactMe, Footer. Useful for visual regression and seeing each section in isolation.
+
+**[Components](/?path=/docs/components-primitives-button--docs)** — the reusable React building blocks split into `Composites` (multi-part, e.g. `<MomentumTabs>`, `<ContactForm>`) and `Primitives` (single-purpose, e.g. `<Button>`, `<NavLink>`).
+
+**[Foundations](/?path=/docs/foundations-overview--docs)** — pure CSS utility classes you drop on any element. No JSX, no React. See the [overview](/?path=/docs/foundations-overview--docs) for the foundations-vs-components distinction.
+
+**[Design Iterations](/?path=/docs/design-iterations-projecttabs--pill-fill-sliding)** — design exploration. Iterations of components that may or may not have shipped. Useful for "why does it look the way it does" history.
+
+## Where to start
+
+- **First time?** Skim a section in Showcase, then check a primitive (`Components/Primitives/Button`).
+- **Looking for a reusable hover/animation?** [Foundations overview](/?path=/docs/foundations-overview--docs).
+- **Curious about a design choice?** Browse Design Iterations.
+
+## Conventions
+
+- Component stories live next to the component: `Foo.tsx` + `Foo.stories.tsx`.
+- Foundations live in [`src/effects/`](https://github.com/MiguelDotL/migueldotl-portfolio/tree/main/src/effects) — one CSS file + one story per effect, with a barrel `index.css` imported globally.
+- Component types are exported alongside components (e.g. `MomentumTabsProps`).
+- All stories pass axe (with two narrow disables: Hero color-contrast and `.sb-mock__brand` — see those stories' notes for why).

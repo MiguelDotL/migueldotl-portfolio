@@ -1,0 +1,50 @@
+import { Meta, Canvas } from '@storybook/addon-docs/blocks';
+import * as Stories from './FanOut.stories';
+
+<Meta of={Stories} />
+
+# FanOut
+
+Items go from a stacked cluster (each child overlapping its left neighbor) to a spread row when the container — or any ancestor — gains `.is-open`. Originally a happy accident in the navbar mobile-menu social icons; captured here so the effect is reusable on any horizontal cluster.
+
+## When to use
+
+- A row of items (icons, badges, chips) that should reveal-and-spread when a section opens.
+- Anywhere you want a small "fan out from the corner" reveal that's CSS-only — no JS animation library.
+
+## How it works
+
+Each direct child of `.fan-out` has `margin-right: var(--fan-out-stacked, -2.6em)` while closed (negative pulls each onto its left neighbor) and `var(--fan-out-spread, 1.5em)` when open. Opacity transitions in lockstep, sequenced via `transition-delay` so the two phases land one after the other:
+
+- **Enter** (`.is-open` added): opacity 0 → 1 first, then margin spreads.
+- **Exit** (`.is-open` removed): margin re-stacks first, then opacity fades.
+
+The last child stays at `margin-right: 0` so the cluster grows from the right.
+
+## API
+
+| Variable | Default | Effect |
+|---|---|---|
+| `--fan-out-stacked` | `-2.6em` | Closed-state right margin per child |
+| `--fan-out-spread` | `1.5em` | Open-state right margin per child |
+| `--fan-out-stacked-opacity` | `0` | Closed-state opacity per child |
+| `--fan-out-spread-opacity` | `1` | Open-state opacity per child |
+| `--fan-out-step-duration` | `0.3s` | Duration of each phase (total per direction = 2×) |
+
+## Usage
+
+```jsx
+<div className={`fan-out ${menuOpen ? 'is-open' : ''}`}>
+  <Icon a /> <Icon b /> <Icon c />
+</div>
+```
+
+## Examples
+
+<Canvas of={Stories.Default} />
+<Canvas of={Stories.WiderSpread} />
+<Canvas of={Stories.Subtle} />
+
+## Caveat — specificity
+
+`.fan-out > *` targets direct children with one class selector. If those children inherit a `margin-right` from a more specific selector (e.g. `.social-icons a.social-icon` — two classes plus an element), the foundation silently loses. Either rename the wrapper, drop the conflicting class on the children, or apply `.fan-out` directly to the wrapper that owns those rules.

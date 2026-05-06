@@ -1,0 +1,27 @@
+/*
+ * .float — gentle vertical bob, infinite. Originally on the Hero
+ * bitmoji (.floating-image). Generic enough for any decorative
+ * floating element.
+ *
+ * Customize via CSS variables:
+ *   --float-distance (default 1em) — peak displacement up/down
+ *   --float-duration (default 6s)  — full cycle duration
+ *
+ * The element starts mid-cycle and oscillates symmetrically — no jump
+ * on mount.
+ */
+.float {
+    animation: float-updown var(--float-duration, 6s) ease-in-out infinite;
+}
+
+@keyframes float-updown {
+    0% {
+        transform: translateY(calc(-1 * var(--float-distance, 1em)));
+    }
+    50% {
+        transform: translateY(var(--float-distance, 1em));
+    }
+    100% {
+        transform: translateY(calc(-1 * var(--float-distance, 1em)));
+    }
+}

@@ -1,0 +1,50 @@
+import { Meta, Canvas } from '@storybook/addon-docs/blocks';
+import * as Stories from './Shimmer.stories';
+
+<Meta of={Stories} />
+
+# Shimmer
+
+Animated linear-gradient sweep for skeleton placeholders. Originally on Projects.css `.skeleton-shimmer`. Drop on any element that should look like it's loading.
+
+## When to use
+
+- Skeleton states for cards, avatars, text blocks, image placeholders.
+- Anywhere the alternative would be a static gray box that doesn't communicate "data en route."
+
+## How it works
+
+A 200%-wide linear-gradient (base → highlight → base) is applied as the background, and the background-position scrolls from `200% 0` to `-200% 0` over the duration. The element itself stays the same size; only the gradient sweeps across.
+
+## API
+
+| Variable | Default | Effect |
+|---|---|---|
+| `--shimmer-base` | `rgba(255, 255, 255, 0.04)` | Base tint |
+| `--shimmer-highlight` | `rgba(255, 255, 255, 0.09)` | Sweep tint |
+| `--shimmer-duration` | `1.6s` | Full sweep duration |
+
+`border-radius: 4px` is applied by default — override with your own border-radius if needed.
+
+## Usage
+
+```jsx
+<div className="shimmer" style={{ width: 200, height: 16 }} />
+
+{/* Card skeleton */}
+<div>
+  <div className="shimmer" style={{ height: 24, width: '60%', marginBottom: 16 }} />
+  <div className="shimmer" style={{ height: 140, marginBottom: 16, borderRadius: 8 }} />
+  <div className="shimmer" style={{ height: 14 }} />
+</div>
+```
+
+## Examples
+
+<Canvas of={Stories.SkeletonCard} />
+<Canvas of={Stories.SpeedKnob} />
+
+## Caveats
+
+- **Tints assume a dark background.** The default `rgba(255,255,255,0.04)` and `0.09` are tuned for the portfolio's dark surfaces. On light backgrounds, override with `rgba(0,0,0,0.04)` / `rgba(0,0,0,0.09)`.
+- **Don't shimmer forever.** Pair with real loading state. If the element keeps shimmering past expected load time, the user reads it as broken, not loading.
