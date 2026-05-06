@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import '../assets/styles/effects.css';
+import './frosted.css';
 
 /**
  * Documents the `.frosted` reusable class — the portfolio's signature
@@ -54,7 +54,7 @@ const Tile = ({
 );
 
 const meta: Meta = {
-    title: 'Design Iterations/Frosted',
+    title: 'Foundations/Effects/Frosted',
     parameters: {
         layout: 'fullscreen',
         docs: {

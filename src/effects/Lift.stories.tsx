@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import '../assets/styles/effects.css';
+import './lift.css';
 
 /**
  * Documents the `.lift` reusable class — the portfolio's standard
@@ -50,7 +50,7 @@ const Stage = ({ children }: { children: React.ReactNode }) => (
 );
 
 const meta: Meta = {
-    title: 'Design Iterations/Lift',
+    title: 'Foundations/Effects/Lift',
     parameters: {
         layout: 'fullscreen',
         docs: {

@@ -1,9 +1,9 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { useEffect, useState } from 'react';
-import SocialIcons from './SocialIcons';
+import SocialIcons from '../components/SocialIcons';
 import { NAV_SOCIALS } from '../data/socials';
 import '../assets/styles/Socials.css';
-import '../assets/styles/effects.css';
+import './fan-out.css';
 
 /**
  * Documents the `.fan-out` reusable class — extracted from the navbar
@@ -50,7 +50,7 @@ const FanOut = ({
 };
 
 const meta: Meta<typeof FanOut> = {
-    title: 'Design Iterations/FanOut',
+    title: 'Foundations/Effects/FanOut',
     component: FanOut,
     parameters: {
         layout: 'fullscreen',

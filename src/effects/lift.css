@@ -1,0 +1,31 @@
+/*
+ * .lift — translateY + shadow boost on hover. The portfolio's standard
+ * "this is interactive" feedback. Used by .cta-btn, .sb-frame, and the
+ * featured project card. Apply to any hoverable element.
+ *
+ * Variants:
+ *   .lift          → -2px (subtle, default — mirrors .cta-btn)
+ *   .lift--md      → -4px (mirrors .sb-frame)
+ *   .lift--lg      → -6px (cards / large surfaces)
+ *
+ * Override the shadow by setting --lift-shadow on the element. The
+ * default shadow is a neutral dark drop suitable for light surfaces.
+ */
+.lift {
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.lift:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--lift-shadow, 0 8px 18px rgba(20, 20, 40, 0.25));
+}
+
+.lift.lift--md:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--lift-shadow, 0 14px 32px rgba(20, 20, 40, 0.3));
+}
+
+.lift.lift--lg:hover {
+    transform: translateY(-6px);
+    box-shadow: var(--lift-shadow, 0 18px 40px rgba(20, 20, 40, 0.35));
+}

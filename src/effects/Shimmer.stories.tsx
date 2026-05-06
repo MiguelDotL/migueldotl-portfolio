@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import '../assets/styles/effects.css';
+import './shimmer.css';
 
 /**
  * `.shimmer` — skeleton placeholder sweep. Originally on Projects.css
@@ -34,7 +34,7 @@ const Stage = ({ children }: { children: React.ReactNode }) => (
 );
 
 const meta: Meta = {
-    title: 'Design Iterations/Shimmer',
+    title: 'Foundations/Effects/Shimmer',
     parameters: {
         layout: 'fullscreen',
         docs: {

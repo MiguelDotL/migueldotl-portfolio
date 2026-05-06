@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import '../assets/styles/effects.css';
+import './float.css';
 
 /**
  * Documents the `.float` reusable class — gentle vertical bob. Originally
@@ -43,7 +43,7 @@ const Stage = ({ children }: { children: React.ReactNode }) => (
 );
 
 const meta: Meta = {
-    title: 'Design Iterations/Float',
+    title: 'Foundations/Effects/Float',
     parameters: {
         layout: 'fullscreen',
         docs: {

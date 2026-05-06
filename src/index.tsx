@@ -3,7 +3,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import React from "react";
 import ReactDOM from "react-dom/client";
 import "./index.css";
-import "./assets/styles/effects.css";
+import "./effects/index.css";
 import App from "./components/App";
 
 const root = ReactDOM.createRoot(document.getElementById("root")!);

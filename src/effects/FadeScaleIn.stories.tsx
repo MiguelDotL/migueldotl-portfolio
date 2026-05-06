@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { useState } from 'react';
-import '../assets/styles/effects.css';
+import './fade-scale-in.css';
 
 /**
  * `.fade-scale-in` — modal/lightbox open transition. Originally on
@@ -67,7 +67,7 @@ const Replay = ({ children }: { children: (key: number) => React.ReactNode }) =>
 };
 
 const meta: Meta = {
-    title: 'Design Iterations/FadeScaleIn',
+    title: 'Foundations/Effects/FadeScaleIn',
     parameters: {
         layout: 'fullscreen',
         docs: {

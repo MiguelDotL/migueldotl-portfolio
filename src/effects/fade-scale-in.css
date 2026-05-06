@@ -1,0 +1,25 @@
+/*
+ * .fade-scale-in — modal/lightbox/dialog open transition. Element
+ * fades in (and optionally scales up from a slightly smaller size).
+ * Run-once via animation, not a state toggle.
+ *
+ * Originally on FeaturedImageSlider.css `.featured-image-slider__lightbox`.
+ *
+ * Tune via CSS variables:
+ *   --fade-scale-from    (default 0.96) — starting scale (1 = no scale)
+ *   --fade-scale-duration (default 180ms) — animation duration
+ */
+.fade-scale-in {
+    animation: fade-scale-in var(--fade-scale-duration, 180ms) ease-out;
+}
+
+@keyframes fade-scale-in {
+    from {
+        opacity: 0;
+        transform: scale(var(--fade-scale-from, 0.96));
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}

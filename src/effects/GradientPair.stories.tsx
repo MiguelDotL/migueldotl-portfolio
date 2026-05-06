@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import '../assets/styles/effects.css';
+import './gradient-pair.css';
 
 /**
  * `.gradient-pair` — two adjacent buttons that share a continuous gradient.
@@ -80,7 +80,7 @@ const Stage = ({ children }: { children: React.ReactNode }) => (
 );
 
 const meta: Meta = {
-    title: 'Design Iterations/GradientPair',
+    title: 'Foundations/Effects/GradientPair',
     parameters: {
         layout: 'fullscreen',
         docs: {
