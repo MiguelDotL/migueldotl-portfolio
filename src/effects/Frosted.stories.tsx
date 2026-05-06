@@ -17,8 +17,8 @@ import './frosted.css';
  * itself and you can barely tell the effect is there.
  */
 const TEXT_WALL = Array.from(
-    { length: 80 },
-    () => 'frosted glass • backdrop-filter • blur • saturate '
+    { length: 200 },
+    () => 'frosted • backdrop-filter • blur • saturate '
 ).join('');
 
 const Stage = ({ children }: { children: React.ReactNode }) => (
@@ -44,16 +44,12 @@ const Stage = ({ children }: { children: React.ReactNode }) => (
                 inset: 0,
                 padding: '1em',
                 fontFamily: 'monospace',
-                fontSize: 18,
-                fontWeight: 700,
-                lineHeight: 1.2,
-                color: '#fff',
-                background:
-                    'repeating-linear-gradient(45deg, rgba(255,255,255,0) 0 24px, rgba(0,0,0,0.22) 24px 48px)',
+                fontSize: 10,
+                lineHeight: 1.4,
+                color: 'rgba(255,255,255,0.35)',
                 wordBreak: 'break-all',
                 userSelect: 'none',
-                pointerEvents: 'none',
-                opacity: 0.9
+                pointerEvents: 'none'
             }}
         >
             {TEXT_WALL}
