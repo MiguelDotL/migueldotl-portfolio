@@ -104,7 +104,7 @@ export const Default: Story = {
     )
 };
 
-export const TealOrange: Story = {
+export const CyanMagenta: Story = {
     render: () => (
         <Stage>
             <Pair
@@ -112,8 +112,8 @@ export const TealOrange: Story = {
                 secondaryLabel="Secondary"
                 style={
                     {
-                        ['--gp-color-1' as string]: '#0d9488',
-                        ['--gp-color-2' as string]: '#ea580c'
+                        ['--gp-color-1' as string]: '#06b6d4',
+                        ['--gp-color-2' as string]: '#ec4899'
                     } as React.CSSProperties
                 }
             />
