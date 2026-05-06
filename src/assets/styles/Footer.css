@@ -8,6 +8,16 @@
     position: relative;
 }
 
+/* At md+, .contact form drops its `margin: 0 1em` (Contact.css media query),
+   so the textarea extends 16px further right than at small viewports. Pull
+   the card 8px past the col-lg-12 content box on each side to match. */
+@media (min-width: 768px) {
+    .built-with {
+        margin-left: -0.5em;
+        margin-right: -0.5em;
+    }
+}
+
 .built-with h3 {
     font-weight: 700;
     letter-spacing: 0.5px;
