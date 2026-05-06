@@ -1,8 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { useEffect, useState } from 'react';
-import SocialIcons from '../components/SocialIcons';
 import { NAV_SOCIALS } from '../data/socials';
-import '../assets/styles/Socials.css';
 import './fan-out.css';
 
 /**
@@ -10,21 +8,36 @@ import './fan-out.css';
  * mobile-menu happy accident where social icons spring from a stacked
  * cluster to a spread row when the menu opens.
  *
- * The mechanic: each child has `margin-right: var(--fan-out-stacked,
- * -2.6em)` while closed, then flips to `var(--fan-out-spread, 1.5em)`
- * under `.is-open`. The 0.3s margin transition handles the animation.
+ * The mechanic: each direct child of `.fan-out` has
+ * `margin-right: var(--fan-out-stacked, -2.6em)` while closed, then flips
+ * to `var(--fan-out-spread, 1.5em)` under `.is-open`. The 0.3s margin
+ * transition handles the animation. The last child stays at 0 so the
+ * cluster grows from the right.
  *
- * Override `--fan-out-stacked` / `--fan-out-spread` per-instance to tune
- * the cluster-density and final spread. The last child stays at margin-right: 0
- * so the cluster grows from the right as it expands.
+ * **Important:** `.fan-out` targets direct children. Don't combine it
+ * with a wrapper class whose own rules set `margin-right` on the same
+ * children (e.g. the project's `.social-icons` does this). Either rename
+ * the wrapper or use `.fan-out` on a plain container, as in this story.
  */
-const FanOut = ({
-    className = '',
-    style
-}: {
-    className?: string;
-    style?: React.CSSProperties;
-}) => {
+const Circle = ({ icon, label }: { icon: string; label: string }) => (
+    <span
+        aria-label={label}
+        style={{
+            width: 42,
+            height: 42,
+            borderRadius: '50%',
+            background: 'rgba(217, 217, 217, 0.1)',
+            border: '1px solid rgba(255, 255, 255, 0.5)',
+            display: 'inline-flex',
+            alignItems: 'center',
+            justifyContent: 'center'
+        }}
+    >
+        <img src={icon} alt="" width={18} height={18} />
+    </span>
+);
+
+const FanOut = ({ style }: { style?: React.CSSProperties }) => {
     const [open, setOpen] = useState(false);
 
     useEffect(() => {
@@ -38,12 +51,16 @@ const FanOut = ({
                 background: '#1f1f1f',
                 padding: '3em 2em',
                 display: 'flex',
-                justifyContent: 'center',
-                ...style
+                justifyContent: 'center'
             }}
         >
-            <div className={`fan-out ${open ? 'is-open' : ''} ${className}`.trim()}>
-                <SocialIcons config={NAV_SOCIALS} />
+            <div
+                className={`fan-out ${open ? 'is-open' : ''}`}
+                style={{ display: 'flex', ...style }}
+            >
+                {NAV_SOCIALS.map((s) => (
+                    <Circle key={s.className} icon={s.icon} label={s.label} />
+                ))}
             </div>
         </div>
     );
