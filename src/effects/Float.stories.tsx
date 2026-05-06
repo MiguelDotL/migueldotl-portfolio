@@ -43,7 +43,7 @@ const Stage = ({ children }: { children: React.ReactNode }) => (
 );
 
 const meta: Meta = {
-    title: 'Foundations/Effects/Float',
+    title: 'Foundations/Motion/Float',
     parameters: {
         layout: 'fullscreen',
         docs: {

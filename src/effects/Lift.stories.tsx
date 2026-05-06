@@ -50,7 +50,7 @@ const Stage = ({ children }: { children: React.ReactNode }) => (
 );
 
 const meta: Meta = {
-    title: 'Foundations/Effects/Lift',
+    title: 'Foundations/Hover/Lift',
     parameters: {
         layout: 'fullscreen',
         docs: {

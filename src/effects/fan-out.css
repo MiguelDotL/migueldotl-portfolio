@@ -11,9 +11,11 @@
  * (`nav.has-bg .social-icons a.social-icon`). Captured here so the
  * effect is reusable on any horizontal cluster.
  *
- * Customize spacing via CSS variables on the .fan-out element:
- *   --fan-out-stacked (default -2.6em) — closed-state right margin
- *   --fan-out-spread  (default  1.5em) — open-state right margin
+ * Customize via CSS variables on the .fan-out element:
+ *   --fan-out-stacked         (default -2.6em) — closed-state right margin
+ *   --fan-out-spread          (default  1.5em) — open-state right margin
+ *   --fan-out-stacked-opacity (default 0)      — closed-state opacity
+ *   --fan-out-spread-opacity  (default 1)      — open-state opacity
  *
  * Usage:
  *   <div class="fan-out">
@@ -23,7 +25,8 @@
  */
 .fan-out > * {
     margin-right: var(--fan-out-stacked, -2.6em);
-    transition: margin 0.3s ease-in-out;
+    opacity: var(--fan-out-stacked-opacity, 0);
+    transition: margin 0.3s ease-in-out, opacity 0.3s ease-in-out;
 }
 
 .fan-out > *:last-child {
@@ -33,6 +36,7 @@
 .fan-out.is-open > *,
 .is-open .fan-out > * {
     margin-right: var(--fan-out-spread, 1.5em);
+    opacity: var(--fan-out-spread-opacity, 1);
 }
 
 .fan-out.is-open > *:last-child,

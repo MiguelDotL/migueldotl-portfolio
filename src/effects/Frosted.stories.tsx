@@ -54,7 +54,7 @@ const Tile = ({
 );
 
 const meta: Meta = {
-    title: 'Foundations/Effects/Frosted',
+    title: 'Foundations/Material/Frosted',
     parameters: {
         layout: 'fullscreen',
         docs: {

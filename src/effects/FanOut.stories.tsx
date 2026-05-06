@@ -67,7 +67,7 @@ const FanOut = ({ style }: { style?: React.CSSProperties }) => {
 };
 
 const meta: Meta<typeof FanOut> = {
-    title: 'Foundations/Effects/FanOut',
+    title: 'Foundations/Motion/FanOut',
     component: FanOut,
     parameters: {
         layout: 'fullscreen',

@@ -67,7 +67,7 @@ const Replay = ({ children }: { children: (key: number) => React.ReactNode }) =>
 };
 
 const meta: Meta = {
-    title: 'Foundations/Effects/FadeScaleIn',
+    title: 'Foundations/Motion/FadeScaleIn',
     parameters: {
         layout: 'fullscreen',
         docs: {

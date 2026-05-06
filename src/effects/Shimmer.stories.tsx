@@ -34,7 +34,7 @@ const Stage = ({ children }: { children: React.ReactNode }) => (
 );
 
 const meta: Meta = {
-    title: 'Foundations/Effects/Shimmer',
+    title: 'Foundations/Motion/Shimmer',
     parameters: {
         layout: 'fullscreen',
         docs: {

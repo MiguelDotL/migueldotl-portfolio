@@ -80,7 +80,7 @@ const Stage = ({ children }: { children: React.ReactNode }) => (
 );
 
 const meta: Meta = {
-    title: 'Foundations/Effects/GradientPair',
+    title: 'Foundations/Hover/GradientPair',
     parameters: {
         layout: 'fullscreen',
         docs: {
