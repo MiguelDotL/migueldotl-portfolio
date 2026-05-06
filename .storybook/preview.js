@@ -19,13 +19,16 @@ const preview = {
     },
 
     options: {
-      // Showcase first (the portfolio narrative), Components second (the
-      // building blocks), Design Iterations last (the design-process artifacts).
-      // Within each top-level bucket, sub-buckets and stories sort alphabetically.
+      // Welcome → Showcase (portfolio narrative) → Components (building blocks)
+      // → Foundations (CSS utilities under the components) → Design Iterations
+      // (design-process artifacts). Within Foundations, Overview docs first
+      // then sub-categories in reading order. Other levels sort alphabetically.
       storySort: {
         order: [
+          'Welcome',
           'Showcase', ['Sections'],
           'Components', ['Composites', 'Primitives', 'Skeletons'],
+          'Foundations', ['Overview', 'Motion', 'Hover', 'Material'],
           'Design Iterations'
         ]
       }
