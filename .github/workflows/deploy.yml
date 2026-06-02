@@ -1,0 +1,48 @@
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false # never cancel an in-flight production deploy
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-node@v6
+        with:
+          node-version-file: '.nvmrc' # single source of truth; matches local
+          cache: npm
+      - run: npm ci
+        env:
+          HUSKY: 0 # skip git hooks in CI
+      - run: npm run build
+        env:
+          VITE_FORM_ENDPOINT: ${{ vars.VITE_FORM_ENDPOINT }}
+          VITE_FORM_ACCESS_KEY: ${{ secrets.VITE_FORM_ACCESS_KEY }}
+      - run: npm run build-storybook:public # sets base=/storybook/
+      - run: mkdir -p dist/storybook && cp -r storybook-static/* dist/storybook/
+      - uses: actions/configure-pages@v6
+      - uses: actions/upload-pages-artifact@v5
+        with:
+          path: dist
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v5
