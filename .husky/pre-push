@@ -1,1 +1,15 @@
-npm run lint && npx tsc --noEmit && npx vitest run --project unit
+# Capture the refs being pushed FIRST — git provides them on stdin.
+push_refs="$(cat)"
+
+# Quality gate — runs on every push. Abort the push if lint, types, or unit tests fail.
+npm run lint && npx tsc --noEmit && npx vitest run --project unit || exit 1
+
+# Auto-deploy to GitHub Pages when (and only when) main is pushed.
+# No GitHub Actions (account is billing-locked) — the build runs here, locally.
+# Builds the site + storybook and publishes dist/ to the deploy repo.
+# To push main WITHOUT deploying: git push --no-verify
+if printf '%s\n' "$push_refs" | awk '$3=="refs/heads/main" && $2!="0000000000000000000000000000000000000000"{f=1} END{exit !f}'; then
+  echo "→ Pushing main — building + deploying to GitHub Pages…"
+  npm run deploy || { echo "✖ Deploy failed — push aborted. Fix it, or: git push --no-verify"; exit 1; }
+  echo "✓ Deployed: https://migueldotl.github.io"
+fi
