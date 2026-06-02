@@ -19,7 +19,7 @@
     "dev": "vite",
     "build": "vite build",
     "predeploy": "npm run build && npm run build-storybook:public && mkdir -p dist/storybook && cp -r storybook-static/* dist/storybook/ && touch dist/.nojekyll",
-    "deploy": "gh-pages -d dist --dotfiles -b master -r git@github.com:MiguelDotL/migueldotl.github.io.git -m \"deploy from source\"",
+    "deploy": "gh-pages -d dist --dotfiles -b main -r git@github.com:MiguelDotL/migueldotl.github.io.git -m \"deploy from source\"",
     "preview": "vite preview",
     "test": "vitest run",
     "lint": "eslint .",
