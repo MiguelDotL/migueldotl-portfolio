@@ -36,6 +36,20 @@ npm run build
 
 Outputs to `dist/`.
 
+## Deploy
+
+The site deploys to [migueldotl.github.io](https://migueldotl.github.io) from a separate repo (`MiguelDotL/migueldotl.github.io`). Builds run locally — there is no CI.
+
+**Manual deploy:**
+
+```bash
+npm run deploy
+```
+
+This builds the site and Storybook, merges them under `dist/`, and pushes `dist/` to the deploy repo via `gh-pages`.
+
+**Auto-deploy on push to `main`:** the Husky `pre-push` hook runs the quality gate (lint + type check + unit tests) on every push, then runs `npm run deploy` automatically when the pushed ref is `main`. Feature-branch pushes run the gate only. Use `git push --no-verify` to skip the hook entirely.
+
 ## Project structure
 
 ```
